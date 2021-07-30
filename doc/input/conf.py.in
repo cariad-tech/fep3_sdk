@@ -1,0 +1,93 @@
+#
+# Copyright @ 2021 VW Group. All rights reserved.
+# 
+#     This Source Code Form is subject to the terms of the Mozilla
+#     Public License, v. 2.0. If a copy of the MPL was not distributed
+#     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+# 
+# If it is not possible or desirable to put the notice in a particular file, then
+# You may include the notice in a location (such as a LICENSE file in a
+# relevant directory) where a recipient would be likely to look for such a notice.
+# 
+# You may add additional accurate notices of copyright ownership.
+# 
+#
+
+# Configuration file for the Sphinx documentation builder.
+#
+# This file only contains a selection of the most common options. For a full
+# list see the documentation:
+# https://www.sphinx-doc.org/en/master/usage/configuration.html
+
+# -- Path setup --------------------------------------------------------------
+import os
+import sys
+from datetime import date
+from os.path import relpath
+
+sys.path.append(os.path.abspath('./config'))
+sys.path.append(os.path.abspath("./_ext"))
+
+# -- Project information -----------------------------------------------------
+
+project = '${CMAKE_PROJECT_NAME}'
+author = 'VW Group'
+current_date = date.today()
+copyright = current_date.strftime("%d.%m.%Y") + ", " + author
+release = '${PROJECT_VERSION}'
+version = release
+
+# -- Configure macro replacements --------------------------------------------
+# they are currently used within the literalinclude directive to include files from the conan cache
+
+macro_replacements = {
+    # this paths are used for the literalinclude directive. Literalinclude can only reference relatively.
+    # Therefore from the absolute paths relative paths are created.
+    # If a path begins with / the path will be adressed realtive to the main source folder which is at least in our case the folder of conf.py
+    "{PARTICIPANT_DIR}" : '/' + relpath('${fep3_participant_DIR}'),
+    "{VERSION}": version
+}
+
+def macro_replace(app, docname, source):
+    result = source[0]
+    for key in app.config.macro_replacements:
+        result = result.replace(key, app.config.macro_replacements[key])
+    source[0] = result
+
+def setup(app):
+   app.add_config_value('macro_replacements', {}, True)
+   # configure the function macro_replace as a callback
+   app.connect('source-read', macro_replace)
+
+# -- General configuration ---------------------------------------------------
+
+extensions = [
+    'breathe',
+    'sphinx_rtd_theme'
+]
+
+breathe_projects = {
+    "fep3-sdk": "${DOXYGEN_XML_OUTPUT_DIR}",
+}
+
+breathe_default_project = "fep3-sdk"
+breathe_show_define_initializer = True
+
+templates_path = ['_templates']
+exclude_patterns = []
+
+# -- Options for HTML output -------------------------------------------------
+
+# HTML output options
+html_theme = 'sphinx_rtd_theme' # Used theme. The sphinx rtd theme must be installed separately
+html_logo = '../images/Favicon.png' # An image used in the top left of the documentation
+html_favicon = '../images/Icon.ico' # An image used as icon in the browser
+html_copy_source = True # DO copy the source .rst files to the output dir in order to make search work properly
+html_title = project # Title of the HTML in the browser
+html_static_path = ['_static'] # Additional css files
+html_context = {'css_files': ['_static/theme_overrides.css']} # Additional css files to override wide tables
+html_theme_options = {
+    'style_external_links': True,
+    'style_nav_header_background': '#004666',
+    'prev_next_buttons_location': 'both'
+}

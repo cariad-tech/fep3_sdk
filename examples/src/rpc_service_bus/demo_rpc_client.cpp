@@ -1,26 +1,34 @@
 /**
- * @file 
- * @copyright Audi AG
- *            All right reserved.
- *
- * This Source Code Form is subject to the terms of the
- * Mozilla Public License, v. 2.0.
- * If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- *
+ * @file
+ * @copyright
+ * @verbatim
+Copyright @ 2021 VW Group. All rights reserved.
+
+    This Source Code Form is subject to the terms of the Mozilla
+    Public License, v. 2.0. If a copy of the MPL was not distributed
+    with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+If it is not possible or desirable to put the notice in a particular file, then
+You may include the notice in a location (such as a LICENSE file in a
+relevant directory) where a recipient would be likely to look for such a notice.
+
+You may add additional accurate notices of copyright ownership.
+
+@endverbatim
  */
+
 
 #include <fep3/core.h>
 
 #include <fep3/components/service_bus/service_bus_intf.h>
 #include <fep3/components/service_bus/rpc/fep_rpc.h>
 
-//within this header we now find a demo_rpc_stubs::DemoClientStub implementation 
+//within this header we now find a demo_rpc_stubs::DemoClientStub implementation
 #include <demo_rpc_client_stub.h>
 #include <string>
 #include <iostream>
 
-//definiton of the interface identifier 
+//definiton of the interface identifier
 class IDemoRPCService
 {
 public:
@@ -36,7 +44,7 @@ class DemoRPCClient :
         IDemoRPCService> super;
 public:
     DemoRPCClient(const std::string& service_name,
-        const std::shared_ptr<fep3::rpc::IRPCRequester>& rpc_requester)
+        const std::shared_ptr<fep3::IServiceBus::IParticipantRequester>& rpc_requester)
         : super(service_name,
             rpc_requester)
     {
@@ -53,13 +61,13 @@ public:
 
     fep3::Result initialize() override
     {
-        //retrieve the service bus component 
+        //retrieve the service bus component
         auto service_bus = getComponents()->getComponent<fep3::IServiceBus>();
         if (service_bus)
         {
             //retrieve a requester for the participant you want to
             //get the service from
-            // YES! You need to know the name or the address of the other participant! 
+            // YES! You need to know the name or the address of the other participant!
             // by using the name only ... discovery must be switched on!
             auto requester = service_bus->getRequester("demo_rpc_service_participant");
             if (requester)
@@ -97,7 +105,7 @@ public:
     }
 };
 
-int main(int, const char**)
+int main(int argc, const char* argv[])
 {
     using namespace fep3::core;
     //creating a participant with an element that will access a service while initializing

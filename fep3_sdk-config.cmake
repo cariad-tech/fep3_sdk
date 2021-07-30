@@ -1,7 +1,5 @@
-#######################################################################
 #
-# FEP SDK Config File
-# # Copyright @ 2019 Audi AG. All rights reserved.
+# Copyright @ 2021 VW Group. All rights reserved.
 # 
 #     This Source Code Form is subject to the terms of the Mozilla
 #     Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -12,10 +10,8 @@
 # relevant directory) where a recipient would be likely to look for such a notice.
 # 
 # You may add additional accurate notices of copyright ownership.
+# 
 #
-#
-#######################################################################
-
 # execute only once
 if (FEP_SDK_FOUND)
     return()
@@ -34,7 +30,5 @@ find_package(fep3_participant_core REQUIRED)
 find_package(fep3_participant_cpp REQUIRED)
 find_package(fep3_system REQUIRED)
 find_package(fep3_controller REQUIRED)
-find_package(fep_metamodel REQUIRED)
-find_package(fep_base_utilities REQUIRED)
 
 set(FEP_SDK_FOUND true)
