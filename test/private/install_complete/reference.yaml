@@ -12,9 +12,8 @@
 
 common:
     files:
-        - doc/license/CONTRIBUTION.md
-        - doc/license/MPL2.0.txt
-        - doc/license/mpl.md
+        - CONTRIBUTION.md
+        - LICENSE
         - doc/license/list_used_licenses.md
         - doc/license/used_licenses/.+
         - examples/src/rpc_service_bus/CMakeLists.txt
