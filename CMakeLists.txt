@@ -1,5 +1,5 @@
 #
-# Copyright @ 2020 Audi AG. All rights reserved.
+# Copyright @ 2021 VW Group. All rights reserved.
 # 
 #     This Source Code Form is subject to the terms of the Mozilla
 #     Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -10,6 +10,7 @@
 # relevant directory) where a recipient would be likely to look for such a notice.
 # 
 # You may add additional accurate notices of copyright ownership.
+# 
 #
 cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 cmake_policy(SET CMP0011 NEW)
@@ -22,7 +23,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Use shared libraries from current directory on Linux (same behavior as on Windows)
 SET(CMAKE_INSTALL_RPATH "$ORIGIN")
 
-project(fep3-sdk VERSION 3.0.0)
+file(STRINGS version
+    VERSION
+    LIMIT_COUNT 1
+)
+project(fep3-sdk VERSION ${VERSION})
 
 set(FEP_SDK_PKG_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
 set(FEP_SDK_PKG_VERSION_MINOR ${PROJECT_VERSION_MINOR})
@@ -89,16 +94,14 @@ option(fep3_sdk_cmake_enable_documentation
 ################################################################################
 ### Setting up packages
 ################################################################################
-find_package(fep_base_utilities REQUIRED)
-find_package(fep3_controller REQUIRED)
-find_package(fep_metamodel REQUIRED)
 find_package(fep3_system REQUIRED)
 find_package(fep3_participant REQUIRED)
 
 set(examples_integrated ON)
 add_subdirectory(examples)
 install(DIRECTORY examples
-        DESTINATION .)
+        DESTINATION .
+        PATTERN "data_triggered_simulation" EXCLUDE)
 
 # add subdirectories core
 if (fep3_sdk_cmake_enable_documentation)

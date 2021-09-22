@@ -1,5 +1,5 @@
 #
-# Copyright @ 2020 Audi AG. All rights reserved.
+# Copyright @ 2021 VW Group. All rights reserved.
 # 
 #     This Source Code Form is subject to the terms of the Mozilla
 #     Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -10,7 +10,9 @@
 # relevant directory) where a recipient would be likely to look for such a notice.
 # 
 # You may add additional accurate notices of copyright ownership.
+# 
 #
+
 
 # find the package
 find_package(fep3_participant_core REQUIRED)
