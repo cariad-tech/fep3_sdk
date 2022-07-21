@@ -1,17 +1,14 @@
-#
-# Copyright @ 2021 VW Group. All rights reserved.
-# 
-#     This Source Code Form is subject to the terms of the Mozilla
-#     Public License, v. 2.0. If a copy of the MPL was not distributed
-#     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
-# If it is not possible or desirable to put the notice in a particular file, then
-# You may include the notice in a location (such as a LICENSE file in a
-# relevant directory) where a recipient would be likely to look for such a notice.
-# 
-# You may add additional accurate notices of copyright ownership.
-# 
-#
+.. Copyright @ 2021 VW Group. All rights reserved.
+.. 
+..     This Source Code Form is subject to the terms of the Mozilla
+..     Public License, v. 2.0. If a copy of the MPL was not distributed
+..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+.. 
+.. If it is not possible or desirable to put the notice in a particular file, then
+.. You may include the notice in a location (such as a LICENSE file in a
+.. relevant directory) where a recipient would be likely to look for such a notice.
+.. 
+.. You may add additional accurate notices of copyright ownership.
 
 
 .. _label_job_registry:
@@ -38,9 +35,9 @@ Summary
 +------------------------------------------------------+-----------------------------------------------------------------+
 | native delivery                                      |  built-in                                                       |
 +------------------------------------------------------+-----------------------------------------------------------------+
-| cpp-plugin possible                                  |  yes                                                            |
+| CPP-plugin possible                                  |  yes                                                            |
 +------------------------------------------------------+-----------------------------------------------------------------+
-| c-plugin possible                                    |  yes                                                            |
+| C-plugin possible                                    |  yes                                                            |
 +------------------------------------------------------+-----------------------------------------------------------------+
 
 
@@ -114,12 +111,11 @@ Properties
      - Code Macro
      - Default Value
    * - Jobs
-     - .. doxygendefine:: FEP3_JOB_REGISTRY_JOBS
-        :no-link:
+     - :c:macro:`FEP3_JOB_REGISTRY_JOBS`
      - No value. Retrieves a job entry subproperty containing the job configuration values as subproperties on job registration.
 
 .. note::
-  Job entry subproperties of :c:macro:`FEP3_JOB_REGISTRY_JOBS` have to be set after the :ref:`label_element_interface` has been loaded (:cpp:func:`fep3::arya::IElement::loading`) when jobs are registered
+  Job entry sub properties of :c:macro:`FEP3_JOB_REGISTRY_JOBS` have to be set after the :ref:`label_element_interface` has been loaded (:cpp:func:`fep3::arya::IElement::loading`) when jobs are registered
   and before the :cpp:class:`fep3::arya::ISchedulerService` is tensing (:cpp:func:`fep3::arya::IComponent::tense`) when job nodes and their configurations are parsed and applied.
 
 .. _label_job_registry_job_configuration:
@@ -127,25 +123,25 @@ Properties
 Job Configuration
 ====================
 
-During registration a job is configured using a :cpp:class:`fep3::arya::JobConfiguration`. To adapt the behaviour of participants without having to recompile,
+During registration a job is configured using a :cpp:class:`fep3::arya::JobConfiguration`. To adapt the behavior of participants without having to recompile,
 registered jobs may be reconfigured using the :c:macro:`FEP3_JOB_REGISTRY_JOBS` property node which contains information regarding all registered jobs and their configuration.
-A job entry equals a property node containing the job name as value and following subproperties containing information regarding the job configuration:
+A job entry equals a property node containing the job name as value and following sub properties containing information regarding the job configuration:
 
-+------------------------------------------------------------------+----------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------+
-| **Attribute**                                                    | **Valid values**                                                                                   | **Description**                                                                      |
-+------------------------------------------------------------------+----------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------+
-| .. doxygendefine:: FEP3_JOB_CYCLE_SIM_TIME_PROPERTY              | An integer > 0                                                                                     | The time after which a job is triggered cyclically by the scheduler in microseconds. |
-+------------------------------------------------------------------+----------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------+
-| .. doxygendefine:: FEP3_JOB_DELAY_SIM_TIME_PROPERTY              | An integer >= 0                                                                                    | Not yet applied.                                                                     |
-+------------------------------------------------------------------+----------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------+
-| .. doxygendefine:: FEP3_JOB_MAX_RUNTIME_REAL_TIME_PROPERTY       | An integer >= 0                                                                                    | The maximum real time value a job may take to run in microseconds.                   |
-|                                                                  |                                                                                                    | If a job exceeds the configured value, a configured strategy is executed.            |
-|                                                                  |                                                                                                    | In case of value '0', runtime violation strategies are not applied.                  |
-+------------------------------------------------------------------+----------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------+
-| .. doxygendefine:: FEP3_JOB_RUNTIME_VIOLATION_STRATEGY_PROPERTY  | :cpp:enum:`fep3::arya::JobConfiguration::TimeViolationStrategy::ignore_runtime_violation`,         | The strategy to react to job runtime violations.                                     |
-|                                                                  | :cpp:enum:`fep3::arya::JobConfiguration::TimeViolationStrategy::warn_about_runtime_violation`,     |                                                                                      |
-|                                                                  | :cpp:enum:`fep3::arya::JobConfiguration::TimeViolationStrategy::skip_output_publish`,              |                                                                                      |
-+------------------------------------------------------------------+----------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------+
++------------------------------------------------------------+------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------+
+| **Attribute**                                              | **Valid values**                                                                                     | **Description**                                                                      |
++------------------------------------------------------------+------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------+
+| :c:macro:`FEP3_JOB_CYCLE_SIM_TIME_PROPERTY`                | An integer > 0                                                                                       | The time after which a job is triggered cyclically by the scheduler in microseconds. |
++------------------------------------------------------------+------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------+
+| :c:macro:`FEP3_JOB_DELAY_SIM_TIME_PROPERTY`                | An integer >= 0                                                                                      | Not yet applied.                                                                     |
++------------------------------------------------------------+------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------+
+| :c:macro:`FEP3_JOB_MAX_RUNTIME_REAL_TIME_PROPERTY`         | An integer >= 0                                                                                      | The maximum real time value a job may take to run in microseconds.                   |
+|                                                            |                                                                                                      | If a job exceeds the configured value, a configured strategy is executed.            |
+|                                                            |                                                                                                      | In case of value '0', runtime violation strategies are not applied.                  |
++------------------------------------------------------------+------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------+
+| :c:macro:`FEP3_JOB_RUNTIME_VIOLATION_STRATEGY_PROPERTY`    | :cpp:enumerator:`fep3::arya::JobConfiguration::TimeViolationStrategy::ignore_runtime_violation`,     | The strategy to react to job runtime violations.                                     |
+|                                                            | :cpp:enumerator:`fep3::arya::JobConfiguration::TimeViolationStrategy::warn_about_runtime_violation`, |                                                                                      |
+|                                                            | :cpp:enumerator:`fep3::arya::JobConfiguration::TimeViolationStrategy::skip_output_publish`,          |                                                                                      |
++------------------------------------------------------------+------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------+
 
 Native Implementations
 ======================

@@ -45,6 +45,19 @@ set_target_properties(snippet_logging_service PROPERTIES FOLDER "examples/snippe
 target_link_libraries(snippet_logging_service PRIVATE
                       fep3_participant_cpp
                       fep3_system)
+##################################################################
+# DATA TRANSFER SNIPPETS
+##################################################################
+
+add_executable(snippet_data_transfer
+               snippet_data_transfer.cpp)
+
+target_include_directories(snippet_data_transfer PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+
+set_target_properties(snippet_data_transfer PROPERTIES FOLDER "examples/snippets")
+target_link_libraries(snippet_data_transfer PRIVATE
+                      fep3_participant_cpp
+                      fep3_system)
 
 ##################################################################
 # DATA REGISTRY SNIPPETS

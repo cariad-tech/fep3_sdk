@@ -1,17 +1,14 @@
-#
-# Copyright @ 2021 VW Group. All rights reserved.
-# 
-#     This Source Code Form is subject to the terms of the Mozilla
-#     Public License, v. 2.0. If a copy of the MPL was not distributed
-#     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
-# If it is not possible or desirable to put the notice in a particular file, then
-# You may include the notice in a location (such as a LICENSE file in a
-# relevant directory) where a recipient would be likely to look for such a notice.
-# 
-# You may add additional accurate notices of copyright ownership.
-# 
-#
+.. Copyright @ 2021 VW Group. All rights reserved.
+.. 
+..     This Source Code Form is subject to the terms of the Mozilla
+..     Public License, v. 2.0. If a copy of the MPL was not distributed
+..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+.. 
+.. If it is not possible or desirable to put the notice in a particular file, then
+.. You may include the notice in a location (such as a LICENSE file in a
+.. relevant directory) where a recipient would be likely to look for such a notice.
+.. 
+.. You may add additional accurate notices of copyright ownership.
 
 
 .. _label_clock_service:
@@ -40,9 +37,9 @@ Summary
 +------------------------------------------------------+-----------------------------------------------------------------------------+
 | native delivery                                      |  built-in                                                                   |
 +------------------------------------------------------+-----------------------------------------------------------------------------+
-| cpp-plugin possible                                  |  yes                                                                        |
+| CPP-plugin possible                                  |  yes                                                                        |
 +------------------------------------------------------+-----------------------------------------------------------------------------+
-| c-plugin possible                                    |  yes                                                                        |
+| C-plugin possible                                    |  yes                                                                        |
 +------------------------------------------------------+-----------------------------------------------------------------------------+
 
 Overview
@@ -96,7 +93,7 @@ RPC Clock Sync Master
 
 The :ref:`label_clock_service` provides a :ref:`label_clock_sync_master` which is the counterpart of the :ref:`label_clock_sync_service` and enables the synchronization of a timing master with timing slaves.
 The :ref:`label_clock_sync_master` offers the possibility to register as a synchronization slave as well as to retrieve the current time of the master and its type (:cpp:class:`fep3::rpc::arya::IRPCClockSyncMasterDef` for detail).
-Also it can actively synchronize timing slaves. The communication is done via rpc.
+Also, it can actively synchronize timing slaves. The communication is done via RPC.
 To establish a clock synchronization the :ref:`label_clock_sync_service` has to be used on the slave side.
 If discrete synchronization is used (e.g. :ref:`label_clock_sync_slave_master_on_demand_discrete`), all timing slaves are synchronized concurrently. The master will wait until all slaves are successfully synchronized or a timeout occurred.
 The timeout is configured via :c:macro:`FEP3_CLOCK_SERVICE_TIME_UPDATE_TIMEOUT`. If the timeout is exceeded the relevant timing slave will be removed from synchronization and an incident is risen but simulation will be continued.
@@ -114,8 +111,7 @@ The :ref:`label_clock_sync_master` can be configured using the following propert
      - Code Macro
      - Default Value
    * - TimeUpdateTimeout
-     - .. doxygendefine:: FEP3_CLOCK_SERVICE_TIME_UPDATE_TIMEOUT
-        :no-link:
+     - .. c:alias:: FEP3_CLOCK_SERVICE_TIME_UPDATE_TIMEOUT
      - :c:macro:`FEP3_TIME_UPDATE_TIMEOUT_DEFAULT_VALUE`
 
 
@@ -135,7 +131,7 @@ If the current :ref:`label_clock_service_main_clock` is being unregistered, the 
 Clock Type
 ==========
 
-Clocks can either be of type :ref:`label_clock_type_discrete` or :ref:`label_clock_type_continuous`. In the API the enum :cpp:enum:`fep3::arya::ClockType` is used to distinguish the types of clocks.
+Clocks can either be of type :ref:`label_clock_type_discrete` or :ref:`label_clock_type_continuous`. In the API the Enum :cpp:enum:`fep3::arya::ClockType` is used to distinguish the types of clocks.
 
 
 .. _label_clock_type_discrete:
@@ -161,7 +157,7 @@ Configuration
 =============
 
 The :ref:`label_clock_service` can be configured using the following property.
-Depending on the specific clock you configure as :ref:`label_clock_service_main_clock`, there might be additional configuration options.
+Depending on the specific clock configured as :ref:`label_clock_service_main_clock`, there might be additional configuration options.
 For details about the native clocks, see the documentation of the :ref:`label_clock_service_native`.
 
 If the participant you are configuring is a timing slave you have to set the :ref:`label_clock_service_main_clock` to one of the slave clocks, described in the section of the :ref:`label_clock_sync_service`.
@@ -179,8 +175,7 @@ Properties
      - Code Macro
      - Default Value
    * - MainClock
-     - .. doxygendefine:: FEP3_CLOCK_SERVICE_MAIN_CLOCK
-        :no-link:
+     - .. c:alias:: FEP3_CLOCK_SERVICE_MAIN_CLOCK
      - :c:macro:`FEP3_CLOCK_LOCAL_SYSTEM_REAL_TIME`
 
 
@@ -211,7 +206,7 @@ local_system_simtime
 --------------------
 
 This clock will drive the time in logical time steps in resolution of the property :c:macro:`FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_STEP_SIZE`.
-If you for example set the property to the value *5000000 ns* the clock will set the time steps *0 ns, 5000000 ns, 10000000 ns* and so on.
+If for example the property is set to the value *5000000 ns* the clock will set the time steps *0 ns, 5000000 ns, 10000000 ns* and so on.
 The clock will try to set the time steps according to the clock of the operating system. So the difference between the step at time *0* and *5000000* should actually be 5000000 ns.
 
 As the clock :ref:`label_clock_implementation_local_system_simtime` is a discrete clock, for every new time step all :ref:`label_clock_service_event_sink` s will be called synchronously.
@@ -239,13 +234,11 @@ The clock :ref:`label_clock_implementation_local_system_simtime` can be configur
      - Default Value
      - Restrictions
    * - CycleTime
-     - .. doxygendefine:: FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_STEP_SIZE
-        :no-link:
+     - .. c:alias:: FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_STEP_SIZE
      - :c:macro:`FEP3_CLOCK_SIM_TIME_STEP_SIZE_DEFAULT_VALUE`
      - Minimum: :c:macro:`FEP3_CLOCK_SIM_TIME_STEP_SIZE_MIN_VALUE`, Maximum: :c:macro:`FEP3_CLOCK_SIM_TIME_STEP_SIZE_MAX_VALUE`
    * - TimeFactor_float
-     - .. doxygendefine:: FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_TIME_FACTOR
-        :no-link:
+     - .. c:alias:: FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_TIME_FACTOR
      - :c:macro:`FEP3_CLOCK_SIM_TIME_TIME_FACTOR_DEFAULT_VALUE`
      - Minimum: :c:macro:`FEP3_CLOCK_SIM_TIME_TIME_FACTOR_AFAP_VALUE`
 

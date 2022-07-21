@@ -16,9 +16,11 @@ cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 cmake_policy(SET CMP0011 NEW)
 
 # Disable extensions here and require the chosen CMAKE_CXX_STANDARD (coming from Conan)
-set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+if (NOT DEFINED CMAKE_CXX_STANDARD)
+    set(CMAKE_CXX_STANDARD 17)
+endif()
 
 # Use shared libraries from current directory on Linux (same behavior as on Windows)
 SET(CMAKE_INSTALL_RPATH "$ORIGIN")
@@ -103,10 +105,20 @@ install(DIRECTORY examples
         DESTINATION .
         PATTERN "data_triggered_simulation" EXCLUDE)
 
+install(FILES doc/license/license_notes_from_aosd.txt
+        DESTINATION doc/license
+)
+
 # add subdirectories core
 if (fep3_sdk_cmake_enable_documentation)
     add_subdirectory(doc)
 endif()
 
 # Licenses
-add_subdirectory(doc/license)
+install(FILES README.md
+        DESTINATION .
+)
+install(FILES LICENSE.md
+        DESTINATION doc/license
+)
+

@@ -1,17 +1,14 @@
-#
-# Copyright @ 2021 VW Group. All rights reserved.
-# 
-#     This Source Code Form is subject to the terms of the Mozilla
-#     Public License, v. 2.0. If a copy of the MPL was not distributed
-#     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
-# If it is not possible or desirable to put the notice in a particular file, then
-# You may include the notice in a location (such as a LICENSE file in a
-# relevant directory) where a recipient would be likely to look for such a notice.
-# 
-# You may add additional accurate notices of copyright ownership.
-# 
-#
+.. Copyright @ 2021 VW Group. All rights reserved.
+.. 
+..     This Source Code Form is subject to the terms of the Mozilla
+..     Public License, v. 2.0. If a copy of the MPL was not distributed
+..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+.. 
+.. If it is not possible or desirable to put the notice in a particular file, then
+.. You may include the notice in a location (such as a LICENSE file in a
+.. relevant directory) where a recipient would be likely to look for such a notice.
+.. 
+.. You may add additional accurate notices of copyright ownership.
 
 
 .. _label_performance:
@@ -22,7 +19,7 @@ Performance
 
 As *FEP SDK 3* is the glue that holds *FEP Elements* together [1]_ and provides the infrastructure
 for exchanging data between the elements, you might be interested in the efficiency of this data
-exchange. Therefore a performance test was created to measure the *throughput* of the data between
+exchange. Therefore, a performance test was created to measure the *throughput* of the data between
 two FEP Elements.
 
 
@@ -74,12 +71,12 @@ was accumulated to retrieve the throughput in :math:`\text{MB}/\text{s}`
     | Network Data Rate Per Port | 1 GbE                              |
     +----------------------------+------------------------------------+
 
-Each testrun with a constant set of variables (i.e. *sample size* (:math:`\text{B}`), *cycle time*
+Each test run with a constant set of variables (i.e. *sample size* (:math:`\text{B}`), *cycle time*
 (:math:`\text{ms}`) and *synchronization mode*) is done for five minutes. From the gathered
-throughput data of each second, the first three and the last entry is removed and the remaining
+throughput data of each second, the first three and the last entry is removed, and the remaining
 data is used to calculate the arithmetic mean of the throughput as well as its variance.
 
-The results of each of the testruns can be seen below in the Table :ref:`tab_test_results`.
+The results of each of the test runs can be seen below in the Table :ref:`tab_test_results`.
 
 .. _label_performance_the_results:
 

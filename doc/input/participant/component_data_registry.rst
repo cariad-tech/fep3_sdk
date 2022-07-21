@@ -1,16 +1,15 @@
-#
-# Copyright @ 2021 VW Group. All rights reserved.
-# 
-#     This Source Code Form is subject to the terms of the Mozilla
-#     Public License, v. 2.0. If a copy of the MPL was not distributed
-#     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
-# If it is not possible or desirable to put the notice in a particular file, then
-# You may include the notice in a location (such as a LICENSE file in a
-# relevant directory) where a recipient would be likely to look for such a notice.
-# 
-# You may add additional accurate notices of copyright ownership.
-# 
+.. Copyright @ 2021 VW Group. All rights reserved.
+.. 
+..     This Source Code Form is subject to the terms of the Mozilla
+..     Public License, v. 2.0. If a copy of the MPL was not distributed
+..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+.. 
+.. If it is not possible or desirable to put the notice in a particular file, then
+.. You may include the notice in a location (such as a LICENSE file in a
+.. relevant directory) where a recipient would be likely to look for such a notice.
+.. 
+.. You may add additional accurate notices of copyright ownership.
+
 
 .. highlight:: cpp
 
@@ -39,9 +38,9 @@ Summary
 +------------------------------------------------------+-----------------------------------------------------------------+
 | native delivery                                      |  built-in                                                       |
 +------------------------------------------------------+-----------------------------------------------------------------+
-| cpp-plugin possible                                  |  yes                                                            |
+| CPP-plugin possible                                  |  yes                                                            |
 +------------------------------------------------------+-----------------------------------------------------------------+
-| c-plugin possible                                    |  no                                                             |
+| C-plugin possible                                    |  no                                                             |
 +------------------------------------------------------+-----------------------------------------------------------------+
 
 Component Interface
@@ -59,7 +58,7 @@ and the Stream Type of a particular signal with all its properties.
 Overview
 ========
 
-The DataRegistry is responsible for registering data in access and data out access of the element implementation.
+The *DataRegistry* is responsible for registering data in access and data out access of the element implementation.
 The container to write and read data is :cpp:class:`fep3::arya::IDataSample` .
 This data is classified via the :cpp:class:`fep3::arya::IStreamType` .
 
@@ -94,7 +93,7 @@ Data Writer / Data Reader
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To read and write samples from or to the simulation bus the :cpp:class:`fep3::arya::IDataRegistry::IDataReader` and :cpp:class:`fep3::arya::IDataRegistry::IDataWriter` classes from the data registry should be used.
-This ensures that the corresponding signal is registered and prohibits invalid pointer access. A data reader or writer from the data registry is a nullptr if  a signal is not registrered with DataRegistry::addDataIn
+This ensures that the corresponding signal is registered and prohibits invalid pointer access. A data reader or writer from the data registry is a nullptr if a signal is not registered with DataRegistry::addDataIn
 beforehand and function calls will return an error if they are not valid.
 
 To get the data reader or data writer object either call :cpp:func:`fep3::arya::IDataRegistry::getReader` / :cpp:func:`fep3::arya::IDataRegistry::getWriter` or
@@ -162,9 +161,9 @@ Signal Renaming
 ~~~~~~~~~~~~~~~
 
 Signals registered at the native :ref:`label_data_registry` may be renamed using the :ref:`label_configuration_service` and its properties without having to adapt code or recompile participants.
-Renaming a signal adds an alias name for the signal which will be used for registration at the simulation bus and for rpc requests.
-Renamed signals are not available at the simulation bus via their original name and the original names are not considered if available signals or stream types for specific signals are requested via rpc.
-Alias names have to be unique and are applied when the :ref:`label_data_registry` is initializing (:cpp:function:`fep3::arya::IComponent::initialize()`).
+Renaming a signal adds an alias name for the signal which will be used for registration at the simulation bus and for RPC requests.
+Renamed signals are not available at the simulation bus via their original name and the original names are not considered if available signals or stream types for specific signals are requested via RPC.
+Alias names have to be unique and are applied when the :ref:`label_data_registry` is initializing (:cpp:func:`fep3::arya::IComponent::initialize()`).
 To reset a signal name, the entry in the corresponding signal renaming property can be deleted and the participant reinitialized.
 The signal will use its original name instead of the previously configured alias. 
 
@@ -181,12 +180,10 @@ Following properties may be used to rename signals.
      - Code Macro
      - Default Value
    * - InputSignalRenaming
-     - .. doxygendefine:: FEP3_DATA_REGISTRY_SIGNAL_RENAMING_INPUT_CONFIGURATION
-        :no-link:
+     - :c:macro:`FEP3_DATA_REGISTRY_SIGNAL_RENAMING_INPUT_CONFIGURATION`
      - ""
    * - OutputSignalRenaming
-     - .. doxygendefine:: FEP3_DATA_REGISTRY_SIGNAL_RENAMING_OUTPUT_CONFIGURATION
-        :no-link:
+     - :c:macro:`FEP3_DATA_REGISTRY_SIGNAL_RENAMING_OUTPUT_CONFIGURATION`
      - ""
 
 Usage
@@ -221,7 +218,7 @@ E.g. to rename two input signals named 'old_in_1' and 'old_in_2' to 'new_in_1' a
 
 .. note::
     Signal renaming properties :c:macro:`FEP3_DATA_REGISTRY_SIGNAL_RENAMING_INPUT_CONFIGURATION` and :c:macro:`FEP3_DATA_REGISTRY_SIGNAL_RENAMING_OUTPUT_CONFIGURATION` have to be set
-    before the :ref:`label_data_registry` is initializing (:cpp:function:`fep3::arya::IComponent::initialize()`) when signal renaming properties are parsed and signal renaming is applied.
+    before the :ref:`label_data_registry` is initializing (:cpp:func:`fep3::arya::IComponent::initialize()`) when signal renaming properties are parsed and signal renaming is applied.
 
 Interaction with Signal Mapping
 -------------------------------
@@ -239,9 +236,9 @@ This means signal renaming is applied for source signals of :ref:`label_data_reg
   A special use case which requires usage of signal renaming and signal mapping might e.g. be the need to map a source signal to a target signal of the same name which is not possible using signal mapping only.
 
 Signal renaming for FEP Participant Developers
---------------------------------------
+----------------------------------------------
 
-Signal renaming and the corresponding signal name aliases are relevant for FEP System Developers only as they are applied after registration of signals and considered by the :ref:`label_simulation_bus` and the rpc interface :ref:`label_rpc_data_registry` later on. 
+Signal renaming and the corresponding signal name aliases are relevant for FEP System Developers only as they are applied after registration of signals and considered by the :ref:`label_simulation_bus` and the RPC interface :ref:`label_rpc_data_registry` later on. 
 FEP Participant Developers using the :ref:`label_data_registry` component interface :cpp:class:`fep3::arya::IDataRegistry` have to use original signal names instead of signal names aliases.
 
 .. note::

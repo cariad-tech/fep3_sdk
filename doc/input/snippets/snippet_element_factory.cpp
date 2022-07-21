@@ -141,11 +141,20 @@ public:
         //print the last value in queue for the plain value
         //the content of the _data_reader_plain_c_type reader queue changes only in processDataIn!
         // processDataIn will receive the content of the data in queues in DataRegistry until they are empty
-        int32_t received_plain_value = 0;
+        fep3::Optional<int32_t> received_plain_value;
         *_data_reader_plain_c_type >> received_plain_value;
-        received_plain_value += _add_offset;
-        FEP3_LOG_INFO("received plain value with offset:" + std::to_string(received_plain_value));
-        FEP3_LOG_INFO("custom log message:" + _custom_message);
+        if (received_plain_value.has_value())
+        {
+            auto value_with_offset = received_plain_value.value() + _add_offset;
+            FEP3_LOG_INFO("received plain value with offset:" + std::to_string(value_with_offset));
+            FEP3_LOG_INFO("custom log message:" + _custom_message);
+        }
+        else
+        {
+            FEP3_LOG_INFO("received no value:");
+            FEP3_LOG_INFO("custom log message:" + _custom_message);
+        }
+
         return {};
     }
 
@@ -177,11 +186,13 @@ public:
     {
         return std::make_unique<EasyCoreReceiverElement>(_add_offset, _file_path);
     }
+    //End(createElement)
 
 private:
     const int _add_offset;
     const std::string _file_path;
 };
+//End(CustomElementFactory)
 
 int main(int argc, const char* argv[])
 {

@@ -1,16 +1,15 @@
-#
-# Copyright @ 2021 VW Group. All rights reserved.
-# 
-#     This Source Code Form is subject to the terms of the Mozilla
-#     Public License, v. 2.0. If a copy of the MPL was not distributed
-#     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
-# If it is not possible or desirable to put the notice in a particular file, then
-# You may include the notice in a location (such as a LICENSE file in a
-# relevant directory) where a recipient would be likely to look for such a notice.
-# 
-# You may add additional accurate notices of copyright ownership.
-#
+.. Copyright @ 2021 VW Group. All rights reserved.
+.. 
+..     This Source Code Form is subject to the terms of the Mozilla
+..     Public License, v. 2.0. If a copy of the MPL was not distributed
+..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+.. 
+.. If it is not possible or desirable to put the notice in a particular file, then
+.. You may include the notice in a location (such as a LICENSE file in a
+.. relevant directory) where a recipient would be likely to look for such a notice.
+.. 
+.. You may add additional accurate notices of copyright ownership.
+
 
 .. _Overview_SDK:
 
@@ -29,7 +28,7 @@ How this SDK solved them?
 -------------------------
 * Testing with a virtual environment and a function in one common simulation.
 * Lower effort due to reuse of simulation components. They don't need to be re-developed for different simulation environments or execution environments, which saves cost and time.
-* Higher level of continuity in all development phases due to reuse of simulation components. This helps create trust in the simulation and results can be compared to each other MiL → SiL → HiL → ViL.
+* Higher level of continuity in all development phases due to reuse of simulation components. This helps create trust in the simulation and results can be compared to each other MIL → SIL → HIL → VIL.
 
 Main Concepts of FEP SDK
 ========================
@@ -50,7 +49,7 @@ The FEP System consists of the FEP Participants that communicate through the sim
 FEP Simulation Bus
 
 * Enables the exchange of simulation data based on FEP Participant models.
-* Faster data transfer than via FEP Service Bus (e.g. for realtime usage).
+* Faster data transfer than via FEP Service Bus (e.g. for real-time usage).
 * Can be replaced by a FEP Component, like ADS2. Communication format is than defined by ADS2 and not by the FEP native Base Libraries.
 
 
@@ -73,10 +72,7 @@ Libraries
 =========
 
 participant lib
-~~~~~~~~~~~~~~~
 
 system lib
-~~~~~~~~~~
 
 sdk lib
-~~~~~~~

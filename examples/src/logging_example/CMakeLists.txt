@@ -31,6 +31,7 @@ set_target_properties(demo_logging PROPERTIES FOLDER "examples/logging_example")
 # link against the fep3_participant library
 target_link_libraries(demo_logging PRIVATE
                       fep3_participant_core)
+fep3_participant_link_pthread(demo_logging)
 fep3_participant_install(demo_logging examples/bin)
 fep3_participant_deploy(demo_logging)
 
@@ -45,6 +46,7 @@ set_target_properties(demo_logging_system PROPERTIES FOLDER "examples/logging_ex
 target_link_libraries(demo_logging_system PRIVATE
     fep3_system
     dev_essential::system)
+fep3_participant_link_pthread(demo_logging_system)
 
 if(MSVC)
 else()

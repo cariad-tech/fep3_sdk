@@ -1,0 +1,44 @@
+@startuml
+'use url to modify sequence diagram and update url after modifications
+'http://www.plantuml.com/plantuml/uml/hP0nRy8m48Lt_ueJNM2eX4zYgTGAgPqgTQBTM4noW4DiH_ObfV--nXOg14Wxb04fVj_pbxnvOEMvDRNOwf9WxHolt5uqyL0Nkb6MOVIkZRORU5E1oI_j-BbsnGuMv3jTq6G4AW2RyygYLXs1_86_R77U2BBNABPKjZNvdFRZLxTQsfa9AQtaDHiEsN3OXbTiSdhKeH0Rxze6HWoFaCu5n1yRk7-281-0jQ6FfbHy68ewiZoMqqc2LC6wKqoHIyz1fjAXjNR-K_coXnsv0nZ9AeAqfwADMULMurdlsah2tOlokuMgZRCfgt8pEJgdiw2aaygWGKx_NT73BZysOsnkO5AS3ev_71pptPW7nrk37xc0UGxyRGwyd2DMi-J67EUA7dRvAZWy1mgofPZ7lzRKtm00
+hide footbox
+participant "Timing Master\n(Clock Service)" as tm
+participant "Slave 1\n(Clock Sync Service)" as s1
+participant "Scheduler" as ss1
+participant "Job\n5ms" as j1
+participant "Slave 2\n(Clock Sync Service)" as s2
+participant "Scheduler" as ss2
+participant "Job\n10ms" as j2
+
+group "t = 10ms"
+    tm -> s1: timeUpdating event(10)
+    activate s1
+    s1 -> ss1: forward
+    activate ss1
+    ss1 --> j1: execute job(5)
+    activate j1 #DarkSalmon
+    j1 --> ss1: void
+    deactivate j1
+    ss1 --> j1: execute job(10)
+    activate j1 #DarkSalmon
+    j1 --> ss1: void
+    deactivate j1
+    ss1 --> s1: void
+    deactivate ss1
+    s1 --> tm: void
+    deactivate s1
+
+    tm -> s2: timeUpdating event(10)
+    activate s2
+    s2 -> ss2: forward
+    activate ss2
+    ss2 --> j2: execute job(10)
+    activate j2 #DarkSalmon
+    j2 --> ss2: void
+    deactivate j2
+    ss2 --> s2: void
+    deactivate ss2
+    s2 --> tm: void
+    deactivate s2
+end
+@enduml

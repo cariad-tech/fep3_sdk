@@ -1,16 +1,15 @@
-#
-# Copyright @ 2021 VW Group. All rights reserved.
-# 
-#     This Source Code Form is subject to the terms of the Mozilla
-#     Public License, v. 2.0. If a copy of the MPL was not distributed
-#     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
-# If it is not possible or desirable to put the notice in a particular file, then
-# You may include the notice in a location (such as a LICENSE file in a
-# relevant directory) where a recipient would be likely to look for such a notice.
-# 
-# You may add additional accurate notices of copyright ownership.
-# 
+.. Copyright @ 2021 VW Group. All rights reserved.
+.. 
+..     This Source Code Form is subject to the terms of the Mozilla
+..     Public License, v. 2.0. If a copy of the MPL was not distributed
+..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+.. 
+.. If it is not possible or desirable to put the notice in a particular file, then
+.. You may include the notice in a location (such as a LICENSE file in a
+.. relevant directory) where a recipient would be likely to look for such a notice.
+.. 
+.. You may add additional accurate notices of copyright ownership.
+
 
 .. _label_configuration_service:
 
@@ -36,9 +35,9 @@ Summary
 +-------------------------+----------------------------------------------------+-----+
 | native delivery         | built-in                                           |     |
 +-------------------------+----------------------------------------------------+-----+
-| cpp-plugin possible     | yes                                                |     |
+| CPP-plugin possible     | yes                                                |     |
 +-------------------------+----------------------------------------------------+-----+
-| c-plugin possible       | yes                                                |     |
+| C-plugin possible       | yes                                                |     |
 +-------------------------+----------------------------------------------------+-----+
 
 .. _label_configuration_service_overview:
@@ -61,12 +60,12 @@ Properties are typed and support the following data types:
 * *string*
 * *node*
 
-A property of type *node* does not contain a value but may have children in form of subproperties.
-Once a property node is typed it can not be modified to contain value of a different type.
+A property of type *node* does not contain a value but may have children in form of sub properties.
+Once a property node is typed it cannot be modified to contain value of a different type.
 
 Those properties are arranged in a tree-like structure and can therefore represent hierarchical units of information.
 A property which is a child of another property is called a *subproperty*.
-To access a property, you need to know the path to that property.
+To access a property, the path to that property has to be known.
 The path is constructed of all parent properties of your target property, separated by a "/".
 Here's an example of a property path:
 
@@ -74,13 +73,13 @@ Here's an example of a property path:
 
   "Vehicle/Size/Length"
 
-"Vehicle" is the top-level property in the path and a subproperty of the root property node "/".
-It has a subproperty called "Size" which itself has a subproperty "Length".
+"Vehicle" is the top-level property in the path and a *subproperty* of the root property node "/".
+It has a *subproperty* called "Size" which itself has a *subproperty* "Length".
 
 Component Interface
 -------------------
 
-The :cpp:class:`fep3::arya::IConfigurationService` interface has a root node which you can think of as "/".
+The :cpp:class:`fep3::arya::IConfigurationService` interface has a root node which can be thought of as "/".
 This root node can contain an arbitrary amount of property nodes.
 The interface offers the following functionality:
 
@@ -126,25 +125,25 @@ After retrieving the :cpp:class:`fep3::arya::IConfigurationService` component:
 
 we can create, modify and read properties via this component.
 
-.. note:: While we can read and modify properties which we receive from the configuration service, we can neither extend these properties by adding subproperties nor can we register property observers or variables for them. To do so we have to create property nodes ourself and register them at the configuration service.
+.. note:: While we can read and modify properties which we receive from the configuration service, we can neither extend these properties by adding sub properties nor can we register property observers or variables for them. To do so we have to create property nodes ourselves and register them at the configuration service.
 
 Create properties
 ~~~~~~~~~~~~~~~~~
 
 Using the configuration service component and a convenience function *makeNativePropertyNode* we can create typed property nodes.
 
-First of all we need a property node which will be registered at the root node ("/") of the configuration service.
+First of all, we need a property node which will be registered at the root node ("/") of the configuration service.
 The configuration service handles property nodes as shared pointers.
-Therefore we create a shared pointer of a NativePropertyNode which will contain our subproperties:
+Therefore, we create a shared pointer of a *NativePropertyNode* which will contain our sub properties:
 
 .. literalinclude:: ../snippets/snippet_config_service.cpp
   :start-after: //Begin(Create main property)
   :end-before: //End(Create main property)
   :emphasize-lines: 1
 
-Afterwards, we create an empty subproperty of type *node* called "Size" which will contain two more subproperties of type *double* called "Length" and "Width".
-Additionally, we create typed subproperty nodes and set them as children for the corresponding parent property nodes.
-As a result we will have a property hierarchy as shown above:
+Afterwards, we create an empty *subproperty* of type *node* called "Size" which will contain two more sub properties of type *double* called "Length" and "Width".
+Additionally, we create typed *subproperty* nodes and set them as children for the corresponding parent property nodes.
+As a result, we will have a property hierarchy as shown above:
 
 .. literalinclude:: ../snippets/snippet_config_service.cpp
   :start-after: //Begin(Create subproperties)
@@ -162,7 +161,7 @@ Set property values
 ~~~~~~~~~~~~~~~~~~~
 
 After creation of properties, we can utilize the configuration service and a convenience function *setPropertyValue* to set property values.
-Due to the fact that properties are typed, we can not set mismatching property values for property nodes.
+Due to the fact that properties are typed, we cannot set mismatching property values for property nodes.
 If setting a property value fails, an error is returned.
 
 To set a property value we can provide the *configuration service*, *property path* and *value*:
@@ -172,7 +171,7 @@ To set a property value we can provide the *configuration service*, *property pa
   :end-before: //End(Set property value by service)
   :emphasize-lines: 1
 
-Alternatively we can provide a *property node* and the corresponding *value*:
+Alternatively, we can provide a *property node* and the corresponding *value*:
 
 .. literalinclude:: ../snippets/snippet_config_service.cpp
   :start-after: //Begin(Set property value by node)
@@ -183,15 +182,15 @@ Read property values
 ~~~~~~~~~~~~~~~~~~~~
 
 After creation of properties, we can utilize the configuration service and a convenience function *getPropertyValue* to read property values.
-Values are returned in form of typed optionals. We may check for a value and retrieve the value.
-Alternatively we may simply dereference it to retrieve the corresponding value:
+Values are returned in form of typed optional. We may check for a value and retrieve the value.
+Alternatively, we may simply dereference it to retrieve the corresponding value:
 
 .. literalinclude:: ../snippets/snippet_config_service.cpp
   :start-after: //Begin(Reading property by service)
   :end-before: //End(Reading property by service)
   :emphasize-lines: 1
 
-Alternatively we can provide a *property node*.
+Alternatively, we can provide a *property node*.
 In this case no optional but the value itself is returned.
 In case of failure a default value is returned.
 
@@ -248,7 +247,7 @@ Property variables
 Property variables represent variables which are connected to a specific property node.
 Their value is updated with the corresponding property node value every time we call *updateObservers* on the property node.
 
-To use a property variable we create and register it at a property node.
+To use a property variable, we create and register it at a property node.
 During registration the value of the property node is set to the value of the property variable.
 
 .. note:: The property node to register the property variable at has to be created by us for registration property variables.
@@ -271,7 +270,7 @@ Property observers
 ------------------
 Property observers allow reacting to property changes by listening to *updateObservers* calls of property nodes.
 
-To react on property node updates we have to provide an implementation of the *IPropertyObserver* interface
+To react on property node updates, we have to provide an implementation of the *IPropertyObserver* interface
 which overrides an *onUpdate* functionality taking the updated property node as function parameter.
 
 .. note:: The property node to register the property observer at has to be created by us for registration of property observers.
@@ -299,12 +298,12 @@ To trigger the property observers registered at a property node, we call *update
 .. _label_using_properties_in_fep:
 
 (Mis)Using Properties in FEP
-------------------
-.. note:: In case the Element should interact with the components, it is strongly advised not to directly change the properties of the Compoment, rather using the component interface itself.
+----------------------------
+.. note:: In case the Element should interact with the components, it is strongly advised not to directly change the properties of the Component, rather using the component interface itself.
           It could be the case that properties could be read from the component only on particular transitions of the :ref:`label_participant_state_machine`, for example only during *initialize_element*.
-          Also the property value change may not be immediately visible in the component.
-          **Properties are only meant as an interface to the \"world\" outside the FEP System and that is is strongly advised**
-          **not to be usd for inter or intra FEP Participant communication / information exchange and therefore only the entities that created a property should also access it.**
+          Also, the property value change may not be immediately visible in the component.
+          **Properties are only meant as an interface to the \"world\" outside the FEP System and that is strongly advised**
+          **not to be used for inter or intra FEP Participant communication / information exchange and therefore only the entities that created a property should also access it.**
 
 RPC Service Interface
 ---------------------

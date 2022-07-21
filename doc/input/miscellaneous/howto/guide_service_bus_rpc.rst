@@ -1,17 +1,14 @@
-#
-# Copyright @ 2021 VW Group. All rights reserved.
-# 
-#     This Source Code Form is subject to the terms of the Mozilla
-#     Public License, v. 2.0. If a copy of the MPL was not distributed
-#     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
-# If it is not possible or desirable to put the notice in a particular file, then
-# You may include the notice in a location (such as a LICENSE file in a
-# relevant directory) where a recipient would be likely to look for such a notice.
-# 
-# You may add additional accurate notices of copyright ownership.
-# 
-#
+.. Copyright @ 2021 VW Group. All rights reserved.
+.. 
+..     This Source Code Form is subject to the terms of the Mozilla
+..     Public License, v. 2.0. If a copy of the MPL was not distributed
+..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+.. 
+.. If it is not possible or desirable to put the notice in a particular file, then
+.. You may include the notice in a location (such as a LICENSE file in a
+.. relevant directory) where a recipient would be likely to look for such a notice.
+.. 
+.. You may add additional accurate notices of copyright ownership.
 
 
 .. |br| raw:: html
@@ -20,18 +17,18 @@
 
 .. _label_guide_rpc_service_rpc_client:
 
-==================================================================
+=======================================================================
 How to create a RPC Service and a RPC Client within the FEP Service Bus
-==================================================================
+=======================================================================
 
 RPC Service generation
 ======================
 
 :term:`RPC Service` s are public component interfaces via the :term:`FEP Service Bus`.
-A RPC Service itself will provide certain functionality by responding to service request messages.
+An RPC Service itself will provide certain functionality by responding to service request messages.
 To do so the messages are received in a single callback function via service bus
 (rpc::IRPCService::handleRequest). These messages are serialized as json-rpc strings. The serialization
-can be generated with the help of the delivered Package RPC (pkg_rpc).
+can be generated with the help of the delivered Package RPC (*pkg_rpc*).
 
 The following example will show how to create a FEP RPC Service and how to register it to the
 FEP Service Bus component.
@@ -132,9 +129,9 @@ In your code you can now include the generated file *demo_rpc_service_stub.h*:
 (3) Define the interface identifier of the RPC service and implement the abstract methods of the stub
 -----------------------------------------------------------------------------------------------------
 
-The FEP Service Bus interface needs an object to a cpp:class:`fep3::rpc::IRPCService` interface implementation to
+The FEP Service Bus interface needs an object to a :cpp:class:`fep3::rpc::IRPCService` interface implementation to
 forward any requests to.
-A base class is provided within the template cpp:class:`fep3::rpc::RPCService`.
+A base class is provided within the template :cpp:class:`fep3::rpc::RPCService`.
 
 This template needs two additional types:
 
@@ -310,8 +307,8 @@ In your code you can now include the generated file *demo_rpc_client_stub.h*:
 (3) Define the interface identifier of the RPC service and implement the CTOR of the Client Class
 ------------------------------------------------------------------------------------------------------
 
-To connect the client stub implementation to a cpp:class:`fep3::IServiceBus` you can use the provided
-template cpp:class:`fep3::rpc::RPCServiceClient` .
+To connect the client stub implementation to a :cpp:class:`fep3::IServiceBus` you can use the provided
+template :cpp:class:`fep3::rpc::RPCServiceClient` .
 
 This template needs two additional types:
 

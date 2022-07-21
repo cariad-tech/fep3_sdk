@@ -31,22 +31,28 @@ public:
         registerPropertyVariable(_factor, "multiplication_factor");
     }
 
+    //Begin(DataJob_process)
     Result process(Timestamp sim_time_of_execution) {
         updatePropertyVariables();
 
-        int32_t received_plain_value = 0;
+        fep3::Optional<int32_t> received_plain_value;
         *_reader >> received_plain_value;
-        
-        auto value = received_plain_value * _factor;
 
-        FEP3_LOG_INFO("received  "
-                + std::to_string(received_plain_value)
-                + " written"
-                + std::to_string(value));
+        if (received_plain_value.has_value())
+        {
+            auto value = received_plain_value.value() * _factor;
 
-        *_writer << value;
+            FEP3_LOG_INFO("received  "
+                    + std::to_string(received_plain_value.value())
+                    + " written"
+                    + std::to_string(value));
+
+            *_writer << value;
+        }
+
         return {};
     }
+    //End(DataJob_process)
 
     cpp::PropertyVariable<int32_t> _factor{ 2 };
     cpp::DataReader* _reader;

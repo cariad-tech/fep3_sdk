@@ -1,17 +1,14 @@
-#
-# Copyright @ 2021 VW Group. All rights reserved.
-# 
-#     This Source Code Form is subject to the terms of the Mozilla
-#     Public License, v. 2.0. If a copy of the MPL was not distributed
-#     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
-# If it is not possible or desirable to put the notice in a particular file, then
-# You may include the notice in a location (such as a LICENSE file in a
-# relevant directory) where a recipient would be likely to look for such a notice.
-# 
-# You may add additional accurate notices of copyright ownership.
-# 
-#
+.. Copyright @ 2021 VW Group. All rights reserved.
+.. 
+..     This Source Code Form is subject to the terms of the Mozilla
+..     Public License, v. 2.0. If a copy of the MPL was not distributed
+..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+.. 
+.. If it is not possible or desirable to put the notice in a particular file, then
+.. You may include the notice in a location (such as a LICENSE file in a
+.. relevant directory) where a recipient would be likely to look for such a notice.
+.. 
+.. You may add additional accurate notices of copyright ownership.
 
 
 .. _Examples:
@@ -57,7 +54,7 @@ Source Code
 How to start
 ------------
 
-Unfortunately we have no launch script at the moment.
+Unfortunately, we have no launch script at the moment.
 To start and try the example do the following:
 
     * start <fep3_sdk_DIR>/examples/bin/demo_rpc_service
@@ -67,7 +64,7 @@ You will see the following:
 
 .. image:: images/demo_rpc_launched.png
 
-load and intialize the system to see following:
+load and initialize the system to see following:
 
 .. image:: images/demo_rpc_initialized.png
 
@@ -99,7 +96,7 @@ Source Code
 How to start
 ------------
 
-Unfortunately we have no launch script at the moment.
+Unfortunately, we have no launch script at the moment.
 To start and try the example do the following:
 
     * start <fep3_sdk_DIR>/examples/bin/demo_easy_core_receiver
@@ -139,7 +136,7 @@ Source Code
 How to start
 ------------
 
-Unfortunately we have no launch script at the moment.
+Unfortunately, we have no launch script at the moment.
 To start and try the example do the following:
 
     * start <fep3_sdk_DIR>/examples/bin/demo_easy_cpp_receiver
@@ -175,7 +172,7 @@ Source Code
 How to start
 ------------
 
-Unfortunally we have no launch script at the moment.
+Unfortunately, we have no launch script at the moment.
 To start and try the example do the following:
 
     * start <fep3_sdk_DIR>/examples/bin/demo_logging

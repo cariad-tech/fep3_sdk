@@ -30,10 +30,13 @@ public:
     }
 
     Result process(Timestamp sim_time_of_execution) {
-        int32_t received_plain_value = 0;
+        Optional<int32_t> received_plain_value;
         *_reader >> received_plain_value;
-        auto value = received_plain_value * _factor;
-        *_writer << value;
+        if (received_plain_value.has_value())
+        {
+            auto value = received_plain_value.value() * _factor;
+            *_writer << value;
+        }
         return {};
     }
 

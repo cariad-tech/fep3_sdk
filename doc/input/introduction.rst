@@ -1,17 +1,16 @@
-#
-# Copyright @ 2021 VW Group. All rights reserved.
-# 
-#     This Source Code Form is subject to the terms of the Mozilla
-#     Public License, v. 2.0. If a copy of the MPL was not distributed
-#     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
-# If it is not possible or desirable to put the notice in a particular file, then
-# You may include the notice in a location (such as a LICENSE file in a
-# relevant directory) where a recipient would be likely to look for such a notice.
-# 
-# You may add additional accurate notices of copyright ownership.
-# 
-#
+.. Copyright @ 2021 VW Group. All rights reserved.
+.. 
+..     This Source Code Form is subject to the terms of the Mozilla
+..     Public License, v. 2.0. If a copy of the MPL was not distributed
+..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+.. 
+.. If it is not possible or desirable to put the notice in a particular file, then
+.. You may include the notice in a location (such as a LICENSE file in a
+.. relevant directory) where a recipient would be likely to look for such a notice.
+.. 
+.. You may add additional accurate notices of copyright ownership.
+
+
 ============
 Introduction
 ============
@@ -23,7 +22,7 @@ FEP stands for **Functional Engineering Platform**.
 It is a product family of software libraries and tools that enables the composition of a distributed simulation system in an automotive context. It accompanies the development from the function implementation to real hardware integration. 
 
 FEP is realized as a highly integrated product, which is based on a communication framework, provided by **FEP SDK**.
-The other products in family are :term:`FEP VU`, :term:`FEP Interfaces` and :term:`FEP Utility`. They enhance the framework furthermore, to be able to design and control a simulation over a wide range of simulation platforms including ADTF, Matlab/Simulink, XIL, FMI, SCALEXIO, VEOS and more.
+The other products in family are :term:`FEP VU`, :term:`FEP Interfaces` and :term:`FEP Utility`. They enhance the framework furthermore, to be able to design and control a simulation over a wide range of simulation platforms including ADTF, MATLAB/Simulink, XIL, FMI, SCALEXIO, VEOS and more.
 
 This makes it possible to use FEP as a platform for numerous simulation use cases.
 
@@ -51,4 +50,4 @@ How to start
 * :ref:`HOWTO <HOWTO>` and :ref:`FAQ <FAQ>` will answer your questions and provide you a lot of practical tips about FEP SDK.
 * :ref:`API References <API_References>` is the full API documentation of FEP SDK.
 * :ref:`Contact and Support <Contact_And_Support>` please contact us for any further questions or support requests.
-* Have a quick lookup in :ref:`Glossary` if you have doubts about some definitions.
+* Have a quick look-up in :ref:`Glossary` if you have doubts about some definitions.
