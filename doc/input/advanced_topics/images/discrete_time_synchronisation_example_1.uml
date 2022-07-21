@@ -1,0 +1,144 @@
+@startuml
+'use url to modify sequence diagram and update url after modifications
+'http://www.plantuml.com/plantuml/uml/xLNFRzCm5BxdhtWgbqtAgjfGVam2JS0592uKRhkuyMlhBBQB_H86VpquMRh4T4tQmn0IlQNVSxuVxtDxvKauAdMHR9H4M5bBItkRR8KZbQcjC0IJBqehiuPFmXEwQtFshh3P3IpGLIh3yma83wJxHnQ5g13O_V0Fa_LFU1QTo3Oeom9TWyRmHxkyDdFjQpHd-zZu8JP-c8tlOMEpbeudoThPSWkJ3qQH4eNwAKXPCqa004H6gXA4mL9uzWmktW3fIt2uLY6peAVMs9ydNJ-JXelV1pox17JEEiYiR2ObnhCIksmHFM_e-Mdq_4Xwdg2HoNGwRRDPX2QbGF0QGdATB8ArB6pcCtgaBX0GKXfh0B12Gv6fDbJFQfbvIEaMiv8GShli3-SCdhmNxcOX2crDZUNDiPgeiah6DlB-w-EnhenEkfx7Xbh0yq53_8wHDuRu8KFyJqFypX1_m53_zV5OLyPk_Q4kNKDTP7X3JOB64eAjqBLVX8zQ6-iG7ChIo72pt2ulDB8-isj3esA_MDPLD1mnZnNnunNnID5G-qFjMLFxEBglMob8cNMZzOoTnm76Ds9btNVXP5oSyLKzCTDXgJpg-aDInvTmVDZt-oITXfw_nOseb2rTK05X0Jo5foay0_nMYiB3SZTWLpNEadR9tRNDHwrjFdPjZ_m3zlYjcFzZhNYUmeiKNgRmwiXYiDcu2ptxNuquYl7T-Fl_YgTMxmgDB7Nn2m00
+hide footbox
+participant "Timing Master\n(Clock Service)" as tm
+participant "Slave 1\n(Clock Sync Service)" as s1
+participant "Scheduler" as ss1
+participant "Job\n5ms" as j1
+participant "Slave 2\n(Clock Sync Service)" as s2
+participant "Scheduler" as ss2
+participant "Job\n10ms" as j2
+
+group "Initialization"
+    activate s1
+    s1 -> tm: registerSyncSlave
+    activate tm
+    tm --> s1: error code
+    deactivate tm
+    deactivate s1
+
+    activate s2
+    s2 -> tm: registerSyncSlave
+    activate tm
+    tm --> s2: error code
+    deactivate tm
+    deactivate s2
+end
+...
+group "Start, t = 0ms"
+    s1 -> s1: clockReset
+    s1 -> ss1: timeReset event
+    activate ss1
+    ss1 --> j1: execute job
+    activate j1 #DarkSalmon
+    j1 --> ss1: void
+    deactivate j1
+    ss1 --> s1: void
+    deactivate ss1
+
+    s2 -> s2: clockReset
+    s2 -> ss2: timeReset event
+    activate ss2
+    ss2 --> j2: execute job
+    activate j2 #DarkSalmon
+    j2 --> ss2: void
+    deactivate j2
+    ss2 --> s2: void
+    deactivate ss2
+
+    tm -> tm: clockReset
+
+    tm -> s1: timeReset event
+    activate s1
+    note over s1
+        ignore redundant reset
+    end note
+    s1 --> tm: void
+    deactivate s1
+
+    tm -> s2: timeReset event
+    activate s2
+    note over s2
+        ignore redundant reset
+    end note
+    s2 --> tm: void
+    deactivate s2
+end
+...
+group "t = 1ms"
+    tm -> s1: timeUpdating event(1)
+    activate s1
+    s1 -> ss1: forward
+    activate ss1
+    ss1 --> s1: void
+    deactivate ss1
+    s1 --> tm: void
+    deactivate s1
+
+    tm -> s2: timeUpdating event(1)
+    activate s2
+    s2 -> ss2: forward
+    activate ss2
+    ss2 --> s2: void
+    deactivate ss2
+    s2 --> tm: void
+    deactivate s2
+end
+note over tm, j2
+Behaviour for t = 2, 3, 4 equals behaviour of t = 1
+end note
+group "t = 5ms"
+    tm -> s1: timeUpdating event(5)
+    activate s1
+    s1 -> ss1: forward
+    activate ss1
+    ss1 --> j1: execute job
+    activate j1 #DarkSalmon
+    j1 --> ss1: void
+    deactivate j1
+    ss1 --> s1: void
+    deactivate ss1
+    s1 --> tm: void
+    deactivate s1
+
+    tm -> s2: timeUpdating event(5)
+    activate s2
+    s2 -> ss2: forward
+    activate ss2
+    ss2 --> s2: void
+    deactivate ss2
+    s2 --> tm: void
+    deactivate s2
+end
+note over tm, j2
+Behaviour for t = 6, 7, 8, 9 equals behaviour of t = 1
+end note
+group "t = 10ms"
+    tm -> s1: timeUpdating event(10)
+    activate s1
+    s1 -> ss1: forward
+    activate ss1
+    ss1 --> j1: execute job
+    activate j1 #DarkSalmon
+    j1 --> ss1: void
+    deactivate j1
+    ss1 --> s1: void
+    deactivate ss1
+    s1 --> tm: void
+    deactivate s1
+
+    tm -> s2: timeUpdating event(10)
+    activate s2
+    s2 -> ss2: forward
+    activate ss2
+    ss2 --> j2: execute job
+    activate j2 #DarkSalmon
+    j2 --> ss2: void
+    deactivate j2
+    ss2 --> s2: void
+    deactivate ss2
+    s2 --> tm: void
+    deactivate s2
+end
+@enduml

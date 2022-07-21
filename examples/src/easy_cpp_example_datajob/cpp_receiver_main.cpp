@@ -63,19 +63,28 @@ public:
         //print the last value in queue for the plain value
         //the content of the _data_reader_plain_c_type reader queue changes only in processDataIn!
         // processDataIn will receive the content of the data in queues in DataRegistry until they are empty
-        int32_t received_plain_value = 0;
+        Optional<int32_t> received_plain_value;
         *_data_reader_plain_c_type >> received_plain_value;
-        FEP3_LOG_INFO("received plain value:" + std::to_string(received_plain_value));
+        if (received_plain_value.has_value())
+        {
+            FEP3_LOG_INFO("received plain value:" + std::to_string(received_plain_value.value()));
+        }
 
         //receive the string value
-        std::string received_string_value;
+        Optional<std::string> received_string_value;
         *_data_reader_string >> received_string_value;
-        FEP3_LOG_INFO("received string value:" + received_string_value);
+        if (received_string_value.has_value())
+        {
+            FEP3_LOG_INFO("received string value:" + received_string_value.value());
+        }
 
         //received ddl structure value
-        fep3_examples::tEasyStruct easy_struct = {};
+        Optional<fep3_examples::tEasyStruct> easy_struct;
         *_data_reader_ddl >> easy_struct;
-        FEP3_LOG_INFO("received easy struct value: " + easy_to_string(easy_struct));
+        if (easy_struct.has_value())
+        {
+            FEP3_LOG_INFO("received easy struct value: " + easy_to_string(easy_struct.value()));
+        }
 
         //received ddl array structure value
         std::vector<fep3_examples::tEasyStruct> easy_struct_array;

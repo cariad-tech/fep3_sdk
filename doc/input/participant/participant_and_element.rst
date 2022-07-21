@@ -1,17 +1,14 @@
-#
-# Copyright @ 2021 VW Group. All rights reserved.
-# 
-#     This Source Code Form is subject to the terms of the Mozilla
-#     Public License, v. 2.0. If a copy of the MPL was not distributed
-#     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
-# If it is not possible or desirable to put the notice in a particular file, then
-# You may include the notice in a location (such as a LICENSE file in a
-# relevant directory) where a recipient would be likely to look for such a notice.
-# 
-# You may add additional accurate notices of copyright ownership.
-# 
-#
+.. Copyright @ 2021 VW Group. All rights reserved.
+.. 
+..     This Source Code Form is subject to the terms of the Mozilla
+..     Public License, v. 2.0. If a copy of the MPL was not distributed
+..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+.. 
+.. If it is not possible or desirable to put the notice in a particular file, then
+.. You may include the notice in a location (such as a LICENSE file in a
+.. relevant directory) where a recipient would be likely to look for such a notice.
+.. 
+.. You may add additional accurate notices of copyright ownership.
 
 
 .. highlight:: cpp
@@ -34,11 +31,11 @@ There are various convenience wrappers of this function with the same name in ot
 * :cpp:func:`fep3::cpp::arya::createParticipant`
 
 These convenience wrappers serve common use cases and require less arguments to be passed. For stand-alone participant executables
-it is recommended to use those overloads that take argc and argv as arguments in order to enable command line argument parsing,
+it is recommended to use those overloads that take 'argc' and 'argv' as arguments in order to enable command line argument parsing,
 so that parameters like participant or system name can be changed on startup and are not hard-coded into the participant.
 
-createParticipant convenience wrappers of the Cpp Library
-----------------------------------------------------------
+*createParticipant* convenience wrappers of the CPP Library
+-----------------------------------------------------------
 
 These convenience wrappers are for simple participants where the entire implementation can be described with a :cpp:class:`fep3::cpp::arya::DataJob` and no custom element is required.
 
@@ -46,16 +43,16 @@ These convenience wrappers are for simple participants where the entire implemen
     :start-after: //Begin(CppBasic)
     :end-before: //End(CppBasic)
 
-To add user defined command line arguments a parser object has to be created and passed to the createParticipant function.
+To add user defined command line arguments a parser object has to be created and passed to the *createParticipant* function.
 
 .. literalinclude:: ../snippets/snippet_participant.cpp
     :start-after: //Begin(CppUserArg)
     :end-before: //End(CppUserArg)
 
-createParticipant convenience wrappers of the Core Library
-----------------------------------------------------------
+*createParticipant* convenience wrappers of the Core Library
+------------------------------------------------------------
 
-These convenience wrappers are for participants with custom elements and also allow to define the element version and a default value for the system address url.
+These convenience wrappers are for participants with custom elements and also allow to define the element version and a default value for the system address URL.
 
 .. literalinclude:: ../snippets/snippet_participant.cpp
     :start-after: //Begin(CoreBasic)
@@ -75,13 +72,13 @@ Without default values defined:
 
     > myParticipantExecutable MyParticipant MySystem
 
-If command line parsing is not required, possible or sensible then this overload without argc/argv can be used:
+If command line parsing is not required, possible or sensible then this overload without 'argc/argv' can be used:
 
 .. literalinclude:: ../snippets/snippet_participant.cpp
     :start-after: //Begin(CoreNoParsing)
     :end-before: //End(CoreNoParsing)
 
-Adding user defined command line arguments is identical to the cpp library. Only the :cpp:func:`fep3::arya::createParticipant` call is slightly different.
+Adding user defined command line arguments is identical to the CPP library. Only the :cpp:func:`fep3::arya::createParticipant` call is slightly different.
 
 .. literalinclude:: ../snippets/snippet_participant.cpp
     :start-after: //Begin(CoreUserArg)
@@ -108,7 +105,7 @@ A participant instance has the following state machine:
 .. attention::
     State 'Paused' is not supported yet. Trying to set a participant and its components to state 'Paused' results in an error.
 
-Once the participant instance has been created, its state machine is in state "Unloaded". The state machine can then be controlled by events via
+Once the participant instance has been created, its state machine is in state 'Unloaded'. The state machine can then be controlled by events via
 the :ref:`label_service_bus`.
 
 The following table shows the calls to the FEP Participant API as performed by the element-related guards and actions (postfixed by ``..._element`` in the state machine diagram):
@@ -144,8 +141,4 @@ The element interface describes the structure of an element.
 The participant is able to load and manage a FEP Element implementation via an Element Factory.
 This interface is described as follows:
 
-.. doxygenclass:: fep3::arya::IElement
-   :members:
-
-
-
+.. cpp:alias:: fep3::arya::IElement

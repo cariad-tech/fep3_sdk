@@ -1,24 +1,21 @@
-#
-# Copyright @ 2021 VW Group. All rights reserved.
-# 
-#     This Source Code Form is subject to the terms of the Mozilla
-#     Public License, v. 2.0. If a copy of the MPL was not distributed
-#     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
-# If it is not possible or desirable to put the notice in a particular file, then
-# You may include the notice in a location (such as a LICENSE file in a
-# relevant directory) where a recipient would be likely to look for such a notice.
-# 
-# You may add additional accurate notices of copyright ownership.
-# 
-#
+.. Copyright @ 2021 VW Group. All rights reserved.
+.. 
+..     This Source Code Form is subject to the terms of the Mozilla
+..     Public License, v. 2.0. If a copy of the MPL was not distributed
+..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+.. 
+.. If it is not possible or desirable to put the notice in a particular file, then
+.. You may include the notice in a location (such as a LICENSE file in a
+.. relevant directory) where a recipient would be likely to look for such a notice.
+.. 
+.. You may add additional accurate notices of copyright ownership.
 
 
 .. _label_participant_library:
 
-================================
+=====================================
 (OLD) :term:`FEP Participant` Library
-================================
+=====================================
 
 Participant Library and API
 ___________________________
@@ -130,7 +127,7 @@ See :ref:`label_demo_core_easy` for an example how to use the
 :cpp:class:`fep3::core::arya::ElementBase`.
 
 The :cpp:class:`fep3::core::arya::ElementBase` is a convenience class that
-implements the :ref:`label_element_interface`. It handles the typename and the version
+implements the :ref:`label_element_interface`. It handles the type name and the version
 information of a FEP Element (see :cpp:func:`fep3::core::arya::ElementBase::getTypename`,
 :cpp:func:`fep3::core::arya::ElementBase::getVersion`) and provides access to
 :term:`FEP Components<FEP Component>` via :cpp:func:`fep3::core::arya::ElementBase::getComponents`.
@@ -172,7 +169,7 @@ be initialized. To filter the logs from these two classes the logger name "eleme
 Core DataWriter and DataReader
 ------------------------------
 
-See :ref:`label_demo_core_easy` for an example how to use the core DataWriter and DataReader.
+See :ref:`label_demo_core_easy` for an example how to use the core *DataWriter* and *DataReader*.
 
 The :cpp:class:`fep3::core::arya::DataWriter` and :cpp:class:`fep3::core::arya::DataReader`
 are helper classes to add and remove :cpp:class:`fep3::core::arya::IDataRegistry::IDataReader` and
@@ -186,17 +183,17 @@ Use the :cpp:func:`fep3::core::arya::removeFromComponents` to remove Reader or W
 DataWriter
 ~~~~~~~~~~
 
-DataWriter are queues that will hold the written data samples before they are flushed to the
+*DataWriter* are queues that will hold the written data samples before they are flushed to the
 corresponding :cpp:class:`fep3::arya::IDataRegistry::IDataWriter`.
 The data are written to the bus by calling the :cpp:func:`fep3::core::arya::DataReader::flushNow`.
-If the capacity of the DataWriter
+If the capacity of the *DataWriter*
 queue exceeded before it is flushed, the oldest sample will be removed.
 
-The DataWriter can be used to write data with the streaming operator<< for
+The *DataWriter* can be used to write data with the streaming operator<< for
 any :cpp:class:`fep3::core::arya::IDataSample` implementation,
 but also for some other standard and class types.
-It is designed for your convenience! If the :cpp:func:`fep3::core::arya::addToComponents` was used
-it will automatically set the right timestamp to the data sample.
+It is designed for the users convenience! If the :cpp:func:`fep3::core::arya::addToComponents`
+was used it will automatically set the right timestamp to the data sample.
 The streaming operator can be used for following data types:
 
 +--------------------------------+--------------------------------------+
@@ -224,14 +221,14 @@ The streaming operator can be used for following data types:
 DataReader
 ~~~~~~~~~~
 
-DataReader are queues that will hold the reading data samples from the corresponding
+*DataReader* are queues that will hold the reading data samples from the corresponding
 :cpp:class:`fep3::arya::IDataRegistry::IDataReader`.
 The reading is triggered by a :cpp:func:`fep3::core::arya::DataReader::receiveNow` call.
 This will read the data from the :cpp:class:`fep3::arya::IDataRegistry::IDataReader`
-only before the given simulation time and keep it in the queue. If the capacity of the DataReader
+only before the given simulation time and keep it in the queue. If the capacity of the *DataReader*
 queue exceeded, the oldest sample will be removed.
 
-To read the DataReaders content the streaming operator >> may be used for
+To read the *DataReaders* content the streaming operator >> may be used for
 any :cpp:class:`fep3::core::arya::IDataSample` implementation as well as for some other standard
 and class types.
 See table in chapter :ref:`label_core_data_writer` which types are possible.
@@ -242,8 +239,6 @@ from a data reader are listed in the following table:
 +--------------------------------------------------------------------------+--------------------------------------------------------+
 | Data Reader Access                                                       | Description                                            |
 +==========================================================================+========================================================+
-| :cpp:func:`fep3::core::arya::DataReader::>>`                             | Returns and pops the latest data sample.               |
-+--------------------------------------------------------------------------+--------------------------------------------------------+
 | :cpp:func:`fep3::core::arya::DataReader::popSampleLatest`                | Pops the latest data samples and returns it.           |
 +--------------------------------------------------------------------------+--------------------------------------------------------+
 | :cpp:func:`fep3::core::arya::DataReader::popSampleOldest`                | Pops the oldest data samples and returns it.           |
@@ -263,9 +258,9 @@ from a data reader are listed in the following table:
 Adding Jobs
 -----------
 
-Jobs are small runnable units to implement a functionalit that needs to be part of a distributed scheduler.
+Jobs are small runnable units to implement a functionality that needs to be part of a distributed scheduler.
 At the moment jobs configurations are only possible for cyclic time triggered events. In future there might
-be a possiblity to add data triggered jobs as well.
+be a possibility to add data triggered jobs as well.
 
 Use the :cpp:func:`fep3::core::arya::addToComponents` to add a job to the :ref:`label_job_registry`.
 Use the :cpp:func:`fep3::core::arya::removeFromComponents` to remove the job from the :ref:`label_job_registry`.
@@ -333,7 +328,7 @@ implements the :ref:`label_element_interface` and supports one :ref:`label_cpp_d
 DataJob
 -------
 
-The DataJob is a FEP Interface CPP programming model to implement a functionality in a easy way.
+The *DataJob* is a FEP Interface CPP programming model to implement a functionality in an easy way.
 See :ref:`label_demo_cpp_easy` for an example how to use the
 :cpp:class:`fep3::cpp::arya::DataJob`.
 

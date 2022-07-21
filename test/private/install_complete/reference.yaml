@@ -12,9 +12,10 @@
 
 common:
     files:
-        - CONTRIBUTION.md
-        - LICENSE
+        - README.md
+        - doc/license/LICENSE.md
         - doc/license/list_used_licenses.md
+        - doc/license/license_notes_from_aosd.txt
         - doc/license/used_licenses/.+
         - examples/src/rpc_service_bus/CMakeLists.txt
         - examples/src/rpc_service_bus/demo_rpc_client.cpp
@@ -48,6 +49,7 @@ windows_shared:
         - examples/bin/demo_rpc_client.exe
         - examples/bin/demo_rpc_service.exe
         - examples/bin/rti/fep3_connext_dds_plugin.dll
+        - examples/bin/fep_components_plugin.dll
         - examples/bin/demo_easy_core_receiver.exe
         - examples/bin/demo_easy_core_sender.exe
         - examples/bin/demo_easy_cpp_receiver.exe
@@ -63,10 +65,11 @@ windows_shared_debug:
             os: Windows
             build_type: Debug
     files:
-        - examples/bin/fep3_participantd3.0.dll
-        - examples/bin/fep3_participantd3.0.pdb
-        - examples/bin/fep3_systemd3.0.dll
-        - examples/bin/fep3_systemd3.0.pdb
+        - examples/bin/fep_components_plugin.pdb
+        - examples/bin/fep3_participantd3.1.dll
+        - examples/bin/fep3_participantd3.1.pdb
+        - examples/bin/fep3_systemd3.1.dll
+        - examples/bin/fep3_systemd3.1.pdb
         - examples/bin/rti/nddscd.dll
         - examples/bin/rti/nddscd.pdb
         - examples/bin/rti/nddscored.dll
@@ -89,8 +92,8 @@ windows_shared_release:
             os: Windows
             build_type: Release
     files:
-        - examples/bin/fep3_participant3.0.dll
-        - examples/bin/fep3_system3.0.dll
+        - examples/bin/fep3_participant3.1.dll
+        - examples/bin/fep3_system3.1.dll
         - examples/bin/rti/nddsc.dll
         - examples/bin/rti/nddscore.dll
         - examples/bin/rti/nddscpp.dll
@@ -98,6 +101,24 @@ windows_shared_release:
         - examples/bin/rti/nddsmetp.dll
         - examples/bin/rti/rticonnextmsgcpp.dll
         - examples/bin/rti/rtimonitoring.dll
+
+windows_shared_rel_with_deb_info:
+    conditions:
+        my_conds:
+            os: Windows
+            build_type: RelWithDebInfo
+    files:
+         - examples/bin/fep_components_plugin.pdb
+         - examples/bin/fep3_participant3.1.dll
+         - examples/bin/fep3_participant3.1.pdb
+         - examples/bin/fep3_system3.1.dll
+         - examples/bin/rti/nddsc.dll
+         - examples/bin/rti/nddscore.dll
+         - examples/bin/rti/nddscpp.dll
+         - examples/bin/rti/nddscpp2.dll
+         - examples/bin/rti/nddsmetp.dll
+         - examples/bin/rti/rticonnextmsgcpp.dll
+         - examples/bin/rti/rtimonitoring.dll
 
 linux_shared:
     conditions:
@@ -107,6 +128,7 @@ linux_shared:
         - examples/bin/demo_rpc_client
         - examples/bin/demo_rpc_service
         - examples/bin/rti/libfep3_connext_dds_plugin.so
+        - examples/bin/libfep_components_plugin.so
         - examples/bin/demo_easy_core_receiver
         - examples/bin/demo_easy_core_sender
         - examples/bin/demo_easy_cpp_receiver
@@ -122,8 +144,8 @@ linux_shared_debug:
             os: Linux
             build_type: Debug
     files:
-        - examples/bin/libfep3_participantd3.0.so
-        - examples/bin/libfep3_systemd3.0.so
+        - examples/bin/libfep3_participantd3.1.so
+        - examples/bin/libfep3_systemd3.1.so
         - examples/bin/rti/libnddscd.so
         - examples/bin/rti/libnddscored.so
         - examples/bin/rti/libnddscpp2d.so
@@ -132,14 +154,14 @@ linux_shared_debug:
         - examples/bin/rti/librticonnextmsgcppd.so
         - examples/bin/rti/librtimonitoringd.so
 
-linux_shared_relWithdebInfo:
+linux_shared_rel_with_deb_info:
     conditions:
         my_conds:
             os: Linux
             build_type: RelWithDebInfo
     files:
-        - examples/bin/libfep3_participant3.0.so
-        - examples/bin/libfep3_system3.0.so
+        - examples/bin/libfep3_participant3.1.so
+        - examples/bin/libfep3_system3.1.so
         - examples/bin/rti/libnddsc.so
         - examples/bin/rti/libnddscore.so
         - examples/bin/rti/libnddscpp.so
@@ -154,8 +176,8 @@ linux_shared_release:
             os: Linux
             build_type: Release
     files:
-        - examples/bin/libfep3_participant3.0.so
-        - examples/bin/libfep3_system3.0.so
+        - examples/bin/libfep3_participant3.1.so
+        - examples/bin/libfep3_system3.1.so
         - examples/bin/rti/libnddsc.so
         - examples/bin/rti/libnddscore.so
         - examples/bin/rti/libnddscpp.so
@@ -175,3 +197,4 @@ documentation:
         - doc/doxygen_html/.+
         - doc/fep3-sdk.html
         - doc/changelog.md
+        - doc/license/LICENSE.md

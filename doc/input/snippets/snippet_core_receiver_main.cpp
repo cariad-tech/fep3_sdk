@@ -91,6 +91,7 @@ public:
         //register the job
         return core::addToComponents("receiver_job", _my_job, { 1s }, *getComponents());
     }
+    //End(load)
 
     fep3::Result initialize() override
     {
@@ -99,6 +100,7 @@ public:
         if (isFailed(data_adding_res)) return data_adding_res;
         return {};
     }
+    //End(initialize)
 
     void deinitialize() override
     {
@@ -124,9 +126,16 @@ public:
         //print the last value in queue for the plain value
         //the content of the _data_reader_plain_c_type reader queue changes only in processDataIn!
         // processDataIn will receive the content of the data in queues in DataRegistry until they are empty
-        int32_t received_plain_value = 0;
+        Optional<int32_t> received_plain_value;
         *_data_reader_plain_c_type >> received_plain_value;
-        FEP3_LOG_INFO("received plain value:" + std::to_string(received_plain_value));
+        if (received_plain_value.has_value())
+        {
+            FEP3_LOG_INFO("received plain value:" + std::to_string(received_plain_value.value()));
+        }
+        else
+        {
+            FEP3_LOG_INFO("no value received");
+        }
 
         return {};
     }

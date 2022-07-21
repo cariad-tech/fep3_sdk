@@ -20,10 +20,51 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0) an
 
 ## [Unreleased]
 
-## [3.0.1] 2021
+## [3.1.0]
+
 ### Changes
 
-## [3.0.0] 2021-03-05
+- FEPSDK-3309 Based on FEP SDK Participant 3.1.0
+- FEPSDK-3309 Based on FEP SDK System 3.1.0
+- FEPSDK-3278 switch to c++ 17 standard
+- FEPSDK-3081 Replaced deprecated DataReader operator>> in examples and snippets
+
+## [3.0.1]
+
+### Changes
+
+- Based on FEP SDK Participant 3.0.1
+- Based on FEP SDK System 3.0.1
+- FEPSDK-3218 adapt yaml for the participant component plugin
+- FEPSDK-3218 Use macro to link pthread and update doc
+- FEPSDK-3137 Improve fep sdk timing documentation
+- FEPSDK-3103 Add Windows_x64_vc142_VS2019 build profile
+- FEPSDK-3101 Add Linux_armv8_gcc7 build profile
+- FEPSDK-3089 Troubleshooting, start clock master last
+- FEPSDK-3009 Communation section missing sections are added
+- FEPSDK-3007 Configurable element documentation
+- FEPSDK-2994 Added the basic concepts documentation
+- FEPSDK-2963 Readme updated for building with cmake only
+- FEPSDK-2922 Writing a FEP Element documentation
+- FEPSDK-2922 Add recomendation about using argc
+- FEPSDK-2910 Added signal renaming section to data registry prose doc.
+- FEPSDK-2890 Add minimal example
+- FEPSDK-2879 document what to do in case of sample loss
+- FEPSDK-2708 Added discrete clock config defines to clock service prose doc.
+- FEPSDK-2890 Documentation initial redesign
+
+### Bugfixes
+- FEPSDK-3203 Correct mpl-header in fep sdk documentation
+- FEPSDK-3202 Fix missing documentation snippets
+- FEPSDK-3192 fix code example references in participant overview documentation
+- FEPSDK-3190 Fixed broken macro links
+- FEPSDK-3068 Fixed slave clock macros in clock sync service prose doc
+- FEPSDK-3068 FEPSDK-3190 Fixed typos in prose doc
+- FEPSDK-3028 Core examples now add the Jobs to the Job Registry in the correct callback, i. e. IElement::load()
+- FEPSDK-2988 Adapted prose doc to use correct native scheduler name
+- FEPSDK-2917 Fixing documentation of DataRegistry
+
+## [3.0.0]
 
 ### Changes
 - FEPSDK-2857 Set pause mode as unsupported

@@ -1,17 +1,14 @@
-#
-# Copyright @ 2021 VW Group. All rights reserved.
-# 
-#     This Source Code Form is subject to the terms of the Mozilla
-#     Public License, v. 2.0. If a copy of the MPL was not distributed
-#     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
-# If it is not possible or desirable to put the notice in a particular file, then
-# You may include the notice in a location (such as a LICENSE file in a
-# relevant directory) where a recipient would be likely to look for such a notice.
-# 
-# You may add additional accurate notices of copyright ownership.
-# 
-#
+.. Copyright @ 2021 VW Group. All rights reserved.
+.. 
+..     This Source Code Form is subject to the terms of the Mozilla
+..     Public License, v. 2.0. If a copy of the MPL was not distributed
+..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+.. 
+.. If it is not possible or desirable to put the notice in a particular file, then
+.. You may include the notice in a location (such as a LICENSE file in a
+.. relevant directory) where a recipient would be likely to look for such a notice.
+.. 
+.. You may add additional accurate notices of copyright ownership.
 
 
 .. highlight:: cpp
@@ -199,8 +196,8 @@ Logging Sink Configuration
 Some logging sinks have properties that can be configured. From the three native sinks only the file sink has a property:
 The file path to the log file to which the logs should be written to.
 
-To set a property, first retrieve all properties from the logging sink you want to configure
-and then use :cpp:func:`fep3::arya::IProperties::setProperty` from the :cpp:class:`fep3::arya::IProperties` Interface:
+To set a property, first all properties from the logging sink to configure have to be retrieved
+and then :cpp:func:`fep3::arya::IProperties::setProperty` from the :cpp:class:`fep3::arya::IProperties` Interface has to be used:
 
 .. literalinclude:: ../snippets/snippet_logging_service.cpp
     :start-after: //Begin(set sink property)

@@ -72,16 +72,23 @@ breathe_projects = {
 
 breathe_default_project = "fep3-sdk"
 breathe_show_define_initializer = True
+breathe_debug_trace_directives = True
+#add_function_parentheses = False
 
 templates_path = ['_templates']
 exclude_patterns = []
+
+
+# -- Options for sphinx spell check ------------------------------------------
+#spelling_word_list_filename = 'spelling_wordlist.txt'  # is default name
+#spelling_show_suggestions = True
 
 # -- Options for HTML output -------------------------------------------------
 
 # HTML output options
 html_theme = 'sphinx_rtd_theme' # Used theme. The sphinx rtd theme must be installed separately
-html_logo = '../images/Favicon.png' # An image used in the top left of the documentation
-html_favicon = '../images/Icon.ico' # An image used as icon in the browser
+html_logo = '../images/fep_logo_white.png' # An image used in the top left of the documentation
+html_favicon = '../images/fep_logo_white.ico' # An image used as icon in the browser
 html_copy_source = True # DO copy the source .rst files to the output dir in order to make search work properly
 html_title = project # Title of the HTML in the browser
 html_static_path = ['_static'] # Additional css files

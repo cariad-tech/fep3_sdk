@@ -156,7 +156,12 @@ public:
         //Begin(ProcessReader)
         // Template parameter of the streaming operator instead of static_cast
         // removes the need for a signal handle.
-        *_data_reader >> data;
+        fep3::Optional<int32_t> optional_data;
+        *_data_reader >> optional_data;
+        if (optional_data.has_value())
+        {
+            // Use the data retrieved
+        }
         //End(ProcessReader)
 
         {

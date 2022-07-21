@@ -1,17 +1,14 @@
-#
-# Copyright @ 2021 VW Group. All rights reserved.
-# 
-#     This Source Code Form is subject to the terms of the Mozilla
-#     Public License, v. 2.0. If a copy of the MPL was not distributed
-#     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
-# If it is not possible or desirable to put the notice in a particular file, then
-# You may include the notice in a location (such as a LICENSE file in a
-# relevant directory) where a recipient would be likely to look for such a notice.
-# 
-# You may add additional accurate notices of copyright ownership.
-# 
-#
+.. Copyright @ 2021 VW Group. All rights reserved.
+.. 
+..     This Source Code Form is subject to the terms of the Mozilla
+..     Public License, v. 2.0. If a copy of the MPL was not distributed
+..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+.. 
+.. If it is not possible or desirable to put the notice in a particular file, then
+.. You may include the notice in a location (such as a LICENSE file in a
+.. relevant directory) where a recipient would be likely to look for such a notice.
+.. 
+.. You may add additional accurate notices of copyright ownership.
 
 
 .. _label_scheduler_service:
@@ -38,9 +35,9 @@ Summary
 +------------------------------------------------------+-----------------------------------------------------------------+
 | native delivery                                      |  built-in                                                       |
 +------------------------------------------------------+-----------------------------------------------------------------+
-| cpp-plugin possible                                  |  yes                                                            |
+| CPP-plugin possible                                  |  yes                                                            |
 +------------------------------------------------------+-----------------------------------------------------------------+
-| c-plugin possible                                    |  yes                                                            |
+| C-plugin possible                                    |  yes                                                            |
 +------------------------------------------------------+-----------------------------------------------------------------+
 
 
@@ -99,9 +96,9 @@ Therefore jobs have to be added when the :ref:`label_element_interface` is
 * loading (:cpp:func:`fep3::arya::IElement::loadElement`),
 * or unloading (:cpp:func:`fep3::arya::IElement::unloadElement`).
 
-Also for every Job execution a run time check is performed. The check is configured with the Jobs :cpp:class:`fep3::arya::JobConfiguration` (see class documentation for details).
+Also, for every Job execution a run time check is performed. The check is configured with the Jobs :cpp:class:`fep3::arya::JobConfiguration` (see class documentation for details).
 The run time check will check that the execution time of a job does not exceed the configured :cpp:member:`fep3::arya::JobConfiguration::_max_runtime_real_time` of the Job.
-The time check is done based on wall clock time and not simulation time. Using :cpp:member:`fep3::arya::JobConfiguration::_runtime_violation_strategy` you can configure a strategy
-that will be applied in case the max runtime is exceeded.
+The time check is done based on wall clock time and not simulation time. Using :cpp:member:`fep3::arya::JobConfiguration::_runtime_violation_strategy`
+a strategy can be configured that will be applied in case the max runtime is exceeded.
 
 .. note:: Jobs may be configured using a :ref:`label_job_registry_job_configuration`.

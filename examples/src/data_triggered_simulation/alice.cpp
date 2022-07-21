@@ -93,7 +93,7 @@ public:
         }
 
         // Unregister writer and job
-        _signal_a_sender_job->removeDataFromComponents();
+        _signal_a_sender_job->removeDataFromComponents(*getComponents());
         fep3::core::removeFromComponents(_signal_a_sender_job->getJobInfo().getName(), *getComponents());
     }
 

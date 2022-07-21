@@ -18,7 +18,7 @@ if (NOT examples_integrated)
 
     set(CMAKE_CXX_EXTENSIONS OFF)
     set(CMAKE_CXX_STANDARD_REQUIRED ON)
-    set(CMAKE_CXX_STANDARD 14)
+    set(CMAKE_CXX_STANDARD 17)
 
     # if Conan is used, we have to include the generated file and doing some basic setup
     if(CONAN_COMPILER)

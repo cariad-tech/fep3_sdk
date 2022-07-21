@@ -1,17 +1,14 @@
-#
-# Copyright @ 2021 VW Group. All rights reserved.
-# 
-#     This Source Code Form is subject to the terms of the Mozilla
-#     Public License, v. 2.0. If a copy of the MPL was not distributed
-#     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
-# If it is not possible or desirable to put the notice in a particular file, then
-# You may include the notice in a location (such as a LICENSE file in a
-# relevant directory) where a recipient would be likely to look for such a notice.
-# 
-# You may add additional accurate notices of copyright ownership.
-# 
-#
+.. Copyright @ 2021 VW Group. All rights reserved.
+.. 
+..     This Source Code Form is subject to the terms of the Mozilla
+..     Public License, v. 2.0. If a copy of the MPL was not distributed
+..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+.. 
+.. If it is not possible or desirable to put the notice in a particular file, then
+.. You may include the notice in a location (such as a LICENSE file in a
+.. relevant directory) where a recipient would be likely to look for such a notice.
+.. 
+.. You may add additional accurate notices of copyright ownership.
 
 
 .. _label_clock_sync_service:
@@ -39,16 +36,16 @@ Summary
 +------------------------------------------------------+-----------------------------------------------------------------------------+
 | native delivery                                      |  built-in                                                                   |
 +------------------------------------------------------+-----------------------------------------------------------------------------+
-| cpp-plugin possible                                  |  yes                                                                        |
+| CPP-plugin possible                                  |  yes                                                                        |
 +------------------------------------------------------+-----------------------------------------------------------------------------+
-| c-plugin possible                                    |  no                                                                         |
+| C-plugin possible                                    |  no                                                                         |
 +------------------------------------------------------+-----------------------------------------------------------------------------+
 
 Overview
 ========
 
 The :ref:`label_clock_sync_service` provides functionality to synchronize the local time of a slave participant with the time of a timing master participant.
-For this purpose two native timing slave clock implementations are provided. To synchronize a timing slave with a timing master,
+For this purpose, two native timing slave clock implementations are provided. To synchronize a timing slave with a timing master,
 the timing master and the corresponding :ref:`label_clock_service_main_clock` have to be configured using FEP Properties.
 Depending on the timing master's :ref:`label_clock_service_main_clock`, various :ref:`label_clock_sync_service_native` can be configured as active clock for a timing slave.
 
@@ -79,8 +76,8 @@ Configuration
 =============
 
 In order to establish a slave synchronization, the :ref:`label_clock_service_main_clock` of the :ref:`label_clock_service` has to be set.
-Using the :ref:`label_clock_sync_service_native` you would set either the :ref:`label_clock_sync_slave_master_on_demand` or :ref:`label_clock_sync_slave_master_on_demand_discrete`
-as the :ref:`label_clock_service_main_clock` of the slave.
+Using the :ref:`label_clock_sync_service_native` either the :ref:`label_clock_sync_slave_master_on_demand` or :ref:`label_clock_sync_slave_master_on_demand_discrete`
+can be set as the :ref:`label_clock_service_main_clock` of the slave.
 
 Properties
 ----------
@@ -94,8 +91,7 @@ Properties
      - Code Macro
      - Default Value
    * - MainClock
-     - .. doxygendefine:: FEP3_CLOCK_SERVICE_MAIN_CLOCK
-        :no-link:
+     - :c:macro:`FEP3_CLOCK_SERVICE_MAIN_CLOCK`
      - :c:macro:`FEP3_CLOCK_LOCAL_SYSTEM_REAL_TIME`
 
 
@@ -104,7 +100,7 @@ Properties
 Native Implementations
 ======================
 
-You can choose among the following built-in native implementations for slave clocks.
+Among the following built-in native implementations for slave clocks can be choosen.
 
 .. list-table::
    :header-rows: 1
@@ -113,10 +109,10 @@ You can choose among the following built-in native implementations for slave clo
      - Code Macro
      - Type
    * - :ref:`label_clock_sync_slave_master_on_demand_discrete`
-     - :c:macro:`FEP3_CLOCK_LOCAL_SYSTEM_SIM_TIME`
+     - :c:macro:`FEP3_CLOCK_SLAVE_MASTER_ONDEMAND_DISCRETE`
      - :ref:`label_clock_type_discrete`
    * - :ref:`label_clock_sync_slave_master_on_demand`
-     - :c:macro:`FEP3_CLOCK_LOCAL_SYSTEM_REAL_TIME`
+     - :c:macro:`FEP3_CLOCK_SLAVE_MASTER_ONDEMAND`
      - :ref:`label_clock_type_continuous`
 
 
@@ -159,8 +155,7 @@ The :ref:`label_clock_sync_slave_master_on_demand` clock can be configured using
      - Code Macro
      - Default Value
    * - SyncCycleTime
-     - .. doxygendefine:: FEP3_CLOCKSYNC_SERVICE_CONFIG_SLAVE_SYNC_CYCLE_TIME
-        :no-link:
+     - :c:macro:`FEP3_CLOCKSYNC_SERVICE_CONFIG_SLAVE_SYNC_CYCLE_TIME`
      - :c:macro:`FEP3_CLOCK_SIM_TIME_STEP_SIZE_DEFAULT_VALUE`
 
 
@@ -171,7 +166,7 @@ slave_master_on_demand_discrete
 -------------------------------
 
 The :ref:`label_clock_sync_slave_master_on_demand_discrete` clock will try to register to the timing master (:c:macro:`FEP3_CLOCKSYNC_SERVICE_CONFIG_TIMING_MASTER`)
-when the :ref:`label_clock_sync_service` is tensing (:cpp:function:`fep3::arya::IComponent::tense()`).
+when the :ref:`label_clock_sync_service` is tensing (:cpp:func:`fep3::arya::IComponent::tense()`).
 If the timing master is not available by that time it will cyclically try to register again.
 After registration the :ref:`label_clock_sync_slave_master_on_demand_discrete` clock will receive *timeUpdating* events from the timing master and will set its local time accordingly.
 

@@ -22,7 +22,7 @@ if(is_standalone)
 #Begin(CMAKE_SETUP)
 cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 project(hello_world)
 
 include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
