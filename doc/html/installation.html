@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installation &mdash; fep3-sdk</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" /><link rel="shortcut icon" href="_static/fep_logo_white.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tutorial" href="tutorial.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004666" >
+            <a href="index.html" class="icon icon-home"> fep3-sdk<img src="_static/fep_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-requirements">Basic Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-packages">Install packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hello-world">Hello World</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+</ul>
+<p><span class="caption-text">Dive into FEP SDK</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="participant/participant_overview.html">FEP Participant Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="participant/participant_overview_backup.html">(OLD) <span class="xref std std-term">FEP Participant</span> Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="system/system_overview.html">FEP System Library</a></li>
+</ul>
+<p><span class="caption-text">API References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">FEP SDK API</a></li>
+</ul>
+<p><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="advanced_topics/overview_advanced_topics.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_topics/timing.html">Timing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_topics/perf_test.html">Performance</a></li>
+</ul>
+<p><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style_guide.html">Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="miscellaneous/howto.html">HOWTO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="miscellaneous/faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="miscellaneous/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="miscellaneous/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="miscellaneous/used_licenses.html">Used Licenses</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004666" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">fep3-sdk</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Installation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorial.html" class="btn btn-neutral float-right" title="Tutorial" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installation">
+<span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h1>
+<section id="basic-requirements">
+<h2>Basic Requirements<a class="headerlink" href="#basic-requirements" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Supported OS: Windows 7, Windows 10 or Linux</p></li>
+<li><p>Required software: python, pip, conan, cmake</p></li>
+</ul>
+</section>
+<section id="install-packages">
+<h2>Install packages<a class="headerlink" href="#install-packages" title="Permalink to this headline"></a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conan install fep_sdk/3.1.0@fep/stable
+conan install fep_sdk_participant/3.1.0@fep/stable
+conan install fep_sdk_system/3.1.0@fep/stable
+</pre></div>
+</div>
+<p>Read documentation on local server (default: <a class="reference external" href="http://0.0.0.0:8000/">http://0.0.0.0:8000/</a>).</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/your/conan/fep_sdk/package/doc/html
+python -m http.server
+</pre></div>
+</div>
+</section>
+<section id="hello-world">
+<h2>Hello World<a class="headerlink" href="#hello-world" title="Permalink to this headline"></a></h2>
+<p>Create a simple hello world participant <code class="file docutils literal notranslate"><span class="pre">hello_world.cpp</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;fep3/cpp.h&gt;</span>
+<span class="c1">#include &lt;chrono&gt;</span>
+
+<span class="n">using</span> <span class="n">namespace</span> <span class="n">fep3</span><span class="p">;</span>
+<span class="n">using</span> <span class="n">namespace</span> <span class="n">std</span><span class="p">::</span><span class="n">chrono_literals</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">MinimalDataJob</span> <span class="p">:</span> <span class="n">public</span> <span class="n">cpp</span><span class="p">::</span><span class="n">DataJob</span> <span class="p">{</span>
+<span class="n">public</span><span class="p">:</span>
+    <span class="n">MinimalDataJob</span><span class="p">()</span> <span class="p">:</span> <span class="n">cpp</span><span class="p">::</span><span class="n">DataJob</span><span class="p">(</span><span class="s2">&quot;hello_world&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="n">s</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="p">}</span>
+
+    <span class="n">Result</span> <span class="n">process</span><span class="p">(</span><span class="n">Timestamp</span> <span class="n">sim_time_of_execution</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">FEP3_LOG_INFO</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="p">{};</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="n">auto</span> <span class="n">part</span> <span class="o">=</span> <span class="n">cpp</span><span class="p">::</span><span class="n">createParticipant</span><span class="o">&lt;</span><span class="n">cpp</span><span class="p">::</span><span class="n">DataJobElement</span><span class="o">&lt;</span><span class="n">MinimalDataJob</span><span class="o">&gt;&gt;</span><span class="p">(</span>
+        <span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="s2">&quot;my_participant&quot;</span><span class="p">,</span> <span class="s2">&quot;my_system&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">part</span><span class="o">.</span><span class="n">exec</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Create a simple hello world system <code class="file docutils literal notranslate"><span class="pre">hello_world_system.cpp</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;thread&gt;</span>
+<span class="c1">#include &lt;chrono&gt;</span>
+<span class="c1">#include &lt;fep_system/fep_system.h&gt;</span>
+
+<span class="n">using</span> <span class="n">namespace</span> <span class="n">std</span><span class="p">::</span><span class="n">chrono_literals</span><span class="p">;</span>
+
+<span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">auto</span> <span class="n">my_system</span> <span class="o">=</span> <span class="n">fep3</span><span class="p">::</span><span class="n">discoverSystem</span><span class="p">(</span><span class="s2">&quot;my_system&quot;</span><span class="p">);</span>
+
+    <span class="o">//</span> <span class="n">start</span>
+    <span class="n">my_system</span><span class="o">.</span><span class="n">load</span><span class="p">();</span>
+    <span class="n">my_system</span><span class="o">.</span><span class="n">initialize</span><span class="p">();</span>
+    <span class="n">my_system</span><span class="o">.</span><span class="n">start</span><span class="p">();</span>
+
+    <span class="o">//</span> <span class="n">run</span> <span class="k">for</span> <span class="mi">5</span> <span class="n">secs</span>
+    <span class="n">std</span><span class="p">::</span><span class="n">this_thread</span><span class="p">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="mi">5</span><span class="n">s</span><span class="p">);</span>
+
+    <span class="o">//</span> <span class="n">stop</span>
+    <span class="n">my_system</span><span class="o">.</span><span class="n">stop</span><span class="p">();</span>
+    <span class="n">my_system</span><span class="o">.</span><span class="n">deinitialize</span><span class="p">();</span>
+    <span class="n">my_system</span><span class="o">.</span><span class="n">unload</span><span class="p">();</span>
+    <span class="n">my_system</span><span class="o">.</span><span class="n">shutdown</span><span class="p">();</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Create a <code class="file docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
+
+set(CMAKE_CXX_STANDARD 17)
+project(hello_world)
+
+include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup(TARGETS)
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>find_package(fep3_participant_cpp REQUIRED)
+find_package(fep3_system REQUIRED)
+find_package(dev_essential REQUIRED COMPONENTS system)
+
+add_executable(snippet_hello_world
+               snippet_hello_world.cpp)
+
+add_executable(snippet_hello_world_system
+               snippet_hello_world_system.cpp)
+
+target_link_libraries(snippet_hello_world PRIVATE
+                      fep3_participant_cpp)
+target_link_libraries(snippet_hello_world_system PRIVATE
+                      fep3_system
+                      dev_essential::system
+                      ${CMAKE_DL_LIBS})
+</pre></div>
+</div>
+<p>Create <code class="file docutils literal notranslate"><span class="pre">conanfile.txt</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">build_requires</span><span class="p">]</span>
+<span class="n">fep_sdk_participant</span><span class="o">/</span><span class="mf">3.1.0</span><span class="nd">@fep</span><span class="o">/</span><span class="n">stable</span>
+<span class="n">fep_sdk_system</span><span class="o">/</span><span class="mf">3.1.0</span><span class="nd">@fep</span><span class="o">/</span><span class="n">stable</span>
+
+<span class="p">[</span><span class="n">generators</span><span class="p">]</span>
+<span class="n">cmake</span>
+</pre></div>
+</div>
+<p>Build it in <code class="file docutils literal notranslate"><span class="pre">build</span></code> folder.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
+conan install ..
+cmake ..
+cmake --build .
+</pre></div>
+</div>
+<p>Run two programs in separate terminals</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./build/bin/hello_world
+./build/bin/hello_world_system
+</pre></div>
+</div>
+<p>Result</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[04.05.2021 - 14:22:07]: my_participant@participant  ST: 0[ns]  Info Successfully loaded element
+[04.05.2021 - 14:22:07]: my_participant@participant  ST: 0[ns]  Info Successfully initialized element
+[04.05.2021 - 14:22:07]: my_participant@participant  ST: 0[ns]  Info Successfully initialized components
+[04.05.2021 - 14:22:07]: my_participant@participant  ST: 0[ns]  Info Successfully tensed components
+[04.05.2021 - 14:22:07]: my_participant@participant  ST: 0[ns]  Info Successfully ran element
+[04.05.2021 - 14:22:07]: my_participant@participant  ST: 51301[ns]  Info Successfully started components
+Hello World!
+Hello World!
+Hello World!
+Hello World!
+Hello World!
+[04.05.2021 - 14:22:12]: my_participant@participant  ST: 0[ns]  Info Successfully stopped components
+[04.05.2021 - 14:22:12]: my_participant@participant  ST: 0[ns]  Info Successfully stopped element
+[04.05.2021 - 14:22:12]: my_participant@participant  ST: 0[ns]  Info Successfully relaxed components
+[04.05.2021 - 14:22:12]: my_participant@participant  ST: 0[ns]  Info Successfully deinitialized components
+[04.05.2021 - 14:22:12]: my_participant@participant  ST: 0[ns]  Info Successfully deinitialized element
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorial.html" class="btn btn-neutral float-right" title="Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 14.04.2022, VW Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

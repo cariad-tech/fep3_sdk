@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulation Bus &mdash; fep3-sdk</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" /><link rel="shortcut icon" href="../_static/fep_logo_white.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="FEP System Library" href="../system/system_overview.html" />
+    <link rel="prev" title="Service Bus" href="component_service_bus.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004666" >
+            <a href="../index.html" class="icon icon-home"> fep3-sdk<img src="../_static/fep_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+</ul>
+<p><span class="caption-text">Dive into FEP SDK</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="participant_overview.html">FEP Participant Library</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="participant_overview_backup.html">(OLD) <span class="xref std std-term">FEP Participant</span> Library</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="participant_overview_backup.html#participant-library-and-api">Participant Library and API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="participant_overview_backup.html#participant-and-element">Participant and Element</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="participant_overview_backup.html#components">Components</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="participant_overview_backup.html#fep-default-components">FEP Default Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="participant_overview_backup.html#fep-component-system">FEP Component System</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="participant_overview_backup.html#core-api">Core API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="participant_overview_backup.html#fep-interface-cpp-api">FEP Interface CPP API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../system/system_overview.html">FEP System Library</a></li>
+</ul>
+<p><span class="caption-text">API References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">FEP SDK API</a></li>
+</ul>
+<p><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/overview_advanced_topics.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/timing.html">Timing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/perf_test.html">Performance</a></li>
+</ul>
+<p><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style_guide.html">Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/howto.html">HOWTO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/used_licenses.html">Used Licenses</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004666" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">fep3-sdk</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="participant_overview_backup.html">(OLD) <span class="xref std std-term">FEP Participant</span> Library</a> &raquo;</li>
+          <li><a href="native_components.html">Native FEP Components</a> &raquo;</li>
+      <li>Simulation Bus</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/participant/component_simulation_bus.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="component_service_bus.html" class="btn btn-neutral float-left" title="Service Bus" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../system/system_overview.html" class="btn btn-neutral float-right" title="FEP System Library" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="simulation-bus">
+<span id="label-simulation-bus"></span><h1><a class="toc-backref" href="#id2">Simulation Bus</a><a class="headerlink" href="#simulation-bus" title="Permalink to this headline"></a></h1>
+<aside class="sidebar">
+<p class="sidebar-title">Simulation Bus</p>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#simulation-bus" id="id2">Simulation Bus</a></p>
+<ul>
+<li><p><a class="reference internal" href="#summary" id="id3">Summary</a></p></li>
+<li><p><a class="reference internal" href="#overview" id="id4">Overview</a></p></li>
+<li><p><a class="reference internal" href="#rti-connext-dds-simulation-bus" id="id5">RTI Connext DDS Simulation Bus</a></p></li>
+<li><p><a class="reference internal" href="#qos-profile" id="id6">QOS Profile</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside>
+<section id="summary">
+<h2><a class="toc-backref" href="#id3">Summary</a><a class="headerlink" href="#summary" title="Permalink to this headline"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 45%" />
+<col style="width: 55%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>Simulation Bus</p></td>
+</tr>
+<tr class="row-even"><td><p>Component Interface</p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep34arya14ISimulationBusE" title="fep3::arya::ISimulationBus"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::ISimulationBus</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>native delivery</p></td>
+<td><p>built-in for testing purposes,
+CPP-plugin RTI Connext DDS Simulation Bus</p></td>
+</tr>
+<tr class="row-even"><td><p>CPP-plugin possible</p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>C-plugin possible</p></td>
+<td><p>yes</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="overview">
+<h2><a class="toc-backref" href="#id4">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline"></a></h2>
+<p>The delivered service bus as native <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Component</span></a> will come with following implementations:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#rti-connext-dds-simulation-bus"><span class="std std-ref">RTI Connext DDS Simulation Bus</span></a></p></li>
+</ul>
+</section>
+<section id="rti-connext-dds-simulation-bus">
+<span id="id1"></span><h2><a class="toc-backref" href="#id5">RTI Connext DDS Simulation Bus</a><a class="headerlink" href="#rti-connext-dds-simulation-bus" title="Permalink to this headline"></a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Constraints:</p>
+<ul class="simple">
+<li><p>The length of the <em>system_name</em> is limited to 255 characters.</p></li>
+</ul>
+</div>
+</section>
+<section id="qos-profile">
+<h2><a class="toc-backref" href="#id6">QOS Profile</a><a class="headerlink" href="#qos-profile" title="Permalink to this headline"></a></h2>
+<p>The Simulation Bus provides a file called USER_QOS_PROFILE.xml (see lib/rti/USER_QOS_PROFILES.xml). This file provides the QoS settings for each signal. For each natively provided <em>StreamMetaType</em> a matching QoS profile exists that the Simulation Bus will use.
+For example, the FEP3 <em>StreamMetaType</em> “plain_ctype_array” has a matching QoS profile called “fep3::plain_ctype_array” stored in the file.
+That means there can be defined an own QOS profiles for a self-defined <em>StreamType</em>. For “my_own_stream_meta_type” create a “fep3::my_own_stream_meta_type” profile in the USER_QOS_PROFILES.xml.
+If the Simulation Bus does not find a matching profile for a <em>StreamType</em>, it will use the default profile “fep3::default_profile” instead.</p>
+<p>Since RTI DDS relies on UDP, there is of course a limitation of the message size to ~63k bytes, messages bigger than ~63k bytes need to be fragmented.
+In order to be able to fragment the messages, the QOS Profile must be set to asynchronous (see ASYNCHRONOUS_PUBLISHER in the RTI DDS documentation).
+In order to do this, we have defined an extra QOS Profile that ends with _big e.g. ‘plain-array-ctype_big’. In this profile we can set the QOS of the asynchronous transmission.
+So, in the USER_QOS_PROFILE.xml is a normal QOS Profile for the <em>StreamType</em> plain-array-ctype and one for Stream Types where the property max_size exceeds the limitation of ~63k bytes.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="component_service_bus.html" class="btn btn-neutral float-left" title="Service Bus" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../system/system_overview.html" class="btn btn-neutral float-right" title="FEP System Library" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 14.04.2022, VW Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

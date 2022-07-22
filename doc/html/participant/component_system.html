@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FEP Component System &mdash; fep3-sdk</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" /><link rel="shortcut icon" href="../_static/fep_logo_white.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004666" >
+            <a href="../index.html" class="icon icon-home"> fep3-sdk<img src="../_static/fep_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+</ul>
+<p><span class="caption-text">Dive into FEP SDK</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="participant_overview.html">FEP Participant Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="participant_overview_backup.html">(OLD) <span class="xref std std-term">FEP Participant</span> Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../system/system_overview.html">FEP System Library</a></li>
+</ul>
+<p><span class="caption-text">API References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">FEP SDK API</a></li>
+</ul>
+<p><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/overview_advanced_topics.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/timing.html">Timing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/perf_test.html">Performance</a></li>
+</ul>
+<p><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style_guide.html">Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/howto.html">HOWTO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/used_licenses.html">Used Licenses</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004666" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">fep3-sdk</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>FEP Component System</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/participant/component_system.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="fep-component-system">
+<span id="label-component-system"></span><h1>FEP Component System<a class="headerlink" href="#fep-component-system" title="Permalink to this headline"></a></h1>
+<p>The <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-System"><span class="xref std std-term">FEP Component System</span></a> makes a <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a> work with a certain set of <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a>
+and <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-Implementation"><span class="xref std std-term">FEP Component Implementations</span></a>.
+The <em>purpose</em> of a <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a> is defined by the set of <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a> it provides,
+while the <em>behavior</em> of a <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a> depends on the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-Implementation"><span class="xref std std-term">FEP Component Implementations</span></a>
+that are loaded by the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-System"><span class="xref std std-term">FEP Component System</span></a>.</p>
+<p>For example</p>
+<ul class="simple">
+<li><p>the <em>purpose</em> of a <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a> in the context of <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP"><span class="xref std std-term">FEP</span></a> is to be a participant of a
+simulation and integration platform for the development and for the test of highly cross-linked vehicle functions</p></li>
+<li><p>the <em>behavior</em> of a <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a> can be e. g.</p>
+<ul>
+<li><p>simulation data is transferred via RTI DDS</p></li>
+<li><p>or simulation data is transferred via ZeroMQ.</p></li>
+</ul>
+</li>
+</ul>
+<p>Using the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-System"><span class="xref std std-term">FEP Component System</span></a> the purpose and/or the behavior of the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a> can be changed or extended
+by configuring the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a> to use other <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a> than the <a class="reference internal" href="participant_overview_backup.html#label-default-components"><span class="std std-ref">FEP Default Components</span></a>.</p>
+<section id="default-fep-components-vs-native-fep-components-vs-foreign-fep-components">
+<span id="label-components-default-vs-native-vs-foreign-components"></span><h2>Default <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a> vs. Native <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a> vs. Foreign <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a><a class="headerlink" href="#default-fep-components-vs-native-fep-components-vs-foreign-fep-components" title="Permalink to this headline"></a></h2>
+<p><a class="reference internal" href="native_components.html#label-native-components"><span class="std std-ref">Native FEP Components</span></a> are shipped with the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant-Library"><span class="xref std std-term">FEP Participant Library</span></a>. The <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a> loads a subset of those
+<a class="reference internal" href="native_components.html#label-native-components"><span class="std std-ref">Native FEP Components</span></a> by default, i. e. if no <a class="reference internal" href="#label-component-configuration-file"><span class="std std-ref">FEP Component Configuration File</span></a> is provided. The <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a> in such
+subset are called <a class="reference internal" href="participant_overview_backup.html#label-default-components"><span class="std std-ref">FEP Default Components</span></a>. Additionally to the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a> in the set of <a class="reference internal" href="participant_overview_backup.html#label-default-components"><span class="std std-ref">FEP Default Components</span></a>
+the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant-Library"><span class="xref std std-term">FEP Participant Library</span></a> ships the following <a class="reference internal" href="native_components.html#label-native-components"><span class="std std-ref">Native FEP Components</span></a>:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 27%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-Implementation"><span class="xref std std-term">FEP Component Implementation</span></a></p></th>
+<th class="head"><p><a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Component</span></a></p></th>
+<th class="head"><p>FEP Component Interface</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="component_service_bus.html#id1"><span class="std std-ref">HTTP Service Bus</span></a></p></td>
+<td><p>Service Bus</p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep34arya11IServiceBusE" title="fep3::arya::IServiceBus"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::IServiceBus</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="component_simulation_bus.html#rti-connext-dds-simulation-bus"><span class="std std-ref">RTI Connext DDS Simulation Bus</span></a></p></td>
+<td><p>Simulation Bus</p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep34arya14ISimulationBusE" title="fep3::arya::ISimulationBus"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::ISimulationBus</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+<p>Besides those <a class="reference internal" href="native_components.html#label-native-components"><span class="std std-ref">Native FEP Components</span></a> the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a> can be configured to load so-called “Foreign <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a>”.
+Such <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a> may be delivered by other departments of the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP"><span class="xref std std-term">FEP</span></a> project or by third parties.</p>
+</section>
+<section id="using-the-label-component-system">
+<h2>Using the <a class="reference internal" href="#label-component-system"><span class="std std-ref">FEP Component System</span></a><a class="headerlink" href="#using-the-label-component-system" title="Permalink to this headline"></a></h2>
+<p>To make a <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a> use other <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a> than the <a class="reference internal" href="participant_overview_backup.html#label-default-components"><span class="std std-ref">FEP Default Components</span></a>,
+a <a class="reference internal" href="#label-component-configuration-file"><span class="std std-ref">FEP Component Configuration File</span></a> has to be provided. This file contains information on which <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a> shall be
+used by a <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a>.</p>
+<section id="fep-component-configuration-file">
+<span id="label-component-configuration-file"></span><h3>FEP Component Configuration File<a class="headerlink" href="#fep-component-configuration-file" title="Permalink to this headline"></a></h3>
+<p>The <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-Configuration-File"><span class="xref std std-term">FEP Component Configuration File</span></a> is an XML file with the following content (exemplary):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;components xmlns=&quot;http://fep.vwgroup.com/fep_sdk/3.0/components&quot;&gt;
+    &lt;schema_version&gt;1.0.0&lt;/schema_version&gt;
+    &lt;component&gt;
+        &lt;source type=&quot;built-in&quot;/&gt;
+        &lt;iid&gt;clock_service.arya.fep3.iid&lt;/iid&gt;
+    &lt;/component&gt;
+    &lt;component&gt;
+        &lt;source type=&quot;cpp-plugin&quot;&gt;
+            my_component_plugin
+        &lt;/source&gt;
+        &lt;iid&gt;service_bus.arya.fep3.iid&lt;/iid&gt;
+    &lt;/component&gt;
+    &lt;component&gt;
+        &lt;source type=&quot;c-plugin&quot;&gt;
+            third_party_component_plugin
+        &lt;/source&gt;
+        &lt;iid&gt;simulation_bus.arya.fep3.iid&lt;/iid&gt;
+    &lt;/component&gt;
+&lt;/components&gt;
+</pre></div>
+</div>
+<p>where</p>
+<ul class="simple">
+<li><p>the <code class="docutils literal notranslate"><span class="pre">components/component</span></code> element can occur any number of times</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">components/component/iid</span></code> element contains the interface identifier of the component to be loaded</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">components/component/source</span></code> element contains information on where to load the component implementation from:</p>
+<ul>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">components/component/source&#64;type</span></code> attribute defines the <a class="reference internal" href="#label-component-instantiation"><span class="std std-ref">Component instantiation</span></a> and
+takes the values <code class="docutils literal notranslate"><span class="pre">built-in</span></code>, <code class="docutils literal notranslate"><span class="pre">cpp-plugin</span></code> or <code class="docutils literal notranslate"><span class="pre">c-plugin</span></code></p></li>
+<li><p>if the <code class="docutils literal notranslate"><span class="pre">components/component/source&#64;type</span></code> attribute is <code class="docutils literal notranslate"><span class="pre">cpp-plugin</span></code> or <code class="docutils literal notranslate"><span class="pre">c-plugin</span></code>,
+the data of <code class="docutils literal notranslate"><span class="pre">components/component/source</span></code> has to contain the file path of the <a class="reference internal" href="#label-component-plugins"><span class="std std-ref">FEP Component Plugin’s</span></a>
+shared library that provides the component implementation; such file path has to be either absolute or relative to the directory
+the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-Configuration-File"><span class="xref std std-term">FEP Component Configuration File</span></a> resides in</p></li>
+</ul>
+</li>
+</ul>
+<p>During startup the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-System"><span class="xref std std-term">FEP Component System</span></a> of the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a> tries to find a <a class="reference internal" href="#label-component-configuration-file"><span class="std std-ref">FEP Component Configuration File</span></a> as follows:</p>
+<ul class="simple">
+<li><p>If the environment variable “FEP3_PARTICIPANT_COMPONENTS_FILE_PATH” is set and it contains an absolute
+file path it tries to find a <a class="reference internal" href="#label-component-configuration-file"><span class="std std-ref">FEP Component Configuration File</span></a> at this absolute file path.</p></li>
+<li><p>If the environment variable “FEP3_PARTICIPANT_COMPONENTS_FILE_PATH” is set and it contains a relative
+file path it tries to find a <a class="reference internal" href="#label-component-configuration-file"><span class="std std-ref">FEP Component Configuration File</span></a> at this file path relative to</p>
+<ul>
+<li><p>the current working directory</p></li>
+<li><p>the directory where the fep3_participant shared library file resides in</p></li>
+</ul>
+</li>
+<li><p>If the environment variable “FEP3_PARTICIPANT_COMPONENTS_FILE_PATH” is not set it tries to find
+a <a class="reference internal" href="#label-component-configuration-file"><span class="std std-ref">FEP Component Configuration File</span></a> with the name “fep3_participant.fep_components” in</p>
+<ul>
+<li><p>the current working directory</p></li>
+<li><p>the directory where the fep3_participant shared library file resides in</p></li>
+</ul>
+</li>
+</ul>
+<p>If a <a class="reference internal" href="#label-component-configuration-file"><span class="std std-ref">FEP Component Configuration File</span></a> is found according to those rules, the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a>
+are loaded according to the rules in that file. Otherwise, i. e. if no <a class="reference internal" href="#label-component-configuration-file"><span class="std std-ref">FEP Component Configuration File</span></a> is found, the
+<a class="reference internal" href="participant_overview_backup.html#label-default-components"><span class="std std-ref">FEP Default Components</span></a> are loaded.</p>
+<p>To ensure consistency, all <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participants</span></a> of a <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-System"><span class="xref std std-term">FEP System</span></a> should use the same
+<a class="reference internal" href="#label-component-configuration-file"><span class="std std-ref">FEP Component Configuration File</span></a>. Therefore the <a class="reference internal" href="#label-component-configuration-file"><span class="std std-ref">FEP Component Configuration File</span></a></p>
+<ul class="simple">
+<li><p>has to be provided by the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-System-Developer"><span class="xref std std-term">FEP System Developer</span></a></p></li>
+<li><p>has to be deployed to the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participants</span></a> by the deployment process of the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-System"><span class="xref std std-term">FEP System</span></a>.</p></li>
+</ul>
+</section>
+<section id="component-instantiation">
+<span id="label-component-instantiation"></span><h3>Component instantiation<a class="headerlink" href="#component-instantiation" title="Permalink to this headline"></a></h3>
+<p>Upon creation of the participant (see <a class="reference internal" href="participant_and_element.html#label-participant-creation"><span class="std std-ref">Creation</span></a>), the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a> are instantiated
+by the <a class="reference internal" href="#label-component-system"><span class="std std-ref">FEP Component System</span></a>. The order of the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Component</span></a> instantiation follows the order of the <code class="docutils literal notranslate"><span class="pre">components/component</span></code> elements in the
+<a class="reference internal" href="#label-component-configuration-file"><span class="std std-ref">FEP Component Configuration File</span></a>.</p>
+<p>The <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant-Library"><span class="xref std std-term">FEP Participant Library</span></a> provides three mechanisms for the instantiation of <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a>:</p>
+<ul class="simple">
+<li><p>“built-in”: the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Component</span></a> instance is being created from the pool of
+<a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-Implementation"><span class="xref std std-term">FEP Component Implementations</span></a> that are built into the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant-Library"><span class="xref std std-term">FEP Participant Library</span></a></p></li>
+<li><p>“CPP plugin”: the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Component</span></a> instance is being created from a <a class="reference internal" href="#label-component-cpp-plugins"><span class="std std-ref">Component CPP Plugin</span></a></p></li>
+<li><p>“C plugin”: the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Component</span></a> instance is being created from a <a class="reference internal" href="#label-component-c-plugins"><span class="std std-ref">Component C Plugin</span></a></p></li>
+</ul>
+<p>See <a class="reference internal" href="native_components.html#label-native-components"><span class="std std-ref">Native FEP Components</span></a> for a list and description of <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a> that are delivered
+with the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant-Library"><span class="xref std std-term">FEP Participant Library</span></a>.</p>
+<p>The destruction of the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a> takes place when the participant instance is destroyed.
+The order of the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Component</span></a> destruction is done in the revers order of the <code class="docutils literal notranslate"><span class="pre">components/component</span></code> elements in the
+<a class="reference internal" href="#label-component-configuration-file"><span class="std std-ref">FEP Component Configuration File</span></a>.</p>
+</section>
+<section id="calls-to-the-fep3-arya-icomponent-interface">
+<span id="label-calls-to-component"></span><h3>Calls to the <a class="reference internal" href="../api.html#_CPPv4N4fep34arya10IComponentE" title="fep3::arya::IComponent"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::IComponent</span></code></a> interface<a class="headerlink" href="#calls-to-the-fep3-arya-icomponent-interface" title="Permalink to this headline"></a></h3>
+<p>When the participant is executed (see <a class="reference internal" href="participant_overview.html#label-participant-execution"><span class="std std-ref">Execution</span></a>), the method <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IComponent::createComponent()</span></code>
+is called; when the participant execution has finished (<a class="reference internal" href="participant_overview.html#label-participant-state-machine"><span class="std std-ref">State Machine</span></a> state <code class="docutils literal notranslate"><span class="pre">Final</span></code>) the
+method <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IComponent::destroyComponent()</span></code> is called.</p>
+<p>All other calls to the methods of the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Component’s</span></a> interface <a class="reference internal" href="../api.html#_CPPv4N4fep34arya10IComponentE" title="fep3::arya::IComponent"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::IComponent</span></code></a> (e. g. <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IComponent::initialize()</span></code>)
+occur from within the context of the transitions of the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a>’s <a class="reference internal" href="participant_overview.html#label-participant-state-machine"><span class="std std-ref">State Machine</span></a>.
+The following table shows the calls to the FEP Component API as performed by the component-related guards and actions (postfixed by <code class="docutils literal notranslate"><span class="pre">..._components</span></code> in the state machine diagram):</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 34%" />
+<col style="width: 9%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>guard/action</p></th>
+<th class="head"><p>calls on the FEP Component API</p></th>
+<th class="head"><p>order</p></th>
+<th class="head"><p>rollback call</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>initialize_components</p></td>
+<td><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IComponent::initialize()</span></code></p></td>
+<td><p>forward</p></td>
+<td><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IComponent::deinitialize()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>deinitialize_components</p></td>
+<td><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IComponent::deinitialize()</span></code></p></td>
+<td><p>reverse</p></td>
+<td><p>none</p></td>
+</tr>
+<tr class="row-even"><td><p>tense_components</p></td>
+<td><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IComponent::tense()</span></code></p></td>
+<td><p>forward</p></td>
+<td><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IComponent::relax()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>relax_components</p></td>
+<td><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IComponent::relax()</span></code></p></td>
+<td><p>reverse</p></td>
+<td><p>none</p></td>
+</tr>
+<tr class="row-even"><td><p>start_components</p></td>
+<td><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IComponent::start()</span></code></p></td>
+<td><p>forward</p></td>
+<td><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IComponent::stop()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>pause_components</p></td>
+<td><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IComponent::pause()</span></code></p></td>
+<td><p>forward</p></td>
+<td><p>none</p></td>
+</tr>
+<tr class="row-even"><td><p>stop_components</p></td>
+<td><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IComponent::stop()</span></code></p></td>
+<td><p>reverse</p></td>
+<td><p>none</p></td>
+</tr>
+</tbody>
+</table>
+<p>Note that calls to the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Component</span></a> API happen on all <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a> as used by the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a>.
+As indicated in column <code class="docutils literal notranslate"><span class="pre">order</span></code> in the above table, these calls occur in</p>
+<ul class="simple">
+<li><p>the <em>forward</em> order</p></li>
+<li><p>the <em>reverse</em> order</p></li>
+</ul>
+<p>of how the <code class="docutils literal notranslate"><span class="pre">components/component</span></code> elements appear in the <a class="reference internal" href="#label-component-configuration-file"><span class="std std-ref">FEP Component Configuration File</span></a>.
+If a call to the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Component</span></a> API fails, the <code class="docutils literal notranslate"><span class="pre">rollback</span> <span class="pre">call</span></code> (if any is indicated in above table) occurs on
+all <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a> whose call in the current guard/action has succeeded before, e. g.:
+For a <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a> with the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a> <code class="docutils literal notranslate"><span class="pre">A</span></code>, <code class="docutils literal notranslate"><span class="pre">B</span></code> and <code class="docutils literal notranslate"><span class="pre">C</span></code>: The guard <code class="docutils literal notranslate"><span class="pre">initialize_components</span></code>
+calls <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IComponent::initialize()</span></code> on all <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a> in forward order</p>
+<ol class="arabic simple">
+<li><p>A</p></li>
+<li><p>B</p></li>
+<li><p>C</p></li>
+</ol>
+<p>If the call on C fails, <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IComponent::deinitialize()</span></code> is called on A and B in the reverse order:</p>
+<ol class="arabic simple">
+<li><p>B</p></li>
+<li><p>A</p></li>
+</ol>
+</section>
+</section>
+<section id="fep-component-plugins">
+<span id="label-component-plugins"></span><h2>FEP Component Plugins<a class="headerlink" href="#fep-component-plugins" title="Permalink to this headline"></a></h2>
+<p>Foreign <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a> can be provided to the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a></p>
+<ul class="simple">
+<li><p>in a <a class="reference internal" href="#label-component-cpp-plugins"><span class="std std-ref">Component CPP Plugin</span></a> via the <a class="reference internal" href="#label-component-cpp-plugin-api"><span class="std std-ref">FEP Component CPP API</span></a></p></li>
+<li><p>or in a <a class="reference internal" href="#label-component-c-plugins"><span class="std std-ref">Component C Plugin</span></a> via the <a class="reference internal" href="#label-component-c-plugin-api"><span class="std std-ref">FEP Component C API</span></a>.</p></li>
+</ul>
+<p>The following table helps to decide which API to use:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 37%" />
+<col style="width: 35%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p><a class="reference internal" href="#label-component-cpp-plugins"><span class="std std-ref">Component CPP Plugin</span></a></p></th>
+<th class="head"><p><a class="reference internal" href="#label-component-c-plugins"><span class="std std-ref">Component C Plugin</span></a></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Purpose</p></td>
+<td><ul class="simple">
+<li><p>FEP internal purposes</p></li>
+<li><p>Components not available in C plugins
+(see limitations)</p></li>
+</ul>
+</td>
+<td><p>Third-party middleware</p></td>
+</tr>
+<tr class="row-odd"><td><p>Focus</p></td>
+<td><p>Extendability, changeability</p></td>
+<td><p>Binary compatibility</p></td>
+</tr>
+<tr class="row-even"><td><p>Limitations</p></td>
+<td><ul class="simple">
+<li><p>Debug/Release not mixable</p></li>
+<li><p>The <a class="reference internal" href="../index.html#label-fep-3-sdk"><span class="std std-ref">FEP SDK 3</span></a> defines which Compiler /
+Compiler Settings must be used (-&gt; to
+prevent binary incompatibilities the plugins
+should be built using the FEP3 SDK’s build
+facilities)</p></li>
+</ul>
+</td>
+<td><p>Available only for a subset of
+Components, currently:</p>
+<ul class="simple">
+<li><p>Clock Service</p></li>
+<li><p>Configuration Service</p></li>
+<li><p>Job Registry</p></li>
+<li><p>Participant Info</p></li>
+<li><p>Scheduler Service</p></li>
+<li><p>Simulation Bus</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>value to be set to the attribute
+<code class="docutils literal notranslate"><span class="pre">components/component/source&#64;type</span></code> in
+<a class="reference internal" href="#label-component-configuration-file"><span class="std std-ref">FEP Component Configuration File</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cpp-plugin</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">c-plugin</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<section id="component-cpp-plugins">
+<span id="label-component-cpp-plugins"></span><h3>Component CPP Plugins<a class="headerlink" href="#component-cpp-plugins" title="Permalink to this headline"></a></h3>
+<p>CPP plugins use the C++ interface of the <a class="reference internal" href="#label-component-system"><span class="std std-ref">FEP Component System</span></a>. They offer the highest flexibility as they are not
+restricted to a subset of <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a>, i. e. the functionality of
+a <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a> can be changed or extended by any functionality via CPP plugins, even by defining completely new
+<a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a>.
+For CPP plugins the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant-Library"><span class="xref std std-term">FEP Participant Library</span></a> does not guarantee full backward compatibility,
+so CPP plugins might have to be rebuilt when switching to a newer version of the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant-Library"><span class="xref std std-term">FEP Participant Library</span></a>.</p>
+</section>
+<section id="component-c-plugin">
+<span id="label-component-c-plugins"></span><h3>Component C Plugin<a class="headerlink" href="#component-c-plugin" title="Permalink to this headline"></a></h3>
+<p>C plugins use the C interface of the <a class="reference internal" href="#label-component-system"><span class="std std-ref">FEP Component System</span></a>. They ensure full binary compatibility for mixing
+debug/release versions and different compilers and compiler settings.
+The <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant-Library"><span class="xref std std-term">FEP Participant Library</span></a> guarantees full backward compatibility for C plugins, i. e. future versions of
+the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a> can use existing C plugins. Therefore <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP"><span class="xref std std-term">FEP</span></a> recommends using C plugins for connecting
+<a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participants</span></a> to third-party middleware.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Components in C plugins are written in C++ programming language against the C++ <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-Interface"><span class="xref std std-term">FEP Component Interface</span></a>.
+Only the hidden interface between the plugin and the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant-Library"><span class="xref std std-term">FEP Participant Library</span></a> is implemented in C language.</p>
+</div>
+</section>
+<section id="creating-a-fep-component-plugin-in-order-to-provide-foreign-fep-components">
+<h3>Creating a FEP Component Plugin in order to provide Foreign FEP Components<a class="headerlink" href="#creating-a-fep-component-plugin-in-order-to-provide-foreign-fep-components" title="Permalink to this headline"></a></h3>
+<p>FEP Component Plugins must be provided as shared libraries.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>One FEP Component Plugin may contain multiple <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a> but only one
+<a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-Implementation"><span class="xref std std-term">FEP Component Implementation</span></a> per <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-Interface"><span class="xref std std-term">FEP Component Interface</span></a>.</p>
+</div>
+<section id="fep-component-cpp-api">
+<span id="label-component-cpp-plugin-api"></span><h4>FEP Component CPP API<a class="headerlink" href="#fep-component-cpp-api" title="Permalink to this headline"></a></h4>
+<p>To create a <a class="reference internal" href="#label-component-cpp-plugins"><span class="std std-ref">Component CPP Plugin</span></a>, include</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;fep3/plugin/cpp/cpp_plugin_impl_arya.hpp&gt;</span>
+</pre></div>
+</div>
+<p>in your plugin’s C++ source file and implement the functions <code class="docutils literal notranslate"><span class="pre">fep3_plugin_getPluginVersion</span></code>
+and <code class="docutils literal notranslate"><span class="pre">fep3_plugin_cpp_arya_getFactory</span></code>, e. g. like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">fep3_plugin_getPluginVersion</span><span class="p">(</span><span class="n">void</span><span class="p">(</span><span class="o">*</span><span class="n">callback</span><span class="p">)(</span><span class="n">void</span><span class="o">*</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span><span class="o">*</span><span class="p">),</span> <span class="n">void</span><span class="o">*</span> <span class="n">destination</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">callback</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="s2">&quot;my component plugin, version 1.0&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">fep3</span><span class="p">::</span><span class="n">plugin</span><span class="p">::</span><span class="n">cpp</span><span class="p">::</span><span class="n">ICPPPluginComponentFactory</span><span class="o">*</span> <span class="n">fep3_plugin_cpp_arya_getFactory</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">new</span> <span class="n">fep3</span><span class="p">::</span><span class="n">plugin</span><span class="p">::</span><span class="n">cpp</span><span class="p">::</span><span class="n">CPPPluginComponentFactory</span><span class="o">&lt;</span><span class="n">MyComponentInterface</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To create your <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-Implementation"><span class="xref std std-term">FEP Component Implementation</span></a> include</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;fep3/components/base/component.h&gt;</span>
+</pre></div>
+</div>
+<p>and derive your <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-Implementation"><span class="xref std std-term">FEP Component Implementation</span></a> class publicly from</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fep3</span><span class="p">::</span><span class="n">base</span><span class="p">::</span><span class="n">Component</span><span class="o">&lt;</span><span class="n">MyComponentInterface</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-Interface"><span class="xref std std-term">FEP Component Interface</span></a> (“MyComponentInterface” in the examples above) may be one of the
+interfaces defined by the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant-Library"><span class="xref std std-term">FEP Participant Library</span></a> (see <a class="reference internal" href="participant_overview_backup.html#label-default-components"><span class="std std-ref">FEP Default Components</span></a>)
+or any other class calling the macro <code class="docutils literal notranslate"><span class="pre">FEP_COMPONENT_IID</span></code>, e. g.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyComponentInterface</span>
+<span class="p">{</span>
+<span class="n">protected</span><span class="p">:</span>
+    <span class="n">virtual</span> <span class="o">~</span><span class="n">MyComponentInterface</span><span class="p">()</span> <span class="o">=</span> <span class="n">default</span><span class="p">;</span>
+
+<span class="n">public</span><span class="p">:</span>
+    <span class="n">FEP_COMPONENT_IID</span><span class="p">(</span><span class="s2">&quot;my_component&quot;</span><span class="p">);</span>
+
+    <span class="o">//</span> <span class="n">methods</span> <span class="n">of</span> <span class="n">the</span> <span class="n">component</span>
+    <span class="n">virtual</span> <span class="nb">int</span> <span class="n">get</span><span class="p">()</span> <span class="n">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The destructor of such <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-Interface"><span class="xref std std-term">FEP Component Interface</span></a> class shall be protected
+to prevent destruction by the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant-Developer"><span class="xref std std-term">FEP Participant Developer</span></a> or the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-Developer"><span class="xref std std-term">FEP Component Developer</span></a>.</p>
+</div>
+</section>
+<section id="fep-component-c-api">
+<span id="label-component-c-plugin-api"></span><h4>FEP Component C API<a class="headerlink" href="#fep-component-c-api" title="Permalink to this headline"></a></h4>
+<p>To create a <a class="reference internal" href="#label-component-c-plugins"><span class="std std-ref">Component C Plugin</span></a>, include</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;fep3/plugin/c/c_plugin.h&gt;</span>
+</pre></div>
+</div>
+<p>in your plugin’s C++ source file and implement the function <code class="docutils literal notranslate"><span class="pre">fep3_plugin_getPluginVersion</span></code>, e. g. like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">fep3_plugin_getPluginVersion</span><span class="p">(</span><span class="n">void</span><span class="p">(</span><span class="o">*</span><span class="n">callback</span><span class="p">)(</span><span class="n">void</span><span class="o">*</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span><span class="o">*</span><span class="p">),</span> <span class="n">void</span><span class="o">*</span> <span class="n">destination</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">callback</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="s2">&quot;my component plugin, version 1.0&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To create your <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-Implementation"><span class="xref std std-term">FEP Component Implementation</span></a> include</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;fep3/components/base/c_access_wrapper/transferable_component_base.h&gt;</span>
+</pre></div>
+</div>
+<p>and derive your <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-Implementation"><span class="xref std std-term">FEP Component Implementation</span></a> class publicly from</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fep3</span><span class="p">::</span><span class="n">plugin</span><span class="p">::</span><span class="n">c</span><span class="p">::</span><span class="n">TransferableComponentBase</span><span class="o">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>, passing the appropriate <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-Interface"><span class="xref std std-term">FEP Component Interface</span></a> (e. g. <a class="reference internal" href="../api.html#_CPPv4N4fep34arya14ISimulationBusE" title="fep3::arya::ISimulationBus"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::ISimulationBus</span></code></a>)
+as template parameter.</p>
+<p>In your <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-Implementation"><span class="xref std std-term">FEP Component Implementation</span></a> file include the appropriate access wrapper header, e. g. for a Simulation Bus Component</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;fep3/components/simulation_bus/c_access_wrapper/simulation_bus_c_access_wrapper.h&gt;</span>
+</pre></div>
+</div>
+<p>and implement the component creation function, e. g. <code class="docutils literal notranslate"><span class="pre">fep3_plugin_c_arya_createSimulationBus</span></code>, like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fep3_plugin_c_CInterfaceError</span> <span class="n">fep3_plugin_c_arya_createSimulationBus</span>
+    <span class="p">(</span><span class="n">fep3_arya_SISimulationBus</span><span class="o">*</span> <span class="n">access</span>
+    <span class="p">,</span> <span class="n">fep3_plugin_c_arya_SISharedBinary</span> <span class="n">shared_binary_access</span>
+    <span class="p">,</span> <span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">iid</span>
+    <span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">fep3</span><span class="p">::</span><span class="n">plugin</span><span class="p">::</span><span class="n">c</span><span class="p">::</span><span class="n">wrapper</span><span class="p">::</span><span class="n">arya</span><span class="p">::</span><span class="n">createSimulationBus</span>
+        <span class="p">([]()</span>
+            <span class="p">{</span>
+                <span class="k">return</span> <span class="n">new</span> <span class="n">MySimulationBus</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">,</span> <span class="n">access</span>
+        <span class="p">,</span> <span class="n">shared_binary_access</span>
+        <span class="p">,</span> <span class="n">iid</span>
+        <span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">MySimulationBus</span></code> is your <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-Implementation"><span class="xref std std-term">FEP Component Implementation</span></a> class.</p>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 14.04.2022, VW Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

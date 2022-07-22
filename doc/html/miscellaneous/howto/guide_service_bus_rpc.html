@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to create a RPC Service and a RPC Client within the FEP Service Bus &mdash; fep3-sdk</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" /><link rel="shortcut icon" href="../../_static/fep_logo_white.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="FAQ" href="../faq.html" />
+    <link rel="prev" title="How to migrate a FEP Participant from FEP 2 to FEP 3" href="guide_migration.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004666" >
+            <a href="../../index.html" class="icon icon-home"> fep3-sdk<img src="../../_static/fep_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a></li>
+</ul>
+<p><span class="caption-text">Dive into FEP SDK</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../participant/participant_overview.html">FEP Participant Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../participant/participant_overview_backup.html">(OLD) <span class="xref std std-term">FEP Participant</span> Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../system/system_overview.html">FEP System Library</a></li>
+</ul>
+<p><span class="caption-text">API References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">FEP SDK API</a></li>
+</ul>
+<p><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/overview_advanced_topics.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/timing.html">Timing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/perf_test.html">Performance</a></li>
+</ul>
+<p><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute.html">Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../style_guide.html">Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p><span class="caption-text">Miscellaneous</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../howto.html">HOWTO</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="guide_migration.html">How to migrate a FEP Participant from FEP 2 to FEP 3</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">How to create a RPC Service and a RPC Client within the FEP Service Bus</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#rpc-service-generation">RPC Service generation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#get-the-pkg-rpc-and-the-service-bus-rpc-helper-classes">(1) get the pkg_rpc and the service bus rpc helper classes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#create-a-json-file-and-generate-the-service-stub">(2) create a json file and generate the service stub</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#define-the-interface-identifier-of-the-rpc-service-and-implement-the-abstract-methods-of-the-stub">(3) Define the interface identifier of the RPC service and implement the abstract methods of the stub</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#instantiate-the-implementation-and-register-it">(4) instantiate the implementation and register it</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#rpc-service-client-generation">RPC Service Client generation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">(1) get the pkg_rpc and the service bus rpc helper classes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#create-a-json-file-and-generate-the-service-client-stub">(2) create a json file and generate the service client stub</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#define-the-interface-identifier-of-the-rpc-service-and-implement-the-ctor-of-the-client-class">(3) Define the interface identifier of the RPC service and implement the CTOR of the Client Class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#instantiate-the-implementation-and-get-a-requester-from-the-fep-service-bus">(4) instantiate the implementation and get a requester from the FEP Service Bus</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../used_licenses.html">Used Licenses</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004666" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">fep3-sdk</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../howto.html">HOWTO</a> &raquo;</li>
+      <li>How to create a RPC Service and a RPC Client within the FEP Service Bus</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/miscellaneous/howto/guide_service_bus_rpc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="guide_migration.html" class="btn btn-neutral float-left" title="How to migrate a FEP Participant from FEP 2 to FEP 3" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../faq.html" class="btn btn-neutral float-right" title="FAQ" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="how-to-create-a-rpc-service-and-a-rpc-client-within-the-fep-service-bus">
+<span id="label-guide-rpc-service-rpc-client"></span><h1>How to create a RPC Service and a RPC Client within the FEP Service Bus<a class="headerlink" href="#how-to-create-a-rpc-service-and-a-rpc-client-within-the-fep-service-bus" title="Permalink to this headline"></a></h1>
+<section id="rpc-service-generation">
+<h2>RPC Service generation<a class="headerlink" href="#rpc-service-generation" title="Permalink to this headline"></a></h2>
+<p><a class="reference internal" href="../glossary.html#term-RPC-Service"><span class="xref std std-term">RPC Service</span></a> s are public component interfaces via the <a class="reference internal" href="../glossary.html#term-FEP-Service-Bus"><span class="xref std std-term">FEP Service Bus</span></a>.
+An RPC Service itself will provide certain functionality by responding to service request messages.
+To do so the messages are received in a single callback function via service bus
+(rpc::IRPCService::handleRequest). These messages are serialized as json-rpc strings. The serialization
+can be generated with the help of the delivered Package RPC (<em>pkg_rpc</em>).</p>
+<p>The following example will show how to create a FEP RPC Service and how to register it to the
+FEP Service Bus component.</p>
+<section id="get-the-pkg-rpc-and-the-service-bus-rpc-helper-classes">
+<h3>(1) get the pkg_rpc and the service bus rpc helper classes<a class="headerlink" href="#get-the-pkg-rpc-and-the-service-bus-rpc-helper-classes" title="Permalink to this headline"></a></h3>
+<p>The RPC Service helper classes have dependencies to the <em>pkg_rpc</em>. Following CMake code must be
+added to your CMakeLists.txt:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># find the package</span>
+<span class="n">find_package</span><span class="p">(</span><span class="n">pkg_rpc</span> <span class="n">REQUIRED</span><span class="p">)</span>
+
+<span class="c1"># ... define your target and other stuff</span>
+
+<span class="c1"># link against the fep3_participant_core, pkg_rpc</span>
+<span class="n">target_link_libraries</span><span class="p">(</span><span class="n">demo_rpc_service</span> <span class="n">PRIVATE</span>
+                      <span class="n">fep3_participant_core</span>
+                      <span class="n">pkg_rpc</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Add includes to your code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;fep3/components/service_bus/service_bus_intf.h&gt;</span>
+<span class="c1">#include &lt;fep3/components/service_bus/rpc/fep_rpc.h&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="create-a-json-file-and-generate-the-service-stub">
+<h3>(2) create a json file and generate the service stub<a class="headerlink" href="#create-a-json-file-and-generate-the-service-stub" title="Permalink to this headline"></a></h3>
+<p>Each RPC Service is described via a json file.
+This file is used to generate a service stub via the tool <em>jsonrpcstub</em> which comes with the <em>pkg_rpc</em>.
+The <em>pkg_rpc</em> configuration file will add the macro <em>jsonrpc_generate_server_stub</em> to the cmake layer to use
+it as follows within the CMakeLists.txt:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># parameter1: the json file to generate the service stub for
+# parameter2: the class name + namespaces for the service stub
+# parameter3: the header file where to generate the service stub to
+jsonrpc_generate_server_stub(${CMAKE_CURRENT_SOURCE_DIR}/demo_rpc_service.json
+                             demo_rpc_stubs::DemoService
+                             ${CMAKE_CURRENT_BINARY_DIR}/demo_rpc_service_stub.h)
+
+# ...
+# add the generated file to your cmake target
+add_executable(demo_rpc_service
+               demo_rpc_service.cpp
+               ${CMAKE_CURRENT_BINARY_DIR}/demo_rpc_service_stub.h)
+target_include_directories(demo_rpc_service PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+</pre></div>
+</div>
+<p>The json file <em>demo_rpc_service.json</em> must contain following information:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="o">//</span> <span class="n">definition</span> <span class="n">of</span> <span class="n">a</span> <span class="n">method</span> <span class="n">that</span> <span class="n">will</span> <span class="k">return</span> <span class="n">a</span> <span class="nb">bool</span> <span class="n">value</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;getABoolValue&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;returns&quot;</span><span class="p">:</span> <span class="n">true</span>
+    <span class="p">},</span>
+    <span class="o">//</span> <span class="n">definition</span> <span class="n">of</span> <span class="n">a</span> <span class="n">method</span> <span class="n">that</span> <span class="n">will</span> <span class="k">return</span> <span class="n">a</span> <span class="n">integer</span> <span class="n">value</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;getAIntegerValue&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;returns&quot;</span><span class="p">:</span> <span class="mi">123</span>
+    <span class="p">},</span>
+    <span class="o">//</span> <span class="n">definition</span> <span class="n">of</span> <span class="n">a</span> <span class="n">method</span> <span class="n">that</span> <span class="n">will</span> <span class="k">return</span> <span class="n">a</span> <span class="nb">float</span> <span class="n">value</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;getAFloatValue&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;returns&quot;</span><span class="p">:</span> <span class="mf">1.0</span>
+    <span class="p">},</span>
+    <span class="o">//</span> <span class="n">definition</span> <span class="n">of</span> <span class="n">a</span> <span class="n">method</span> <span class="n">that</span> <span class="n">will</span> <span class="k">return</span> <span class="n">a</span> <span class="n">more</span> <span class="nb">complex</span> <span class="k">return</span> <span class="n">value</span>
+    <span class="o">//</span> <span class="n">the</span> <span class="k">return</span> <span class="n">value</span> <span class="ow">is</span> <span class="n">divided</span> <span class="n">into</span> <span class="n">a</span> <span class="nb">bool</span> <span class="ow">and</span> <span class="n">a</span> <span class="n">string</span> <span class="p">(</span><span class="n">where</span> <span class="n">a</span> <span class="mi">64</span> <span class="n">bit</span> <span class="ow">is</span> <span class="n">serialized</span> <span class="n">into</span><span class="p">)</span>
+    <span class="o">//</span> <span class="n">additionally</span> <span class="n">a</span> <span class="n">integer</span> <span class="n">parameter</span> <span class="ow">is</span> <span class="n">given</span> <span class="n">to</span> <span class="n">the</span> <span class="n">service</span> <span class="n">functionality</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;getAOptionalTimestamp&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;integer_parameter&quot;</span><span class="p">:</span> <span class="mi">123</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;returns&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;valid&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+            <span class="s2">&quot;64bitTimeStamp&quot;</span><span class="p">:</span> <span class="s2">&quot;value_of_type&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>In your code you can now include the generated file <em>demo_rpc_service_stub.h</em>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">within</span> <span class="n">this</span> <span class="n">header</span> <span class="n">we</span> <span class="n">now</span> <span class="n">find</span> <span class="n">a</span> <span class="n">demo_rpc_stubs</span><span class="p">::</span><span class="n">DemoServiceStub</span> <span class="n">implementation</span>
+<span class="c1">#include &lt;demo_rpc_service_stub.h&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="define-the-interface-identifier-of-the-rpc-service-and-implement-the-abstract-methods-of-the-stub">
+<h3>(3) Define the interface identifier of the RPC service and implement the abstract methods of the stub<a class="headerlink" href="#define-the-interface-identifier-of-the-rpc-service-and-implement-the-abstract-methods-of-the-stub" title="Permalink to this headline"></a></h3>
+<p>The FEP Service Bus interface needs an object to a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::rpc::IRPCService</span></code> interface implementation to
+forward any requests to.
+A base class is provided within the template <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::rpc::RPCService</span></code>.</p>
+<p>This template needs two additional types:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 79%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>the stub class</p></td>
+<td><p>This is the stub class generated. In our example we use <em>demo_rpc_stubs::DemoServiceStub</em>.</p></td>
+</tr>
+<tr class="row-even"><td><p>rpc interface definiton</p></td>
+<td><p>This interface type is used to get 2 important information for the service:  <br/>
+(1) A unique interface identifier and <br/> (2) a default service name within the Server</p></td>
+</tr>
+</tbody>
+</table>
+<p>Definition of the rpc interface within your code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">definition</span> <span class="n">of</span> <span class="n">the</span> <span class="n">interface</span> <span class="n">identifier</span>
+<span class="k">class</span> <span class="nc">IDemoRPCService</span>
+<span class="p">{</span>
+    <span class="n">public</span><span class="p">:</span>
+       <span class="n">FEP_RPC_IID</span><span class="p">(</span><span class="s2">&quot;demo_service.iid&quot;</span><span class="p">,</span> <span class="s2">&quot;demo_service_defaultname&quot;</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Definition of the service:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">definition</span> <span class="ow">and</span> <span class="n">implementation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">service</span>
+<span class="k">class</span> <span class="nc">DemoService</span> <span class="p">:</span>
+    <span class="n">public</span> <span class="n">fep3</span><span class="p">::</span><span class="n">rpc</span><span class="p">::</span><span class="n">RPCService</span><span class="o">&lt;</span><span class="n">demo_rpc_stubs</span><span class="p">::</span><span class="n">DemoServiceStub</span><span class="p">,</span>
+                                 <span class="n">IDemoRPCService</span><span class="o">&gt;</span>
+<span class="p">{</span>
+    <span class="o">//</span><span class="n">the</span> <span class="n">method</span> <span class="n">declarations</span> <span class="n">can</span> <span class="n">be</span> <span class="n">copied</span> <span class="kn">from</span> <span class="nn">the</span> <span class="s2">&quot;demo_rpc_service_stub.h&quot;</span>
+    <span class="n">virtual</span> <span class="nb">bool</span> <span class="n">getABoolValue</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">virtual</span> <span class="nb">int</span> <span class="n">getAIntegerValue</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">virtual</span> <span class="n">double</span> <span class="n">getAFloatValue</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">virtual</span> <span class="n">Json</span><span class="p">::</span><span class="n">Value</span> <span class="n">getAOptionalTimestamp</span><span class="p">(</span><span class="nb">int</span> <span class="n">integer_parameter</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Implement the abstract function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">the</span> <span class="n">method</span> <span class="n">declarations</span> <span class="n">can</span> <span class="n">be</span> <span class="n">copied</span> <span class="kn">from</span> <span class="nn">the</span> <span class="s2">&quot;demo_rpc_service_stub.h&quot;</span>
+<span class="nb">bool</span> <span class="n">getABoolValue</span><span class="p">()</span> <span class="n">override</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">false</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nb">int</span> <span class="n">getAIntegerValue</span><span class="p">()</span> <span class="n">override</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="mi">42</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">double</span> <span class="n">getAFloatValue</span><span class="p">()</span> <span class="n">override</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="mf">1.23</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">Json</span><span class="p">::</span><span class="n">Value</span> <span class="n">getAOptionalTimestamp</span><span class="p">(</span><span class="nb">int</span> <span class="n">integer_parameter</span><span class="p">)</span> <span class="n">override</span>
+<span class="p">{</span>
+    <span class="n">Json</span><span class="p">::</span><span class="n">Value</span> <span class="n">result</span><span class="p">;</span>
+    <span class="n">result</span><span class="p">[</span><span class="s2">&quot;valid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">true</span><span class="p">;</span>
+    <span class="n">result</span><span class="p">[</span><span class="s2">&quot;value_of_timestamp&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">std</span><span class="p">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">integer_parameter</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="instantiate-the-implementation-and-register-it">
+<h3>(4) instantiate the implementation and register it<a class="headerlink" href="#instantiate-the-implementation-and-register-it" title="Permalink to this headline"></a></h3>
+<p>The complete main implementation of that example can be found within the examples folder</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>int main(int argc, const char* argv[])
+{
+  using namespace fep3::core;
+  //creating a participant with an empty element
+  // in this case we FORCE the Url of the participant server to use!!!
+  auto demo_participant = createParticipant&lt;ElementFactory&lt;EmptyElement&gt;&gt;(
+                              &quot;demo_rpc_service_participant&quot;,
+                              &quot;1.0.0&quot;,
+                              std::string(),
+                              &quot;http://localhost:10025&quot;);
+
+  //retrieve the service bus component
+  auto service_bus = demo_participant.getComponent&lt;fep3::IServiceBus&gt;();
+  if (service_bus)
+  {
+      //retrieve the default server of this participant
+      auto server = service_bus-&gt;getServer();
+      if (server)
+      {
+          //create and register your service under the default name
+          auto result = server-&gt;registerService(IDemoRPCService::getRPCDefaultName(),
+                                                std::make_shared&lt;DemoRPCService&gt;());
+          if (fep3::isFailed(result))
+          {
+              std::cout &lt;&lt; &quot;Error: could not register ther demo service because: &quot; &lt;&lt; result.getDescription();
+              return -1;
+          }
+      }
+      else
+      {
+          std::cout &lt;&lt; &quot;Error: no default server created within service bus found!&quot;;
+          return -1;
+      }
+  }
+  else
+  {
+      std::cout &lt;&lt; &quot;Error: no service bus found!&quot;;
+      return -1;
+  }
+  //wait until exit is send
+  return demo_participant.exec();
+}
+</pre></div>
+</div>
+</section>
+</section>
+<section id="rpc-service-client-generation">
+<h2>RPC Service Client generation<a class="headerlink" href="#rpc-service-client-generation" title="Permalink to this headline"></a></h2>
+<section id="id1">
+<h3>(1) get the pkg_rpc and the service bus rpc helper classes<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
+<p>The RPC Service Client helper classes have dependencies to the <em>pkg_rpc</em>. Following CMake code must be
+added to your CMakeLists.txt:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># find the package</span>
+<span class="n">find_package</span><span class="p">(</span><span class="n">pkg_rpc</span> <span class="n">REQUIRED</span><span class="p">)</span>
+
+<span class="c1"># ... define your target and other stuff</span>
+
+<span class="c1"># link against the fep3_participant_core, pkg_rpc</span>
+<span class="n">target_link_libraries</span><span class="p">(</span><span class="n">demo_rpc_client</span> <span class="n">PRIVATE</span>
+                      <span class="n">fep3_participant_core</span>
+                      <span class="n">pkg_rpc</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Add includes to your code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;fep3/components/service_bus/service_bus_intf.h&gt;</span>
+<span class="c1">#include &lt;fep3/components/service_bus/rpc/fep_rpc.h&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="create-a-json-file-and-generate-the-service-client-stub">
+<h3>(2) create a json file and generate the service client stub<a class="headerlink" href="#create-a-json-file-and-generate-the-service-client-stub" title="Permalink to this headline"></a></h3>
+<p>Each RPC Service is described via a json file.
+As we are able to generate a service stub via the tool <em>jsonrpcstub</em> we now generate a client stub.
+The client stub is able to create the serialized json message to request a method call and de-serialize the response.
+Add the  macro <em>jsonrpc_generate_client_stub</em> to your CMakeLists.txt:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># parameter1: the json file to generate the client stub for
+# parameter2: the class name + namespaces for the client stub
+# parameter3: the header file where to generate the client stub to
+jsonrpc_generate_client_stub(${CMAKE_CURRENT_SOURCE_DIR}/demo_rpc_service.json
+                             demo_rpc_stubs::DemoClientStub
+                             ${CMAKE_CURRENT_BINARY_DIR}/demo_rpc_client_stub.h)
+
+# ...
+# add the generated file to your cmake target
+add_executable(demo_rpc_client
+             demo_rpc_client.cpp
+             ${CMAKE_CURRENT_BINARY_DIR}/demo_rpc_client_stub.h)
+target_include_directories(demo_rpc_client PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+</pre></div>
+</div>
+<p>We reuse the json file from the example above <em>demo_rpc_service.json</em> because we want a client for that service.</p>
+<p>In your code you can now include the generated file <em>demo_rpc_client_stub.h</em>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">within</span> <span class="n">this</span> <span class="n">header</span> <span class="n">we</span> <span class="n">now</span> <span class="n">find</span> <span class="n">a</span> <span class="n">demo_rpc_stubs</span><span class="p">::</span><span class="n">DemoClientStub</span> <span class="n">implementation</span>
+<span class="c1">#include &lt;demo_rpc_client_stub.h&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="define-the-interface-identifier-of-the-rpc-service-and-implement-the-ctor-of-the-client-class">
+<h3>(3) Define the interface identifier of the RPC service and implement the CTOR of the Client Class<a class="headerlink" href="#define-the-interface-identifier-of-the-rpc-service-and-implement-the-ctor-of-the-client-class" title="Permalink to this headline"></a></h3>
+<p>To connect the client stub implementation to a <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::IServiceBus</span></code> you can use the provided
+template <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::rpc::RPCServiceClient</span></code> .</p>
+<p>This template needs two additional types:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 79%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>the stub class</p></td>
+<td><p>This is the stub class generated. In our example we use <em>demo_rpc_stubs::DemoClientStub</em>.</p></td>
+</tr>
+<tr class="row-even"><td><p>rpc interface definition</p></td>
+<td><p>This interface type is used to get 2 important information for the service:  <br/>
+(1) A unique interface identifier and <br/> (2) a default service name within the Server</p></td>
+</tr>
+</tbody>
+</table>
+<p>Definition of the rpc interface within your code.
+You may also reuse the definition of the service implementation in shared public header.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">definition</span> <span class="n">of</span> <span class="n">the</span> <span class="n">interface</span> <span class="n">identifier</span>
+<span class="k">class</span> <span class="nc">IDemoRPCService</span>
+<span class="p">{</span>
+    <span class="n">public</span><span class="p">:</span>
+       <span class="n">FEP_RPC_IID</span><span class="p">(</span><span class="s2">&quot;demo_service.iid&quot;</span><span class="p">,</span> <span class="s2">&quot;demo_service_defaultname&quot;</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Implement the CTOR to forward a requester and the service name you want to request to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">definition</span> <span class="ow">and</span> <span class="n">implementation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">client</span>
+<span class="k">class</span> <span class="nc">DemoRPCService</span> <span class="p">:</span>
+  <span class="n">public</span> <span class="n">fep3</span><span class="p">::</span><span class="n">rpc</span><span class="p">::</span><span class="n">RPCServiceClient</span><span class="o">&lt;</span><span class="n">demo_rpc_stubs</span><span class="p">::</span><span class="n">DemoClientStub</span><span class="p">,</span>
+                                     <span class="n">IDemoRPCService</span><span class="o">&gt;</span>
+<span class="p">{</span>
+  <span class="n">typedef</span> <span class="n">fep3</span><span class="p">::</span><span class="n">rpc</span><span class="p">::</span><span class="n">RPCServiceClient</span><span class="o">&lt;</span><span class="n">demo_rpc_stubs</span><span class="p">::</span><span class="n">DemoClientStub</span><span class="p">,</span>
+      <span class="n">IDemoRPCService</span><span class="o">&gt;</span> <span class="nb">super</span><span class="p">;</span>
+<span class="n">public</span><span class="p">:</span>
+  <span class="n">DemoRPCService</span><span class="p">(</span><span class="n">const</span> <span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">service_name</span><span class="p">,</span>
+      <span class="n">const</span> <span class="n">std</span><span class="p">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">fep3</span><span class="p">::</span><span class="n">rpc</span><span class="p">::</span><span class="n">IRPCRequester</span><span class="o">&gt;&amp;</span> <span class="n">rpc_requester</span><span class="p">)</span>
+      <span class="p">:</span> <span class="nb">super</span><span class="p">(</span><span class="n">service_name</span><span class="p">,</span>
+              <span class="n">rpc_requester</span><span class="p">)</span>
+  <span class="p">{</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="instantiate-the-implementation-and-get-a-requester-from-the-fep-service-bus">
+<h3>(4) instantiate the implementation and get a requester from the FEP Service Bus<a class="headerlink" href="#instantiate-the-implementation-and-get-a-requester-from-the-fep-service-bus" title="Permalink to this headline"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>int main(int argc, const char* argv[])
+{
+  using namespace fep3::core;
+  //creating a participant with an empty element
+  auto demo_participant = createParticipant&lt;ElementFactory&lt;EmptyElement&gt;&gt;(
+      &quot;demo_rpc_client_participant&quot;,
+      &quot;1.0.0&quot;,
+      std::string());
+
+  //retrieve the service bus component
+  auto service_bus = demo_participant.getComponent&lt;fep3::IServiceBus&gt;();
+  if (service_bus)
+  {
+      //retrieve a requester for the participant you want to
+      //get the service from
+      // YES! You need to know the name or the address of the other participant!
+      // by using the name only ... discovery must be switched on!
+      auto requester = service_bus-&gt;getRequester(&quot;http://localhost:10025&quot;, true);
+      if (requester)
+      {
+          DemoRPCClient client(IDemoRPCService::getRPCDefaultName(),
+              requester);
+
+          //the bool value
+          auto bool_response = client.getABoolValue();
+          std::cout &lt;&lt; &quot;calling getABoolValue - result: &quot; &lt;&lt; bool_response &lt;&lt; std::endl;
+          //the integer value
+          auto int_response = client.getAIntegerValue();
+          std::cout &lt;&lt; &quot;calling getAIntegerValue - result: &quot; &lt;&lt; int_response &lt;&lt; std::endl;
+          //the double value
+          auto double_response = client.getAFloatValue();
+          std::cout &lt;&lt; &quot;calling getAFloatValue - result: &quot; &lt;&lt; double_response &lt;&lt; std::endl;
+          //a complex return value and a paramer
+          auto complex_response = client.getAOptionalTimestamp(123);
+          auto is_valid = complex_response[&quot;valid&quot;].asBool();
+          auto timestamp_response = complex_response[&quot;64bitTimeStamp&quot;].asInt64();
+          std::cout &lt;&lt; &quot;calling getAOptionalTimestamp - result: &quot; &lt;&lt; is_valid &lt;&lt; &quot; -&gt; &quot; &lt;&lt; timestamp_response  &lt;&lt; std::endl;
+      }
+      else
+      {
+          std::cout &lt;&lt; &quot;Error: no default requester can be retrieved from the service bus!&quot;;
+          return -1;
+      }
+  }
+  else
+  {
+      std::cout &lt;&lt; &quot;Error: no service bus found!&quot;;
+      return -1;
+  }
+  //in this example we use the participant to get an IServiceBus
+  //usually you do that with the system library
+}
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="guide_migration.html" class="btn btn-neutral float-left" title="How to migrate a FEP Participant from FEP 2 to FEP 3" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../faq.html" class="btn btn-neutral float-right" title="FAQ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 14.04.2022, VW Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

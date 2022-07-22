@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Service Bus &mdash; fep3-sdk</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" /><link rel="shortcut icon" href="../_static/fep_logo_white.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Simulation Bus" href="component_simulation_bus.html" />
+    <link rel="prev" title="Scheduler Service" href="component_scheduler_service.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004666" >
+            <a href="../index.html" class="icon icon-home"> fep3-sdk<img src="../_static/fep_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+</ul>
+<p><span class="caption-text">Dive into FEP SDK</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="participant_overview.html">FEP Participant Library</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="participant_overview_backup.html">(OLD) <span class="xref std std-term">FEP Participant</span> Library</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="participant_overview_backup.html#participant-library-and-api">Participant Library and API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="participant_overview_backup.html#participant-and-element">Participant and Element</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="participant_overview_backup.html#components">Components</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="participant_overview_backup.html#fep-default-components">FEP Default Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="participant_overview_backup.html#fep-component-system">FEP Component System</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="participant_overview_backup.html#core-api">Core API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="participant_overview_backup.html#fep-interface-cpp-api">FEP Interface CPP API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../system/system_overview.html">FEP System Library</a></li>
+</ul>
+<p><span class="caption-text">API References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">FEP SDK API</a></li>
+</ul>
+<p><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/overview_advanced_topics.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/timing.html">Timing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/perf_test.html">Performance</a></li>
+</ul>
+<p><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style_guide.html">Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/howto.html">HOWTO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/used_licenses.html">Used Licenses</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004666" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">fep3-sdk</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="participant_overview_backup.html">(OLD) <span class="xref std std-term">FEP Participant</span> Library</a> &raquo;</li>
+          <li><a href="native_components.html">Native FEP Components</a> &raquo;</li>
+      <li>Service Bus</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/participant/component_service_bus.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="component_scheduler_service.html" class="btn btn-neutral float-left" title="Scheduler Service" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="component_simulation_bus.html" class="btn btn-neutral float-right" title="Simulation Bus" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="service-bus">
+<span id="label-service-bus"></span><h1><a class="toc-backref" href="#id4">Service Bus</a><a class="headerlink" href="#service-bus" title="Permalink to this headline"></a></h1>
+<aside class="sidebar">
+<p class="sidebar-title">Service Bus</p>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#service-bus" id="id4">Service Bus</a></p>
+<ul>
+<li><p><a class="reference internal" href="#summary" id="id5">Summary</a></p></li>
+<li><p><a class="reference internal" href="#overview" id="id6">Overview</a></p>
+<ul>
+<li><p><a class="reference internal" href="#fep-participant-components-and-the-fep-service-bus" id="id7">FEP Participant components and the FEP Service Bus</a></p>
+<ul>
+<li><p><a class="reference internal" href="#examples" id="id8">Examples:</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#system-access-participant-server-participant-requester" id="id9">System Access, Participant Server, Participant Requester</a></p>
+<ul>
+<li><p><a class="reference internal" href="#example" id="id10">Example</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#http-service-bus" id="id11">HTTP Service Bus</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id1" id="id12">HTTP Service Bus</a></p>
+<ul>
+<li><p><a class="reference internal" href="#http-server-and-service-registry" id="id13">HTTP Server and Service Registry</a></p></li>
+<li><p><a class="reference internal" href="#http-system-access-and-ssdp-discovery" id="id14">HTTP System Access and SSDP Discovery</a></p></li>
+<li><p><a class="reference internal" href="#native-service-bus-delivery" id="id15">Native Service Bus Delivery</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#rti-service-bus" id="id16">RTI Service Bus</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</aside>
+<section id="summary">
+<h2><a class="toc-backref" href="#id5">Summary</a><a class="headerlink" href="#summary" title="Permalink to this headline"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 45%" />
+<col style="width: 55%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>Service Bus</p></td>
+</tr>
+<tr class="row-even"><td><p>Component Interface</p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep34arya11IServiceBusE" title="fep3::arya::IServiceBus"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::IServiceBus</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>RPC Service Interface</p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep33rpc4arya22IRPCParticipantInfoDefE" title="fep3::rpc::arya::IRPCParticipantInfoDef"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::rpc::arya::IRPCParticipantInfoDef</span></code></a>
+<a class="reference internal" href="../api.html#_CPPv4N4fep33rpc4arya19IRPCParticipantInfoE" title="fep3::rpc::arya::IRPCParticipantInfo"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::rpc::arya::IRPCParticipantInfo</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>RPC Service Description</p></td>
+<td><p>participant_info.json</p></td>
+</tr>
+<tr class="row-odd"><td><p>native delivery</p></td>
+<td><p>built-in for HTTP,
+CPP-plugin for HTTP</p></td>
+</tr>
+<tr class="row-even"><td><p>CPP-plugin possible</p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>C-plugin possible</p></td>
+<td><p>no</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="overview">
+<h2><a class="toc-backref" href="#id6">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline"></a></h2>
+<p>A <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a> is a network node within a <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-System"><span class="xref std std-term">FEP System</span></a>.
+The participant is the “gate” to connect to the defined network.
+So, one main part of a participant is called <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Service-Bus"><span class="xref std std-term">FEP Service Bus</span></a>. The defined network is called “service network”.</p>
+<p>From a participant’s point of view the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Service-Bus"><span class="xref std std-term">FEP Service Bus</span></a> has the following important features:</p>
+<ul class="simple">
+<li><p>provide one service access point for any control remote procedure call to the participant from the network world</p></li>
+<li><p>provide the possibility to response to a request from system perspective</p></li>
+<li><p>provide a service interface which may be used from the service network world</p></li>
+</ul>
+<p>The FEP System is formed by a set of FEP Participants.
+The smallest FEP System contains <em>one</em> FEP Participant.</p>
+<p>From a system’s point of view the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Service-Bus"><span class="xref std std-term">FEP Service Bus</span></a> has the following important features:</p>
+<ul class="simple">
+<li><p>network discovery to discover current participants which are connected to the same service network</p></li>
+<li><p>provide access to the participants services to control it by remote procedure calls</p></li>
+<li><p>provide the possibility to request any public functionality within the participant that are provided by a service</p></li>
+<li><p>connect to a defined set of participants which may be part of the FEP System</p></li>
+</ul>
+<img alt="../_images/section_fep_service_bus_1.png" src="../_images/section_fep_service_bus_1.png" />
+<section id="fep-participant-components-and-the-fep-service-bus">
+<h3><a class="toc-backref" href="#id7">FEP Participant components and the FEP Service Bus</a><a class="headerlink" href="#fep-participant-components-and-the-fep-service-bus" title="Permalink to this headline"></a></h3>
+<p>The participant’s functionality is separated into clearly defined services. These services are called <cite>FEP Components</cite>.
+Each component is able to use the service bus (which is also provided as a component) to
+provide some service interfaces for its specific task.</p>
+<section id="examples">
+<h4><a class="toc-backref" href="#id8">Examples:</a><a class="headerlink" href="#examples" title="Permalink to this headline"></a></h4>
+<img alt="../_images/section_fep_participant_components_design.png" src="../_images/section_fep_participant_components_design.png" />
+<dl class="field-list simple">
+<dt class="field-odd">Logging Service Component</dt>
+<dd class="field-odd"><p>The task for the Logging Service Component is to provide a possibility to log information,
+error descriptions or warnings to a single service.
+The service interface of this component is to send logging information to other service bus attendees.
+To do so, the Logging Service Component will i.e. provide a possibility for a
+remote procedure call method like <code class="docutils literal notranslate"><span class="pre">getLogMessages()</span></code>.</p>
+</dd>
+<dt class="field-even">Configuration Component</dt>
+<dd class="field-even"><p>The task for the Configuration Component is to provide a possibility to set and retrieve the values of properties.
+These properties will be registered with a name and might be a parameter for any other functionality.
+The service interface of this service will provide some remote procedure calls like <code class="docutils literal notranslate"><span class="pre">getProperty(name)</span></code>
+and <code class="docutils literal notranslate"><span class="pre">setProperty(name,</span> <span class="pre">value)</span></code>.</p>
+</dd>
+</dl>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Each component has a participant internal interface to program the participants functionality and a participant service interface
+to provide a remote procedure access via service bus.</p>
+</div>
+</section>
+</section>
+<section id="system-access-participant-server-participant-requester">
+<h3><a class="toc-backref" href="#id9">System Access, Participant Server, Participant Requester</a><a class="headerlink" href="#system-access-participant-server-participant-requester" title="Permalink to this headline"></a></h3>
+<p>The system access is a single communication access point to the service bus at a dedicated system and network.
+Each system access may register a participant server at the systems network URL.
+Usually, this system URL is used to discover other participants using the same protocol.</p>
+<p>Other participants can be only discovered and appear in the system, if a Participant Server was created.
+This server will provide the registered service on the dedicated server URL.</p>
+<p>To use the service of a participant from systems point of view,
+the address of this far Participant Server has to be known.
+Otherwise it will not be possible to communicate with it.
+It depends on the protocol used by the requester implementation
+if this address might be a dedicated URL address as it is within a <code class="docutils literal notranslate"><span class="pre">http</span></code> implementation
+or a single communication channel on a <cite>dds</cite> service bus.</p>
+<section id="example">
+<h4><a class="toc-backref" href="#id10">Example</a><a class="headerlink" href="#example" title="Permalink to this headline"></a></h4>
+<img alt="../_images/service_bus_system_access_discover.png" src="../_images/service_bus_system_access_discover.png" />
+<dl class="field-list simple">
+<dt class="field-odd">Discover Addresses via System Access</dt>
+<dd class="field-odd"><p>Discoverable participants on the whole system network address <a class="reference external" href="http://239.255.255.250:190">http://239.255.255.250:190</a> are:
+| “Participant1” with the URL <a class="reference external" href="http://host1:9090">http://host1:9090</a> for System1
+| “Participant2” with <a class="reference external" href="http://host1:9091">http://host1:9091</a> for System1
+| “Participant3” with the URL <a class="reference external" href="http://host2:9090">http://host2:9090</a> for System2
+| “Participant4” with <a class="reference external" href="http://host2:9091">http://host2:9091</a> for System2
+| SystemView1 and SystemView2 did not register a server to the network, so they are not seen and are not discoverable.</p>
+</dd>
+<dt class="field-even">System1 with Participant Servers</dt>
+<dd class="field-even"><p>Discoverable participants on “System1” are:
+| “Participant1” with the URL <a class="reference external" href="http://host1:9090">http://host1:9090</a>
+| “Participant2” with <a class="reference external" href="http://host1:9091">http://host1:9091</a>
+| SystemView1 did not register a server to the network, so they it is not seen and is not discoverable.</p>
+</dd>
+<dt class="field-odd">System2 with Participant Servers</dt>
+<dd class="field-odd"><p>Discoverable participants on “System2” are:
+| “Participant3” with the URL <a class="reference external" href="http://host2:9090">http://host2:9090</a>
+| “Participant4” with <a class="reference external" href="http://host2:9091">http://host2:9091</a>
+| SystemView2 did not register a server to the network, so they it is not seen and is not discoverable.</p>
+</dd>
+</dl>
+</section>
+</section>
+</section>
+<section id="http-service-bus">
+<h2><a class="toc-backref" href="#id11">HTTP Service Bus</a><a class="headerlink" href="#http-service-bus" title="Permalink to this headline"></a></h2>
+<p>The delivered service bus as native <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Component</span></a> will come with following implementations:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#id1"><span class="std std-ref">HTTP Service Bus</span></a></p></li>
+<li><p><a class="reference internal" href="#rti-service-bus"><span class="std std-ref">RTI Service Bus</span></a></p></li>
+</ul>
+<section id="id1">
+<span id="id2"></span><h3><a class="toc-backref" href="#id12">HTTP Service Bus</a><a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
+<section id="http-server-and-service-registry">
+<span id="http-server"></span><h4><a class="toc-backref" href="#id13">HTTP Server and Service Registry</a><a class="headerlink" href="#http-server-and-service-registry" title="Permalink to this headline"></a></h4>
+<p>The HTTP Server is an implementation of a real HTTP Server which will react on <em>HTTP REQUEST</em> messages.
+This implementation uses the Library of the <a class="reference internal" href="../miscellaneous/glossary.html#term-Package-RPC"><span class="xref std std-term">Package RPC</span></a> .</p>
+<p>The server itself must be initialized for a valid location address. Examples for valid addresses are:</p>
+<ul class="simple">
+<li><p><em>http://localhost:9090</em> - this will open a socket on the network device of the “localhost” and port 9090.</p></li>
+<li><p><em>http://0.0.0.0:9090</em> - this will open a socket on every network device and port 9090. So, it will be available on “localhost” and each of the network addresses.</p></li>
+<li><p><em>http://localhost:0</em> - this will open a socket on the network device of the “localhost” and will find a free port starting at 9090.</p></li>
+<li><p><em>http://0.0.0.0:0</em> - this will open a socket on every network device and will find a free port starting at 9090.</p></li>
+</ul>
+<p>The dynamic mechanism of finding a free port will make only sense if the dynamic discovery of the <a class="reference internal" href="#http-system-access"><span class="std std-ref">HTTP System Access and SSDP Discovery</span></a> is used.
+Otherwise it is not possible to discover and obtain the port the other participant opened while initializing.</p>
+<p>The Service Registry implementation will forward HTTP REQUESTS to the objects registered by name:</p>
+<ul class="simple">
+<li><p>If a <a class="reference internal" href="../miscellaneous/glossary.html#term-RPC-Service"><span class="xref std std-term">RPC Service</span></a> is registered with the name <em>clock_master</em> the HTTP server will forward every HTTP REQUEST to it with the address i.e. <em>http://localhost:9090/clock_master</em>.</p></li>
+</ul>
+</section>
+<section id="http-system-access-and-ssdp-discovery">
+<span id="http-system-access"></span><h4><a class="toc-backref" href="#id14">HTTP System Access and SSDP Discovery</a><a class="headerlink" href="#http-system-access-and-ssdp-discovery" title="Permalink to this headline"></a></h4>
+<p>The HTTP System Access will provide the possibility to discover all other servers within the same network and with the same system name.
+The system access must be created via a valid <strong>multicast address</strong> and a port. The default address is:</p>
+<ul class="simple">
+<li><p><em>http://230.230.230.1:9990</em></p></li>
+</ul>
+<p>Each server (somewhere in the network) using the same address will be discovered (if the firewall ruleset does not prevent that!).
+Each <a class="reference internal" href="#http-server"><span class="std std-ref">HTTP Server and Service Registry</span></a> will send discovery messages containing its name and a system name. Both are provided with <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">createServer()</span></code>.
+For usage within the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a> this will be the name of the participant and the system name which are both provided to <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">createParticipant()</span></code>.</p>
+<p>This mechanism is using the SSDP (Simple Service Discovery Protocol) from the UPnP standard v1.1.
+This implementation will follow chapter 1 of the specification
+<a class="reference external" href="http://www.upnp.org/specs/arch/UPnP-arch-DeviceArchitecture-v1.1.pdf">http://www.upnp.org/specs/arch/UPnP-arch-DeviceArchitecture-v1.1.pdf</a>, but is no fully UPnP 1.1 implementation.</p>
+<p>In case of disabled discovery, each <a class="reference internal" href="../miscellaneous/glossary.html#term-RPC-Requester"><span class="xref std std-term">RPC Requester</span></a> has to be created using a full address.
+A call of <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">getRequester()</span></code> must use i.e. <em>http://other_interface:9097</em> and
+cannot be used by its alias name it was created within this system (see <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">createServer()</span></code>).</p>
+</section>
+<section id="native-service-bus-delivery">
+<h4><a class="toc-backref" href="#id15">Native Service Bus Delivery</a><a class="headerlink" href="#native-service-bus-delivery" title="Permalink to this headline"></a></h4>
+<p>The service bus is delivered as a built-in component so it will automatically be created. Also it will be provided as a separate <a class="reference internal" href="../miscellaneous/glossary.html#term-CPP-Plugin"><span class="xref std std-term">CPP Plugin</span></a> ( <em>lib/http/fep3_http_service_bus.dll</em> / <em>lib/http/fep3_http_service_bus.so</em>).</p>
+</section>
+</section>
+<section id="rti-service-bus">
+<span id="id3"></span><h3><a class="toc-backref" href="#id16">RTI Service Bus</a><a class="headerlink" href="#rti-service-bus" title="Permalink to this headline"></a></h3>
+<p>No implementation yet.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="component_scheduler_service.html" class="btn btn-neutral float-left" title="Scheduler Service" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="component_simulation_bus.html" class="btn btn-neutral float-right" title="Simulation Bus" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 14.04.2022, VW Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

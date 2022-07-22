@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FEP SDK 3 &mdash; fep3-sdk</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" /><link rel="shortcut icon" href="_static/fep_logo_white.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Introduction" href="introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004666" >
+            <a href="#" class="icon icon-home"> fep3-sdk<img src="_static/fep_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+</ul>
+<p><span class="caption-text">Dive into FEP SDK</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="participant/participant_overview.html">FEP Participant Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="participant/participant_overview_backup.html">(OLD) <span class="xref std std-term">FEP Participant</span> Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="system/system_overview.html">FEP System Library</a></li>
+</ul>
+<p><span class="caption-text">API References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">FEP SDK API</a></li>
+</ul>
+<p><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="advanced_topics/overview_advanced_topics.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_topics/timing.html">Timing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_topics/perf_test.html">Performance</a></li>
+</ul>
+<p><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style_guide.html">Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="miscellaneous/howto.html">HOWTO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="miscellaneous/faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="miscellaneous/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="miscellaneous/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="miscellaneous/used_licenses.html">Used Licenses</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004666" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">fep3-sdk</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>FEP SDK 3</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="introduction.html" class="btn btn-neutral float-right" title="Introduction" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="fep-sdk-3">
+<span id="label-fep-3-sdk"></span><h1>FEP SDK 3<a class="headerlink" href="#fep-sdk-3" title="Permalink to this headline"></a></h1>
+<p>This is the official documentation of FEP SDK 3. Read the introduction to get started.</p>
+<div class="toctree-wrapper compound">
+<p><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#what-is-fep">What is FEP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#what-is-fep-sdk">What is FEP SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#how-to-start">How to start</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#basic-requirements">Basic Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#install-packages">Install packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#hello-world">Hello World</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p><span class="caption-text">Dive into FEP SDK</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#challenge">Challenge</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#what-is-the-challenge-or-problems">What is the challenge or problems?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#how-this-sdk-solved-them">How this SDK solved them?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#main-concepts-of-fep-sdk">Main Concepts of FEP SDK</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#what-is-a-participant">What is a participant</a></li>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#what-is-a-system">What is a system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#application-architecture">Application Architecture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#libraries">Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="participant/participant_overview.html">FEP Participant Library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="participant/participant_overview.html#basic-concepts">Basic Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="participant/participant_overview.html#components">Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview.html#jobs">Jobs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview.html#simulation-data">Simulation Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview.html#simulation-time">Simulation Time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview.html#configuration">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview.html#logging">Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="participant/participant_overview.html#advanced-concepts">Advanced Concepts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview.html#fep-element">FEP Element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview.html#configurable-fep-element">Configurable FEP Element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview.html#communication">Communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview.html#timing">Timing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview.html#advanced-logging">Advanced Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview.html#custom-component">Custom Component</a></li>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview.html#rpc-service">RPC service</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="participant/participant_overview.html#appendix">Appendix</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview.html#api-levels">API Levels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview.html#native-components">Native Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview.html#performance-here">Performance (Here?)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview.html#platform-notes">Platform Notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="participant/participant_overview_backup.html">(OLD) <span class="xref std std-term">FEP Participant</span> Library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="participant/participant_overview_backup.html#participant-library-and-api">Participant Library and API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview_backup.html#participant-and-element">Participant and Element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview_backup.html#components">Components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="participant/participant_overview_backup.html#core-api">Core API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview_backup.html#core-cmake-config">Core CMake Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview_backup.html#element-base">Element Base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview_backup.html#element-configurable">Element Configurable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview_backup.html#easy-logging">Easy Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview_backup.html#core-datawriter-and-datareader">Core DataWriter and DataReader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview_backup.html#adding-jobs">Adding Jobs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="participant/participant_overview_backup.html#fep-interface-cpp-api">FEP Interface CPP API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview_backup.html#fep-interface-cpp-cmake-config">FEP Interface CPP CMake Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview_backup.html#fep-interface-cpp-participant">FEP Interface CPP Participant</a></li>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview_backup.html#datajob-element">DataJob Element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="participant/participant_overview_backup.html#datajob">DataJob</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="system/system_overview.html">FEP System Library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="system/system_overview.html#creating-a-system-to-control-it">Creating a system to control it</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p><span class="caption-text">API References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">FEP SDK API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#doxygen-documentation">Doxygen documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#rpc-service">RPC Service</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#rpc-data-registry">RPC Data Registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#rpc-clock-service">RPC Clock Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#rpc-clock-sync-slave">RPC Clock Sync Slave</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#rpc-clock-sync-master">RPC Clock Sync Master</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#rpc-configuration-service">RPC Configuration Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#rpc-job-registry">RPC Job Registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#rpc-logging-service">RPC Logging Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#rpc-participant-info">RPC Participant Info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#rpc-scheduler-service">RPC Scheduler Service</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#macros">Macros</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#clock-service">Clock Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#clock-sync-service">Clock Sync Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#scheduler-service">Scheduler Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#job-registry">Job Registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#data-registry">Data Registry</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-fep3">Namespace fep3</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="advanced_topics/overview_advanced_topics.html">Advanced Topics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="advanced_topics/timing.html">Timing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_topics/perf_test.html">Performance</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_topics/timing.html">Timing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="advanced_topics/guide_timing_explained.html">Time Synchronization and Scheduling explained</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_topics/guide_timing_use_cases.html">Timing Use Cases</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_topics/perf_test.html">Performance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="advanced_topics/perf_test.html#how-we-tested">How We Tested</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_topics/perf_test.html#the-results">The Results</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style_guide.html">Style Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="style_guide.html#style-guide-for-source-code">Style Guide for Source Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="style_guide.html#style-guide-for-documentation">Style Guide for Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#what-to-do-in-case-of-packet-loss-with-the-rti-connext-dds-simulation-bus">What to do in case of packet loss with the <span class="xref std std-ref">RTI Connext DDS Simulation Bus</span>?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#executables-loading-plugins-that-use-pthread">Executables loading plugins that use pthread.</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="miscellaneous/howto.html">HOWTO</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="miscellaneous/howto/guide_migration.html">How to migrate a FEP Participant from FEP 2 to FEP 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellaneous/howto/guide_service_bus_rpc.html">How to create a RPC Service and a RPC Client within the FEP Service Bus</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="miscellaneous/faq.html">FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="miscellaneous/faq.html#fep-sdk-faq">FEP SDK FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellaneous/faq.html#general-faq">General FAQ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="miscellaneous/examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="miscellaneous/examples.html#demo-minimal-participant">Demo Minimal Participant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellaneous/examples.html#demo-rpc-service-and-demo-rpc-client">Demo RPC Service and Demo RPC Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellaneous/examples.html#demo-core-easy-sender-and-demo-core-easy-receiver">Demo Core Easy Sender and Demo Core Easy Receiver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellaneous/examples.html#demo-cpp-easy-sender-and-demo-cpp-easy-receiver">Demo CPP Easy Sender and Demo CPP Easy Receiver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="miscellaneous/examples.html#demo-logging-and-demo-logging-system">Demo Logging and Demo Logging System</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="miscellaneous/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="miscellaneous/used_licenses.html">Used Licenses</a></li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="introduction.html" class="btn btn-neutral float-right" title="Introduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 14.04.2022, VW Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

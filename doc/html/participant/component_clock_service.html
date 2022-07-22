@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clock Service &mdash; fep3-sdk</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" /><link rel="shortcut icon" href="../_static/fep_logo_white.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Clock Sync Service" href="component_clock_sync_service.html" />
+    <link rel="prev" title="Native FEP Components" href="native_components.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004666" >
+            <a href="../index.html" class="icon icon-home"> fep3-sdk<img src="../_static/fep_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+</ul>
+<p><span class="caption-text">Dive into FEP SDK</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="participant_overview.html">FEP Participant Library</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="participant_overview_backup.html">(OLD) <span class="xref std std-term">FEP Participant</span> Library</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="participant_overview_backup.html#participant-library-and-api">Participant Library and API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="participant_overview_backup.html#participant-and-element">Participant and Element</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="participant_overview_backup.html#components">Components</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="participant_overview_backup.html#fep-default-components">FEP Default Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="participant_overview_backup.html#fep-component-system">FEP Component System</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="participant_overview_backup.html#core-api">Core API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="participant_overview_backup.html#fep-interface-cpp-api">FEP Interface CPP API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../system/system_overview.html">FEP System Library</a></li>
+</ul>
+<p><span class="caption-text">API References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">FEP SDK API</a></li>
+</ul>
+<p><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/overview_advanced_topics.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/timing.html">Timing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/perf_test.html">Performance</a></li>
+</ul>
+<p><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style_guide.html">Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/howto.html">HOWTO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/used_licenses.html">Used Licenses</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004666" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">fep3-sdk</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="participant_overview_backup.html">(OLD) <span class="xref std std-term">FEP Participant</span> Library</a> &raquo;</li>
+          <li><a href="native_components.html">Native FEP Components</a> &raquo;</li>
+      <li>Clock Service</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/participant/component_clock_service.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="native_components.html" class="btn btn-neutral float-left" title="Native FEP Components" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="component_clock_sync_service.html" class="btn btn-neutral float-right" title="Clock Sync Service" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="clock-service">
+<span id="label-clock-service"></span><h1><a class="toc-backref" href="#id3">Clock Service</a><a class="headerlink" href="#clock-service" title="Permalink to this headline"></a></h1>
+<aside class="sidebar">
+<p class="sidebar-title">Clock Service</p>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#clock-service" id="id3">Clock Service</a></p>
+<ul>
+<li><p><a class="reference internal" href="#summary" id="id4">Summary</a></p></li>
+<li><p><a class="reference internal" href="#overview" id="id5">Overview</a></p></li>
+<li><p><a class="reference internal" href="#component-interface" id="id6">Component Interface</a></p>
+<ul>
+<li><p><a class="reference internal" href="#event-sink" id="id7">Event Sink</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#rpc-service-interfaces" id="id8">RPC Service Interfaces</a></p>
+<ul>
+<li><p><a class="reference internal" href="#rpc-clock-service" id="id9">RPC Clock Service</a></p></li>
+<li><p><a class="reference internal" href="#rpc-clock-sync-master" id="id10">RPC Clock Sync Master</a></p>
+<ul>
+<li><p><a class="reference internal" href="#properties" id="id11">Properties</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#main-clock" id="id12">Main Clock</a></p></li>
+<li><p><a class="reference internal" href="#clock-type" id="id13">Clock Type</a></p>
+<ul>
+<li><p><a class="reference internal" href="#discrete" id="id14">Discrete</a></p></li>
+<li><p><a class="reference internal" href="#continuous" id="id15">Continuous</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#configuration" id="id16">Configuration</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id1" id="id17">Properties</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#native-implementations" id="id18">Native Implementations</a></p>
+<ul>
+<li><p><a class="reference internal" href="#local-system-simtime" id="id19">local_system_simtime</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id20">Properties</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#local-system-realtime" id="id21">local_system_realtime</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</aside>
+<section id="summary">
+<h2><a class="toc-backref" href="#id4">Summary</a><a class="headerlink" href="#summary" title="Permalink to this headline"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 59%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>Clock Service</p></td>
+</tr>
+<tr class="row-even"><td><p>Component Interface</p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep34arya13IClockServiceE" title="fep3::arya::IClockService"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::IClockService</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>RPC Service Interface</p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep33rpc4arya19IRPCClockServiceDefE" title="fep3::rpc::arya::IRPCClockServiceDef"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::rpc::arya::IRPCClockServiceDef</span></code></a>
+<a class="reference internal" href="../api.html#_CPPv4N4fep33rpc4arya22IRPCClockSyncMasterDefE" title="fep3::rpc::arya::IRPCClockSyncMasterDef"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::rpc::arya::IRPCClockSyncMasterDef</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>RPC Service Description</p></td>
+<td><p><a class="reference internal" href="../api.html#label-rpc-service-clock"><span class="std std-ref">RPC Clock Service</span></a>
+<a class="reference internal" href="../api.html#label-rpc-service-clock-sync-master"><span class="std std-ref">RPC Clock Sync Master</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>native delivery</p></td>
+<td><p>built-in</p></td>
+</tr>
+<tr class="row-even"><td><p>CPP-plugin possible</p></td>
+<td><p>yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>C-plugin possible</p></td>
+<td><p>yes</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="overview">
+<h2><a class="toc-backref" href="#id5">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline"></a></h2>
+<p>The <a class="reference internal" href="#label-clock-service"><span class="std std-ref">Clock Service</span></a> is responsible for managing one or more different clocks which may represent different times with a different time base.
+Every registered clock is identified by a unique name.
+There is one so called <a class="reference internal" href="#label-clock-service-main-clock"><span class="std std-ref">Main Clock</span></a>, which provides the time of the <a class="reference internal" href="#label-clock-service"><span class="std std-ref">Clock Service</span></a>.
+As described in the section <a class="reference internal" href="#label-clock-type"><span class="std std-ref">Clock Type</span></a> , clocks are distinguished by a type.</p>
+<p>The time of the <a class="reference internal" href="#label-clock-service"><span class="std std-ref">Clock Service</span></a> represents the simulation time of the participant.</p>
+</section>
+<section id="component-interface">
+<h2><a class="toc-backref" href="#id6">Component Interface</a><a class="headerlink" href="#component-interface" title="Permalink to this headline"></a></h2>
+<p>The <a class="reference internal" href="../api.html#_CPPv4N4fep34arya13IClockServiceE" title="fep3::arya::IClockService"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::IClockService</span></code></a> offers the following functionality:</p>
+<ul class="simple">
+<li><p>Register and unregister clocks and retrieve information about all registered clocks including the <a class="reference internal" href="#label-clock-service-main-clock"><span class="std std-ref">Main Clock</span></a>.</p></li>
+<li><p>Register and unregister event sinks (<a class="reference internal" href="../api.html#_CPPv4N4fep34arya6IClock10IEventSinkE" title="fep3::arya::IClock::IEventSink"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::IClock::IEventSink</span></code></a>).</p></li>
+<li><p>Get the current time or the type of the <a class="reference internal" href="#label-clock-service"><span class="std std-ref">Clock Service</span></a> or of any other registered clock.</p></li>
+</ul>
+<section id="event-sink">
+<span id="label-clock-service-event-sink"></span><h3><a class="toc-backref" href="#id7">Event Sink</a><a class="headerlink" href="#event-sink" title="Permalink to this headline"></a></h3>
+<p>An <a class="reference internal" href="#label-clock-service-event-sink"><span class="std std-ref">Event Sink</span></a> allows synchronous reactions on time reset and time update events. An <a class="reference internal" href="#label-clock-service-event-sink"><span class="std std-ref">Event Sink</span></a> is created by implementing the abstract methods of (<a class="reference internal" href="../api.html#_CPPv4N4fep34arya6IClock10IEventSinkE" title="fep3::arya::IClock::IEventSink"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::IClock::IEventSink</span></code></a>).
+It can be registered using <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IClockService::registerEventSink()</span></code>. After registration the <a class="reference internal" href="#label-clock-service-event-sink"><span class="std std-ref">Event Sink</span></a> will be notified whenever the <a class="reference internal" href="#label-clock-service-main-clock"><span class="std std-ref">Main Clock</span></a>
+emits an event.</p>
+</section>
+</section>
+<section id="rpc-service-interfaces">
+<h2><a class="toc-backref" href="#id8">RPC Service Interfaces</a><a class="headerlink" href="#rpc-service-interfaces" title="Permalink to this headline"></a></h2>
+<section id="rpc-clock-service">
+<h3><a class="toc-backref" href="#id9">RPC Clock Service</a><a class="headerlink" href="#rpc-clock-service" title="Permalink to this headline"></a></h3>
+<p>The <a class="reference internal" href="../api.html#_CPPv4N4fep33rpc4arya19IRPCClockServiceDefE" title="fep3::rpc::arya::IRPCClockServiceDef"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::rpc::arya::IRPCClockServiceDef</span></code></a> offers the following functionality:</p>
+<ul class="simple">
+<li><p>Retrieve information about all registered clocks.</p></li>
+<li><p>Get the current time of the <a class="reference internal" href="#label-clock-service"><span class="std std-ref">Clock Service</span></a> or of any other registered clock.</p></li>
+</ul>
+</section>
+<section id="rpc-clock-sync-master">
+<span id="label-clock-sync-master"></span><h3><a class="toc-backref" href="#id10">RPC Clock Sync Master</a><a class="headerlink" href="#rpc-clock-sync-master" title="Permalink to this headline"></a></h3>
+<p>The <a class="reference internal" href="#label-clock-service"><span class="std std-ref">Clock Service</span></a> provides a <a class="reference internal" href="#label-clock-sync-master"><span class="std std-ref">RPC Clock Sync Master</span></a> which is the counterpart of the <a class="reference internal" href="component_clock_sync_service.html#label-clock-sync-service"><span class="std std-ref">Clock Sync Service</span></a> and enables the synchronization of a timing master with timing slaves.
+The <a class="reference internal" href="#label-clock-sync-master"><span class="std std-ref">RPC Clock Sync Master</span></a> offers the possibility to register as a synchronization slave as well as to retrieve the current time of the master and its type (<a class="reference internal" href="../api.html#_CPPv4N4fep33rpc4arya22IRPCClockSyncMasterDefE" title="fep3::rpc::arya::IRPCClockSyncMasterDef"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::rpc::arya::IRPCClockSyncMasterDef</span></code></a> for detail).
+Also, it can actively synchronize timing slaves. The communication is done via RPC.
+To establish a clock synchronization the <a class="reference internal" href="component_clock_sync_service.html#label-clock-sync-service"><span class="std std-ref">Clock Sync Service</span></a> has to be used on the slave side.
+If discrete synchronization is used (e.g. <a class="reference internal" href="component_clock_sync_service.html#label-clock-sync-slave-master-on-demand-discrete"><span class="std std-ref">slave_master_on_demand_discrete</span></a>), all timing slaves are synchronized concurrently. The master will wait until all slaves are successfully synchronized or a timeout occurred.
+The timeout is configured via <a class="reference internal" href="../api.html#c.FEP3_CLOCK_SERVICE_TIME_UPDATE_TIMEOUT" title="FEP3_CLOCK_SERVICE_TIME_UPDATE_TIMEOUT"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCK_SERVICE_TIME_UPDATE_TIMEOUT</span></code></a>. If the timeout is exceeded the relevant timing slave will be removed from synchronization and an incident is risen but simulation will be continued.</p>
+<section id="properties">
+<h4><a class="toc-backref" href="#id11">Properties</a><a class="headerlink" href="#properties" title="Permalink to this headline"></a></h4>
+<p>The <a class="reference internal" href="#label-clock-sync-master"><span class="std std-ref">RPC Clock Sync Master</span></a> can be configured using the following properties.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 60%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Code Macro</p></th>
+<th class="head"><p>Default Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>TimeUpdateTimeout</p></td>
+<td></td>
+<td><p><a class="reference internal" href="../api.html#c.FEP3_TIME_UPDATE_TIMEOUT_DEFAULT_VALUE" title="FEP3_TIME_UPDATE_TIMEOUT_DEFAULT_VALUE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_TIME_UPDATE_TIMEOUT_DEFAULT_VALUE</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="main-clock">
+<span id="label-clock-service-main-clock"></span><h2><a class="toc-backref" href="#id12">Main Clock</a><a class="headerlink" href="#main-clock" title="Permalink to this headline"></a></h2>
+<p>The <a class="reference internal" href="#label-clock-service-main-clock"><span class="std std-ref">Main Clock</span></a> is the clock providing the current time for a <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a>. Calling <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IClockService::getTime()</span></code> will return the time of that clock.</p>
+<p>If the current <a class="reference internal" href="#label-clock-service-main-clock"><span class="std std-ref">Main Clock</span></a> is being unregistered, the Clock Service emits a warning level log and sets <a class="reference internal" href="#label-clock-implementation-local-system-realtime"><span class="std std-ref">local_system_realtime</span></a> as <a class="reference internal" href="#label-clock-service-main-clock"><span class="std std-ref">Main Clock</span></a>.</p>
+</section>
+<section id="clock-type">
+<span id="label-clock-type"></span><h2><a class="toc-backref" href="#id13">Clock Type</a><a class="headerlink" href="#clock-type" title="Permalink to this headline"></a></h2>
+<p>Clocks can either be of type <a class="reference internal" href="#label-clock-type-discrete"><span class="std std-ref">Discrete</span></a> or <a class="reference internal" href="#label-clock-type-continuous"><span class="std std-ref">Continuous</span></a>. In the API the Enum <a class="reference internal" href="../api.html#_CPPv4N4fep34arya9ClockTypeE" title="fep3::arya::ClockType"><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">fep3::arya::ClockType</span></code></a> is used to distinguish the types of clocks.</p>
+<section id="discrete">
+<span id="label-clock-type-discrete"></span><h3><a class="toc-backref" href="#id14">Discrete</a><a class="headerlink" href="#discrete" title="Permalink to this headline"></a></h3>
+<p>A discrete clock actively sets a timestamp and synchronously propagates an internal updating event to all registered <a class="reference internal" href="#label-clock-service-event-sink"><span class="std std-ref">Event Sink</span></a> s.
+If other slave participants use the <a class="reference internal" href="component_clock_sync_service.html#label-clock-sync-service"><span class="std std-ref">Clock Sync Service</span></a> the time update event will be propagated via RPC.
+See <a class="reference internal" href="#label-clock-implementation-local-system-simtime"><span class="std std-ref">local_system_simtime</span></a> for an implementation.</p>
+</section>
+<section id="continuous">
+<span id="label-clock-type-continuous"></span><h3><a class="toc-backref" href="#id15">Continuous</a><a class="headerlink" href="#continuous" title="Permalink to this headline"></a></h3>
+<p>A continuous clock will provide real time (or simulated real time) on each <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IClockService::getTime()</span></code> call.
+See <a class="reference internal" href="#label-clock-implementation-local-system-realtime"><span class="std std-ref">local_system_realtime</span></a> for an implementation.</p>
+</section>
+</section>
+<section id="configuration">
+<h2><a class="toc-backref" href="#id16">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this headline"></a></h2>
+<p>The <a class="reference internal" href="#label-clock-service"><span class="std std-ref">Clock Service</span></a> can be configured using the following property.
+Depending on the specific clock configured as <a class="reference internal" href="#label-clock-service-main-clock"><span class="std std-ref">Main Clock</span></a>, there might be additional configuration options.
+For details about the native clocks, see the documentation of the <a class="reference internal" href="#label-clock-service-native"><span class="std std-ref">Native Implementations</span></a>.</p>
+<p>If the participant you are configuring is a timing slave you have to set the <a class="reference internal" href="#label-clock-service-main-clock"><span class="std std-ref">Main Clock</span></a> to one of the slave clocks, described in the section of the <a class="reference internal" href="component_clock_sync_service.html#label-clock-sync-service"><span class="std std-ref">Clock Sync Service</span></a>.</p>
+<section id="id1">
+<h3><a class="toc-backref" href="#id17">Properties</a><a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 60%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Code Macro</p></th>
+<th class="head"><p>Default Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>MainClock</p></td>
+<td></td>
+<td><p><a class="reference internal" href="../api.html#c.FEP3_CLOCK_LOCAL_SYSTEM_REAL_TIME" title="FEP3_CLOCK_LOCAL_SYSTEM_REAL_TIME"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCK_LOCAL_SYSTEM_REAL_TIME</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="native-implementations">
+<span id="label-clock-service-native"></span><h2><a class="toc-backref" href="#id18">Native Implementations</a><a class="headerlink" href="#native-implementations" title="Permalink to this headline"></a></h2>
+<p>The following native implementations are available</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Code Macro</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="#label-clock-implementation-local-system-simtime"><span class="std std-ref">local_system_simtime</span></a></p></td>
+<td><p><a class="reference internal" href="../api.html#c.FEP3_CLOCK_LOCAL_SYSTEM_SIM_TIME" title="FEP3_CLOCK_LOCAL_SYSTEM_SIM_TIME"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCK_LOCAL_SYSTEM_SIM_TIME</span></code></a></p></td>
+<td><p><a class="reference internal" href="#label-clock-type-discrete"><span class="std std-ref">Discrete</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#label-clock-implementation-local-system-realtime"><span class="std std-ref">local_system_realtime</span></a></p></td>
+<td><p><a class="reference internal" href="../api.html#c.FEP3_CLOCK_LOCAL_SYSTEM_REAL_TIME" title="FEP3_CLOCK_LOCAL_SYSTEM_REAL_TIME"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCK_LOCAL_SYSTEM_REAL_TIME</span></code></a></p></td>
+<td><p><a class="reference internal" href="#label-clock-type-continuous"><span class="std std-ref">Continuous</span></a></p></td>
+</tr>
+</tbody>
+</table>
+<section id="local-system-simtime">
+<span id="label-clock-implementation-local-system-simtime"></span><h3><a class="toc-backref" href="#id19">local_system_simtime</a><a class="headerlink" href="#local-system-simtime" title="Permalink to this headline"></a></h3>
+<p>This clock will drive the time in logical time steps in resolution of the property <a class="reference internal" href="../api.html#c.FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_STEP_SIZE" title="FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_STEP_SIZE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_STEP_SIZE</span></code></a>.
+If for example the property is set to the value <em>5000000 ns</em> the clock will set the time steps <em>0 ns, 5000000 ns, 10000000 ns</em> and so on.
+The clock will try to set the time steps according to the clock of the operating system. So the difference between the step at time <em>0</em> and <em>5000000</em> should actually be 5000000 ns.</p>
+<p>As the clock <a class="reference internal" href="#label-clock-implementation-local-system-simtime"><span class="std std-ref">local_system_simtime</span></a> is a discrete clock, for every new time step all <a class="reference internal" href="#label-clock-service-event-sink"><span class="std std-ref">Event Sink</span></a> s will be called synchronously.
+If the processing of all <a class="reference internal" href="#label-clock-service-event-sink"><span class="std std-ref">Event Sink</span></a> s takes longer than the <a class="reference internal" href="../api.html#c.FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_STEP_SIZE" title="FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_STEP_SIZE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_STEP_SIZE</span></code></a> the clock will run slower than the wall clock.
+That would for example be the case if a Job with a <em>cycle_time</em> of 5000000 ns would take 8000000 ns to compute.</p>
+<p>Also the speed of the time simulation can be adjusted using the factor <a class="reference internal" href="../api.html#c.FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_TIME_FACTOR" title="FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_TIME_FACTOR"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_TIME_FACTOR</span></code></a>.
+Setting it to <a class="reference internal" href="../api.html#c.FEP3_CLOCK_SIM_TIME_TIME_FACTOR_AFAP_VALUE" title="FEP3_CLOCK_SIM_TIME_TIME_FACTOR_AFAP_VALUE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCK_SIM_TIME_TIME_FACTOR_AFAP_VALUE</span></code></a> will lead to a simulation running as fast as possible.</p>
+<p>The clock’s real wall clock step size, which it tries to follow, is determined by dividing <a class="reference internal" href="../api.html#c.FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_STEP_SIZE" title="FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_STEP_SIZE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_STEP_SIZE</span></code></a> by <a class="reference internal" href="../api.html#c.FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_TIME_FACTOR" title="FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_TIME_FACTOR"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_TIME_FACTOR</span></code></a>
+and may not fall below <code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCK_WALL_CLOCK_MIN_STEP_SIZE</span></code>.</p>
+<section id="id2">
+<h4><a class="toc-backref" href="#id20">Properties</a><a class="headerlink" href="#id2" title="Permalink to this headline"></a></h4>
+<p>The clock <a class="reference internal" href="#label-clock-implementation-local-system-simtime"><span class="std std-ref">local_system_simtime</span></a> can be configured using the following properties.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 38%" />
+<col style="width: 13%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Code Macro</p></th>
+<th class="head"><p>Default Value</p></th>
+<th class="head"><p>Restrictions</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CycleTime</p></td>
+<td></td>
+<td><p><a class="reference internal" href="../api.html#c.FEP3_CLOCK_SIM_TIME_STEP_SIZE_DEFAULT_VALUE" title="FEP3_CLOCK_SIM_TIME_STEP_SIZE_DEFAULT_VALUE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCK_SIM_TIME_STEP_SIZE_DEFAULT_VALUE</span></code></a></p></td>
+<td><p>Minimum: <a class="reference internal" href="../api.html#c.FEP3_CLOCK_SIM_TIME_STEP_SIZE_MIN_VALUE" title="FEP3_CLOCK_SIM_TIME_STEP_SIZE_MIN_VALUE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCK_SIM_TIME_STEP_SIZE_MIN_VALUE</span></code></a>, Maximum: <a class="reference internal" href="../api.html#c.FEP3_CLOCK_SIM_TIME_STEP_SIZE_MAX_VALUE" title="FEP3_CLOCK_SIM_TIME_STEP_SIZE_MAX_VALUE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCK_SIM_TIME_STEP_SIZE_MAX_VALUE</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>TimeFactor_float</p></td>
+<td></td>
+<td><p><a class="reference internal" href="../api.html#c.FEP3_CLOCK_SIM_TIME_TIME_FACTOR_DEFAULT_VALUE" title="FEP3_CLOCK_SIM_TIME_TIME_FACTOR_DEFAULT_VALUE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCK_SIM_TIME_TIME_FACTOR_DEFAULT_VALUE</span></code></a></p></td>
+<td><p>Minimum: <a class="reference internal" href="../api.html#c.FEP3_CLOCK_SIM_TIME_TIME_FACTOR_AFAP_VALUE" title="FEP3_CLOCK_SIM_TIME_TIME_FACTOR_AFAP_VALUE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCK_SIM_TIME_TIME_FACTOR_AFAP_VALUE</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="local-system-realtime">
+<span id="label-clock-implementation-local-system-realtime"></span><h3><a class="toc-backref" href="#id21">local_system_realtime</a><a class="headerlink" href="#local-system-realtime" title="Permalink to this headline"></a></h3>
+<p>The <a class="reference internal" href="#label-clock-implementation-local-system-realtime"><span class="std std-ref">local_system_realtime</span></a> clock uses the clock of the operating system.
+It will return the tick count of the current time starting at 0 (where usually 0 is the time stamp of starting the computer).</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="native_components.html" class="btn btn-neutral float-left" title="Native FEP Components" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="component_clock_sync_service.html" class="btn btn-neutral float-right" title="Clock Sync Service" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 14.04.2022, VW Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

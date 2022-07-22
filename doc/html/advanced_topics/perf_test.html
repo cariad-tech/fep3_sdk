@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Performance &mdash; fep3-sdk</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" /><link rel="shortcut icon" href="../_static/fep_logo_white.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Contribute" href="../contribute.html" />
+    <link rel="prev" title="Timing Use Cases" href="guide_timing_use_cases.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004666" >
+            <a href="../index.html" class="icon icon-home"> fep3-sdk<img src="../_static/fep_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+</ul>
+<p><span class="caption-text">Dive into FEP SDK</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../participant/participant_overview.html">FEP Participant Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../participant/participant_overview_backup.html">(OLD) <span class="xref std std-term">FEP Participant</span> Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../system/system_overview.html">FEP System Library</a></li>
+</ul>
+<p><span class="caption-text">API References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">FEP SDK API</a></li>
+</ul>
+<p><span class="caption-text">Advanced Topics</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview_advanced_topics.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timing.html">Timing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Performance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-we-tested">How We Tested</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-results">The Results</a></li>
+</ul>
+</li>
+</ul>
+<p><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style_guide.html">Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/howto.html">HOWTO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/used_licenses.html">Used Licenses</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004666" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">fep3-sdk</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="overview_advanced_topics.html">Advanced Topics</a> &raquo;</li>
+      <li>Performance</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/advanced_topics/perf_test.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="guide_timing_use_cases.html" class="btn btn-neutral float-left" title="Timing Use Cases" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../contribute.html" class="btn btn-neutral float-right" title="Contribute" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="performance">
+<span id="label-performance"></span><h1>Performance<a class="headerlink" href="#performance" title="Permalink to this headline"></a></h1>
+<p>As <em>FEP SDK 3</em> is the glue that holds <em>FEP Elements</em> together <a href="#id3"><span class="problematic" id="id1">[1]_</span></a> and provides the infrastructure
+for exchanging data between the elements, you might be interested in the efficiency of this data
+exchange. Therefore, a performance test was created to measure the <em>throughput</em> of the data between
+two FEP Elements.</p>
+<section id="how-we-tested">
+<span id="label-performance-how-we-tested"></span><h2>How We Tested<a class="headerlink" href="#how-we-tested" title="Permalink to this headline"></a></h2>
+<p>For the test two equally equipped workspaces (see <a class="reference internal" href="#tab-hardware-spec"><span class="std std-ref">Hardware Specification of the Test Hosts</span></a>) are connected over the
+<em>Ethernet</em> with the help of a <em>router</em>. On the <em>sender</em> side, samples of a pre-defined size are
+created by a <em>FEP Participant</em> and sent over the <em>simulation bus</em> to another FEP Participant on a
+second host (See Figure <a class="reference internal" href="#fig-test-setup"><span class="std std-ref">The Setup of the Performance Test.</span></a>).</p>
+<figure class="align-center" id="test-setup" style="width: 300px">
+<span id="fig-test-setup"></span><a class="reference internal image-reference" href="../_images/perf_test_setup.png"><img alt="test setup" src="../_images/perf_test_setup.png" style="width: 300px;" /></a>
+<figcaption>
+<p><span class="caption-text">The Setup of the Performance Test.</span><a class="headerlink" href="#test-setup" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<p>The FEP Participant on the <em>receiver</em> side of the test setup then sums up the amount of data and
+the number of samples it is able to receive during one second (or a little bit more). For each of
+these durations the amount of received data is divided through the timespan during which the data
+was accumulated to retrieve the throughput in <span class="math notranslate nohighlight">\(\text{MB}/\text{s}\)</span></p>
+<span id="tab-hardware-spec"></span><table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Hardware Specification of the Test Hosts</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 44%" />
+<col style="width: 56%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>Host</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CPU</p></td>
+<td><p>Intel® Xeon® Processor E5-1650 v3</p></td>
+</tr>
+<tr class="row-odd"><td><p>Number of Cores</p></td>
+<td><p>6</p></td>
+</tr>
+<tr class="row-even"><td><p>number of Threads</p></td>
+<td><p>12</p></td>
+</tr>
+<tr class="row-odd"><td><p>Processor Base Frequency</p></td>
+<td><p>3.5 GHz</p></td>
+</tr>
+<tr class="row-even"><td><p>Main Memory</p></td>
+<td><p>32 GB</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ethernet Controller</p></td>
+<td><p>Intel® Ethernet Connection I218-LM</p></td>
+</tr>
+<tr class="row-even"><td><p>Network Data Rate Per Port</p></td>
+<td><p>1 GbE</p></td>
+</tr>
+</tbody>
+</table>
+<p>Each test run with a constant set of variables (i.e. <em>sample size</em> (<span class="math notranslate nohighlight">\(\text{B}\)</span>), <em>cycle time</em>
+(<span class="math notranslate nohighlight">\(\text{ms}\)</span>) and <em>synchronization mode</em>) is done for five minutes. From the gathered
+throughput data of each second, the first three and the last entry is removed, and the remaining
+data is used to calculate the arithmetic mean of the throughput as well as its variance.</p>
+<p>The results of each of the test runs can be seen below in the Table <a class="reference internal" href="#tab-test-results"><span class="std std-ref">The Test Results</span></a>.</p>
+</section>
+<section id="the-results">
+<span id="label-performance-the-results"></span><h2>The Results<a class="headerlink" href="#the-results" title="Permalink to this headline"></a></h2>
+<p>In the Table <a class="reference internal" href="#tab-test-results"><span class="std std-ref">The Test Results</span></a> the results by using the following variables are shown:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(10 \text{B}\)</span> with a cycle time of <span class="math notranslate nohighlight">\(1 \text{ms} \equiv 1 \text{kHz}\)</span> with
+<em>continuous</em> and <em>discrete</em> synchronization mode, respectively</p></li>
+<li><p><span class="math notranslate nohighlight">\(500 \text{B}\)</span> with a cycle time of <span class="math notranslate nohighlight">\(1 \text{ms} \equiv 1 \text{kHz}\)</span> with
+<em>continuous</em> and <em>discrete</em> synchronization mode, respectively</p></li>
+<li><p><span class="math notranslate nohighlight">\(10 \text{MB}\)</span> with a cycle time of <span class="math notranslate nohighlight">\(100 \text{ms} \equiv 10 \text{Hz}\)</span> with
+<em>continuous</em> and <em>discrete</em> synchronization mode, respectively</p></li>
+</ul>
+<table class="perf-test-results-table docutils align-default" id="tab-test-results">
+<caption><span class="caption-text">The Test Results</span><a class="headerlink" href="#tab-test-results" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 20%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>throughput (⌀ MB/s)</p></th>
+<th class="head"><p>throughput variance</p></th>
+<th class="head"><p>samples received (⌀ #)</p></th>
+<th class="head"><p>sample size (B)</p></th>
+<th class="head"><p>cycle time (ms)</p></th>
+<th class="head"><p>synchronization mode</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.010</p></td>
+<td><p>0.000000000025</p></td>
+<td><p>1000.591</p></td>
+<td><p>10</p></td>
+<td><p>1</p></td>
+<td><p>continuous</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.500</p></td>
+<td><p>0.000000061941</p></td>
+<td><p>1000.631</p></td>
+<td><p>500</p></td>
+<td><p>1</p></td>
+<td><p>continuous</p></td>
+</tr>
+<tr class="row-even"><td><p>100.037</p></td>
+<td><p>0.007762639499</p></td>
+<td><p>10.546</p></td>
+<td><p>10000000</p></td>
+<td><p>100</p></td>
+<td><p>continuous</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.010</p></td>
+<td><p>0.000000000025</p></td>
+<td><p>1000.606</p></td>
+<td><p>10</p></td>
+<td><p>1</p></td>
+<td><p>discrete</p></td>
+</tr>
+<tr class="row-even"><td><p>0.500</p></td>
+<td><p>0.000000062269</p></td>
+<td><p>1000.604</p></td>
+<td><p>500</p></td>
+<td><p>1</p></td>
+<td><p>discrete</p></td>
+</tr>
+<tr class="row-odd"><td><p>100.038</p></td>
+<td><p>0.004886273418</p></td>
+<td><p>10.602</p></td>
+<td><p>10000000</p></td>
+<td><p>100</p></td>
+<td><p>discrete</p></td>
+</tr>
+</tbody>
+</table>
+<p>When looking at the results there is no significant impact on the throughput when changing the
+synchronization mode only and leaving the other variables untouched. Examining the first two lines,
+you can see that increasing the byte size of a sample by 50 leads to a proportional increase of the
+throughput while the amount of received samples is nearly not affected.</p>
+<p>When sending samples with a size of <span class="math notranslate nohighlight">\(10 \text{MB}\)</span> and a cycle time of <span class="math notranslate nohighlight">\(100 \text{ms}\)</span>
+the amount of (average) samples we receive and the resulting (average) throughput is not
+surprisingly different than what we expect. You can see though that the variance of the throughput
+is significantly higher as the one with smaller sized samples.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="guide_timing_use_cases.html" class="btn btn-neutral float-left" title="Timing Use Cases" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../contribute.html" class="btn btn-neutral float-right" title="Contribute" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 14.04.2022, VW Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

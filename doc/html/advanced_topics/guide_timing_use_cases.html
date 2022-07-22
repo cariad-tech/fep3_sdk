@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Timing Use Cases &mdash; fep3-sdk</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" /><link rel="shortcut icon" href="../_static/fep_logo_white.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Performance" href="perf_test.html" />
+    <link rel="prev" title="Time Synchronization and Scheduling explained" href="guide_timing_explained.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004666" >
+            <a href="../index.html" class="icon icon-home"> fep3-sdk<img src="../_static/fep_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+</ul>
+<p><span class="caption-text">Dive into FEP SDK</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../participant/participant_overview.html">FEP Participant Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../participant/participant_overview_backup.html">(OLD) <span class="xref std std-term">FEP Participant</span> Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../system/system_overview.html">FEP System Library</a></li>
+</ul>
+<p><span class="caption-text">API References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">FEP SDK API</a></li>
+</ul>
+<p><span class="caption-text">Advanced Topics</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview_advanced_topics.html">Advanced Topics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="timing.html">Timing</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="guide_timing_explained.html">Time Synchronization and Scheduling explained</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Timing Use Cases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#no-time-synchronization">No time synchronization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#use-cases">Use Cases</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuration">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#master-slave-continuous-synchronization">Master/Slave continuous synchronization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#native-real-time-clock">Native real-time clock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#external-real-time-clock">External real-time clock</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#master-slave-discrete-synchronization">Master/Slave discrete synchronization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#native-simulation-time-fixed-time-steps">Native simulation time (fixed time steps)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#external-clock-i-e-player">External clock (i.e. player)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="perf_test.html">Performance</a></li>
+</ul>
+<p><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style_guide.html">Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/howto.html">HOWTO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/used_licenses.html">Used Licenses</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004666" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">fep3-sdk</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="overview_advanced_topics.html">Advanced Topics</a> &raquo;</li>
+          <li><a href="timing.html">Timing</a> &raquo;</li>
+      <li>Timing Use Cases</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/advanced_topics/guide_timing_use_cases.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="guide_timing_explained.html" class="btn btn-neutral float-left" title="Time Synchronization and Scheduling explained" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="perf_test.html" class="btn btn-neutral float-right" title="Performance" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="timing-use-cases">
+<span id="label-guide-timing-use-cases"></span><h1><a class="toc-backref" href="#id13">Timing Use Cases</a><a class="headerlink" href="#timing-use-cases" title="Permalink to this headline"></a></h1>
+<aside class="sidebar">
+<p class="sidebar-title">Timing Use Cases</p>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#timing-use-cases" id="id13">Timing Use Cases</a></p>
+<ul>
+<li><p><a class="reference internal" href="#no-time-synchronization" id="id14">No time synchronization</a></p>
+<ul>
+<li><p><a class="reference internal" href="#use-cases" id="id15">Use Cases</a></p></li>
+<li><p><a class="reference internal" href="#configuration" id="id16">Configuration</a></p>
+<ul>
+<li><p><a class="reference internal" href="#this-configuration-means" id="id17">This configuration means</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#master-slave-continuous-synchronization" id="id18">Master/Slave continuous synchronization</a></p>
+<ul>
+<li><p><a class="reference internal" href="#native-real-time-clock" id="id19">Native real-time clock</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id1" id="id20">Use Cases</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id21">Configuration</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id22">This configuration means</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#external-real-time-clock" id="id23">External real-time clock</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id4" id="id24">Use Cases</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id25">Configuration</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id26">This configuration means</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#master-slave-discrete-synchronization" id="id27">Master/Slave discrete synchronization</a></p>
+<ul>
+<li><p><a class="reference internal" href="#native-simulation-time-fixed-time-steps" id="id28">Native simulation time (fixed time steps)</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id7" id="id29">Use Cases</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id30">Configuration</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id31">This configuration means</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#external-clock-i-e-player" id="id32">External clock (i.e. player)</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id10" id="id33">Use Cases</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id34">Configuration</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id35">This configuration means</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</aside>
+<p>The following section lists various timing and scheduling use cases and the corresponding configurations.</p>
+<section id="no-time-synchronization">
+<span id="label-guide-timing-use-cases-no-synchronization"></span><h2><a class="toc-backref" href="#id14">No time synchronization</a><a class="headerlink" href="#no-time-synchronization" title="Permalink to this headline"></a></h2>
+<section id="use-cases">
+<h3><a class="toc-backref" href="#id15">Use Cases</a><a class="headerlink" href="#use-cases" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Development of new participants.</p></li>
+<li><p>Non time dependent functional testing of participants.</p></li>
+</ul>
+</section>
+<section id="configuration">
+<h3><a class="toc-backref" href="#id16">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this headline"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>Participant 1</p></th>
+<th class="head"><p>Participant 2</p></th>
+<th class="head"><p>Participant 3</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="../participant/component_clock_service.html#label-clock-service-main-clock"><span class="std std-ref">Main Clock</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_clock_service.html#label-clock-implementation-local-system-realtime"><span class="std std-ref">local_system_realtime</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_clock_service.html#label-clock-implementation-local-system-realtime"><span class="std std-ref">local_system_realtime</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_clock_service.html#label-clock-implementation-local-system-realtime"><span class="std std-ref">local_system_realtime</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../participant/component_scheduler_service.html#label-scheduler-service-active-scheduler"><span class="std std-ref">Active scheduler</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_scheduler_service.html#label-clock-based-scheduler"><span class="std std-ref">clock_based_scheduler</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_scheduler_service.html#label-clock-based-scheduler"><span class="std std-ref">clock_based_scheduler</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_scheduler_service.html#label-clock-based-scheduler"><span class="std std-ref">clock_based_scheduler</span></a></p></td>
+</tr>
+</tbody>
+</table>
+<section id="this-configuration-means">
+<h4><a class="toc-backref" href="#id17">This configuration means</a><a class="headerlink" href="#this-configuration-means" title="Permalink to this headline"></a></h4>
+<ul class="simple">
+<li><p>No time synchronization is used.</p></li>
+<li><p>The time of every participant will continue by its own system clock independent from any other participant.</p></li>
+<li><p>The <a class="reference internal" href="../participant/component_scheduler_service.html#label-scheduler-service-active-scheduler"><span class="std std-ref">Active scheduler</span></a> will continuously look at the time and will execute the configured jobs at the corresponding point in time.
+The <a class="reference internal" href="../participant/component_scheduler_service.html#label-clock-based-scheduler"><span class="std std-ref">clock_based_scheduler</span></a> has to repeatedly check the local time for pending job triggers and is subjected to the operating system process scheduler both of which might lead to time uncertainties.</p></li>
+<li><p>The <a class="reference internal" href="../participant/component_scheduler_service.html#label-scheduler-service-active-scheduler"><span class="std std-ref">Active scheduler</span></a> will watch runtime execution times and will react to violation according to the configured strategy (see <a class="reference internal" href="../participant/component_scheduler_service.html#label-clock-based-scheduler"><span class="std std-ref">clock_based_scheduler</span></a>).</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="master-slave-continuous-synchronization">
+<span id="label-guide-timing-use-cases-continuous-synchronization"></span><h2><a class="toc-backref" href="#id18">Master/Slave continuous synchronization</a><a class="headerlink" href="#master-slave-continuous-synchronization" title="Permalink to this headline"></a></h2>
+<section id="native-real-time-clock">
+<h3><a class="toc-backref" href="#id19">Native real-time clock</a><a class="headerlink" href="#native-real-time-clock" title="Permalink to this headline"></a></h3>
+<section id="id1">
+<h4><a class="toc-backref" href="#id20">Use Cases</a><a class="headerlink" href="#id1" title="Permalink to this headline"></a></h4>
+<ul class="simple">
+<li><p>Realtime mode within a real-time environment like vehicle prototypes or other distributed systems.</p></li>
+<li><p>Non blocking scheduling across multiple FEP participants in a FEP system.</p></li>
+<li><p>Data driven systems which need to avoid blocking of participants due to time distribution activity and time synchronization overhead.</p></li>
+</ul>
+</section>
+<section id="id2">
+<h4><a class="toc-backref" href="#id21">Configuration</a><a class="headerlink" href="#id2" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>Master Participant</p></th>
+<th class="head"><p>Participant 2</p></th>
+<th class="head"><p>Participant 3</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="../participant/component_clock_service.html#label-clock-service-main-clock"><span class="std std-ref">Main Clock</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_clock_service.html#label-clock-implementation-local-system-realtime"><span class="std std-ref">local_system_realtime</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_clock_sync_service.html#label-clock-sync-slave-master-on-demand"><span class="std std-ref">slave_master_on_demand</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_clock_sync_service.html#label-clock-sync-slave-master-on-demand"><span class="std std-ref">slave_master_on_demand</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../participant/component_scheduler_service.html#label-scheduler-service-active-scheduler"><span class="std std-ref">Active scheduler</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_scheduler_service.html#label-clock-based-scheduler"><span class="std std-ref">clock_based_scheduler</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_scheduler_service.html#label-clock-based-scheduler"><span class="std std-ref">clock_based_scheduler</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_scheduler_service.html#label-clock-based-scheduler"><span class="std std-ref">clock_based_scheduler</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api.html#c.FEP3_CLOCKSYNC_SERVICE_CONFIG_SLAVE_SYNC_CYCLE_TIME" title="FEP3_CLOCKSYNC_SERVICE_CONFIG_SLAVE_SYNC_CYCLE_TIME"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCKSYNC_SERVICE_CONFIG_SLAVE_SYNC_CYCLE_TIME</span></code></a></p></td>
+<td></td>
+<td><p>1 s</p></td>
+<td><p>1 s</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api.html#c.FEP3_CLOCKSYNC_SERVICE_CONFIG_TIMING_MASTER" title="FEP3_CLOCKSYNC_SERVICE_CONFIG_TIMING_MASTER"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCKSYNC_SERVICE_CONFIG_TIMING_MASTER</span></code></a></p></td>
+<td></td>
+<td><p>“Master Participant”</p></td>
+<td><p>“Master Participant”</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id3">
+<h4><a class="toc-backref" href="#id22">This configuration means</a><a class="headerlink" href="#id3" title="Permalink to this headline"></a></h4>
+<ul class="simple">
+<li><p><em>Participant 2</em> and <em>Participant 3</em> are timing slaves, the <a class="reference internal" href="../participant/component_clock_sync_service.html#label-clock-sync-slave-master-on-demand"><span class="std std-ref">slave_master_on_demand</span></a> clocks will synchronize its own local system clock every 1 s with the <em>Master Participant</em>.</p></li>
+<li><p>The slave times are straightened by the Cristian’s Algorithm using the round trip time of getting the time from the master.</p></li>
+<li><p>The <em>Master Participant</em> will provide its time using a continuous local system real time.</p></li>
+<li><p>The <a class="reference internal" href="../participant/component_scheduler_service.html#label-scheduler-service-active-scheduler"><span class="std std-ref">Active scheduler</span></a> will continuously look at the time and will execute the configured jobs at the corresponding point in time.
+The <a class="reference internal" href="../participant/component_scheduler_service.html#label-clock-based-scheduler"><span class="std std-ref">clock_based_scheduler</span></a> has to repeatedly check the local time for pending job triggers and is subjected to the operating system process scheduler both of which might lead to time uncertainties.</p></li>
+<li><p>The <a class="reference internal" href="../participant/component_scheduler_service.html#label-scheduler-service-active-scheduler"><span class="std std-ref">Active scheduler</span></a> will watch runtime execution times and will react to violation according to the configured strategy (see <a class="reference internal" href="../participant/component_scheduler_service.html#label-clock-based-scheduler"><span class="std std-ref">clock_based_scheduler</span></a>).</p></li>
+</ul>
+</section>
+</section>
+<section id="external-real-time-clock">
+<h3><a class="toc-backref" href="#id23">External real-time clock</a><a class="headerlink" href="#external-real-time-clock" title="Permalink to this headline"></a></h3>
+<section id="id4">
+<h4><a class="toc-backref" href="#id24">Use Cases</a><a class="headerlink" href="#id4" title="Permalink to this headline"></a></h4>
+<ul class="simple">
+<li><p>Realtime mode within a real-time environment like vehicle prototypes.</p></li>
+<li><p>Non blocking scheduling across multiple FEP participants in a FEP system.</p></li>
+<li><p>The time source clock <em>some_fancy_realtime_clock</em> is provided by an external implementation.</p></li>
+</ul>
+</section>
+<section id="id5">
+<h4><a class="toc-backref" href="#id25">Configuration</a><a class="headerlink" href="#id5" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>Master Participant</p></th>
+<th class="head"><p>Participant 2</p></th>
+<th class="head"><p>Participant 3</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="../participant/component_clock_service.html#label-clock-service-main-clock"><span class="std std-ref">Main Clock</span></a></p></td>
+<td><p>some_fancy_realtime_clock</p></td>
+<td><p><a class="reference internal" href="../participant/component_clock_sync_service.html#label-clock-sync-slave-master-on-demand"><span class="std std-ref">slave_master_on_demand</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_clock_sync_service.html#label-clock-sync-slave-master-on-demand"><span class="std std-ref">slave_master_on_demand</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../participant/component_scheduler_service.html#label-scheduler-service-active-scheduler"><span class="std std-ref">Active scheduler</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_scheduler_service.html#label-clock-based-scheduler"><span class="std std-ref">clock_based_scheduler</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_scheduler_service.html#label-clock-based-scheduler"><span class="std std-ref">clock_based_scheduler</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_scheduler_service.html#label-clock-based-scheduler"><span class="std std-ref">clock_based_scheduler</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api.html#c.FEP3_CLOCKSYNC_SERVICE_CONFIG_SLAVE_SYNC_CYCLE_TIME" title="FEP3_CLOCKSYNC_SERVICE_CONFIG_SLAVE_SYNC_CYCLE_TIME"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCKSYNC_SERVICE_CONFIG_SLAVE_SYNC_CYCLE_TIME</span></code></a></p></td>
+<td></td>
+<td><p>100 ms</p></td>
+<td><p>100 ms</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api.html#c.FEP3_CLOCKSYNC_SERVICE_CONFIG_TIMING_MASTER" title="FEP3_CLOCKSYNC_SERVICE_CONFIG_TIMING_MASTER"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCKSYNC_SERVICE_CONFIG_TIMING_MASTER</span></code></a></p></td>
+<td></td>
+<td><p>“Master Participant”</p></td>
+<td><p>“Master Participant”</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id6">
+<h4><a class="toc-backref" href="#id26">This configuration means</a><a class="headerlink" href="#id6" title="Permalink to this headline"></a></h4>
+<ul class="simple">
+<li><p><em>Participant 2</em> and <em>Participant 3</em> are timing slaves, the <a class="reference internal" href="../participant/component_clock_sync_service.html#label-clock-sync-slave-master-on-demand"><span class="std std-ref">slave_master_on_demand</span></a> clock will synchronize every 100 ms with the <em>Master Participant</em> system time.</p></li>
+<li><p>The slave times are straightened by the Cristian’s Algorithm using the round-trip time of getting the time from the master.</p></li>
+<li><p>The <a class="reference internal" href="../participant/component_clock_sync_service.html#label-clock-sync-slave-master-on-demand"><span class="std std-ref">slave_master_on_demand</span></a> clock will interpolate the time needed to exchange synchronization information between the timing slaves and the timing master during synchronization.</p></li>
+<li><p>The <em>Master Participant</em> will provide the time by a continuous external time called <em>some_fancy_realtime_clock</em>.
+The <a class="reference internal" href="../participant/component_scheduler_service.html#label-clock-based-scheduler"><span class="std std-ref">clock_based_scheduler</span></a> has to repeatedly check the local time for pending job triggers and is subjected to the operating system process scheduler both of which might lead to time uncertainties.</p></li>
+<li><p>The <a class="reference internal" href="../participant/component_scheduler_service.html#label-scheduler-service-active-scheduler"><span class="std std-ref">Active scheduler</span></a> will watch runtime execution times and will react to violation according to the configured strategy (see <a class="reference internal" href="../participant/component_scheduler_service.html#label-clock-based-scheduler"><span class="std std-ref">clock_based_scheduler</span></a>).</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="master-slave-discrete-synchronization">
+<span id="label-guide-timing-use-cases-discrete-synchronization"></span><h2><a class="toc-backref" href="#id27">Master/Slave discrete synchronization</a><a class="headerlink" href="#master-slave-discrete-synchronization" title="Permalink to this headline"></a></h2>
+<section id="native-simulation-time-fixed-time-steps">
+<h3><a class="toc-backref" href="#id28">Native simulation time (fixed time steps)</a><a class="headerlink" href="#native-simulation-time-fixed-time-steps" title="Permalink to this headline"></a></h3>
+<section id="id7">
+<h4><a class="toc-backref" href="#id29">Use Cases</a><a class="headerlink" href="#id7" title="Permalink to this headline"></a></h4>
+<ul class="simple">
+<li><p>Controlled simulation environment including determinism regarding the time related behaviour of participants.</p></li>
+<li><p>Fixed distributed scheduling of jobs across multiple FEP participants within a FEP system with discrete logical time.</p></li>
+</ul>
+</section>
+<section id="id8">
+<h4><a class="toc-backref" href="#id30">Configuration</a><a class="headerlink" href="#id8" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>Master Participant</p></th>
+<th class="head"><p>Participant 2</p></th>
+<th class="head"><p>Participant 3</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="../participant/component_clock_service.html#label-clock-service-main-clock"><span class="std std-ref">Main Clock</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_clock_service.html#label-clock-implementation-local-system-simtime"><span class="std std-ref">local_system_simtime</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_clock_sync_service.html#label-clock-sync-slave-master-on-demand-discrete"><span class="std std-ref">slave_master_on_demand_discrete</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_clock_sync_service.html#label-clock-sync-slave-master-on-demand-discrete"><span class="std std-ref">slave_master_on_demand_discrete</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../participant/component_scheduler_service.html#label-scheduler-service-active-scheduler"><span class="std std-ref">Active scheduler</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_scheduler_service.html#label-clock-based-scheduler"><span class="std std-ref">clock_based_scheduler</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_scheduler_service.html#label-clock-based-scheduler"><span class="std std-ref">clock_based_scheduler</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_scheduler_service.html#label-clock-based-scheduler"><span class="std std-ref">clock_based_scheduler</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api.html#c.FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_STEP_SIZE" title="FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_STEP_SIZE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_STEP_SIZE</span></code></a></p></td>
+<td><p>100 ms</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api.html#c.FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_TIME_FACTOR" title="FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_TIME_FACTOR"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_TIME_FACTOR</span></code></a></p></td>
+<td><p>1.0</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api.html#c.FEP3_CLOCKSYNC_SERVICE_CONFIG_TIMING_MASTER" title="FEP3_CLOCKSYNC_SERVICE_CONFIG_TIMING_MASTER"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCKSYNC_SERVICE_CONFIG_TIMING_MASTER</span></code></a></p></td>
+<td></td>
+<td><p>“Master Participant”</p></td>
+<td><p>“Master Participant”</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id9">
+<h4><a class="toc-backref" href="#id31">This configuration means</a><a class="headerlink" href="#id9" title="Permalink to this headline"></a></h4>
+<ul class="simple">
+<li><p>Time synchronization is initiated by registering all timing slaves to the <a class="reference internal" href="../participant/component_clock_service.html#label-clock-service"><span class="std std-ref">Clock Service</span></a> of the timing master.</p></li>
+<li><p>Each <a class="reference internal" href="../participant/component_clock_sync_service.html#label-clock-sync-slave-master-on-demand-discrete"><span class="std std-ref">slave_master_on_demand_discrete</span></a> clock will receive time update events from the configured master.</p></li>
+<li><p>Due to the value of <a class="reference internal" href="../api.html#c.FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_STEP_SIZE" title="FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_STEP_SIZE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_STEP_SIZE</span></code></a> the timing master updates all timing slaves using a simulation time step size of 100 ms and
+due to <a class="reference internal" href="../api.html#c.FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_TIME_FACTOR" title="FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_TIME_FACTOR"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_TIME_FACTOR</span></code></a> it tries to progress at the same speed as its underlying system clock.</p></li>
+<li><p>The <a class="reference internal" href="../participant/component_clock_service.html#label-clock-service"><span class="std std-ref">Clock Service</span></a> of the master will wait at each time step for all slaves acknowledgments that the time has been reached and jobs have been executed.</p></li>
+<li><p>The <a class="reference internal" href="../participant/component_scheduler_service.html#label-scheduler-service-active-scheduler"><span class="std std-ref">Active scheduler</span></a> will be informed about each time update received by the clock and will execute jobs if necessary.</p></li>
+<li><p>The <a class="reference internal" href="../participant/component_scheduler_service.html#label-scheduler-service-active-scheduler"><span class="std std-ref">Active scheduler</span></a> will watch runtime execution times and will react to violation according to the configured strategy (see <a class="reference internal" href="../participant/component_scheduler_service.html#label-clock-based-scheduler"><span class="std std-ref">clock_based_scheduler</span></a>).</p></li>
+</ul>
+</section>
+</section>
+<section id="external-clock-i-e-player">
+<h3><a class="toc-backref" href="#id32">External clock (i.e. player)</a><a class="headerlink" href="#external-clock-i-e-player" title="Permalink to this headline"></a></h3>
+<section id="id10">
+<h4><a class="toc-backref" href="#id33">Use Cases</a><a class="headerlink" href="#id10" title="Permalink to this headline"></a></h4>
+<ul class="simple">
+<li><p>Controlled simulation environment including determinism regarding the time related behaviour of participants</p></li>
+<li><p>Fixed distributed scheduling of jobs across multiple FEP participants within a FEP system by a discrete logical time from the external clock (i.e. an external player!)</p></li>
+</ul>
+</section>
+<section id="id11">
+<h4><a class="toc-backref" href="#id34">Configuration</a><a class="headerlink" href="#id11" title="Permalink to this headline"></a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>Master Participant</p></th>
+<th class="head"><p>Participant 2</p></th>
+<th class="head"><p>Participant 3</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="../participant/component_clock_service.html#label-clock-service-main-clock"><span class="std std-ref">Main Clock</span></a></p></td>
+<td><p>some_external_player_clock</p></td>
+<td><p><a class="reference internal" href="../participant/component_clock_sync_service.html#label-clock-sync-slave-master-on-demand-discrete"><span class="std std-ref">slave_master_on_demand_discrete</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_clock_sync_service.html#label-clock-sync-slave-master-on-demand-discrete"><span class="std std-ref">slave_master_on_demand_discrete</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../participant/component_scheduler_service.html#label-scheduler-service-active-scheduler"><span class="std std-ref">Active scheduler</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_scheduler_service.html#label-clock-based-scheduler"><span class="std std-ref">clock_based_scheduler</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_scheduler_service.html#label-clock-based-scheduler"><span class="std std-ref">clock_based_scheduler</span></a></p></td>
+<td><p><a class="reference internal" href="../participant/component_scheduler_service.html#label-clock-based-scheduler"><span class="std std-ref">clock_based_scheduler</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api.html#c.FEP3_CLOCKSYNC_SERVICE_CONFIG_TIMING_MASTER" title="FEP3_CLOCKSYNC_SERVICE_CONFIG_TIMING_MASTER"><code class="xref c c-macro docutils literal notranslate"><span class="pre">FEP3_CLOCKSYNC_SERVICE_CONFIG_TIMING_MASTER</span></code></a></p></td>
+<td></td>
+<td><p>“Master Participant”</p></td>
+<td><p>“Master Participant”</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id12">
+<h4><a class="toc-backref" href="#id35">This configuration means</a><a class="headerlink" href="#id12" title="Permalink to this headline"></a></h4>
+<ul class="simple">
+<li><p>The discrete clock has to be registered at the clock service and configured as main clock via its name.</p></li>
+<li><p>Time synchronization is initiated by registering all timing slaves to the <a class="reference internal" href="../participant/component_clock_service.html#label-clock-service"><span class="std std-ref">Clock Service</span></a> of the timing master.</p></li>
+<li><p>Each <a class="reference internal" href="../participant/component_clock_sync_service.html#label-clock-sync-slave-master-on-demand-discrete"><span class="std std-ref">slave_master_on_demand_discrete</span></a> clock will receive time update events from the configured master.</p></li>
+<li><p>The <a class="reference internal" href="../participant/component_scheduler_service.html#label-scheduler-service-active-scheduler"><span class="std std-ref">Active scheduler</span></a> will be informed about each time update received by the clock and will execute jobs if necessary.</p></li>
+<li><p>The <a class="reference internal" href="../participant/component_scheduler_service.html#label-scheduler-service-active-scheduler"><span class="std std-ref">Active scheduler</span></a> will watch runtime execution times and will react to violation according to the configured strategy (see <a class="reference internal" href="../participant/component_scheduler_service.html#label-clock-based-scheduler"><span class="std std-ref">clock_based_scheduler</span></a>).</p></li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="guide_timing_explained.html" class="btn btn-neutral float-left" title="Time Synchronization and Scheduling explained" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="perf_test.html" class="btn btn-neutral float-right" title="Performance" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 14.04.2022, VW Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

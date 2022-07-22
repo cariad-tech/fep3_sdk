@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>(OLD) FEP Participant Library &mdash; fep3-sdk</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" /><link rel="shortcut icon" href="../_static/fep_logo_white.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Participant" href="participant_and_element.html" />
+    <link rel="prev" title="FEP Participant Library" href="participant_overview.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004666" >
+            <a href="../index.html" class="icon icon-home"> fep3-sdk<img src="../_static/fep_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+</ul>
+<p><span class="caption-text">Dive into FEP SDK</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="participant_overview.html">FEP Participant Library</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">(OLD) <span class="xref std std-term">FEP Participant</span> Library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#participant-library-and-api">Participant Library and API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#participant-and-element">Participant and Element</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="participant_and_element.html">Participant</a></li>
+<li class="toctree-l4"><a class="reference internal" href="participant_and_element.html#element-interface">Element Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#components">Components</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fep-default-components">FEP Default Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fep-component-system">FEP Component System</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#core-api">Core API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#core-cmake-config">Core CMake Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#element-base">Element Base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#element-configurable">Element Configurable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#easy-logging">Easy Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core-datawriter-and-datareader">Core DataWriter and DataReader</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#datawriter">DataWriter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#datareader">DataReader</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-jobs">Adding Jobs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#fep-interface-cpp-api">FEP Interface CPP API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fep-interface-cpp-cmake-config">FEP Interface CPP CMake Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fep-interface-cpp-participant">FEP Interface CPP Participant</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#datajob-element">DataJob Element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#datajob">DataJob</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../system/system_overview.html">FEP System Library</a></li>
+</ul>
+<p><span class="caption-text">API References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">FEP SDK API</a></li>
+</ul>
+<p><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/overview_advanced_topics.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/timing.html">Timing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/perf_test.html">Performance</a></li>
+</ul>
+<p><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style_guide.html">Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/howto.html">HOWTO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/used_licenses.html">Used Licenses</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004666" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">fep3-sdk</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>(OLD) <span class="xref std std-term">FEP Participant</span> Library</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/participant/participant_overview_backup.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="participant_overview.html" class="btn btn-neutral float-left" title="FEP Participant Library" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="participant_and_element.html" class="btn btn-neutral float-right" title="Participant" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="old-fep-participant-library">
+<span id="label-participant-library"></span><h1>(OLD) <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a> Library<a class="headerlink" href="#old-fep-participant-library" title="Permalink to this headline"></a></h1>
+<section id="participant-library-and-api">
+<h2>Participant Library and API<a class="headerlink" href="#participant-library-and-api" title="Permalink to this headline"></a></h2>
+<section id="participant-and-element">
+<span id="label-participant-and-element"></span><h3>Participant and Element<a class="headerlink" href="#participant-and-element" title="Permalink to this headline"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 31%" />
+<col style="width: 39%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api.html#_CPPv4N4fep34arya11ParticipantE" title="fep3::arya::Participant"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::Participant</span></code></a></p>
+<blockquote>
+<div><p><a class="reference internal" href="participant_and_element.html#label-participant"><span class="std std-ref">Participant</span></a></p>
+</div></blockquote>
+</td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep34arya8IElementE" title="fep3::arya::IElement"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::IElement</span></code></a></p>
+<blockquote>
+<div><p><a class="reference internal" href="participant_overview.html#label-element-interface"><span class="std std-ref">Implementing the fep3::core::arya::ElementBase::load()  and fep3::core::arya::ElementBase::initialize()</span></a></p>
+</div></blockquote>
+</td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep33rpc4arya27IRPCParticipantStateMachineE" title="fep3::rpc::arya::IRPCParticipantStateMachine"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::rpc::arya::IRPCParticipantStateMachine</span></code></a></p>
+<blockquote>
+<div><p><a class="reference internal" href="participant_overview.html#label-participant-state-machine"><span class="std std-ref">State Machine</span></a></p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="participant_and_element.html">Participant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="participant_and_element.html#element-interface">Element Interface</a></li>
+</ul>
+</div>
+</section>
+<section id="components">
+<span id="label-components"></span><h3>Components<a class="headerlink" href="#components" title="Permalink to this headline"></a></h3>
+<p>The functional parts of the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a> are called <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a>.
+Each <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Component</span></a> covers some specific functionality, e. g. functionality to exchange simulation data with other participants.</p>
+<p><a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a> can be accessed via the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a> API’s
+template method getComponent() in <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::core::arya::Participant</span></code>, passing the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-Interface"><span class="xref std std-term">FEP Component Interface</span></a>
+as template argument.</p>
+<section id="fep-default-components">
+<span id="label-default-components"></span><h4>FEP Default Components<a class="headerlink" href="#fep-default-components" title="Permalink to this headline"></a></h4>
+<p>By default the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a> loads the FEP Default Component set, which consists of the
+following <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a>:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 35%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Component</span></a></p></th>
+<th class="head"><p><a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component-Interface"><span class="xref std std-term">FEP Component Interface</span></a></p></th>
+<th class="head"><p>RPC Service Interface</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="component_clock_service.html#label-clock-service"><span class="std std-ref">Clock Service</span></a></p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep34arya13IClockServiceE" title="fep3::arya::IClockService"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::IClockService</span></code></a></p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep33rpc4arya16IRPCClockServiceE" title="fep3::rpc::arya::IRPCClockService"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::rpc::arya::IRPCClockService</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="component_clock_sync_service.html#label-clock-sync-service"><span class="std std-ref">Clock Sync Service</span></a></p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep34arya17IClockSyncServiceE" title="fep3::arya::IClockSyncService"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::IClockSyncService</span></code></a></p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep33rpc4arya21IRPCClockSyncSlaveDefE" title="fep3::rpc::arya::IRPCClockSyncSlaveDef"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::rpc::arya::IRPCClockSyncSlaveDef</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="component_configuration_service.html#label-configuration-service"><span class="std std-ref">Configuration Service</span></a></p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep34arya21IConfigurationServiceE" title="fep3::arya::IConfigurationService"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::IConfigurationService</span></code></a></p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep33rpc4arya17IRPCConfigurationE" title="fep3::rpc::arya::IRPCConfiguration"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::rpc::arya::IRPCConfiguration</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="component_data_registry.html#label-data-registry"><span class="std std-ref">Data Registry</span></a></p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep34arya13IDataRegistryE" title="fep3::arya::IDataRegistry"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::IDataRegistry</span></code></a></p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep33rpc4arya16IRPCDataRegistryE" title="fep3::rpc::arya::IRPCDataRegistry"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::rpc::arya::IRPCDataRegistry</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="component_job_registry.html#label-job-registry"><span class="std std-ref">Job Registry</span></a></p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep34arya12IJobRegistryE" title="fep3::arya::IJobRegistry"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::IJobRegistry</span></code></a></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="component_logging_service.html#label-logging-service"><span class="std std-ref">FEP Logging Service</span></a></p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep34arya15ILoggingServiceE" title="fep3::arya::ILoggingService"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::ILoggingService</span></code></a></p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep33rpc4arya18IRPCLoggingServiceE" title="fep3::rpc::arya::IRPCLoggingService"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::rpc::arya::IRPCLoggingService</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="xref std std-ref">label_participant_info</span></p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep34arya16IParticipantInfoE" title="fep3::arya::IParticipantInfo"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::IParticipantInfo</span></code></a></p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep33rpc4arya19IRPCParticipantInfoE" title="fep3::rpc::arya::IRPCParticipantInfo"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::rpc::arya::IRPCParticipantInfo</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="component_scheduler_service.html#label-scheduler-service"><span class="std std-ref">Scheduler Service</span></a></p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep34arya17ISchedulerServiceE" title="fep3::arya::ISchedulerService"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::ISchedulerService</span></code></a></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="component_service_bus.html#label-service-bus"><span class="std std-ref">Service Bus</span></a></p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep34arya11IServiceBusE" title="fep3::arya::IServiceBus"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::IServiceBus</span></code></a></p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep33rpc4arya19IRPCParticipantInfoE" title="fep3::rpc::arya::IRPCParticipantInfo"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::rpc::arya::IRPCParticipantInfo</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="component_simulation_bus.html#label-simulation-bus"><span class="std std-ref">Simulation Bus</span></a></p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep34arya14ISimulationBusE" title="fep3::arya::ISimulationBus"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::ISimulationBus</span></code></a></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="fep-component-system">
+<h4>FEP Component System<a class="headerlink" href="#fep-component-system" title="Permalink to this headline"></a></h4>
+<p>The <a class="reference internal" href="component_system.html#label-component-system"><span class="std std-ref">FEP Component System</span></a> provides facilities to make the <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participants</span></a> of a <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-System"><span class="xref std std-term">FEP System</span></a>
+use other <a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a> than the <a class="reference internal" href="#label-default-components"><span class="std std-ref">FEP Default Components</span></a>, e. g. in order to replace a native component
+by a custom implementation.</p>
+</section>
+</section>
+</section>
+<section id="core-api">
+<span id="label-core-api"></span><h2>Core API<a class="headerlink" href="#core-api" title="Permalink to this headline"></a></h2>
+<section id="core-cmake-config">
+<span id="label-core-cmake"></span><h3>Core CMake Config<a class="headerlink" href="#core-cmake-config" title="Permalink to this headline"></a></h3>
+<p>The Core API comes with its own target and can be used as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># find the package</span>
+<span class="n">find_package</span><span class="p">(</span><span class="n">fep3_participant_core</span> <span class="n">REQUIRED</span><span class="p">)</span>
+
+<span class="c1"># ... define your target and other stuff</span>
+
+<span class="c1"># link against the fep3_participant_core</span>
+<span class="n">target_link_libraries</span><span class="p">(</span><span class="n">my_target</span> <span class="n">PRIVATE</span>
+                      <span class="n">fep3_participant_core</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="element-base">
+<span id="label-core-element-base"></span><h3>Element Base<a class="headerlink" href="#element-base" title="Permalink to this headline"></a></h3>
+<p>See <a class="reference internal" href="../miscellaneous/examples.html#label-demo-core-easy"><span class="std std-ref">Demo Core Easy Sender and Demo Core Easy Receiver</span></a> for an example how to use the
+<a class="reference internal" href="../api.html#_CPPv4N4fep34core4arya11ElementBaseE" title="fep3::core::arya::ElementBase"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::core::arya::ElementBase</span></code></a>.</p>
+<p>The <a class="reference internal" href="../api.html#_CPPv4N4fep34core4arya11ElementBaseE" title="fep3::core::arya::ElementBase"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::core::arya::ElementBase</span></code></a> is a convenience class that
+implements the <a class="reference internal" href="participant_overview.html#label-element-interface"><span class="std std-ref">Implementing the fep3::core::arya::ElementBase::load()  and fep3::core::arya::ElementBase::initialize()</span></a>. It handles the type name and the version
+information of a FEP Element (see <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::core::arya::ElementBase::getTypename()</span></code>,
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::core::arya::ElementBase::getVersion()</span></code>) and provides access to
+<a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Component"><span class="xref std std-term">FEP Components</span></a> via <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::core::arya::ElementBase::getComponents()</span></code>.
+Calls to <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IElement::loadElement()</span></code> in the context of the
+<a class="reference internal" href="../miscellaneous/glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a>’s <a class="reference internal" href="participant_overview.html#label-participant-state-machine"><span class="std std-ref">State Machine</span></a> are tranferred to calls to
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::core::arya::ElementBase::load()</span></code> (<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IElement::unloadElement()</span></code>
+to <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::ElementBase::unload()</span></code> respectively).</p>
+</section>
+<section id="element-configurable">
+<span id="label-core-element-configurable"></span><h3>Element Configurable<a class="headerlink" href="#element-configurable" title="Permalink to this headline"></a></h3>
+<p>The <a class="reference internal" href="../api.html#_CPPv4N4fep34core4arya19ElementConfigurableE" title="fep3::core::arya::ElementConfigurable"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::core::arya::ElementConfigurable</span></code></a> base class provides a convenience class
+to use the <a class="reference internal" href="../api.html#_CPPv4N4fep34arya21IConfigurationServiceE" title="fep3::arya::IConfigurationService"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::IConfigurationService</span></code></a>.</p>
+<p>See <a class="reference internal" href="../miscellaneous/examples.html#label-demo-core-easy"><span class="std std-ref">Demo Core Easy Sender and Demo Core Easy Receiver</span></a> for an example how to use the
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::Configuration</span></code>.</p>
+</section>
+<section id="easy-logging">
+<span id="label-core-easy-logging"></span><h3>Easy Logging<a class="headerlink" href="#easy-logging" title="Permalink to this headline"></a></h3>
+<p>The <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::logging::arya::EasyLogging</span></code> base class provides a convenience class and macros
+to use the <a class="reference internal" href="../api.html#_CPPv4N4fep34arya15ILoggingServiceE" title="fep3::arya::ILoggingService"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::ILoggingService</span></code></a>. If more customization is required
+the <a class="reference internal" href="component_logging_service.html#label-logging-service"><span class="std std-ref">FEP Logging Service</span></a> needs to be used, which allows multiple loggers,
+logger grouping and custom logging sinks.</p>
+<p>See <a class="reference internal" href="../miscellaneous/examples.html#label-demo-core-easy"><span class="std std-ref">Demo Core Easy Sender and Demo Core Easy Receiver</span></a> for an example how to use the
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::logging::arya::EasyLogging</span></code>.</p>
+<p>If <a class="reference internal" href="../api.html#_CPPv4N4fep34core4arya11ElementBaseE" title="fep3::core::arya::ElementBase"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::core::arya::ElementBase</span></code></a> or <a class="reference internal" href="../api.html#_CPPv4N4fep34core4arya19ElementConfigurableE" title="fep3::core::arya::ElementConfigurable"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::core::arya::ElementConfigurable</span></code></a>
+is used then <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::logging::arya::EasyLogging</span></code> is already included and does not need to
+be initialized. To filter the logs from these two classes the logger name “element” has to be used.</p>
+</section>
+<section id="core-datawriter-and-datareader">
+<span id="label-core-data-writer-data-reader"></span><h3>Core DataWriter and DataReader<a class="headerlink" href="#core-datawriter-and-datareader" title="Permalink to this headline"></a></h3>
+<p>See <a class="reference internal" href="../miscellaneous/examples.html#label-demo-core-easy"><span class="std std-ref">Demo Core Easy Sender and Demo Core Easy Receiver</span></a> for an example how to use the core <em>DataWriter</em> and <em>DataReader</em>.</p>
+<p>The <a class="reference internal" href="../api.html#_CPPv4N4fep34core4arya10DataWriterE" title="fep3::core::arya::DataWriter"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::core::arya::DataWriter</span></code></a> and <a class="reference internal" href="../api.html#_CPPv4N4fep34core4arya10DataReaderE" title="fep3::core::arya::DataReader"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::core::arya::DataReader</span></code></a>
+are helper classes to add and remove <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::core::arya::IDataRegistry::IDataReader</span></code> and
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::core::arya::IDataRegistry::IDataWriter</span></code>.</p>
+<p>Use the <a class="reference internal" href="../api.html#_CPPv4N4fep34core4arya15addToComponentsERN4arya10DataReaderERKN4fep34arya11IComponentsE" title="fep3::core::arya::addToComponents"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::core::arya::addToComponents()</span></code></a> to add Reader or Writer to the <a class="reference internal" href="component_data_registry.html#label-data-registry"><span class="std std-ref">Data Registry</span></a>.
+Use the <a class="reference internal" href="../api.html#_CPPv4N4fep34core4arya20removeFromComponentsERN4arya10DataReaderERKN4fep34arya11IComponentsE" title="fep3::core::arya::removeFromComponents"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::core::arya::removeFromComponents()</span></code></a> to remove Reader or Writer from the <a class="reference internal" href="component_data_registry.html#label-data-registry"><span class="std std-ref">Data Registry</span></a>.</p>
+<section id="datawriter">
+<span id="label-core-data-writer"></span><h4>DataWriter<a class="headerlink" href="#datawriter" title="Permalink to this headline"></a></h4>
+<p><em>DataWriter</em> are queues that will hold the written data samples before they are flushed to the
+corresponding <a class="reference internal" href="../api.html#_CPPv4N4fep34arya13IDataRegistry11IDataWriterE" title="fep3::arya::IDataRegistry::IDataWriter"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::IDataRegistry::IDataWriter</span></code></a>.
+The data are written to the bus by calling the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::core::arya::DataReader::flushNow()</span></code>.
+If the capacity of the <em>DataWriter</em>
+queue exceeded before it is flushed, the oldest sample will be removed.</p>
+<p>The <em>DataWriter</em> can be used to write data with the streaming operator&lt;&lt; for
+any <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::core::arya::IDataSample</span></code> implementation,
+but also for some other standard and class types.
+It is designed for the users convenience! If the <a class="reference internal" href="../api.html#_CPPv4N4fep34core4arya15addToComponentsERN4arya10DataReaderERKN4fep34arya11IComponentsE" title="fep3::core::arya::addToComponents"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::core::arya::addToComponents()</span></code></a>
+was used it will automatically set the right timestamp to the data sample.
+The streaming operator can be used for following data types:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Type</p></th>
+<th class="head"><p>Recommended StreamType to use</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>IDataSample</p></td>
+<td><p>&lt;any&gt;</p></td>
+</tr>
+<tr class="row-odd"><td><p>int8_t, uint8_t,
+int16_t, uint16_t,
+int32_t, uint32_t,
+int64_t, uint64_t,
+float, double</p></td>
+<td><p>StreamTypePlain&lt;pain_c_type&gt;</p></td>
+</tr>
+<tr class="row-even"><td><p>std::string</p></td>
+<td><p>StreamTypeString</p></td>
+</tr>
+<tr class="row-odd"><td><p>structured (standard layout)</p></td>
+<td><p>StreamTypeDDL</p></td>
+</tr>
+<tr class="row-even"><td><p>structured data array
+(standard layout)
+use fep3::StdVectorSampleType</p></td>
+<td><p>StreamTypeDDLArray</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="datareader">
+<span id="label-core-data-reader"></span><h4>DataReader<a class="headerlink" href="#datareader" title="Permalink to this headline"></a></h4>
+<p><em>DataReader</em> are queues that will hold the reading data samples from the corresponding
+<a class="reference internal" href="../api.html#_CPPv4N4fep34arya13IDataRegistry11IDataReaderE" title="fep3::arya::IDataRegistry::IDataReader"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::IDataRegistry::IDataReader</span></code></a>.
+The reading is triggered by a <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::core::arya::DataReader::receiveNow()</span></code> call.
+This will read the data from the <a class="reference internal" href="../api.html#_CPPv4N4fep34arya13IDataRegistry11IDataReaderE" title="fep3::arya::IDataRegistry::IDataReader"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::IDataRegistry::IDataReader</span></code></a>
+only before the given simulation time and keep it in the queue. If the capacity of the <em>DataReader</em>
+queue exceeded, the oldest sample will be removed.</p>
+<p>To read the <em>DataReaders</em> content the streaming operator &gt;&gt; may be used for
+any <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::core::arya::IDataSample</span></code> implementation as well as for some other standard
+and class types.
+See table in chapter <a class="reference internal" href="#label-core-data-writer"><span class="std std-ref">DataWriter</span></a> which types are possible.</p>
+<p>The streaming operator &gt;&gt; returns the latest sample available. All options to retrieve samples
+from a data reader are listed in the following table:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 57%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Data Reader Access</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::core::arya::DataReader::popSampleLatest()</span></code></p></td>
+<td><p>Pops the latest data samples and returns it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::core::arya::DataReader::popSampleOldest()</span></code></p></td>
+<td><p>Pops the oldest data samples and returns it.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::core::arya::DataReader::readSampleLatest()</span></code></p></td>
+<td><p>Returns the latest data sample without popping it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::core::arya::DataReader::readSampleOldest()</span></code></p></td>
+<td><p>Returns the oldest data sample without popping it.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::core::arya::DataReader::readSampleBefore()</span></code></p></td>
+<td><p>Returns the oldest data sample with a timestamp below
+a given upper bound timestamp without popping it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::core::arya::DataReader::readType()</span></code></p></td>
+<td><p>Returns the current stream type.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="adding-jobs">
+<span id="label-core-job"></span><h3>Adding Jobs<a class="headerlink" href="#adding-jobs" title="Permalink to this headline"></a></h3>
+<p>Jobs are small runnable units to implement a functionality that needs to be part of a distributed scheduler.
+At the moment jobs configurations are only possible for cyclic time triggered events. In future there might
+be a possibility to add data triggered jobs as well.</p>
+<p>Use the <a class="reference internal" href="../api.html#_CPPv4N4fep34core4arya15addToComponentsERN4arya10DataReaderERKN4fep34arya11IComponentsE" title="fep3::core::arya::addToComponents"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::core::arya::addToComponents()</span></code></a> to add a job to the <a class="reference internal" href="component_job_registry.html#label-job-registry"><span class="std std-ref">Job Registry</span></a>.
+Use the <a class="reference internal" href="../api.html#_CPPv4N4fep34core4arya20removeFromComponentsERN4arya10DataReaderERKN4fep34arya11IComponentsE" title="fep3::core::arya::removeFromComponents"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::core::arya::removeFromComponents()</span></code></a> to remove the job from the <a class="reference internal" href="component_job_registry.html#label-job-registry"><span class="std std-ref">Job Registry</span></a>.</p>
+<p>See <a class="reference internal" href="../miscellaneous/examples.html#label-demo-core-easy"><span class="std std-ref">Demo Core Easy Sender and Demo Core Easy Receiver</span></a> for an example to use the core Jobs.</p>
+<p>The <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IJob::executeDataIn()</span></code> is to read
+and prepare the incoming data for the <em>execute</em> call. Do <em>not</em> implement any functional behavior in here,
+but read all data from the IDataRegistry::IDataReader.</p>
+<p>The <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IJob::execute()</span></code> is to implement the jobs functional behavior.</p>
+<p>The <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IJob::executeDataOut()</span></code> is to flush the
+<a class="reference internal" href="../api.html#_CPPv4N4fep34core4arya10DataWriterE" title="fep3::core::arya::DataWriter"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::core::arya::DataWriter</span></code></a> queues.</p>
+</section>
+</section>
+<section id="fep-interface-cpp-api">
+<span id="label-cpp-api"></span><h2>FEP Interface CPP API<a class="headerlink" href="#fep-interface-cpp-api" title="Permalink to this headline"></a></h2>
+<section id="fep-interface-cpp-cmake-config">
+<span id="label-cpp-cmake"></span><h3>FEP Interface CPP CMake Config<a class="headerlink" href="#fep-interface-cpp-cmake-config" title="Permalink to this headline"></a></h3>
+<p>The FEP Interface CPP API comes with its own target and can be used as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># find the package</span>
+<span class="n">find_package</span><span class="p">(</span><span class="n">fep3_participant_cpp</span> <span class="n">REQUIRED</span><span class="p">)</span>
+
+<span class="c1"># ... define your target and other stuff</span>
+
+<span class="c1"># link against the fep3_participant_cpp</span>
+<span class="n">target_link_libraries</span><span class="p">(</span><span class="n">my_target</span> <span class="n">PRIVATE</span>
+                      <span class="n">fep3_participant_cpp</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="fep-interface-cpp-participant">
+<span id="label-cpp-participant"></span><h3>FEP Interface CPP Participant<a class="headerlink" href="#fep-interface-cpp-participant" title="Permalink to this headline"></a></h3>
+<p>Use <a class="reference internal" href="../api.html#_CPPv4I0EN4fep33cpp4arya17createParticipantE11ParticipantRKNSt6stringE" title="fep3::cpp::arya::createParticipant"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::cpp::arya::createParticipant()</span></code></a> to create and use a
+FEP Participant.</p>
+<p>See <a class="reference internal" href="../miscellaneous/examples.html#label-demo-cpp-easy"><span class="std std-ref">Demo CPP Easy Sender and Demo CPP Easy Receiver</span></a> for an example how to use the
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::cpp::arya::Participant</span></code>.</p>
+</section>
+<section id="datajob-element">
+<span id="label-cpp-element-base-datajob"></span><h3>DataJob Element<a class="headerlink" href="#datajob-element" title="Permalink to this headline"></a></h3>
+<p>See <a class="reference internal" href="../miscellaneous/examples.html#label-demo-cpp-easy"><span class="std std-ref">Demo CPP Easy Sender and Demo CPP Easy Receiver</span></a> for an example how to use the
+<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::cpp::arya::ElementBase</span></code>.</p>
+<p>The <a class="reference internal" href="../api.html#_CPPv4I0EN4fep33cpp4arya14DataJobElementE" title="fep3::cpp::arya::DataJobElement"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::cpp::arya::DataJobElement</span></code></a> is a convenience class that
+implements the <a class="reference internal" href="participant_overview.html#label-element-interface"><span class="std std-ref">Implementing the fep3::core::arya::ElementBase::load()  and fep3::core::arya::ElementBase::initialize()</span></a> and supports one <a class="reference internal" href="#label-cpp-datajob"><span class="std std-ref">DataJob</span></a>.</p>
+</section>
+<section id="datajob">
+<span id="label-cpp-datajob"></span><h3>DataJob<a class="headerlink" href="#datajob" title="Permalink to this headline"></a></h3>
+<p>The <em>DataJob</em> is a FEP Interface CPP programming model to implement a functionality in an easy way.
+See <a class="reference internal" href="../miscellaneous/examples.html#label-demo-cpp-easy"><span class="std std-ref">Demo CPP Easy Sender and Demo CPP Easy Receiver</span></a> for an example how to use the
+<a class="reference internal" href="../api.html#_CPPv4N4fep33cpp4arya7DataJobE" title="fep3::cpp::arya::DataJob"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::cpp::arya::DataJob</span></code></a>.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="participant_overview.html" class="btn btn-neutral float-left" title="FEP Participant Library" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="participant_and_element.html" class="btn btn-neutral float-right" title="Participant" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 14.04.2022, VW Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

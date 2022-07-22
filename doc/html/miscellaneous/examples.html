@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Examples &mdash; fep3-sdk</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" /><link rel="shortcut icon" href="../_static/fep_logo_white.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Glossary" href="glossary.html" />
+    <link rel="prev" title="FAQ" href="faq.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004666" >
+            <a href="../index.html" class="icon icon-home"> fep3-sdk<img src="../_static/fep_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+</ul>
+<p><span class="caption-text">Dive into FEP SDK</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../participant/participant_overview.html">FEP Participant Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../participant/participant_overview_backup.html">(OLD) <span class="xref std std-term">FEP Participant</span> Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../system/system_overview.html">FEP System Library</a></li>
+</ul>
+<p><span class="caption-text">API References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">FEP SDK API</a></li>
+</ul>
+<p><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/overview_advanced_topics.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/timing.html">Timing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/perf_test.html">Performance</a></li>
+</ul>
+<p><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style_guide.html">Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p><span class="caption-text">Miscellaneous</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="howto.html">HOWTO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#demo-minimal-participant">Demo Minimal Participant</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#summary">Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#source-code">Source Code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#demo-rpc-service-and-demo-rpc-client">Demo RPC Service and Demo RPC Client</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Source Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-start">How to start</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#demo-core-easy-sender-and-demo-core-easy-receiver">Demo Core Easy Sender and Demo Core Easy Receiver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Source Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">How to start</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#demo-cpp-easy-sender-and-demo-cpp-easy-receiver">Demo CPP Easy Sender and Demo CPP Easy Receiver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Source Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">How to start</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#demo-logging-and-demo-logging-system">Demo Logging and Demo Logging System</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id10">Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">Source Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">How to start</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="used_licenses.html">Used Licenses</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004666" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">fep3-sdk</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Examples</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/miscellaneous/examples.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="faq.html" class="btn btn-neutral float-left" title="FAQ" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="glossary.html" class="btn btn-neutral float-right" title="Glossary" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="examples">
+<span id="id1"></span><h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline"></a></h1>
+<section id="demo-minimal-participant">
+<span id="label-minimal-participant"></span><h2>Demo Minimal Participant<a class="headerlink" href="#demo-minimal-participant" title="Permalink to this headline"></a></h2>
+<section id="summary">
+<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline"></a></h3>
+<p>This is a first very basic job, it creates a participant that contains a basic job that uses <a class="reference internal" href="../api.html#_CPPv4N4fep33cpp4arya7DataJobE" title="fep3::cpp::arya::DataJob"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::cpp::arya::DataJob</span></code></a>, whose <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::cpp::arya::DataJob::Process()</span></code> method is triggered with the default periodicity.</p>
+</section>
+<section id="source-code">
+<h3>Source Code<a class="headerlink" href="#source-code" title="Permalink to this headline"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">fep3_sdk_DIR</span><span class="o">&gt;/</span><span class="n">examples</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">minimal_participant</span><span class="o">/</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="demo-rpc-service-and-demo-rpc-client">
+<span id="label-demo-rpc"></span><h2>Demo RPC Service and Demo RPC Client<a class="headerlink" href="#demo-rpc-service-and-demo-rpc-client" title="Permalink to this headline"></a></h2>
+<section id="id2">
+<h3>Summary<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h3>
+<p>The example shows how to implement a participant that provides a service via <a class="reference internal" href="glossary.html#term-FEP-Service-Bus"><span class="xref std std-term">FEP Service Bus</span></a>.
+It also shows the possibility to send requests to this service via <a class="reference internal" href="glossary.html#term-RPC-Client"><span class="xref std std-term">RPC Client</span></a>.</p>
+<p>See more detailed information under <a class="reference internal" href="howto/guide_service_bus_rpc.html#label-guide-rpc-service-rpc-client"><span class="std std-ref">How to create a RPC Service and a RPC Client within the FEP Service Bus</span></a>.</p>
+</section>
+<section id="id3">
+<h3>Source Code<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">fep3_sdk_DIR</span><span class="o">&gt;/</span><span class="n">examples</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">rpc_service_bus</span><span class="o">/</span>
+</pre></div>
+</div>
+</section>
+<section id="how-to-start">
+<h3>How to start<a class="headerlink" href="#how-to-start" title="Permalink to this headline"></a></h3>
+<p>Unfortunately, we have no launch script at the moment.
+To start and try the example do the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>start &lt;fep3_sdk_DIR&gt;/examples/bin/demo_rpc_service</p></li>
+<li><p>start &lt;fep3_sdk_DIR&gt;/examples/bin/demo_rpc_client</p></li>
+</ul>
+</div></blockquote>
+<p>You will see the following:</p>
+<img alt="../_images/demo_rpc_launched.png" src="../_images/demo_rpc_launched.png" />
+<p>load and initialize the system to see following:</p>
+<img alt="../_images/demo_rpc_initialized.png" src="../_images/demo_rpc_initialized.png" />
+</section>
+</section>
+<section id="demo-core-easy-sender-and-demo-core-easy-receiver">
+<span id="label-demo-core-easy"></span><h2>Demo Core Easy Sender and Demo Core Easy Receiver<a class="headerlink" href="#demo-core-easy-sender-and-demo-core-easy-receiver" title="Permalink to this headline"></a></h2>
+<section id="id4">
+<h3>Summary<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h3>
+<p>The example shows how to implement a participant that uses:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="../participant/participant_overview_backup.html#label-core-easy-logging"><span class="std std-ref">Easy Logging</span></a></p></li>
+<li><p>creating Properties via Configuration</p></li>
+<li><p><a class="reference internal" href="../participant/participant_overview_backup.html#label-core-data-writer-data-reader"><span class="std std-ref">Core DataWriter and DataReader</span></a></p></li>
+<li><p>Jobs</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="id5">
+<h3>Source Code<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">fep3_sdk_DIR</span><span class="o">&gt;/</span><span class="n">examples</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">easy_core_example_element</span><span class="o">/</span>
+</pre></div>
+</div>
+</section>
+<section id="id6">
+<h3>How to start<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h3>
+<p>Unfortunately, we have no launch script at the moment.
+To start and try the example do the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>start &lt;fep3_sdk_DIR&gt;/examples/bin/demo_easy_core_receiver</p></li>
+<li><p>start &lt;fep3_sdk_DIR&gt;/examples/bin/demo_easy_core_sender</p></li>
+</ul>
+</div></blockquote>
+<p>You will see following after initializing:</p>
+<img alt="../_images/demo_easy_core_initialized.png" src="../_images/demo_easy_core_initialized.png" />
+<p>running the system to see following:</p>
+<img alt="../_images/demo_easy_core_running.png" src="../_images/demo_easy_core_running.png" />
+</section>
+</section>
+<section id="demo-cpp-easy-sender-and-demo-cpp-easy-receiver">
+<span id="label-demo-cpp-easy"></span><h2>Demo CPP Easy Sender and Demo CPP Easy Receiver<a class="headerlink" href="#demo-cpp-easy-sender-and-demo-cpp-easy-receiver" title="Permalink to this headline"></a></h2>
+<section id="id7">
+<h3>Summary<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
+<p>The example shows how to implement a participant that uses:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="../participant/participant_overview_backup.html#label-core-easy-logging"><span class="std std-ref">Easy Logging</span></a></p></li>
+<li><p>creating Properties via Configuration</p></li>
+<li><p><a class="reference internal" href="../participant/participant_overview_backup.html#label-cpp-datajob"><span class="std std-ref">DataJob</span></a> and <a class="reference internal" href="../participant/participant_overview_backup.html#label-core-data-writer-data-reader"><span class="std std-ref">Core DataWriter and DataReader</span></a></p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="id8">
+<h3>Source Code<a class="headerlink" href="#id8" title="Permalink to this headline"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">fep3_sdk_DIR</span><span class="o">&gt;/</span><span class="n">examples</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">easy_cpp_example_datajob</span><span class="o">/</span>
+</pre></div>
+</div>
+</section>
+<section id="id9">
+<h3>How to start<a class="headerlink" href="#id9" title="Permalink to this headline"></a></h3>
+<p>Unfortunately, we have no launch script at the moment.
+To start and try the example do the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>start &lt;fep3_sdk_DIR&gt;/examples/bin/demo_easy_cpp_receiver</p></li>
+<li><p>start &lt;fep3_sdk_DIR&gt;/examples/bin/demo_easy_cpp_sender</p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<section id="demo-logging-and-demo-logging-system">
+<span id="label-demo-logging"></span><h2>Demo Logging and Demo Logging System<a class="headerlink" href="#demo-logging-and-demo-logging-system" title="Permalink to this headline"></a></h2>
+<section id="id10">
+<h3>Summary<a class="headerlink" href="#id10" title="Permalink to this headline"></a></h3>
+<p>The example shows how to implement a participant and control a system that uses:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="../participant/component_logging_service.html#label-logging-service"><span class="std std-ref">FEP Logging Service</span></a></p></li>
+<li><p><a class="reference internal" href="../participant/participant_overview_backup.html#label-core-job"><span class="std std-ref">Adding Jobs</span></a></p></li>
+<li><p><a class="reference internal" href="../participant/component_logging_service.html#label-logging-service-configuration"><span class="std std-ref">Logging Service Configuration</span></a></p></li>
+</ul>
+</div></blockquote>
+<p>The participant of this example sends a log to the console and via RPC once per second.
+The system then changes this behavior after a few seconds by changing the filter settings of the participant logger.</p>
+</section>
+<section id="id11">
+<h3>Source Code<a class="headerlink" href="#id11" title="Permalink to this headline"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">fep3_sdk_DIR</span><span class="o">&gt;/</span><span class="n">examples</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">logging_example</span><span class="o">/</span>
+</pre></div>
+</div>
+</section>
+<section id="id12">
+<h3>How to start<a class="headerlink" href="#id12" title="Permalink to this headline"></a></h3>
+<p>Unfortunately, we have no launch script at the moment.
+To start and try the example do the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>start &lt;fep3_sdk_DIR&gt;/examples/bin/demo_logging</p></li>
+<li><p>start &lt;fep3_sdk_DIR&gt;/examples/bin/demo_logging_system</p></li>
+</ul>
+</div></blockquote>
+<p>The control tool is not needed for this example. The system starts and stops by itself.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="faq.html" class="btn btn-neutral float-left" title="FAQ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="glossary.html" class="btn btn-neutral float-right" title="Glossary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 14.04.2022, VW Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

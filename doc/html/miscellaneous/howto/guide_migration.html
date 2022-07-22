@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to migrate a FEP Participant from FEP 2 to FEP 3 &mdash; fep3-sdk</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" /><link rel="shortcut icon" href="../../_static/fep_logo_white.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="How to create a RPC Service and a RPC Client within the FEP Service Bus" href="guide_service_bus_rpc.html" />
+    <link rel="prev" title="HOWTO" href="../howto.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004666" >
+            <a href="../../index.html" class="icon icon-home"> fep3-sdk<img src="../../_static/fep_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a></li>
+</ul>
+<p><span class="caption-text">Dive into FEP SDK</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../participant/participant_overview.html">FEP Participant Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../participant/participant_overview_backup.html">(OLD) <span class="xref std std-term">FEP Participant</span> Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../system/system_overview.html">FEP System Library</a></li>
+</ul>
+<p><span class="caption-text">API References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">FEP SDK API</a></li>
+</ul>
+<p><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/overview_advanced_topics.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/timing.html">Timing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_topics/perf_test.html">Performance</a></li>
+</ul>
+<p><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute.html">Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../style_guide.html">Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p><span class="caption-text">Miscellaneous</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../howto.html">HOWTO</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">How to migrate a FEP Participant from FEP 2 to FEP 3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#instantiating-a-fep-participant">Instantiating a FEP Participant</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#writing-an-fep-element">Writing an FEP Element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reading-and-writing-signals">Reading and Writing Signals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#properties">Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#logging">Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#automation-interface">Automation Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testing">Testing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#unit-testing">Unit Testing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#system-testing">System Testing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guide_service_bus_rpc.html">How to create a RPC Service and a RPC Client within the FEP Service Bus</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../used_licenses.html">Used Licenses</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004666" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">fep3-sdk</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../howto.html">HOWTO</a> &raquo;</li>
+      <li>How to migrate a FEP Participant from FEP 2 to FEP 3</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/miscellaneous/howto/guide_migration.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="../howto.html" class="btn btn-neutral float-left" title="HOWTO" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="guide_service_bus_rpc.html" class="btn btn-neutral float-right" title="How to create a RPC Service and a RPC Client within the FEP Service Bus" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="how-to-migrate-a-fep-participant-from-fep-2-to-fep-3">
+<span id="label-guide-migration"></span><h1>How to migrate a FEP Participant from FEP 2 to FEP 3<a class="headerlink" href="#how-to-migrate-a-fep-participant-from-fep-2-to-fep-3" title="Permalink to this headline"></a></h1>
+<p>This guide shows how to port a FEP 2 participant to a FEP 3 participant,
+how the <a class="reference internal" href="../../participant/participant_overview_backup.html#label-components"><span class="std std-ref">components</span></a> and features have changed and offers specific code
+examples for both versions.</p>
+<section id="instantiating-a-fep-participant">
+<h2>Instantiating a FEP Participant<a class="headerlink" href="#instantiating-a-fep-participant" title="Permalink to this headline"></a></h2>
+<p>In FEP 2 the term module was ambiguous and could either refer to the FEP Participant or the FEP Element.
+In FEP 3 the term module is therefore not being used anymore and the terms
+<a class="reference internal" href="../glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a> and <a class="reference internal" href="../glossary.html#term-FEP-Element"><span class="xref std std-term">FEP Element</span></a> are now clearly defined.</p>
+<p>For a basic <a class="reference internal" href="../glossary.html#term-FEP-Participant"><span class="xref std std-term">FEP Participant</span></a> it is recommended to use the
+<a class="reference internal" href="../../participant/participant_overview_backup.html#label-cpp-api"><span class="std std-ref">CPP Library</span></a> first since it offers a more simple and convenient method to
+create a FEP Participant. The <a class="reference internal" href="../../participant/participant_overview_backup.html#label-core-api"><span class="std std-ref">Core Library</span></a> offers more functionality but one
+has to write the <a class="reference internal" href="../glossary.html#term-FEP-Element"><span class="xref std std-term">FEP Element</span></a> himself.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>FEP 2 Implementation</p></td>
+<td><p>FEP 3 Implementation</p></td>
+</tr>
+<tr class="row-even"><td><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">fep</span><span class="o">::</span><span class="n">cModuleOptions</span><span class="w"> </span><span class="n">oOptions</span><span class="p">{</span><span class="s">&quot;ParticipantName&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">fep</span><span class="o">::</span><span class="n">timing_FEP_30</span><span class="p">};</span><span class="w"></span>
+<span class="n">cMyModule</span><span class="w"> </span><span class="n">my_participant</span><span class="p">;</span><span class="w"></span>
+<span class="n">my_participant</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">oOptions</span><span class="p">);</span><span class="w"></span>
+<span class="n">my_participant</span><span class="p">.</span><span class="n">WaitForShutdown</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+</td>
+<td><p><strong>Variant 1: CPP Library</strong></p>
+<p>Create a custom class that is derived from <a class="reference internal" href="../../participant/participant_overview_backup.html#label-cpp-datajob"><span class="std std-ref">DataJob</span></a> to
+implement the functionality of the FEP Element (<em>MyDataJob</em> in this example).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">fep3</span><span class="o">::</span><span class="n">Participant</span><span class="w"> </span><span class="n">my_participant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fep3</span><span class="o">::</span><span class="n">cpp</span><span class="o">::</span><span class="n">createParticipant</span><span class="o">&lt;</span><span class="n">fep3</span><span class="o">::</span><span class="n">cpp</span><span class="o">::</span><span class="n">DataJobElement</span><span class="o">&lt;</span><span class="n">MyDataJob</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;ParticipantName&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;SystemName&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">my_participant</span><span class="p">.</span><span class="n">exec</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+<p><strong>Variant 2: Core Library</strong></p>
+<p>Create a custom class that is derived from <a class="reference internal" href="../../participant/participant_overview_backup.html#label-core-element-base"><span class="std std-ref">Element Base</span></a> or
+<a class="reference internal" href="../../participant/participant_overview_backup.html#label-core-element-configurable"><span class="std std-ref">Element Configurable</span></a> (allows custom properties) to modify
+the FEP Element itself. (<em>MyElement</em> in this example)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">fep3</span><span class="o">::</span><span class="n">Participant</span><span class="w"> </span><span class="n">my_participant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fep3</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">createParticipant</span><span class="o">&lt;</span><span class="n">fep3</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">ElementFactory</span><span class="o">&lt;</span><span class="n">MyElement</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;1.2.3&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="s">&quot;ParticipantName&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;SystemName&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">});</span><span class="w"></span>
+
+<span class="n">my_participant</span><span class="p">.</span><span class="n">exec</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="writing-an-fep-element">
+<h2>Writing an FEP Element<a class="headerlink" href="#writing-an-fep-element" title="Permalink to this headline"></a></h2>
+<p>The <a class="reference internal" href="../glossary.html#term-FEP-Element"><span class="xref std std-term">FEP Element</span></a> implementation replaces the module and gets loaded by the
+FEP Participant during the state transition <em>load</em>. It communicates with the FEP Participant via the
+<a class="reference internal" href="../../participant/participant_overview_backup.html#label-default-components"><span class="std std-ref">component interfaces</span></a>.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 42%" />
+<col style="width: 42%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td></td>
+<td><p>FEP 2 Implementation</p></td>
+<td><p>FEP 3 Implementation</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Class declaration</strong></p></td>
+<td><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">cMyModule</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">fep</span><span class="o">::</span><span class="n">cModule</span><span class="w"></span>
+</pre></div>
+</div>
+</td>
+<td><p>Derive from <a class="reference internal" href="../../participant/participant_overview_backup.html#label-core-element-base"><span class="std std-ref">Element Base</span></a>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyElement</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">fep3</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">ElementBase</span><span class="w"></span>
+</pre></div>
+</div>
+<p>To create and use custom properties <a class="reference internal" href="../../participant/participant_overview_backup.html#label-core-element-configurable"><span class="std std-ref">Element Configurable</span></a>
+has to be used as base class instead. But access to the
+<a class="reference internal" href="../../participant/component_configuration_service.html#label-configuration-service"><span class="std std-ref">Configuration Service</span></a> (formerly PropertyTree)
+is available to both base classes.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>Create method</strong></p></td>
+<td><div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">class cMyModule</span><a class="headerlink" href="#id1" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">fep</span><span class="o">::</span><span class="n">Result</span><span class="w"> </span><span class="n">Create</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">cModuleOptions</span><span class="o">&amp;</span><span class="w"> </span><span class="n">oModuleOptions</span><span class="p">)</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+</td>
+<td><p>A new state called Unloaded has been added.
+Formerly the Create() method called ProcessStartupEntry() right away.
+This does not happen anymore and the FEP Participant will stay in this new
+state until load() is called. <br/>
+Use the class constructor for anything the Create() method did before.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">MyElement</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">fep3</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">ElementBase</span><span class="p">(</span><span class="s">&quot;MyElementType&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1.0.0&quot;</span><span class="p">)</span><span class="w"></span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td rowspan="8"><p><strong>State transitions</strong></p></td>
+<td colspan="2"><p>The state machine has changed substantially. An overview of the new state machine can be found here: <a class="reference internal" href="../../participant/participant_overview.html#label-participant-state-machine"><span class="std std-ref">State Machine</span></a> <br/>
+The state <em>entry</em> and <em>exit</em> functions have been replaced by state <em>transition</em> functions which makes the <em>tState</em> parameter obsolete. <br/>
+A standalone mode that ignores any state changes does not exist anymore.</p></td>
+</tr>
+<tr class="row-odd"><td><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ProcessStartupEntry</span><span class="p">(</span><span class="n">fep</span><span class="o">::</span><span class="n">tState</span><span class="o">::</span><span class="n">FS_STARTUP</span><span class="p">);</span><span class="w"></span>
+<span class="n">ProcessStartupExit</span><span class="p">(</span><span class="n">fep</span><span class="o">::</span><span class="n">tState</span><span class="o">::</span><span class="n">FS_IDLE</span><span class="p">);</span><span class="w"></span>
+<span class="n">ProcessIdleEntry</span><span class="p">(</span><span class="n">fep</span><span class="o">::</span><span class="n">tState</span><span class="o">::</span><span class="n">FS_STARTUP</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</td>
+<td><p>The states Startup and Idle have been replaced by the state Loaded.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">class MyElement</span><a class="headerlink" href="#id2" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">fep3</span><span class="o">::</span><span class="n">Result</span><span class="w"> </span><span class="nf">load</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"> </span><span class="c1">// For the transition from Unloaded to Loaded</span>
+</pre></div>
+</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ProcessIdleExit</span><span class="p">(</span><span class="n">fep</span><span class="o">::</span><span class="n">tState</span><span class="o">::</span><span class="n">FS_INITIALIZING</span><span class="p">);</span><span class="w"></span>
+<span class="n">ProcessInitializingEntry</span><span class="p">(</span><span class="n">fep</span><span class="o">::</span><span class="n">tState</span><span class="o">::</span><span class="n">FS_IDLE</span><span class="p">);</span><span class="w"></span>
+<span class="n">ProcessInitializingExit</span><span class="p">(</span><span class="n">fep</span><span class="o">::</span><span class="n">tState</span><span class="o">::</span><span class="n">FS_READY</span><span class="p">);</span><span class="w"></span>
+<span class="n">ProcessReadyEntry</span><span class="p">(</span><span class="n">fep</span><span class="o">::</span><span class="n">tState</span><span class="o">::</span><span class="n">FS_INITIALIZING</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</td>
+<td><p>The states Initializing and Ready have been replaced by the state Initialized.</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">class MyElement</span><a class="headerlink" href="#id3" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">fep3</span><span class="o">::</span><span class="n">Result</span><span class="w"> </span><span class="nf">initialize</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"> </span><span class="c1">// For the transition from Loaded to Initialized</span>
+</pre></div>
+</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ProcessReadyExit</span><span class="p">(</span><span class="n">fep</span><span class="o">::</span><span class="n">tState</span><span class="o">::</span><span class="n">FS_RUNNING</span><span class="p">);</span><span class="w"></span>
+<span class="n">ProcessRunningEntry</span><span class="p">(</span><span class="n">fep</span><span class="o">::</span><span class="n">tState</span><span class="o">::</span><span class="n">FS_READY</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</td>
+<td><div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">class MyElement</span><a class="headerlink" href="#id4" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">fep3</span><span class="o">::</span><span class="n">Result</span><span class="w"> </span><span class="nf">run</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"> </span><span class="c1">// For the transition from Initialized to Running</span>
+</pre></div>
+</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>It is not possible to go from <code class="docutils literal notranslate"><span class="pre">FS_RUNNING</span></code> to <code class="docutils literal notranslate"><span class="pre">FS_READY</span></code> in FEP 2.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ProcessRunningExit</span><span class="p">(</span><span class="n">fep</span><span class="o">::</span><span class="n">tState</span><span class="o">::</span><span class="n">FS_IDLE</span><span class="p">);</span><span class="w"></span>
+<span class="n">ProcessIdleEntry</span><span class="p">(</span><span class="n">fep</span><span class="o">::</span><span class="n">tState</span><span class="o">::</span><span class="n">FS_RUNNING</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</td>
+<td><p>In FEP 3 it is not possible to go directly from Running to Loaded.</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">class MyElement</span><a class="headerlink" href="#id5" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">stop</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"> </span><span class="c1">// For the transition from Running to Initialized</span>
+</pre></div>
+</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ProcessReadyExit</span><span class="p">(</span><span class="n">fep</span><span class="o">::</span><span class="n">tState</span><span class="o">::</span><span class="n">FS_IDLE</span><span class="p">);</span><span class="w"></span>
+<span class="n">ProcessInitializingExit</span><span class="p">(</span><span class="n">fep</span><span class="o">::</span><span class="n">tState</span><span class="o">::</span><span class="n">FS_IDLE</span><span class="p">);</span><span class="w"></span>
+<span class="n">ProcessIdleEntry</span><span class="p">(</span><span class="n">fep</span><span class="o">::</span><span class="n">tState</span><span class="o">::</span><span class="n">FS_READY</span><span class="p">);</span><span class="w"></span>
+<span class="n">ProcessIdleEntry</span><span class="p">(</span><span class="n">fep</span><span class="o">::</span><span class="n">tState</span><span class="o">::</span><span class="n">FS_INITIALIZING</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</td>
+<td><div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">class MyElement</span><a class="headerlink" href="#id6" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">deinitialize</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"> </span><span class="c1">// For the transition from Initialized to Loaded</span>
+</pre></div>
+</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ProcessStartupEntry</span><span class="p">(</span><span class="n">fep</span><span class="o">::</span><span class="n">tState</span><span class="o">::</span><span class="n">FS_IDLE</span><span class="p">);</span><span class="w"> </span><span class="c1">// Restart event</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">fep</span><span class="o">::</span><span class="n">Result</span><span class="w"> </span><span class="nf">ProcessShutdownEntry</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">fep</span><span class="o">::</span><span class="n">tState</span><span class="w"> </span><span class="n">eOldState</span><span class="p">);</span><span class="w"></span>
+<span class="n">fep</span><span class="o">::</span><span class="n">Result</span><span class="w"> </span><span class="nf">CleanUp</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">fep</span><span class="o">::</span><span class="n">tState</span><span class="w"> </span><span class="n">eOldState</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</td>
+<td><div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">class MyElement</span><a class="headerlink" href="#id7" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">unload</span><span class="p">();</span><span class="w"> </span><span class="c1">// For the transition from Loaded to Unloaded</span>
+<span class="o">~</span><span class="n">MyElement</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">fep</span><span class="o">::</span><span class="n">Result</span><span class="w"> </span><span class="nf">ProcessErrorEntry</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">fep</span><span class="o">::</span><span class="n">tState</span><span class="w"> </span><span class="n">eOldState</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</td>
+<td><p>The Error state does not exist anymore.
+A health service is planned to be added with a later minor version.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="reading-and-writing-signals">
+<h2>Reading and Writing Signals<a class="headerlink" href="#reading-and-writing-signals" title="Permalink to this headline"></a></h2>
+<p>FEP 3 introduces <a class="reference internal" href="../../participant/component_job_registry.html#label-job"><span class="std std-ref">jobs</span></a> and the <a class="reference internal" href="../../participant/component_job_registry.html#label-job-registry"><span class="std std-ref">Job Registry</span></a> which combine the
+functionality of the <em>StepListener</em> and <em>DataListener</em>. The basic <a class="reference internal" href="../../api.html#_CPPv4N4fep34core4arya3JobE" title="fep3::core::arya::Job"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::core::arya::Job</span></code></a>
+class only provides a callback function while <a class="reference internal" href="../../api.html#_CPPv4N4fep33cpp4arya7DataJobE" title="fep3::cpp::arya::DataJob"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::cpp::arya::DataJob</span></code></a>
+(an extension to the Job class) also offers functionality for receiving and sending data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Any use of the data type int32_t in the code examples is exemplarily for all valid data types.</p>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 42%" />
+<col style="width: 42%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td></td>
+<td><p>FEP 2 Implementation</p></td>
+<td><p>FEP 3 Implementation</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Setup Callback Function</strong></p></td>
+<td><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GetTimingInterface</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">RegisterStepListener</span><span class="p">(</span><span class="w"></span>
+<span class="w">   </span><span class="s">&quot;StepListenerName&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="n">fep</span><span class="o">::</span><span class="n">StepConfig</span><span class="p">(</span><span class="mi">10</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000</span><span class="w"> </span><span class="cm">/*us*/</span><span class="p">),</span><span class="w"></span>
+<span class="w">   </span><span class="o">&amp;</span><span class="n">pCallbackFunction</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="k">this</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</td>
+<td><p>The <a class="reference internal" href="../../api.html#_CPPv4N4fep34core4arya3JobE" title="fep3::core::arya::Job"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::core::arya::Job</span></code></a> class can only execute a callback
+function. If the purpose of the <em>StepListener</em> was to send
+<a class="reference internal" href="../../participant/component_data_registry.html#label-data-samples"><span class="std std-ref">Data Samples</span></a>, a <a class="reference internal" href="../../api.html#_CPPv4N4fep33cpp4arya7DataJobE" title="fep3::cpp::arya::DataJob"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::cpp::arya::DataJob</span></code></a>
+is recommended.</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">class MyElement</span><a class="headerlink" href="#id8" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">fep3</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">Job</span><span class="o">&gt;</span><span class="w"> </span><span class="n">my_job</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">fep3</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">Job</span><span class="o">&gt;</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;JobName&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="mi">10</span><span class="n">ms</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">[</span><span class="k">this</span><span class="p">](</span><span class="n">fep3</span><span class="o">::</span><span class="n">Timestamp</span><span class="w"> </span><span class="n">sim_time</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">fep3</span><span class="o">::</span><span class="n">Result</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">callbackFunction</span><span class="p">(</span><span class="n">sim_time</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+
+<span class="c1">// getComponents() is a function of fep3::core::ElementBase</span>
+<span class="n">fep3</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">addToComponents</span><span class="p">({</span><span class="w"> </span><span class="n">my_job</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="o">*</span><span class="n">getComponents</span><span class="p">());</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>FEP 3 uses <code class="docutils literal notranslate"><span class="pre">std::chrono</span></code> objects now for timestamps and duration.
+This enables simple and type safe casting either explicitly with
+<code class="docutils literal notranslate"><span class="pre">std::chrono::duration_cast&lt;&gt;</span></code> or implicitly
+with <code class="docutils literal notranslate"><span class="pre">std::chrono_literals</span></code>.</p>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>Writing a signal</strong></p></td>
+<td><div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">class cMyModule</span><a class="headerlink" href="#id9" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">fep</span><span class="o">::</span><span class="n">IUserDataSample</span><span class="o">*</span><span class="w"> </span><span class="n">pSample</span><span class="p">;</span><span class="w"></span>
+<span class="n">handle_t</span><span class="w"> </span><span class="n">hHandle</span><span class="p">;</span><span class="w"></span>
+
+<span class="n">cUserSignalOptions</span><span class="w"> </span><span class="nf">oOptions</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;SignalName&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">fep</span><span class="o">::</span><span class="n">SD_Output</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;SignalType&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">cModule</span><span class="o">::</span><span class="n">GetSignalRegistry</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">RegisterSignal</span><span class="p">(</span><span class="n">oOptions</span><span class="p">,</span><span class="w"> </span><span class="n">hHandle</span><span class="p">);</span><span class="w"></span>
+<span class="n">cModule</span><span class="o">::</span><span class="n">GetUserDataAccess</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">CreateUserDataSample</span><span class="p">(</span><span class="n">pSample</span><span class="p">,</span><span class="w"> </span><span class="n">hHandle</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">pCallbackFunction</span><a class="headerlink" href="#id10" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">pSample</span><span class="o">-&gt;</span><span class="n">CopyFrom</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">data_size</span><span class="p">);</span><span class="w"></span>
+<span class="n">cModule</span><span class="o">::</span><span class="n">GetUserDataAccess</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">TransmitData</span><span class="p">(</span><span class="n">pSample</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+</td>
+<td><div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">class MyDataJob</span><a class="headerlink" href="#id11" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">fep3</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">DataWriter</span><span class="o">*</span><span class="w"> </span><span class="n">_data_writer</span><span class="p">;</span><span class="w"></span>
+
+<span class="n">_data_writer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">addDataOut</span><span class="p">(</span><span class="s">&quot;SignalName&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">fep3</span><span class="o">::</span><span class="n">base</span><span class="o">::</span><span class="n">StreamTypePlain</span><span class="o">&lt;</span><span class="kt">int32_t</span><span class="o">&gt;</span><span class="p">(),</span><span class="w"> </span><span class="n">queue_size</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<p>For an overview of all natively supported stream types
+see the chapter <a class="reference internal" href="../../participant/component_data_registry.html#label-default-streamtypes"><span class="std std-ref">Default Stream Types</span></a>.</p>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">MyDataJob::process()</span><a class="headerlink" href="#id12" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Template parameter of the streaming operator instead of void*</span>
+<span class="c1">// ensures type correctness at compile time.</span>
+<span class="o">*</span><span class="n">_data_writer</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">data</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Reading a signal</strong></p></td>
+<td><div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">class cMyModule</span><a class="headerlink" href="#id13" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">handle_t</span><span class="w"> </span><span class="n">hHandle</span><span class="p">;</span><span class="w"></span>
+
+<span class="n">cUserSignalOptions</span><span class="w"> </span><span class="nf">oOptions</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;SignalName&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">fep</span><span class="o">::</span><span class="n">SD_Input</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;SignalType&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">cModule</span><span class="o">::</span><span class="n">GetSignalRegistry</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">RegisterSignal</span><span class="p">(</span><span class="n">oOptions</span><span class="p">,</span><span class="w"> </span><span class="n">hHandle</span><span class="p">);</span><span class="w"></span>
+<span class="n">cModule</span><span class="o">::</span><span class="n">GetUserDataAccess</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">RegisterDataListener</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">hHandle</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">cMyModule::Update(fep::IUserDataSample* pSample)</span><a class="headerlink" href="#id14" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="n">pSample</span><span class="o">-&gt;</span><span class="n">GetSignalHandle</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">hHandle</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="o">*</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int32_t</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">pSample</span><span class="o">-&gt;</span><span class="n">GetPtr</span><span class="p">());</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+</td>
+<td><div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">class MyDataJob</span><a class="headerlink" href="#id15" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">fep3</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">DataReader</span><span class="o">*</span><span class="w"> </span><span class="n">_data_reader</span><span class="p">;</span><span class="w"></span>
+
+<span class="n">_data_reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">addDataIn</span><span class="p">(</span><span class="s">&quot;SignalName&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">fep3</span><span class="o">::</span><span class="n">base</span><span class="o">::</span><span class="n">StreamTypePlain</span><span class="o">&lt;</span><span class="kt">int32_t</span><span class="o">&gt;</span><span class="p">(),</span><span class="w"> </span><span class="n">queue_size</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">MyDataJob::process()</span><a class="headerlink" href="#id16" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Template parameter of the streaming operator instead of static_cast</span>
+<span class="c1">// removes the need for a signal handle.</span>
+<span class="n">fep3</span><span class="o">::</span><span class="n">Optional</span><span class="o">&lt;</span><span class="kt">int32_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">optional_data</span><span class="p">;</span><span class="w"></span>
+<span class="o">*</span><span class="n">_data_reader</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">optional_data</span><span class="p">;</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">optional_data</span><span class="p">.</span><span class="n">has_value</span><span class="p">())</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Use the data retrieved</span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>Writing a signal to
+the DDB</strong></p></td>
+<td><p>The sending of a DDB signal is almost identical to regular signals in FEP 2.</p>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">pCallbackFunction</span><a class="headerlink" href="#id17" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">cModule</span><span class="o">::</span><span class="n">GetUserDataAccess</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">TransmitData</span><span class="p">(</span><span class="n">pSample</span><span class="p">,</span><span class="w"> </span><span class="n">bSync</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+</td>
+<td><p>The Distributed Data Buffer does not exist anymore.
+Instead vector samples can be used now. But the streaming operator
+is not defined for vectors, so the data has to be written manually.</p>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text">MyDataJob::process()</span><a class="headerlink" href="#id18" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int32_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">my_data_array</span><span class="p">{};</span><span class="w"></span>
+<span class="c1">// Data sample helper class to wrap a std::vector</span>
+<span class="n">fep3</span><span class="o">::</span><span class="n">base</span><span class="o">::</span><span class="n">StdVectorSampleType</span><span class="o">&lt;</span><span class="kt">int32_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">array_sample</span><span class="w"> </span><span class="p">{</span><span class="n">my_data_array</span><span class="p">};</span><span class="w"></span>
+
+<span class="n">_data_writer</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">array_sample</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Reading a signal from
+the DDB</strong></p></td>
+<td><div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text">class cMyModule</span><a class="headerlink" href="#id19" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">handle_t</span><span class="w"> </span><span class="n">hHandle</span><span class="p">;</span><span class="w"></span>
+<span class="n">fep</span><span class="o">::</span><span class="n">IDDBAccess</span><span class="o">*</span><span class="w"> </span><span class="n">ddb_access</span><span class="p">;</span><span class="w"></span>
+
+<span class="n">cModule</span><span class="o">::</span><span class="n">InitDDBEntry</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;SignalName&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;SignalType&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">max_depth</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">fep</span><span class="o">::</span><span class="n">tDDBDeliveryStrategy</span><span class="o">::</span><span class="n">DDBDS_DumpIncomplete</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">hHandle</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="o">&amp;</span><span class="n">ddb_access</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">ddb_access</span><span class="o">-&gt;</span><span class="n">RegisterSyncListener</span><span class="p">(</span><span class="k">this</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id20">
+<div class="code-block-caption"><span class="caption-text">cMyModule::ProcessDDBSync(handle_t hSignal,
+fep::IDDBFrame oDDBFrame)</span><a class="headerlink" href="#id20" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="n">hSignal</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">hHandle</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">fep</span><span class="o">::</span><span class="n">IUserDataSample</span><span class="o">*</span><span class="w"> </span><span class="n">pSample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">oDDBFrame</span><span class="p">.</span><span class="n">GetSample</span><span class="p">(</span><span class="n">sampleIndex</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="o">*</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int32_t</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">pSample</span><span class="o">-&gt;</span><span class="n">GetPtr</span><span class="p">());</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+</td>
+<td><p>As with writing the signal the streaming operator is not defined for vectors,
+so the data has to be read manually.</p>
+<div class="literal-block-wrapper docutils container" id="id21">
+<div class="code-block-caption"><span class="caption-text">MyDataJob::process()</span><a class="headerlink" href="#id21" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int32_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">my_data_array</span><span class="p">{};</span><span class="w"></span>
+<span class="c1">// Data sample helper class to wrap a std::vector</span>
+<span class="n">fep3</span><span class="o">::</span><span class="n">base</span><span class="o">::</span><span class="n">StdVectorSampleType</span><span class="o">&lt;</span><span class="kt">int32_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">array_sample</span><span class="w"> </span><span class="p">{</span><span class="n">my_data_array</span><span class="p">};</span><span class="w"></span>
+
+<span class="c1">// Get pointer to the sample if available</span>
+<span class="k">if</span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">sample_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_data_reader</span><span class="o">-&gt;</span><span class="n">popSampleOldest</span><span class="p">())</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Copy the data into the vector my_data_array</span>
+<span class="w">    </span><span class="n">sample_ptr</span><span class="o">-&gt;</span><span class="n">read</span><span class="p">(</span><span class="n">array_sample</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="properties">
+<h2>Properties<a class="headerlink" href="#properties" title="Permalink to this headline"></a></h2>
+<p>The Property Tree has been replaced by the <a class="reference internal" href="../../participant/component_configuration_service.html#label-configuration-service"><span class="std std-ref">Configuration Service</span></a>.
+It is now possible to have arrays as properties in the form of std::vector&lt;T&gt;.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Any use of the data type int32_t in the code examples is exemplarily for all valid data types.</p>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 42%" />
+<col style="width: 42%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td></td>
+<td><p>FEP 2 Implementation</p></td>
+<td><p>FEP 3 Implementation</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Setting a property value</strong></p></td>
+<td><p>The property path is separated by dots. E.g. “Vehicle.Size.Length”</p>
+<p>The only possible data types are const char*, double, int32_t and bool.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GetPropertyTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetPropertyValue</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;PropertyPath&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">property_value</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</td>
+<td><p>The property path is separated by slashes. E.g. “Vehicle/Size/Length”</p>
+<p>Currently supported data types are std::string, double, int32_t, bool and
+<code class="docutils literal notranslate"><span class="pre">std::vector&lt;T&gt;</span></code> of these four.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="n">property_value</span><span class="p">{};</span><span class="w"></span>
+
+<span class="n">fep3</span><span class="o">::</span><span class="n">IConfigurationService</span><span class="o">*</span><span class="w"> </span><span class="n">configuration_service</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">    </span><span class="n">fep3</span><span class="o">::</span><span class="n">getComponent</span><span class="o">&lt;</span><span class="n">fep3</span><span class="o">::</span><span class="n">IConfigurationService</span><span class="o">&gt;</span><span class="p">(</span><span class="o">*</span><span class="n">getComponents</span><span class="p">());</span><span class="w"></span>
+
+<span class="n">fep3</span><span class="o">::</span><span class="n">base</span><span class="o">::</span><span class="n">setPropertyValue</span><span class="o">&lt;</span><span class="kt">int32_t</span><span class="o">&gt;</span><span class="p">(</span><span class="o">*</span><span class="n">configuration_service</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;PropertyPath&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">property_value</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>Getting a property value</strong></p></td>
+<td><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GetPropertyTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetPropertyValue</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;PropertyPath&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">property_value</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</td>
+<td><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">fep3</span><span class="o">::</span><span class="n">Optional</span><span class="o">&lt;</span><span class="kt">int32_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">property_value</span><span class="p">{};</span><span class="w"></span>
+
+<span class="n">fep3</span><span class="o">::</span><span class="n">IConfigurationService</span><span class="o">*</span><span class="w"> </span><span class="n">configuration_service</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">    </span><span class="n">fep3</span><span class="o">::</span><span class="n">getComponent</span><span class="o">&lt;</span><span class="n">fep3</span><span class="o">::</span><span class="n">IConfigurationService</span><span class="o">&gt;</span><span class="p">(</span><span class="o">*</span><span class="n">getComponents</span><span class="p">());</span><span class="w"></span>
+
+<span class="n">property_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fep3</span><span class="o">::</span><span class="n">base</span><span class="o">::</span><span class="n">getPropertyValue</span><span class="o">&lt;</span><span class="kt">int32_t</span><span class="o">&gt;</span><span class="p">(</span><span class="o">*</span><span class="n">configuration_service</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;PropertyPath&quot;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Creating a custom
+property</strong></p></td>
+<td><p>Identical to setting a property value.</p></td>
+<td><p id="label-custom-property">Derive from <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::Configuration</span></code>. This is already the case
+for <a class="reference internal" href="../../api.html#_CPPv4N4fep33cpp4arya7DataJobE" title="fep3::cpp::arya::DataJob"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::cpp::arya::DataJob</span></code></a> and
+<a class="reference internal" href="../../api.html#_CPPv4N4fep34core4arya19ElementConfigurableE" title="fep3::core::arya::ElementConfigurable"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::core::arya::ElementConfigurable</span></code></a>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// The declaration of a default value is optional</span>
+<span class="n">fep3</span><span class="o">::</span><span class="n">cpp</span><span class="o">::</span><span class="n">PropertyVariable</span><span class="o">&lt;</span><span class="kt">int32_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">my_property</span><span class="p">{</span><span class="n">default_value</span><span class="p">};</span><span class="w"></span>
+
+<span class="c1">// This will add the property to the root node of the configuration</span>
+<span class="c1">// The root node for ElementConfigurable is called &quot;element&quot;</span>
+<span class="c1">// The root node for DataJob is called &quot;job_&lt;data_job_name&gt;&quot;</span>
+<span class="c1">// So the full path will be &quot;&lt;root_node&gt;/PropertyPath&quot;</span>
+<span class="n">registerPropertyVariable</span><span class="p">(</span><span class="n">my_property</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;PropertyPath&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="c1">// Getting the property value</span>
+<span class="c1">// We need to update the property variables because the PropertyVariable&lt;T&gt;</span>
+<span class="c1">// is just an observer of the property node in the configuration service.</span>
+<span class="n">updatePropertyVariables</span><span class="p">();</span><span class="w"></span>
+<span class="n">property_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int32_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">my_property</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>To set a new value for the <code class="docutils literal notranslate"><span class="pre">PropertyVariable&lt;T&gt;</span></code> use the
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::setPropertyValue&lt;T&gt;()</span></code> function like with
+any other property.</p>
+<p>To get the current value it is also possible to use the
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::getPropertyValue&lt;T&gt;()</span></code> function
+instead of the <code class="docutils literal notranslate"><span class="pre">static_cast&lt;T&gt;()</span></code>.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>Listening to property
+changes</strong></p></td>
+<td><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">cMyModule</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">fep</span><span class="o">::</span><span class="n">cModule</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">fep</span><span class="o">::</span><span class="n">IPropertyListener</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id22">
+<div class="code-block-caption"><span class="caption-text">class cMyModule</span><a class="headerlink" href="#id22" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GetPropertyTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetProperty</span><span class="p">(</span><span class="s">&quot;PropertyPath&quot;</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">RegisterListener</span><span class="p">(</span><span class="k">this</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">fep</span><span class="o">::</span><span class="n">Result</span><span class="w"> </span><span class="n">ProcessPropertyChange</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">IProperty</span><span class="o">*</span><span class="w"> </span><span class="n">pProperty</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">IProperty</span><span class="o">*</span><span class="w"> </span><span class="n">pAffectedProperty</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">strRelativePath</span><span class="p">)</span><span class="w"></span>
+</pre></div>
+</div>
+</td>
+<td><p>FEP 3 does not have a passive listener for properties.</p>
+<p>A <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::IPropertyObserver</span></code> can be registered at custom
+properties but has to be triggered manually. If the above pattern with
+PropertyVariables is used, the observer will be registered automatically.</p>
+<p>For more information about property observers see the chapter
+<a class="reference internal" href="../../participant/component_configuration_service.html#label-property-observers"><span class="std std-ref">Property observers</span></a>.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Access to the property
+tree structure</strong></p></td>
+<td><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">fep</span><span class="o">::</span><span class="n">IProperty</span><span class="o">*</span><span class="w"> </span><span class="n">property</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetPropertyTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetLocalProperty</span><span class="p">(</span><span class="s">&quot;PropertyPath&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">fep</span><span class="o">::</span><span class="n">IProperty</span><span class="o">*</span><span class="w"> </span><span class="n">parent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">property</span><span class="o">-&gt;</span><span class="n">GetParent</span><span class="p">();</span><span class="w"></span>
+<span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">fep</span><span class="o">::</span><span class="n">IProperty</span><span class="o">*&gt;</span><span class="w"> </span><span class="n">children</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">property</span><span class="o">-&gt;</span><span class="n">GetSubProperties</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+</td>
+<td><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">fep3</span><span class="o">::</span><span class="n">IConfigurationService</span><span class="o">*</span><span class="w"> </span><span class="n">configuration_service</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">    </span><span class="n">fep3</span><span class="o">::</span><span class="n">getComponent</span><span class="o">&lt;</span><span class="n">fep3</span><span class="o">::</span><span class="n">IConfigurationService</span><span class="o">&gt;</span><span class="p">(</span><span class="o">*</span><span class="n">getComponents</span><span class="p">());</span><span class="w"></span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">fep3</span><span class="o">::</span><span class="n">IPropertyNode</span><span class="o">&gt;</span><span class="w"> </span><span class="n">property</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">configuration_service</span><span class="o">-&gt;</span><span class="n">getNode</span><span class="p">(</span><span class="s">&quot;PropertyPath&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="c1">// FEP 3 does not have a getParent() function</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">fep3</span><span class="o">::</span><span class="n">IPropertyNode</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">children</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">property</span><span class="o">-&gt;</span><span class="n">getChildren</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>Getting a remote
+property</strong></p></td>
+<td><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GetPropertyTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetRemoteProperty</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;ElementName&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;PropertyPath&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">pProperty</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">tmTimeout</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</td>
+<td rowspan="2"><p>Not supported.</p>
+<p>FEP Participants have no knowledge about other FEP Participants and can
+therefore not access them via <a class="reference internal" href="../../participant/component_service_bus.html#label-service-bus"><span class="std std-ref">RPC</span></a>.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Mirroring a remote
+property</strong></p></td>
+<td><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GetPropertyTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">MirrorRemoteProperty</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;ElementName&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;RemotePropertyPath&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;LocalPropertyPath&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">tmTimeout</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>FEP Participant Header
+Information</strong></p></td>
+<td><p>FEP Participant Header properties:</p>
+<ul class="simple">
+<li><p>ElementVersion</p></li>
+<li><p>ElementName</p></li>
+<li><p>ElementDescription</p></li>
+<li><p>FEPVersion</p></li>
+<li><p>Platform</p></li>
+<li><p>ElementContext</p></li>
+<li><p>ElementContextVersion</p></li>
+<li><p>ElementVendor</p></li>
+<li><p>ElementDisplayName</p></li>
+<li><p>ElementCompilationDate</p></li>
+<li><p>CurrentState</p></li>
+<li><p>Host</p></li>
+<li><p>InstanceID</p></li>
+<li><p>TypeID</p></li>
+</ul>
+</td>
+<td><p><a class="reference internal" href="../../api.html#_CPPv4N4fep33rpc4arya19IRPCParticipantInfoE" title="fep3::rpc::arya::IRPCParticipantInfo"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">ParticipantInfo</span></code></a> component:</p>
+<ul class="simple">
+<li><p>FEP Participant name</p></li>
+<li><p>FEP System name</p></li>
+</ul>
+<p>fep3_participant_version.h:</p>
+<ul class="simple">
+<li><p>FEP Participant Library version (usually identical to the FEP version)</p></li>
+</ul>
+<p>FEP Element related properties have to be added by the user himself to the
+<a class="reference internal" href="../../participant/component_configuration_service.html#label-configuration-service"><span class="std std-ref">Configuration Service</span></a>.
+See <a class="reference internal" href="#label-custom-property"><span class="std std-ref">Creating a custom property</span></a> above.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="logging">
+<h2>Logging<a class="headerlink" href="#logging" title="Permalink to this headline"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 42%" />
+<col style="width: 42%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td></td>
+<td><p>FEP 2 Implementation</p></td>
+<td><p>FEP 3 Implementation</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Writing a log</strong></p></td>
+<td><div class="literal-block-wrapper docutils container" id="id23">
+<div class="code-block-caption"><span class="caption-text">class cMyModule</span><a class="headerlink" href="#id23" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GetIncidentHandler</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">InvokeIncident</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="n">nIncidentCode</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">fep</span><span class="o">::</span><span class="n">eFEPSeverityLevel</span><span class="o">::</span><span class="n">SL_Critical</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Description&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Origin&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">__LINE__</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">__FILE__</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+</td>
+<td><p>Derive from <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::logging::arya::EasyLogging</span></code> and call
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">initLogger()</span></code>. If more than one
+logger is needed the <a class="reference internal" href="../../participant/component_logging_service.html#label-logging-service"><span class="std std-ref">FEP Logging Service</span></a> has to be used directly.</p>
+<p><a class="reference internal" href="../../api.html#_CPPv4N4fep33cpp4arya7DataJobE" title="fep3::cpp::arya::DataJob"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::cpp::arya::DataJob</span></code></a> and
+<a class="reference internal" href="../../api.html#_CPPv4N4fep34core4arya11ElementBaseE" title="fep3::core::arya::ElementBase"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::core::arya::ElementBase</span></code></a> are already derived from
+<a class="reference internal" href="../../participant/participant_overview_backup.html#label-core-easy-logging"><span class="std std-ref">Easy Logging</span></a> and do not need to be initialized manually.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Use any of the predefined macros for the actual logging</span>
+<span class="n">FEP3_LOG_ERROR</span><span class="p">(</span><span class="s">&quot;LogMessage&quot;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Meta information like the FEP Participant name, line number, timestamp etc.
+will be added to the log automatically.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>Configuring the logging
+mechanism</strong></p></td>
+<td><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GetIncidentHandler</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AssociateStrategy</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="n">nIncidentCode</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">fep</span><span class="o">::</span><span class="n">eIncidentStrategy</span><span class="o">::</span><span class="n">ES_LogConsole</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">fep</span><span class="o">::</span><span class="n">eStrategyAssociation</span><span class="o">::</span><span class="n">SA_APPEND</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</td>
+<td><p>Logging filters cannot be set by the FEP Element itself. Use the FEP System
+Library to set the filters via RPC.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>For more details see <a class="reference internal" href="../examples.html#label-demo-logging"><span class="std std-ref">Demo Logging and Demo Logging System</span></a></p>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Creating a custom incident
+strategy</strong></p></td>
+<td><p>Implement <code class="docutils literal notranslate"><span class="pre">fep::IIncidentStrategy</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">cMyIncidentStrategy</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">fep</span><span class="o">::</span><span class="n">IIncidentStrategy</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id24">
+<div class="code-block-caption"><span class="caption-text">class cMyModule</span><a class="headerlink" href="#id24" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">cMyIncidentStrategy</span><span class="o">*</span><span class="w"> </span><span class="n">myStrategy</span><span class="p">;</span><span class="w"></span>
+
+<span class="n">GetIncidentHandler</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">AssociateStrategy</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="n">nIncidentCode</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">myStrategy</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;ConfigurationPath&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">fep</span><span class="o">::</span><span class="n">eStrategyAssociation</span><span class="o">::</span><span class="n">SA_REPLACE</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<p>The custom incident strategy can then be configured with the property tree.</p>
+</td>
+<td><p>Derive from <code class="docutils literal notranslate"><span class="pre">fep3::Properties&lt;fep3::ILoggingService::ILoggingSink&gt;</span></code>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyLoggingSink</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">fep3</span><span class="o">::</span><span class="n">base</span><span class="o">::</span><span class="n">Properties</span><span class="o">&lt;</span><span class="n">fep3</span><span class="o">::</span><span class="n">ILoggingService</span><span class="o">::</span><span class="n">ILoggingSink</span><span class="o">&gt;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>For this feature the <a class="reference internal" href="../../participant/component_logging_service.html#label-logging-service"><span class="std std-ref">FEP Logging Service</span></a> has to be used.
+<a class="reference internal" href="../../participant/participant_overview_backup.html#label-core-easy-logging"><span class="std std-ref">Easy Logging</span></a> does not support custom logging sinks.</p>
+<div class="literal-block-wrapper docutils container" id="id25">
+<div class="code-block-caption"><span class="caption-text">class MyElement</span><a class="headerlink" href="#id25" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">fep3</span><span class="o">::</span><span class="n">ILoggingService</span><span class="o">*</span><span class="w"> </span><span class="n">logging_service</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">    </span><span class="n">fep3</span><span class="o">::</span><span class="n">getComponent</span><span class="o">&lt;</span><span class="n">fep3</span><span class="o">::</span><span class="n">ILoggingService</span><span class="o">&gt;</span><span class="p">(</span><span class="o">*</span><span class="n">getComponents</span><span class="p">());</span><span class="w"></span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">MyLoggingSink</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mySink</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">MyLoggingSink</span><span class="o">&gt;</span><span class="p">();</span><span class="w"></span>
+
+<span class="c1">//The first parameter is the reference used to configure the logging filters to this sink</span>
+<span class="n">logging_service</span><span class="o">-&gt;</span><span class="n">registerSink</span><span class="p">(</span><span class="s">&quot;my_sink&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">mySink</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<p>The custom logging sink can then be configured with the RPC
+<code class="docutils literal notranslate"><span class="pre">setSinkProperty()</span></code> via the FEP System Library similar to setting
+logging filters.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>For an example take a look at the implementation of the native file sink
+class <code class="docutils literal notranslate"><span class="pre">fep3::LoggingSinkFile</span></code>, which can also be used as a base class
+for custom logging sinks, or use the template from the chapter
+<a class="reference internal" href="../../participant/component_logging_service.html#label-logging-sink"><span class="std std-ref">Logging Sinks</span></a>.</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="automation-interface">
+<h2>Automation Interface<a class="headerlink" href="#automation-interface" title="Permalink to this headline"></a></h2>
+<p>The automation interface has been removed in FEP 3 and will not be added again. Use the <span class="xref std std-ref">label_system_library</span>
+to control a FEP System. A FEP Participant is not allowed to have any control over the FEP System in FEP 3.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 42%" />
+<col style="width: 42%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td></td>
+<td><p>FEP 2 Implementation</p></td>
+<td><p>FEP 3 Implementation</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Muting</strong></p></td>
+<td><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">fep</span><span class="o">::</span><span class="n">AutomationInterface</span><span class="w"> </span><span class="n">oAI</span><span class="p">;</span><span class="w"></span>
+<span class="n">oAI</span><span class="p">.</span><span class="n">MuteParticipant</span><span class="p">(</span><span class="s">&quot;ParticipantName&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="n">oAI</span><span class="p">.</span><span class="n">MuteSignal</span><span class="p">(</span><span class="s">&quot;SignalName&quot;</span><span class="p">,</span><span class="s">&quot;ParticipantName&quot;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</td>
+<td><p>Muting is not natively supported. But a custom FEP Element / job can be
+programmed to have the same functionality as so:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">fep3</span><span class="o">::</span><span class="n">cpp</span><span class="o">::</span><span class="n">PropertyVariable</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="w"> </span><span class="n">_is_muted</span><span class="p">{</span><span class="w"> </span><span class="nb">false</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="n">registerPropertyVariable</span><span class="p">(</span><span class="n">_is_muted</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Muted&quot;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">updatePropertyVariables</span><span class="p">();</span><span class="w"></span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_is_muted</span><span class="p">))</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="o">*</span><span class="n">_data_writer</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">data</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline"></a></h2>
+<p>To test an FEP Element in FEP 3 one can either use the <a class="reference internal" href="../../api.html#_CPPv4N4fep34core4arya19ParticipantExecutorE" title="fep3::core::arya::ParticipantExecutor"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::core::arya::ParticipantExecutor</span></code></a>
+to do unit testing or use the FEP System Library / FEP Base Utilities
+to test several FEP Participants together.</p>
+<section id="unit-testing">
+<h3>Unit Testing<a class="headerlink" href="#unit-testing" title="Permalink to this headline"></a></h3>
+<p>The FEP Participant Library provides the <a class="reference internal" href="../../api.html#_CPPv4N4fep34core4arya19ParticipantExecutorE" title="fep3::core::arya::ParticipantExecutor"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::core::arya::ParticipantExecutor</span></code></a> class,
+which will call the exec function asynchronously, so it is possible to continue testing.
+It can also control the <a class="reference internal" href="../../participant/participant_overview.html#label-participant-state-machine"><span class="std std-ref">State Machine</span></a> of the FEP Participant to
+start and stop it.</p>
+<div class="literal-block-wrapper docutils container" id="id26">
+<div class="code-block-caption"><span class="caption-text">main()</span><a class="headerlink" href="#id26" title="Permalink to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">fep3</span><span class="o">::</span><span class="n">Participant</span><span class="w"> </span><span class="n">my_test_participant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fep3</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">createParticipant</span><span class="o">&lt;</span><span class="n">fep3</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">ElementFactory</span><span class="o">&lt;</span><span class="n">MyElement</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;ParticipantName&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;1.2.3&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;SystemName&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">fep3</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">ParticipantExecutor</span><span class="w"> </span><span class="nf">executor</span><span class="p">(</span><span class="n">my_test_participant</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">executor</span><span class="p">.</span><span class="n">exec</span><span class="p">();</span><span class="w"></span>
+<span class="n">executor</span><span class="p">.</span><span class="n">load</span><span class="p">();</span><span class="w"></span>
+<span class="n">executor</span><span class="p">.</span><span class="n">initialize</span><span class="p">();</span><span class="w"></span>
+<span class="c1">// ... and so on</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="system-testing">
+<h3>System Testing<a class="headerlink" href="#system-testing" title="Permalink to this headline"></a></h3>
+<p>To test an entire FEP System with more than one FEP Participant, the FEP Base Utilities control tool or
+the FEP System Library / FEP Controller Library is recommended.</p>
+<ul class="simple">
+<li><p>The control tool requires a running FEP Participant executable and can be controlled through
+a script.</p></li>
+<li><p>With the FEP System Library one has to write an executable but has access to the whole FEP System
+and FEP Participant APIs. For more information see <span class="xref std std-ref">label_system_library</span>.</p></li>
+</ul>
+<p>If the FEP System Library is being used the <a class="reference internal" href="../../api.html#_CPPv4N4fep34core4arya19ParticipantExecutorE" title="fep3::core::arya::ParticipantExecutor"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::core::arya::ParticipantExecutor</span></code></a>
+is recommended again to start the FEP Participants in separate threads. But use the FEP System Library API
+to start and stop the FEP Participants in this case and not the <em>ParticipantExecutor</em> functions!
+It is also possible to start all FEP Participants in their own executable.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../howto.html" class="btn btn-neutral float-left" title="HOWTO" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="guide_service_bus_rpc.html" class="btn btn-neutral float-right" title="How to create a RPC Service and a RPC Client within the FEP Service Bus" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 14.04.2022, VW Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

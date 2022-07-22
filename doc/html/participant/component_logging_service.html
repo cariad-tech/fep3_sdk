@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FEP Logging Service &mdash; fep3-sdk</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" /><link rel="shortcut icon" href="../_static/fep_logo_white.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004666" >
+            <a href="../index.html" class="icon icon-home"> fep3-sdk<img src="../_static/fep_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+</ul>
+<p><span class="caption-text">Dive into FEP SDK</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="participant_overview.html">FEP Participant Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="participant_overview_backup.html">(OLD) <span class="xref std std-term">FEP Participant</span> Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../system/system_overview.html">FEP System Library</a></li>
+</ul>
+<p><span class="caption-text">API References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">FEP SDK API</a></li>
+</ul>
+<p><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/overview_advanced_topics.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/timing.html">Timing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/perf_test.html">Performance</a></li>
+</ul>
+<p><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style_guide.html">Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/howto.html">HOWTO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/used_licenses.html">Used Licenses</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004666" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">fep3-sdk</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>FEP Logging Service</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/participant/component_logging_service.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="fep-logging-service">
+<span id="label-logging-service"></span><h1><a class="toc-backref" href="#id1">FEP Logging Service</a><a class="headerlink" href="#fep-logging-service" title="Permalink to this headline"></a></h1>
+<aside class="sidebar">
+<p class="sidebar-title">Data Registry</p>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#fep-logging-service" id="id1">FEP Logging Service</a></p>
+<ul>
+<li><p><a class="reference internal" href="#summary" id="id2">Summary</a></p>
+<ul>
+<li><p><a class="reference internal" href="#component-interface" id="id3">Component Interface</a></p></li>
+<li><p><a class="reference internal" href="#rpc-service-interfaces" id="id4">RPC Service Interfaces</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#overview" id="id5">Overview</a></p></li>
+<li><p><a class="reference internal" href="#how-to-write-logs" id="id6">How to write logs</a></p>
+<ul>
+<li><p><a class="reference internal" href="#severity-level" id="id7">Severity Level</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#logging-service-configuration" id="id8">Logging Service Configuration</a></p></li>
+<li><p><a class="reference internal" href="#logging-sinks" id="id9">Logging Sinks</a></p>
+<ul>
+<li><p><a class="reference internal" href="#logging-sink-configuration" id="id10">Logging Sink Configuration</a></p></li>
+<li><p><a class="reference internal" href="#how-to-send-logs-via-rpc" id="id11">How to send logs via RPC</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</aside>
+<section id="summary">
+<h2><a class="toc-backref" href="#id2">Summary</a><a class="headerlink" href="#summary" title="Permalink to this headline"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 45%" />
+<col style="width: 55%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>Logging Service</p></td>
+</tr>
+<tr class="row-even"><td><p>Component Interface</p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep34arya15ILoggingServiceE" title="fep3::arya::ILoggingService"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::ILoggingService</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>RPC Service Interface</p></td>
+<td><p><a class="reference internal" href="../api.html#_CPPv4N4fep33rpc4arya21IRPCLoggingServiceDefE" title="fep3::rpc::arya::IRPCLoggingServiceDef"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::rpc::arya::IRPCLoggingServiceDef</span></code></a>
+<a class="reference internal" href="../api.html#_CPPv4N4fep33rpc4arya18IRPCLoggingServiceE" title="fep3::rpc::arya::IRPCLoggingService"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::rpc::arya::IRPCLoggingService</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>RPC Service Description</p></td>
+<td><p><a class="reference internal" href="../api.html#label-rpc-logging-service"><span class="std std-ref">RPC Logging Service</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>native delivery</p></td>
+<td><p>built-in</p></td>
+</tr>
+<tr class="row-even"><td><p>cpp-plugin possible</p></td>
+<td><p>no</p></td>
+</tr>
+<tr class="row-odd"><td><p>c-plugin possible</p></td>
+<td><p>no</p></td>
+</tr>
+</tbody>
+</table>
+<section id="component-interface">
+<h3><a class="toc-backref" href="#id3">Component Interface</a><a class="headerlink" href="#component-interface" title="Permalink to this headline"></a></h3>
+<p>The <a class="reference internal" href="../api.html#_CPPv4N4fep34arya15ILoggingServiceE" title="fep3::arya::ILoggingService"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::ILoggingService</span></code></a> interface offers functionality to create a logger, writing logs,
+retrieving the configured severity level of a logger and to register custom logging sinks that can be logged to.</p>
+</section>
+<section id="rpc-service-interfaces">
+<h3><a class="toc-backref" href="#id4">RPC Service Interfaces</a><a class="headerlink" href="#rpc-service-interfaces" title="Permalink to this headline"></a></h3>
+<p>The <a class="reference internal" href="../api.html#_CPPv4N4fep33rpc4arya18IRPCLoggingServiceE" title="fep3::rpc::arya::IRPCLoggingService"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::rpc::arya::IRPCLoggingService</span></code></a> interface offers functionality to set and get a logger filter and to
+get a list of all loggers, logging sinks or logging sink properties.</p>
+</section>
+</section>
+<section id="overview">
+<h2><a class="toc-backref" href="#id5">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline"></a></h2>
+<p>The FEP Logging Service provides resources to write logs to various destinations and
+automatically appends metadata like participant name, date, time and simulation time. Natively supported
+destinations, called logging sinks in the interface, include the console, files and the system (via RPC).
+Each logger can be configured individually by the system to filter logs based on the severity level
+and to choose a set of sinks that should be used. This configuration design is based on the design of log4j.</p>
+</section>
+<section id="how-to-write-logs">
+<h2><a class="toc-backref" href="#id6">How to write logs</a><a class="headerlink" href="#how-to-write-logs" title="Permalink to this headline"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the customization of the logging service is not needed, it is recommended to use <a class="reference internal" href="participant_overview_backup.html#label-core-easy-logging"><span class="std std-ref">Easy Logging</span></a> instead.</p>
+</div>
+<p>To write a log a logger object has be created first, which can be done like this:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">fep3</span><span class="o">::</span><span class="n">ILogger</span><span class="o">&gt;</span><span class="w"> </span><span class="n">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">logging_service</span><span class="o">-&gt;</span><span class="n">createLogger</span><span class="p">(</span><span class="s">&quot;MyLogger.SubDomain.Domain&quot;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>During creation a name has to be given to the logger. The name does <em>not</em> have to be unique and will
+be used for only two things: To identify the logger for configuration and to add it to the logs the logger writes.
+Loggers can be grouped together by adding a domain to the logger name as shown in the example above. To do this write a
+period <cite>‘.’</cite> after the logger name and add a custom domain name. From left to right the name must go
+from the most to the least precise level in the hierarchy.</p>
+<p>The actual log can then be written by calling one of the log function from the logger object:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="n">logger</span><span class="o">-&gt;</span><span class="n">logError</span><span class="p">(</span><span class="s">&quot;An Error has occured!&quot;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Should the construction of the string message be very performance intensive, it’s also possible to
+retrieve the severity level of the current configuration beforehand:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">logger</span><span class="o">-&gt;</span><span class="n">isErrorEnabled</span><span class="p">())</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">logger</span><span class="o">-&gt;</span><span class="n">logError</span><span class="p">(</span><span class="n">buildCostlyString</span><span class="p">());</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>A full example of a participant with an element and a job that uses the logging service can be found in the <a class="reference internal" href="../miscellaneous/examples.html#label-demo-logging"><span class="std std-ref">Demo Logging and Demo Logging System</span></a> example.</p>
+<section id="severity-level">
+<h3><a class="toc-backref" href="#id7">Severity Level</a><a class="headerlink" href="#severity-level" title="Permalink to this headline"></a></h3>
+<p>To indicate the importance of a log the FEP SDK uses five severity levels and one to turn logging off.
+The distinction between them is not enforced but internally the FEP SDK Library uses them as described in the table below.</p>
+<p>The Severity Levels are defined in <code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">fep3::logging::arya::Severity</span></code>. Note: A severity level will also always
+include the more severe levels. So if e.g. the severity level is set to warning, error and fatal will also be enabled.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 86%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Level</p></td>
+<td><p>Distinction</p></td>
+</tr>
+<tr class="row-even"><td><p>off</p></td>
+<td><p>Intended to turn off logging</p></td>
+</tr>
+<tr class="row-odd"><td><p>fatal</p></td>
+<td><p>Very severe error event that will presumably lead the application to abort</p></td>
+</tr>
+<tr class="row-even"><td><p>error</p></td>
+<td><p>Error event that might still allow the application to continue running</p></td>
+</tr>
+<tr class="row-odd"><td><p>warning</p></td>
+<td><p>Designates potentially harmful situations</p></td>
+</tr>
+<tr class="row-even"><td><p>info</p></td>
+<td><p>Informational message that highlights the progress of the application</p></td>
+</tr>
+<tr class="row-odd"><td><p>debug</p></td>
+<td><p>Fine-grained informational event that is most useful to debug an application</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="logging-service-configuration">
+<span id="label-logging-service-configuration"></span><h2><a class="toc-backref" href="#id8">Logging Service Configuration</a><a class="headerlink" href="#logging-service-configuration" title="Permalink to this headline"></a></h2>
+<p>Each logger can be configured individually or a group of loggers can be configured all at once. If no
+configuration has been set for a particular logger, the configuration of its domain will be used. If the domain
+doesn’t have one either the next higher domain will be used and so on. If there is no configuration at all
+the default configuration will be used.</p>
+<p>The following parameters can be configured:</p>
+<ul class="simple">
+<li><p>Severity Level Filter</p></li>
+<li><p>A list of all enabled logging sinks</p></li>
+</ul>
+<p>To set the configuration of a logger the function <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::rpc::arya::IRPCLoggingService::setLoggerFilter()</span></code>
+of the FEP SDK System Library has to be called. It has the following implications:</p>
+<ul class="simple">
+<li><p>If the logger is already configured the old configuration will be overwritten</p></li>
+<li><p>If the logger name is a group, all members of the group will be set to the new configuration</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="n">logging_service_proxy</span><span class="o">-&gt;</span><span class="n">setLoggerFilter</span><span class="p">(</span><span class="s">&quot;SubDomain.Domain&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">fep3</span><span class="o">::</span><span class="n">LoggerSeverity</span><span class="o">::</span><span class="n">warning</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;console&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;file&quot;</span><span class="p">}</span><span class="w"> </span><span class="p">});</span><span class="w"></span>
+</pre></div>
+</div>
+<p>This will allow all loggers that are part of the “SubDomain.Domain” group (including loggers named “SubDomain.Domain”) to log warnings, errors and fatals to the console and file sink.
+A full example on how to set a logging filter can be found in the <a class="reference internal" href="../miscellaneous/examples.html#label-demo-logging"><span class="std std-ref">Demo Logging and Demo Logging System</span></a> example.</p>
+<p>To change the default configuration an empty string can be passed as the logger_name to the function.
+Caution: Passing an empty string will set all loggers to the new configuration and overwrite all existing configurations!</p>
+</section>
+<section id="logging-sinks">
+<span id="label-logging-sink"></span><h2><a class="toc-backref" href="#id9">Logging Sinks</a><a class="headerlink" href="#logging-sinks" title="Permalink to this headline"></a></h2>
+<p>The FEP SDK Participant Library includes three native logging sinks that can be used without registering them:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 92%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>Description</p></td>
+</tr>
+<tr class="row-even"><td><p>console</p></td>
+<td><p>Logs Severity::error and Severity::fatal to std::cerr and everything else to std::cout</p></td>
+</tr>
+<tr class="row-odd"><td><p>file</p></td>
+<td><p>Logs to a user specified file. It will append the log to the file content if the file already exists
+or creates a new file. See also <a class="reference internal" href="#logging-sink-configuration">Logging Sink Configuration</a></p></td>
+</tr>
+<tr class="row-even"><td><p>rpc</p></td>
+<td><p>Sends the log to the system logger. See also <a class="reference internal" href="#how-to-send-logs-via-rpc">How to send logs via RPC</a></p></td>
+</tr>
+</tbody>
+</table>
+<p>It is also possible to create custom logging sinks by extending <a class="reference internal" href="../api.html#_CPPv4N4fep34arya15ILoggingService12ILoggingSinkE" title="fep3::arya::ILoggingService::ILoggingSink"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::Properties</span></code></a>
+or one of the native logging sinks. These have to be registered at the Logging Service before they can be used:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">CustomLoggingSink</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">fep3</span><span class="o">::</span><span class="n">base</span><span class="o">::</span><span class="n">Properties</span><span class="o">&lt;</span><span class="n">fep3</span><span class="o">::</span><span class="n">ILoggingService</span><span class="o">::</span><span class="n">ILoggingSink</span><span class="o">&gt;</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">CustomLoggingSink</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">fep3</span><span class="o">::</span><span class="n">Result</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="n">fep3</span><span class="o">::</span><span class="n">LogMessage</span><span class="w"> </span><span class="n">log</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// Implement your logging function here and return an error if it can fail</span>
+<span class="w">        </span><span class="k">return</span><span class="p">{};</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Optional: To add properties to the sink override this function or use _properties in the log function</span>
+<span class="w">    </span><span class="c1">// For an example look at the file logging sink in the header logging_sink_file.hpp</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">setProperty</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">type</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;my_property&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="c1">// Initialize your property here (if necessary)</span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">fep3</span><span class="o">::</span><span class="n">base</span><span class="o">::</span><span class="n">Properties</span><span class="o">&lt;</span><span class="n">fep3</span><span class="o">::</span><span class="n">ILoggingService</span><span class="o">::</span><span class="n">ILoggingSink</span><span class="o">&gt;::</span><span class="n">setProperty</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="n">logging_service</span><span class="o">-&gt;</span><span class="n">registerSink</span><span class="p">(</span><span class="s">&quot;my_sink&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">CustomLoggingSink</span><span class="o">&gt;</span><span class="p">());</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Loggers can now be configured to use this custom logging sink by using the name
+given to <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::ILoggingService::registerSink()</span></code> (“my_sink” in this example).</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="n">logging_service_proxy</span><span class="o">-&gt;</span><span class="n">setLoggerFilter</span><span class="p">(</span><span class="s">&quot;MyLogger.SubDomain.Domain&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">fep3</span><span class="o">::</span><span class="n">LoggerSeverity</span><span class="o">::</span><span class="n">error</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;my_sink&quot;</span><span class="p">}</span><span class="w"> </span><span class="p">});</span><span class="w"></span>
+</pre></div>
+</div>
+<section id="logging-sink-configuration">
+<h3><a class="toc-backref" href="#id10">Logging Sink Configuration</a><a class="headerlink" href="#logging-sink-configuration" title="Permalink to this headline"></a></h3>
+<p>Some logging sinks have properties that can be configured. From the three native sinks only the file sink has a property:
+The file path to the log file to which the logs should be written to.</p>
+<p>To set a property, first all properties from the logging sink to configure have to be retrieved
+and then <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IProperties::setProperty()</span></code> from the <a class="reference internal" href="../api.html#_CPPv4N4fep34arya11IPropertiesE" title="fep3::arya::IProperties"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::arya::IProperties</span></code></a> Interface has to be used:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">file_sink</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;file&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">properties</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">logging_service_proxy</span><span class="o">-&gt;</span><span class="n">getProperties</span><span class="p">(</span><span class="n">file_sink</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">properties</span><span class="o">-&gt;</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;file_path&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;my_log_file.txt&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;string&quot;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="how-to-send-logs-via-rpc">
+<h3><a class="toc-backref" href="#id11">How to send logs via RPC</a><a class="headerlink" href="#how-to-send-logs-via-rpc" title="Permalink to this headline"></a></h3>
+<p>When a participant gets added to the system (<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::System::add()</span></code>),
+the participant proxy registers the system logger to the native rpc logging sink of the participant.
+This enables the rpc logging on system side. For the participant to then send logs, the rpc logging sink needs to be enabled
+in the <a class="reference internal" href="#logging-service-configuration">Logging Service Configuration</a> which is enabled by default for the default configuration.</p>
+<p>Note: The system logger needs an event monitor to actual write the logs it receives. (See <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::System::registerMonitoring()</span></code>)</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 14.04.2022, VW Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

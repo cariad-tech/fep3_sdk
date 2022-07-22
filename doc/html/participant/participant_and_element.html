@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Participant &mdash; fep3-sdk</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" /><link rel="shortcut icon" href="../_static/fep_logo_white.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Native FEP Components" href="native_components.html" />
+    <link rel="prev" title="(OLD) FEP Participant Library" href="participant_overview_backup.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #004666" >
+            <a href="../index.html" class="icon icon-home"> fep3-sdk<img src="../_static/fep_logo_white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+</ul>
+<p><span class="caption-text">Dive into FEP SDK</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="participant_overview.html">FEP Participant Library</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="participant_overview_backup.html">(OLD) <span class="xref std std-term">FEP Participant</span> Library</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="participant_overview_backup.html#participant-library-and-api">Participant Library and API</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="participant_overview_backup.html#participant-and-element">Participant and Element</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Participant</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#element-interface">Element Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="participant_overview_backup.html#components">Components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="participant_overview_backup.html#core-api">Core API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="participant_overview_backup.html#fep-interface-cpp-api">FEP Interface CPP API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../system/system_overview.html">FEP System Library</a></li>
+</ul>
+<p><span class="caption-text">API References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">FEP SDK API</a></li>
+</ul>
+<p><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/overview_advanced_topics.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/timing.html">Timing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics/perf_test.html">Performance</a></li>
+</ul>
+<p><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../style_guide.html">Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+</ul>
+<p><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/howto.html">HOWTO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../miscellaneous/used_licenses.html">Used Licenses</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #004666" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">fep3-sdk</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="participant_overview_backup.html">(OLD) <span class="xref std std-term">FEP Participant</span> Library</a> &raquo;</li>
+      <li>Participant</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/participant/participant_and_element.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="participant_overview_backup.html" class="btn btn-neutral float-left" title="(OLD) FEP Participant Library" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="native_components.html" class="btn btn-neutral float-right" title="Native FEP Components" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="participant">
+<span id="label-participant"></span><h1>Participant<a class="headerlink" href="#participant" title="Permalink to this headline"></a></h1>
+<section id="creation">
+<span id="label-participant-creation"></span><h2>Creation<a class="headerlink" href="#creation" title="Permalink to this headline"></a></h2>
+<p>A participant instance has to be created using the function <a class="reference internal" href="../api.html#_CPPv4N4fep34arya17createParticipantERKNSt6stringERKNSt6stringERKNSt6stringERKNSt10shared_ptrIKN4arya15IElementFactoryEEERKNSt6stringE" title="fep3::arya::createParticipant"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::createParticipant()</span></code></a> or any of its overloads.
+There are various convenience wrappers of this function with the same name in other namespaces:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../api.html#_CPPv4N4fep34core4arya17createParticipantEiPPCKcRKNSt6stringERKNSt10shared_ptrIK15IElementFactoryEENSt10unique_ptrI17CommandLineParserEE" title="fep3::core::arya::createParticipant"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::core::arya::createParticipant()</span></code></a></p></li>
+<li><p><a class="reference internal" href="../api.html#_CPPv4I0EN4fep33cpp4arya17createParticipantE11ParticipantRKNSt6stringE" title="fep3::cpp::arya::createParticipant"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::cpp::arya::createParticipant()</span></code></a></p></li>
+</ul>
+<p>These convenience wrappers serve common use cases and require less arguments to be passed. For stand-alone participant executables
+it is recommended to use those overloads that take ‘argc’ and ‘argv’ as arguments in order to enable command line argument parsing,
+so that parameters like participant or system name can be changed on startup and are not hard-coded into the participant.</p>
+<section id="createparticipant-convenience-wrappers-of-the-cpp-library">
+<h3><em>createParticipant</em> convenience wrappers of the CPP Library<a class="headerlink" href="#createparticipant-convenience-wrappers-of-the-cpp-library" title="Permalink to this headline"></a></h3>
+<p>These convenience wrappers are for simple participants where the entire implementation can be described with a <a class="reference internal" href="../api.html#_CPPv4N4fep33cpp4arya7DataJobE" title="fep3::cpp::arya::DataJob"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">fep3::cpp::arya::DataJob</span></code></a> and no custom element is required.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1">// Recommended variation with command line argument parsing</span>
+<span class="w">    </span><span class="n">Participant</span><span class="w"> </span><span class="n">part</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fep3</span><span class="o">::</span><span class="n">cpp</span><span class="o">::</span><span class="n">createParticipant</span><span class="o">&lt;</span><span class="n">fep3</span><span class="o">::</span><span class="n">cpp</span><span class="o">::</span><span class="n">DataJobElement</span><span class="o">&lt;</span><span class="n">MyDataJob</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;MyParticipant&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;MySystem&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Most simple variations with hard-coded participant and system name</span>
+<span class="w">    </span><span class="n">fep3</span><span class="o">::</span><span class="n">cpp</span><span class="o">::</span><span class="n">createParticipant</span><span class="o">&lt;</span><span class="n">fep3</span><span class="o">::</span><span class="n">cpp</span><span class="o">::</span><span class="n">DataJobElement</span><span class="o">&lt;</span><span class="n">MyDataJob</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="s">&quot;MyParticipant&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">fep3</span><span class="o">::</span><span class="n">cpp</span><span class="o">::</span><span class="n">createParticipant</span><span class="o">&lt;</span><span class="n">fep3</span><span class="o">::</span><span class="n">cpp</span><span class="o">::</span><span class="n">DataJobElement</span><span class="o">&lt;</span><span class="n">MyDataJob</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="s">&quot;MyParticipant&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;MySystem&quot;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>To add user defined command line arguments a parser object has to be created and passed to the <em>createParticipant</em> function.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1">// Variable to which the command line argument gets copied to. Set the default value here.</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">project</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;fep&quot;</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Add the user defined argument to a clara::Parser object. Make sure to not overwrite any options already defined by the SDK.</span>
+<span class="w">    </span><span class="n">clara</span><span class="o">::</span><span class="n">Parser</span><span class="w"> </span><span class="n">parser</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">parser</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">clara</span><span class="o">::</span><span class="n">Opt</span><span class="p">(</span><span class="n">project</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;string&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">[</span><span class="s">&quot;-p&quot;</span><span class="p">][</span><span class="s">&quot;--project&quot;</span><span class="p">]</span><span class="w"></span>
+<span class="w">        </span><span class="p">(</span><span class="s">&quot;Set the project the participant is part of&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Create a CommandLineParser object with the factory function. This will add the natively supported command line options to the parser.</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">CommandLineParser</span><span class="o">&gt;</span><span class="w"> </span><span class="n">clp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fep3</span><span class="o">::</span><span class="n">CommandLineParserFactory</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span><span class="w"> </span><span class="n">ParserDefaultValues</span><span class="p">{</span><span class="s">&quot;MyParticipant&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;MySystem&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">});</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Pass the CommandLineParser object to the createParticipant function</span>
+<span class="w">    </span><span class="n">Participant</span><span class="w"> </span><span class="n">part</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fep3</span><span class="o">::</span><span class="n">cpp</span><span class="o">::</span><span class="n">createParticipant</span><span class="o">&lt;</span><span class="n">fep3</span><span class="o">::</span><span class="n">cpp</span><span class="o">::</span><span class="n">DataJobElement</span><span class="o">&lt;</span><span class="n">MyDataJob</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">clp</span><span class="p">));</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Alternatively call the factory function inline. The last value of the ParserDefaultValues (server address url) can be omitted</span>
+<span class="w">    </span><span class="c1">// but not all compilers support partially defined initializer lists.</span>
+<span class="w">    </span><span class="n">fep3</span><span class="o">::</span><span class="n">cpp</span><span class="o">::</span><span class="n">createParticipant</span><span class="o">&lt;</span><span class="n">fep3</span><span class="o">::</span><span class="n">cpp</span><span class="o">::</span><span class="n">DataJobElement</span><span class="o">&lt;</span><span class="n">MyDataJob</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">,</span><span class="w"> </span><span class="n">CommandLineParserFactory</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;MyParticipant&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;MySystem&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">}));</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="createparticipant-convenience-wrappers-of-the-core-library">
+<h3><em>createParticipant</em> convenience wrappers of the Core Library<a class="headerlink" href="#createparticipant-convenience-wrappers-of-the-core-library" title="Permalink to this headline"></a></h3>
+<p>These convenience wrappers are for participants with custom elements and also allow to define the element version and a default value for the system address URL.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1">// Recommended variation with command line argument parsing</span>
+<span class="w">    </span><span class="n">Participant</span><span class="w"> </span><span class="n">part</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fep3</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">createParticipant</span><span class="o">&lt;</span><span class="n">fep3</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">ElementFactory</span><span class="o">&lt;</span><span class="n">MyElement</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1.2.3&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;MyParticipant&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;MySystem&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">});</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// If the participant and system name shall always be passed as command line arguments, the ParserDefaultValues can also be omitted.</span>
+<span class="w">    </span><span class="n">fep3</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">createParticipant</span><span class="o">&lt;</span><span class="n">fep3</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">ElementFactory</span><span class="o">&lt;</span><span class="n">MyElement</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1.2.3&quot;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>This will make the optional arguments required and changes how the executable is called:</p>
+<p>With default values defined:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&gt; myParticipantExecutable -n MyParticipant -s MySystem
+</pre></div>
+</div>
+<p>Without default values defined:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&gt; myParticipantExecutable MyParticipant MySystem
+</pre></div>
+</div>
+<p>If command line parsing is not required, possible or sensible then this overload without ‘argc/argv’ can be used:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">fep3</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">createParticipant</span><span class="o">&lt;</span><span class="n">fep3</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">ElementFactory</span><span class="o">&lt;</span><span class="n">MyElement</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="s">&quot;MyParticipant&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1.2.3&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;MySystem&quot;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Adding user defined command line arguments is identical to the CPP library. Only the <a class="reference internal" href="../api.html#_CPPv4N4fep34arya17createParticipantERKNSt6stringERKNSt6stringERKNSt6stringERKNSt10shared_ptrIKN4arya15IElementFactoryEEERKNSt6stringE" title="fep3::arya::createParticipant"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::createParticipant()</span></code></a> call is slightly different.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">fep3</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">createParticipant</span><span class="o">&lt;</span><span class="n">fep3</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">ElementFactory</span><span class="o">&lt;</span><span class="n">MyElement</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1.2.3&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">CommandLineParserFactory</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;MyParticipant&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;MySystem&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">}));</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="execution">
+<span id="label-participant-execution"></span><h2>Execution<a class="headerlink" href="#execution" title="Permalink to this headline"></a></h2>
+<p>After instantiating the participant, it has to be executed via <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::Participant::exec()</span></code>. If the execution succeeds,
+this method blocks until the <a class="reference internal" href="participant_overview.html#label-participant-state-machine"><span class="std std-ref">State Machine</span></a> reaches the state <code class="docutils literal notranslate"><span class="pre">Final</span></code>.</p>
+</section>
+<section id="state-machine">
+<span id="label-participant-state-machine"></span><h2>State Machine<a class="headerlink" href="#state-machine" title="Permalink to this headline"></a></h2>
+<p>A participant instance has the following state machine:</p>
+<img alt="../_images/participant_statemachine.svg" src="../_images/participant_statemachine.svg" /><div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>State ‘Paused’ is not supported yet. Trying to set a participant and its components to state ‘Paused’ results in an error.</p>
+</div>
+<p>Once the participant instance has been created, its state machine is in state ‘Unloaded’. The state machine can then be controlled by events via
+the <a class="reference internal" href="component_service_bus.html#label-service-bus"><span class="std std-ref">Service Bus</span></a>.</p>
+<p>The following table shows the calls to the FEP Participant API as performed by the element-related guards and actions (postfixed by <code class="docutils literal notranslate"><span class="pre">..._element</span></code> in the state machine diagram):</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 57%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>guard/action</p></th>
+<th class="head"><p>calls on the FEP Participant API</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>load_element</p></td>
+<td><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IElementFactory::createElement()</span></code>
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IElement::loadElement()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>unload_element</p></td>
+<td><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IElement::unloadElement()</span></code>
+<code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::~IElement()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>initialize_element</p></td>
+<td><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IElement::initialize()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>deinitialize_element</p></td>
+<td><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IElement::deinitialize()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>run_element</p></td>
+<td><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IElement::run()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>stop_element</p></td>
+<td><p><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">fep3::arya::IElement::stop()</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Note: For a description of the calls to the FEP Component API as performed by the component-related guards and actions (postfixed by <code class="docutils literal notranslate"><span class="pre">..._components</span></code> in the state machine diagram),
+please refer to <a class="reference internal" href="component_system.html#label-calls-to-component"><span class="std std-ref">Calls to the fep3::arya::IComponent interface</span></a>.</p>
+</section>
+</section>
+<section id="element-interface">
+<span id="label-element-interface"></span><h1>Element Interface<a class="headerlink" href="#element-interface" title="Permalink to this headline"></a></h1>
+<p>The element interface describes the structure of an element.
+The participant is able to load and manage a FEP Element implementation via an Element Factory.
+This interface is described as follows:</p>
+<dl class="alias">
+<dt>
+<em class="property">class </em><a class="reference internal" href="../api.html#_CPPv44fep3" title="fep3">fep3</a>::<a class="reference internal" href="../api.html#_CPPv4N4fep34aryaE" title="fep3::arya">arya</a>::<a class="reference internal" href="../api.html#_CPPv4N4fep34arya8IElementE" title="fep3::arya::IElement">IElement</a><br /></dt>
+<dd></dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="participant_overview_backup.html" class="btn btn-neutral float-left" title="(OLD) FEP Participant Library" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="native_components.html" class="btn btn-neutral float-right" title="Native FEP Components" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 14.04.2022, VW Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
