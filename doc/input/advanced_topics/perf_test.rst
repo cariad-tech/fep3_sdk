@@ -1,14 +1,8 @@
 .. Copyright @ 2021 VW Group. All rights reserved.
 .. 
-..     This Source Code Form is subject to the terms of the Mozilla
-..     Public License, v. 2.0. If a copy of the MPL was not distributed
-..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-.. 
-.. If it is not possible or desirable to put the notice in a particular file, then
-.. You may include the notice in a location (such as a LICENSE file in a
-.. relevant directory) where a recipient would be likely to look for such a notice.
-.. 
-.. You may add additional accurate notices of copyright ownership.
+.. This Source Code Form is subject to the terms of the Mozilla 
+.. Public License, v. 2.0. If a copy of the MPL was not distributed 
+.. with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 
 .. _label_performance:
@@ -17,7 +11,7 @@
 Performance
 ===========
 
-As *FEP SDK 3* is the glue that holds *FEP Elements* together [1]_ and provides the infrastructure
+As *FEP SDK 3* is the glue that holds *FEP Elements* together and provides the infrastructure
 for exchanging data between the elements, you might be interested in the efficiency of this data
 exchange. Therefore, a performance test was created to measure the *throughput* of the data between
 two FEP Elements.

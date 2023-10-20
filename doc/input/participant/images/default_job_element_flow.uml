@@ -1,0 +1,104 @@
+@startuml
+'use url to modify sequence diagram and update url after modifications
+'http://www.plantuml.com/plantuml/uml/hPN1QiCm38RlUGgJqtRO2_Gm2kiE6up1zWHghBOsiHrikRHx-jantL8HLfYJGmAoykdNBpjP1m9FqVJDGKaKE-TewqxDa8AgKmDO4kqd0Q5uW-wWBBO2WWZcEkCf1d96lBgjUExHeAKnhTDudRV17SIUSkAO83NZE3CucruN7xXNWVovS7pJxBsBWsXx1x9jHBg24G-FkSGghICG9kZT_RW47QbZYkJL7CZFd1pCIdWCIS4ObJXDvD1SgOg7Llx8LbQHWbvzuLIyr1Vj6o1uUG-ydjG5h2_LZav9NajgXlmjTfCthrvgRWP7rbli_uJwmlGta9uH2MseW4qdDfuBFgmnM3saOgcFTZ4lcRBQpjtGSdoABJ8aZGmst_gyZRnngGli_zjyshV4-LFQ-GpeuRJKBfqMMiXK1btAN0wjDpdQsIzu2TVevcu4ykvS-KieojVf7at_3G00
+hide footbox
+participant "State Machine" as sm
+participant "Custom Job Element" as cje
+participant "Default Job" as dj
+participant "Component Registry" as cr
+
+group "load"
+    sm -> cje: createJob()
+    activate cje
+    cje -> sm: result
+    deactivate cje
+    sm -> cje: load()
+    activate cje
+    cje -> sm: result
+    deactivate cje
+end
+
+group "initialize"
+    sm -> dj: createDataIOs()
+    activate dj
+    dj -> sm: void
+    deactivate dj
+    sm -> dj: initialize()
+    activate dj
+    dj -> sm: result
+    deactivate dj
+    sm -> cje: initialize()
+    activate cje
+    cje -> sm: result
+    deactivate cje
+    sm -> cr: initialize()
+    activate cr
+    cr -> sm: result
+    deactivate cr
+    sm -> cr: tense()
+    activate cr
+    cr -> sm: result
+    deactivate cr
+end
+
+group "start"
+    sm -> dj: start()
+    activate dj
+    dj -> sm: void
+    deactivate dj
+    sm -> cje: run()
+    activate cje
+    cje -> sm: result
+    deactivate cje
+    sm -> cr: start()
+    activate cr
+    cr -> sm: result
+    deactivate cr
+end
+
+group "stop"
+    sm -> cr: stop()
+    activate cr
+    cr -> sm: result
+    deactivate cr
+    sm -> cje: stop()
+    activate cje
+    cje -> sm: void
+    deactivate cje
+    sm -> dj: stop()
+    activate dj
+    dj -> sm: result
+    deactivate dj
+end
+
+group "deinitialize"
+    sm -> cr: relax()
+    activate cr
+    cr -> sm: result
+    deactivate cr
+    sm -> cr: deinitialize()
+    activate cr
+    cr -> sm: result
+    deactivate cr
+    sm -> cje: deinitialize()
+    activate cje
+    cje -> sm: void
+    deactivate cje
+    sm -> dj: deinitialize()
+    activate dj
+    dj -> sm: result
+    deactivate dj
+end
+
+group "unload"
+    sm -> cje: unload()
+    activate cje
+    cje -> sm: void
+    deactivate cje
+    sm -> cje: destroyJob()
+    activate cje
+    cje -> sm: result
+    deactivate cje
+end
+
+@enduml

@@ -1,0 +1,59 @@
+@startuml 
+skin rose
+
+actor User
+participant SystemLibrary
+participant Participant_1 
+participant Participant_2
+participant Participant_3
+participant Participant_4
+
+note over Participant_1 #snow : current state: unloaded
+/ note over Participant_2 #snow: current state: loaded 
+/ note over Participant_3 #snow: current state: loaded
+/ note over Participant_4 #snow: current state: initialized
+
+User->SystemLibrary : setSystemState **running**
+
+
+SystemLibrary -> Participant_1: load
+
+note over Participant_1 #snow : current state: loaded
+/ note over Participant_2 #snow: current state: loaded 
+/ note over Participant_3 #snow: current state: loaded
+/ note over Participant_4 #snow: current state: initialized
+
+SystemLibrary -> Participant_1: initialize
+SystemLibrary -> Participant_2: initialize
+SystemLibrary -> Participant_3: initialize
+note right
+Transition performed regarding priorities
+and execution policy as described 
+[[single_transition_example.svg here]]
+end note
+
+note over Participant_1 #snow : current state: initialized
+/ note over Participant_2 #snow: current state: initialized 
+/ note over Participant_3 #snow: current state: initialized
+/ note over Participant_4 #snow: current state: initialized
+
+
+SystemLibrary -> Participant_1: start
+SystemLibrary -> Participant_2: start
+SystemLibrary -> Participant_3: start
+SystemLibrary -> Participant_4: start
+note right
+Transition performed regarding priorities
+and execution policy as described 
+[[single_transition_example.svg here]]
+end note
+
+note over Participant_1 #snow : current state: running
+/ note over Participant_2 #snow: current state: running
+/ note over Participant_3 #snow: current state: running
+/ note over Participant_4 #snow: current state: running
+
+
+User<--SystemLibrary :
+
+@enduml

@@ -1,14 +1,8 @@
 .. Copyright @ 2021 VW Group. All rights reserved.
 .. 
-..     This Source Code Form is subject to the terms of the Mozilla
-..     Public License, v. 2.0. If a copy of the MPL was not distributed
-..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-.. 
-.. If it is not possible or desirable to put the notice in a particular file, then
-.. You may include the notice in a location (such as a LICENSE file in a
-.. relevant directory) where a recipient would be likely to look for such a notice.
-.. 
-.. You may add additional accurate notices of copyright ownership.
+.. This Source Code Form is subject to the terms of the Mozilla 
+.. Public License, v. 2.0. If a copy of the MPL was not distributed 
+.. with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 
 .. highlight:: cpp
@@ -36,7 +30,7 @@ Summary
 +------------------------------------------------------+-----------------------------------------------------------------+
 | RPC Service Description                              |  :ref:`label_rpc_data_registry`                                 |
 +------------------------------------------------------+-----------------------------------------------------------------+
-| native delivery                                      |  built-in                                                       |
+| native delivery                                      |  CPP-plugin                                                     |
 +------------------------------------------------------+-----------------------------------------------------------------+
 | CPP-plugin possible                                  |  yes                                                            |
 +------------------------------------------------------+-----------------------------------------------------------------+
@@ -65,8 +59,8 @@ This data is classified via the :cpp:class:`fep3::arya::IStreamType` .
 The main functionality of the data registry is to add the data ins and outs to the simulation bus at the correct initialization time.
 Data ins and outs can be added to the :ref:`label_data_registry` when the :ref:`label_element_interface` is
 
-* loading (:cpp:func:`fep3::arya::IElement::loadElement`)
-* or initializing (:cpp:func:`fep3::arya::IElement::initialize`).
+* loading (:cpp:func:`fep3::base::IElement::loadElement`)
+* or initializing (:cpp:func:`fep3::base::IElement::initialize`).
 
 After that signals can still be added but will only be registered at the simulation bus upon the next initialization (call to :cpp:func:`fep3::arya::IComponent::initialize`).
 Usually each data in and data out is named and pre-classified (see :cpp:func:`fep3::arya::IDataRegistry::registerDataIn`, :cpp:func:`fep3::arya::IDataRegistry::registerDataOut`).
@@ -157,6 +151,8 @@ Native Implementations
 
 The native data registry implementation offers following functionality which is not part the of component interface :cpp:class:`fep3::arya::IDataRegistry`.
 
+.. _label_signal_renaming:
+
 Signal Renaming
 ~~~~~~~~~~~~~~~
 
@@ -179,10 +175,10 @@ Following properties may be used to rename signals.
    * - Name
      - Code Macro
      - Default Value
-   * - InputSignalRenaming
+   * - renaming_input
      - :c:macro:`FEP3_DATA_REGISTRY_SIGNAL_RENAMING_INPUT_CONFIGURATION`
      - ""
-   * - OutputSignalRenaming
+   * - renaming_output
      - :c:macro:`FEP3_DATA_REGISTRY_SIGNAL_RENAMING_OUTPUT_CONFIGURATION`
      - ""
 
@@ -243,3 +239,114 @@ FEP Participant Developers using the :ref:`label_data_registry` component interf
 
 .. note::
   FEP Participant Developers should have in mind that signal names can be renamed later on.
+
+.. _label_signal_mapping:
+
+Signal Mapping
+~~~~~~~~~~~~~~
+
+Incoming signals may be mapped onto new signals using the DDL's Signal Mapping functionality which is integrated into the native :ref:`label_data_registry` component.
+Signals available within the FEP System can be dissolved and reassembled on a DDL struct and even element level.
+The actual mapping of signals is configured using a xml-based configuration format. 
+For further details regarding the DDL Signal Mapping functionality, the configuration format and an example, please have a look at the Signal Mapping Format Specification:
+
+.. _Signal Mapping Format Specification: https://github.com/cariad-tech/dev_essential/blob/main/doc/extern/ddl/mapping_specification.md
+
+For further details regarding the DDL specification, please have a look at:
+
+.. _DDL Specification: https://github.com/cariad-tech/dev_essential/blob/main/doc/extern/ddl/ddl_specification.md
+
+Properties
+----------
+
+Following properties may be used to configure Signal Mapping within the native :ref:`label_data_registry` component.
+
+.. list-table::
+   :widths: 20 60 20
+   :header-rows: 1
+
+   * - Name
+     - Code Macro
+     - Default Value
+   * - mapping_configuration_file_path
+     - :c:macro:`FEP3_DATA_REGISTRY_MAPPING_CONFIGURATION_FILE_PATH`
+     - ""
+   * - mapping_ddl_file_paths
+     - :c:macro:`FEP3_DATA_REGISTRY_MAPPING_DDL_FILE_PATHS`
+     - ""
+
+The mapping configuration file path property shall contain a path to a mapping configuration file which contains meta information about the file and further information regarding
+source signal declarations, target signal definitions and whether to apply transformations to specific signals during the mapping process.
+
+The mappping ddl file paths property shall contain a list of semicolon-separated paths to ddl description files which will be used during the mapping process e.g. for registration of source signals.
+Relative paths will be resolved starting from the directory of the FEP Components plugin, which contains the native :ref:`label_data_registry` implementation.
+The property has to be set before a mapped signal is registered as the property will be evaluated during registration of mapped signals.
+If problems arise while parsing the ddl description files, errors are logged by the :ref:`label_logging_service` and returned within code.
+
+.. note::
+   The input signals for a certain mapping can be registerd as data readers as well.
+   It is not neccessary to have a specific order to register both input data and its mapped data as data readers in one participant.
+
+Problems may concern invalid or not existing ddl description files or merge conflicts between already registered ddls and a ddl description to be added.
+Merge conflicts occur if a datatype of name x has been registered at the native data registry and another datatype of the same name is part of a ddl description file provided via the mapping ddls file paths property.
+
+.. note::
+    Merging structs of the same name results will throw an exception.
+
+Inhomogeneous source signal update rates
+----------------------------------------
+
+The mapping feature provides functionality to combine source signals into new combinations of target signals.
+Depending on the mapping configuration either parts of a source signal or the signal as a whole is used to create the mapped target signal.
+If a mapped target signal consists of multiple source signals, one of the source signals has to be configured to act as trigger for the forwarding of the target signal.
+The trigger signal can be configured using the corresponding tag of the mapping configuration:
+
+.. code-block:: xml
+
+  <trigger type="signal" variable="source_signal_b" />
+
+As long as all source signals are available at trigger time, the corresponding source signals will be used to create the target signal.
+If source signals show inhomogeneous update rates, a target signal will only be triggered and therefore receive a sample if the source signal configured as trigger receives a sample.
+
+If we assume a target signal C is created from source signals A and B and source signal B is configured to be the trigger for target signal C, we can observe following behaviour:
+
+If only a sample for the source signal A, which is not configured to trigger target signal C, is received, the target sample will not be created and target signal C will not be triggered.
+The sample of source signal A will be stored and used once the trigger source signal B receives a sample.
+Once source signal B is triggered, a sample for target signal C will be created using source signals A and B, as configured within the mapping configuration, and forwarded to target signal C and its data receivers.
+
+Samples received for source signals are stored and used until a new sample for the corresponding trigger source signal is received:
+If two samples for source signal B are received while no new sample for source signal A is received, the latest sample received for source signal A is used to create the samples for target signal C.
+
+Samples overwritten by new samples without being used for creation of target samples are ignored:
+If two samples for source signal A are received without source signal B receiving a sample and therefore triggering creation of a sample for target signal C, the first sample received for source signal A will be overwritten by the second sample received.
+The first sample received will never be used for creation of a target sample and therefore is lost.
+
+FEP Data Registry over RPC
+==========================
+
+Information regarding registered input/output signals and their stream types can be accessed from :term:`RPC Service` "data_registry".
+The examples are using the command line of :term:`FEP Control` which you find in fep_sdk_base_utilities/3.1.0.
+
+.. note::
+   Code snippets within '<>' have to be replaced according to the actual use case.
+
+In order to receive the list of registered input signals for a :term:`FEP Participant` <fep_participant_name> which is part of a :term:`FEP System` <fep_system_name>, use:
+
+.. code-block:: console
+
+    callRPC <fep_system_name> <fep_participant_name> data_registry data_registry.arya.fep3.iid getSignalInNames
+
+In order to receive the list of registered output signals, use:
+
+.. code-block:: console
+
+    callRPC <fep_system_name> <fep_participant_name> data_registry data_registry.arya.fep3.iid getSignalOutNames
+
+In order to receive the stream type for a specific signal name <signal_name>, the following RPC call can be used:
+
+.. code-block:: console
+
+    callRPC <fep_system_name> <fep_participant_name> data_registry data_registry.arya.fep3.iid getStreamType '{"signal_name" : "<signal_name>"}'
+
+.. note::
+   In order to retrieve values for RPC requests, the corresponding signals must already have been registered by the :term:`FEP Participant`.

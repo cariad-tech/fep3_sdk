@@ -4,4 +4,5 @@
 # Needed by conan to calculate the same recipe hash on every os
 # Further information in the conan docs: https://tinyurl.com/y27nm4q4
 conanfile*.py text eol=lf
+version text eol=lf
 

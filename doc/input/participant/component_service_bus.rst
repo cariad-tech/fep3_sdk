@@ -1,14 +1,8 @@
 .. Copyright @ 2021 VW Group. All rights reserved.
 .. 
-..     This Source Code Form is subject to the terms of the Mozilla
-..     Public License, v. 2.0. If a copy of the MPL was not distributed
-..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-.. 
-.. If it is not possible or desirable to put the notice in a particular file, then
-.. You may include the notice in a location (such as a LICENSE file in a
-.. relevant directory) where a recipient would be likely to look for such a notice.
-.. 
-.. You may add additional accurate notices of copyright ownership.
+.. This Source Code Form is subject to the terms of the Mozilla 
+.. Public License, v. 2.0. If a copy of the MPL was not distributed 
+.. with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 
 .. _label_service_bus:
@@ -28,15 +22,18 @@ Summary
 +------------------------------------------------------+-----------------------------------------------------------------+
 | Name                                                 |  Service Bus                                                    |
 +------------------------------------------------------+-----------------------------------------------------------------+
-| Component Interface                                  |  :cpp:class:`fep3::arya::IServiceBus`                           |
+| Component Interface                                  |  :cpp:class:`fep3::arya::IServiceBus`                  |br|     |
+|                                                      |  :cpp:class:`fep3::catelyn::IServiceBus`               |br|     |
 +------------------------------------------------------+-----------------------------------------------------------------+
-| RPC Service Interface                                |  :cpp:class:`fep3::rpc::arya::IRPCParticipantInfoDef`           |
-|                                                      |  :cpp:class:`fep3::rpc::arya::IRPCParticipantInfo`              |
+| RPC Service Interface                                |  :cpp:class:`fep3::rpc::arya::IRPCParticipantInfoDef`   |br|    |
+|                                                      |  :cpp:class:`fep3::rpc::arya::IRPCParticipantInfo`      |br|    |
+|                                                      |  :cpp:class:`fep3::rpc::catelyn::IRPCHttpServerDef`     |br|    |
+|                                                      |  :cpp:class:`fep3::rpc::catelyn::IRPCHttpServer`        |br|    |
 +------------------------------------------------------+-----------------------------------------------------------------+
 | RPC Service Description                              |  participant_info.json                                          |
 +------------------------------------------------------+-----------------------------------------------------------------+
-| native delivery                                      |  built-in for HTTP,                                             |
-|                                                      |  CPP-plugin for HTTP                                            |
+| native delivery                                      |  CPP-plugin for HTTP,                |br|                       |
+|                                                      |  CPP-plugin for RTI                  |br|                       |
 +------------------------------------------------------+-----------------------------------------------------------------+
 | CPP-plugin possible                                  |  yes                                                            |
 +------------------------------------------------------+-----------------------------------------------------------------+
@@ -132,8 +129,8 @@ Example
                                    | SystemView2 did not register a server to the network, so they it is not seen and is not discoverable.
 
 
-HTTP Service Bus
-================
+Service Bus
+===========
 
 The delivered service bus as native :term:`FEP Component` will come with following implementations:
 
@@ -168,6 +165,7 @@ The Service Registry implementation will forward HTTP REQUESTS to the objects re
 
 * If a :term:`RPC Service` is registered with the name *clock_master* the HTTP server will forward every HTTP REQUEST to it with the address i.e. *http://localhost:9090/clock_master*.
 
+.. _label_service_bus_http_system_access:
 
 .. _HTTP System Access:
 
@@ -179,11 +177,12 @@ The system access must be created via a valid **multicast address** and a port. 
 
 * *http://230.230.230.1:9990*
 
-Each server (somewhere in the network) using the same address will be discovered (if the firewall ruleset does not prevent that!).
+Each server, somewhere in the network, using the same address will be discovered if the firewall ruleset does not prevent that.
 Each :ref:`HTTP Server` will send discovery messages containing its name and a system name. Both are provided with :cpp:func:`~fep3::IServiceBus::ISystemAccess::createServer`.
 For usage within the :term:`FEP Participant` this will be the name of the participant and the system name which are both provided to :cpp:func:`~fep3::core::createParticipant`.
+The received discovery messages can be forwarded to a Sink using :cpp:func:`fep3::catelyn::IServiceBus::ISystemAccess::registerUpdateEventSink` and :cpp:func:`fep3::catelyn::IServiceBus::ISystemAccess::deregisterUpdateEventSink.
 
-This mechanism is using the SSDP (Simple Service Discovery Protocol) from the UPnP standard v1.1.
+This mechanism is using the :term:`SSDP` from the UPnP standard v1.1.
 This implementation will follow chapter 1 of the specification
 http://www.upnp.org/specs/arch/UPnP-arch-DeviceArchitecture-v1.1.pdf, but is no fully UPnP 1.1 implementation.
 
@@ -195,12 +194,113 @@ cannot be used by its alias name it was created within this system (see :cpp:fun
 Native Service Bus Delivery
 ```````````````````````````
 
-The service bus is delivered as a built-in component so it will automatically be created. Also it will be provided as a separate :term:`CPP Plugin` ( *lib/http/fep3_http_service_bus.dll* / *lib/http/fep3_http_service_bus.so*).
+The HTTP Service Bus is delivered as :term:`CPP Plugin` component so it will automatically be created. Also it is delivered as a separate :term:`CPP Plugin` ( *lib/http/fep3_http_service_bus.dll* / *lib/http/fep3_http_service_bus.so*).
 
 .. _RTI Service Bus:
 
 RTI Service Bus
 ---------------
 
-No implementation yet.
+An alternative implementation to :ref:`Native Service Bus <HTTP System Access>` is implemented in the *fep3_dds_service_bus_plugin* using RTI DDS. The difference between the  :ref:`RTI Service Bus` and the :ref:`Native Service Bus <HTTP System Access>`
+plugins is the mechanism used for service discovery. :ref:`RTI Service Bus` uses a keyed RTI DDS topic for exchanging the discovery information, making discovery possible in networks with multicast disabled.
+In case FEP is deployed in networks with multicast enabled, no additional settings are required. In case multicast is deactivated, there are two options so that participants in different machines can be discovered:
 
+.. _label_adapt_peers_list_for_unicast:
+
+1. Use a `initial peers list file <https://community.rti.com/static/documentation/connext-dds/6.1.0/doc/manuals/connext_dds_professional/users_manual/index.htm#users_manual/ConfigPeersListUsed_inDiscov.htm?Highlight=known%20peers>`_
+that should be located in the same path as the participant executable (and **not** the path where the plugin is located). The file must contain in a comma seperated format the IPs or the host names of the machines running the participants.
+The content of the peers list file could look like this:
+
+::
+
+    172.18.0.3, 172.18.0.2
+
+
+2. Use the `RTI Cloud discovery service <https://community.rti.com/static/documentation/connext-dds/6.1.0/doc/manuals/connext_dds_professional/users_manual/index.htm#users_manual/P2P_Behind_Cone.htm>`_
+this solution requires one cloud discovery service instance running on one machine, and a NDDS_DISCOVERY_PEERS file (should be located in the same directory as the participant executable and where the actual plugin is located)
+pointing to the IP and port of the running discovery service. The content of the peers list file could look like this:
+
+::
+
+    rtps@172.18.0.5:7400
+
+.. _Load Service Discovery Plugin:
+
+Loading the RTI Service Bus plugin
+``````````````````````````````````
+
+As standard, the :ref:`RTI Service Bus` plugin will be loaded, but the :ref:`Native Service Bus <HTTP System Access>` plugin can be loaded by changing the *.components* files of **ALL** Participants **AND** the service library.
+
+Load the plugin in a FEP Participant
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In the *fep3_participant.fep_components* and *fep3_system.fep_components* files replace
+
+.. code-block:: xml
+
+    <component>
+        <source type="cpp-plugin">
+            ./fep_components_plugin
+        </source>
+        <iid>service_bus.arya.fep3.iid</iid>
+    </component>
+
+with
+
+.. code-block:: xml
+
+    <component>
+        <source type="cpp-plugin">
+            rti/fep3_dds_service_bus_plugin
+        </source>
+        <iid>service_bus.arya.fep3.iid</iid>
+    </component>
+
+.. note::
+    Make sure that all the participants in a FEP System, as well the FEP System library use the same type of Service Bus plugin. Mixing :ref:`HTTP System Access` and :ref:`RTI Service Bus` plugins is not supported
+    and will result to errors and/or not proper functionality of the FEP System.
+
+.. _label_notes_using_rti_dds_service_bus:
+
+Notes when using the RTI DDS Service BUS
+````````````````````````````````````````
+
+* Do not put a QOS file in the same directory as the participant executable. Manipulation of the QOS for the Topics used in service discovery can result in malfunction. The QOS file of the :ref:`RTI Connext DDS Simulation Bus` is located
+  under lib/rti/USER_QOS_PROFILES.xml.
+* The DDS Service Bus uses a separate DDS Domain participant from :ref:`RTI Connext DDS Simulation Bus`. The default domain ID used for the Service Discovery is **0**. The Domain ID of the Service Discovery can be changed by setting
+  the environment variable *FEP3_SERVICE_BUS_DOMAIN_ID*.
+
+.. note::
+    Make sure that all participants in a FEP System use the same DDS Domain ID for the Service Discovery.
+
+* The DDS topic name used for discovery is named *service_discovery* and should not be used for any other signal name in case the default domain ID **0** is used apart from the RTI DDS Service Bus.
+
+* In case the multicast in your system is deactivated, make sure the :ref:`peers list is adapted <label_adapt_peers_list_for_unicast>`. Also when multicast is deactivated, depending on the number of participants (and system library instances) used, you may have to adapt the DDS Participant ID limited as described in this `rti dds article <https://community.rti.com/kb/why-cant-more-5-domainparticipants-communicate-within-same-machine>`_ . In case you face problems discovering participants with multicast deactivated, this is the most probable culprit.
+
+.. _label_debugging_rti_dds_service_bus:
+
+Debugging the Service Bus
+-------------------------
+The :ref:`RTI Service Bus`, logs additional debug messages that can be activated by  :ref:`setting the severity  <label_changing_the_severity_level_filter>` of the service bus logger to debug (5). When you have the logs activated, you should see the processed update events incoming from all the participants. In case no update events are received from one or more participants, it means that there are no DDS Signals received from these participants.
+
+
+Interface Changes
+=================
+
++------------------------------------------------------+----------------------------------------------------------------------------------------+
+| Namespace                                            |  Changes                                                                               |
++------------------------------------------------------+----------------------------------------------------------------------------------------+
+| catelyn                                              |  :cpp:class:`fep3::catelyn::IServiceBus`                                          |br| |
+|                                                      |  :cpp:class:`fep3::catelyn::IServiceBus::getSystemAccessCatelyn`                  |br| |
+|                                                      |  :cpp:enum:`fep3::catelyn::IServiceBus::ServiceUpdateEventType`                   |br| |
+|                                                      |  :cpp:struct:`fep3::catelyn::IServiceBus::ServiceUpdateEvent`                     |br| |
+|                                                      |  :cpp:class:`fep3::catelyn::IServiceBus::IServiceUpdateEventSink`                 |br| |
+|                                                      |  :cpp:func:`fep3::catelyn::IServiceBus::IServiceUpdateEventSink::updateEvent`     |br| |
+|                                                      |  :cpp:class:`fep3::catelyn::IServiceBus::ISystemAccess`                           |br| |
+|                                                      |  :cpp:func:`fep3::catelyn::IServiceBus::ISystemAccess::registerUpdateEventSink`   |br| |
+|                                                      |  :cpp:func:`fep3::catelyn::IServiceBus::ISystemAccess::deregisterUpdateEventSink` |br| |
++------------------------------------------------------+----------------------------------------------------------------------------------------+
+
+.. |br| raw:: html
+
+     <br>

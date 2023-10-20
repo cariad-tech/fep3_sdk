@@ -1,0 +1,33 @@
+@startuml 
+skin rose
+participant SystemStateTransition
+participant ThrowOnErrorPolicy
+
+SystemStateTransition ->  ThrowOnErrorPolicy : operator(transition_meta_data)
+ThrowOnErrorPolicy->ThrowOnErrorPolicy : transition_meta_data_with_errors
+note over ThrowOnErrorPolicy
+boost::adaptors::filter(transition_meta_data)
+endnote
+
+alt transition_meta_data_with_errors is empty
+        note over ThrowOnErrorPolicy
+        boost::empty(transition_meta_data_with_errors)
+        endnote
+        SystemStateTransition <--  ThrowOnErrorPolicy : continue
+        note right: further participants can be triggered
+    else
+        
+        ThrowOnErrorPolicy->ThrowOnErrorPolicy :exception_result.append(data._exec_result._error_description);
+        note over ThrowOnErrorPolicy
+        gather exception messages
+
+        endnote
+ 
+        SystemStateTransition <--  ThrowOnErrorPolicy : exception
+        note right
+        no further participants can be triggered
+        system stays in inhomogeneous state
+        endnote
+    end
+
+@enduml

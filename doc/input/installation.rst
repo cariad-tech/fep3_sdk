@@ -1,14 +1,8 @@
 .. Copyright @ 2021 VW Group. All rights reserved.
 .. 
-..     This Source Code Form is subject to the terms of the Mozilla
-..     Public License, v. 2.0. If a copy of the MPL was not distributed
-..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-.. 
-.. If it is not possible or desirable to put the notice in a particular file, then
-.. You may include the notice in a location (such as a LICENSE file in a
-.. relevant directory) where a recipient would be likely to look for such a notice.
-.. 
-.. You may add additional accurate notices of copyright ownership.
+.. This Source Code Form is subject to the terms of the Mozilla 
+.. Public License, v. 2.0. If a copy of the MPL was not distributed 
+.. with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 .. _Installation:
 
@@ -41,13 +35,13 @@ Read documentation on local server (default: http://0.0.0.0:8000/).
 Hello World
 ===========
 
-Create a simple hello world participant :file:`hello_world.cpp`.
+Create a simple hello world participant :file:`snippet_hello_world.cpp`.
 
 .. literalinclude:: snippets/hello_world/snippet_hello_world.cpp
    :start-after: //Begin(HELLO_WORLD)
    :end-before: //End(HELLO_WORLD)
 
-Create a simple hello world system :file:`hello_world_system.cpp`.
+Create a simple hello world system :file:`snippet_hello_world_system.cpp`.
 
 .. literalinclude:: snippets/hello_world/snippet_hello_world_system.cpp
    :start-after: //Begin(HELLO_WORLD_SYSTEM)
@@ -76,14 +70,14 @@ Build it in :file:`build` folder.
    mkdir build && cd build
    conan install ..  
    cmake ..
-   cmake --build .
+   cmake --build . --config Release
 
 Run two programs in separate terminals
 
 .. code-block:: shell
 
-   ./build/bin/hello_world
-   ./build/bin/hello_world_system
+   ./build/bin/snippet_hello_world
+   ./build/bin/snippet_hello_world_system
 
 Result
 

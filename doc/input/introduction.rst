@@ -1,14 +1,8 @@
 .. Copyright @ 2021 VW Group. All rights reserved.
 .. 
-..     This Source Code Form is subject to the terms of the Mozilla
-..     Public License, v. 2.0. If a copy of the MPL was not distributed
-..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-.. 
-.. If it is not possible or desirable to put the notice in a particular file, then
-.. You may include the notice in a location (such as a LICENSE file in a
-.. relevant directory) where a recipient would be likely to look for such a notice.
-.. 
-.. You may add additional accurate notices of copyright ownership.
+.. This Source Code Form is subject to the terms of the Mozilla 
+.. Public License, v. 2.0. If a copy of the MPL was not distributed 
+.. with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 
 ============
@@ -45,9 +39,8 @@ How to start
 * :ref:`Installation <Installation>` will help you install FEP SDK and its development environment.
 * :ref:`Tutorial <Tutorial>` will get you started to build a complete FEP use case by using FEP SDK libraries.
 * Then you can :ref:`Dive into FEP SDK <Overview_SDK>`. It explains all the important concepts of FEP SDK in details, which will help you understand the implementation and usage of all concepts and their APIs.
-* :ref:`Advanced Topics <Overview_Advanced_Topics>` elaborates the advanced theory of different topics within the FEP SDK. It's your chances to develop a deeper understanding of FEP SDK behind the scenes. It is highly recommended to read them if you want to develop a complicated and robust software using FEP or contribute to FEP.
+* :ref:`Advanced Concepts <Advanced_Concepts>` elaborates the advanced theory of different topics within the FEP SDK. It's your chances to develop a deeper understanding of FEP SDK behind the scenes. It is highly recommended to read them if you want to develop a complicated and robust software using FEP or contribute to FEP.
 * :ref:`Examples <Examples>` demonstrate different use cases and scenarios and offer you implementations you can base your development on.
 * :ref:`HOWTO <HOWTO>` and :ref:`FAQ <FAQ>` will answer your questions and provide you a lot of practical tips about FEP SDK.
 * :ref:`API References <API_References>` is the full API documentation of FEP SDK.
-* :ref:`Contact and Support <Contact_And_Support>` please contact us for any further questions or support requests.
 * Have a quick look-up in :ref:`Glossary` if you have doubts about some definitions.

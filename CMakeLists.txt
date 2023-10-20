@@ -1,17 +1,9 @@
 #
 # Copyright @ 2021 VW Group. All rights reserved.
 # 
-#     This Source Code Form is subject to the terms of the Mozilla
-#     Public License, v. 2.0. If a copy of the MPL was not distributed
-#     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
-# If it is not possible or desirable to put the notice in a particular file, then
-# You may include the notice in a location (such as a LICENSE file in a
-# relevant directory) where a recipient would be likely to look for such a notice.
-# 
-# You may add additional accurate notices of copyright ownership.
-# 
-#
+# This Source Code Form is subject to the terms of the Mozilla
+# Public License, v. 2.0. If a copy of the MPL was not distributed
+# with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 cmake_policy(SET CMP0011 NEW)
 
@@ -25,10 +17,6 @@ endif()
 # Use shared libraries from current directory on Linux (same behavior as on Windows)
 SET(CMAKE_INSTALL_RPATH "$ORIGIN")
 
-file(STRINGS version
-    VERSION
-    LIMIT_COUNT 1
-)
 project(fep3-sdk VERSION ${VERSION})
 
 set(FEP_SDK_PKG_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
@@ -39,30 +27,6 @@ set(FEP_SDK_PKG_VERSION "${FEP_SDK_PKG_VERSION_MAJOR}.${FEP_SDK_PKG_VERSION_MINO
 
 # Enable project folder structure for Visual Studio IDE
 set_property(GLOBAL PROPERTY USE_FOLDERS true)
-
-# check for conan
-if(CONAN_COMPILER)
-    message(STATUS "Including Conan build info")
-    if ( EXISTS ${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
-        include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
-    elseif ( EXISTS ${CMAKE_CURRENT_BINARY_DIR}/../conanbuildinfo.cmake)
-        include(${CMAKE_CURRENT_BINARY_DIR}/../conanbuildinfo.cmake)
-    elseif ( EXISTS ${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo_multi.cmake)
-        include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo_multi.cmake)
-    elseif ( EXISTS ${CMAKE_CURRENT_BINARY_DIR}/../conanbuildinfo_multi.cmake)
-        include(${CMAKE_CURRENT_BINARY_DIR}/../conanbuildinfo_multi.cmake)
-    else()
-        message(FATAL_ERROR "Conan build info can't be found.")
-    endif()
-
-    if(CORTEX_WORKSPACE)
-        conan_basic_setup(TARGETS)
-    else()
-        conan_basic_setup(TARGETS NO_OUTPUT_DIRS)
-    endif()
-
-    set(DOXYGEN_ROOT ${CONAN_DOXYGEN_ROOT})
-endif()
 
 include(scripts/cmake/enable_multicore_compilation.cmake)
 include(scripts/cmake/use_integrated_debug_symbols.cmake)
@@ -102,8 +66,7 @@ find_package(fep3_participant REQUIRED)
 set(examples_integrated ON)
 add_subdirectory(examples)
 install(DIRECTORY examples
-        DESTINATION .
-        PATTERN "data_triggered_simulation" EXCLUDE)
+        DESTINATION .)
 
 install(FILES doc/license/license_notes_from_aosd.txt
         DESTINATION doc/license
@@ -114,11 +77,18 @@ if (fep3_sdk_cmake_enable_documentation)
     add_subdirectory(doc)
 endif()
 
-# Licenses
-install(FILES README.md
-        DESTINATION .
+install(
+    FILES
+        README.md
+    DESTINATION
+        .
 )
-install(FILES LICENSE.md
-        DESTINATION doc/license
+install(
+    FILES
+        LICENSE.md
+        doc/license/license_notes_from_aosd.txt
+    DESTINATION
+        doc/license
 )
+
 

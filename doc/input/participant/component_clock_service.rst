@@ -1,14 +1,8 @@
 .. Copyright @ 2021 VW Group. All rights reserved.
 .. 
-..     This Source Code Form is subject to the terms of the Mozilla
-..     Public License, v. 2.0. If a copy of the MPL was not distributed
-..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-.. 
-.. If it is not possible or desirable to put the notice in a particular file, then
-.. You may include the notice in a location (such as a LICENSE file in a
-.. relevant directory) where a recipient would be likely to look for such a notice.
-.. 
-.. You may add additional accurate notices of copyright ownership.
+.. This Source Code Form is subject to the terms of the Mozilla 
+.. Public License, v. 2.0. If a copy of the MPL was not distributed 
+.. with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 
 .. _label_clock_service:
@@ -35,7 +29,7 @@ Summary
 | RPC Service Description                              | :ref:`label_rpc_service_clock`                                              |
 |                                                      | :ref:`label_rpc_service_clock_sync_master`                                  |
 +------------------------------------------------------+-----------------------------------------------------------------------------+
-| native delivery                                      |  built-in                                                                   |
+| native delivery                                      |  CPP-plugin                                                                 |
 +------------------------------------------------------+-----------------------------------------------------------------------------+
 | CPP-plugin possible                                  |  yes                                                                        |
 +------------------------------------------------------+-----------------------------------------------------------------------------+
@@ -96,7 +90,9 @@ The :ref:`label_clock_sync_master` offers the possibility to register as a synch
 Also, it can actively synchronize timing slaves. The communication is done via RPC.
 To establish a clock synchronization the :ref:`label_clock_sync_service` has to be used on the slave side.
 If discrete synchronization is used (e.g. :ref:`label_clock_sync_slave_master_on_demand_discrete`), all timing slaves are synchronized concurrently. The master will wait until all slaves are successfully synchronized or a timeout occurred.
-The timeout is configured via :c:macro:`FEP3_CLOCK_SERVICE_TIME_UPDATE_TIMEOUT`. If the timeout is exceeded the relevant timing slave will be removed from synchronization and an incident is risen but simulation will be continued.
+The timeout is configured via :c:macro:`FEP3_CLOCK_SERVICE_TIME_UPDATE_TIMEOUT`. If the timeout is exceeded the timing master will log an error, stop to wait for the blocking timing slave and continue with its distribution of time update events.
+The relevant timing slave will still receive time update events in this case.
+If on the other hand the timing master receives an invalid rpc response from a timing slave, the timing master will log an error and remove the corresponding timing slave from synchronization but simulation will be continued.
 
 Properties
 ^^^^^^^^^^
@@ -105,14 +101,16 @@ The :ref:`label_clock_sync_master` can be configured using the following propert
 
 .. list-table::
    :header-rows: 1
-   :widths: 20 60 20
+   :widths: 20 60 20 60
 
    * - Name
      - Code Macro
      - Default Value
+     - Restrictions
    * - TimeUpdateTimeout
-     - .. c:alias:: FEP3_CLOCK_SERVICE_TIME_UPDATE_TIMEOUT
+     - :c:macro:`FEP3_CLOCK_SERVICE_TIME_UPDATE_TIMEOUT`
      - :c:macro:`FEP3_TIME_UPDATE_TIMEOUT_DEFAULT_VALUE`
+     - Minimum :c:macro:`FEP3_TIME_UPDATE_TIMEOUT_MIN_VALUE`
 
 
 
@@ -175,7 +173,7 @@ Properties
      - Code Macro
      - Default Value
    * - MainClock
-     - .. c:alias:: FEP3_CLOCK_SERVICE_MAIN_CLOCK
+     - :c:macro:`FEP3_CLOCK_SERVICE_MAIN_CLOCK`
      - :c:macro:`FEP3_CLOCK_LOCAL_SYSTEM_REAL_TIME`
 
 
@@ -234,11 +232,11 @@ The clock :ref:`label_clock_implementation_local_system_simtime` can be configur
      - Default Value
      - Restrictions
    * - CycleTime
-     - .. c:alias:: FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_STEP_SIZE
+     - :c:macro:`FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_STEP_SIZE`
      - :c:macro:`FEP3_CLOCK_SIM_TIME_STEP_SIZE_DEFAULT_VALUE`
      - Minimum: :c:macro:`FEP3_CLOCK_SIM_TIME_STEP_SIZE_MIN_VALUE`, Maximum: :c:macro:`FEP3_CLOCK_SIM_TIME_STEP_SIZE_MAX_VALUE`
    * - TimeFactor_float
-     - .. c:alias:: FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_TIME_FACTOR
+     - :c:macro:`FEP3_CLOCK_SERVICE_CLOCK_SIM_TIME_TIME_FACTOR`
      - :c:macro:`FEP3_CLOCK_SIM_TIME_TIME_FACTOR_DEFAULT_VALUE`
      - Minimum: :c:macro:`FEP3_CLOCK_SIM_TIME_TIME_FACTOR_AFAP_VALUE`
 

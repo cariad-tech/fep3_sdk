@@ -4,16 +4,9 @@
  * @verbatim
 Copyright @ 2021 VW Group. All rights reserved.
 
-    This Source Code Form is subject to the terms of the Mozilla
-    Public License, v. 2.0. If a copy of the MPL was not distributed
-    with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-If it is not possible or desirable to put the notice in a particular file, then
-You may include the notice in a location (such as a LICENSE file in a
-relevant directory) where a recipient would be likely to look for such a notice.
-
-You may add additional accurate notices of copyright ownership.
-
+This Source Code Form is subject to the terms of the Mozilla
+Public License, v. 2.0. If a copy of the MPL was not distributed
+with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 @endverbatim
  */
 
@@ -29,7 +22,7 @@ using namespace std::chrono_literals;
 /**
  * This implementation demonstrates the basics of how to set up and use custom loggers.
  * If a custom logger is not needed fep3::logging::EasyLogging is recommended
- * which is part of fep3::core::ElementBase and provides convenient macros.
+ * which is part of ElementBase and provides convenient macros.
  */
 class DemoLoggingElement : public fep3::core::ElementBase
 {
@@ -80,7 +73,7 @@ int main(int argc, const char* argv[])
 {
     using namespace fep3::core;
     //creating a participant with the element that will send the logs
-    auto demo_participant = createParticipant<ElementFactory<DemoLoggingElement>>(
+    auto demo_participant = createParticipant<fep3::core::ElementFactory<DemoLoggingElement>>(
         "demo_logging_participant",
         "1.0.0",
         "demo_logging");

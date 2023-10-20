@@ -1,0 +1,34 @@
+@startuml 
+skin rose
+
+participant System
+participant StateTransitionErrorHandling
+
+== throwOnInvalidTargetState ==
+System -> StateTransitionErrorHandling :throwOnInvalidTargetState(targetState)
+
+alt targetState == undefined
+    System <-- StateTransitionErrorHandling : exception
+else
+    System <-- StateTransitionErrorHandling : continue
+end 
+
+== checkParticipantsBeforeTransition ==
+
+System -> StateTransitionErrorHandling :checkParticipantsBeforeTransition
+
+note over StateTransitionErrorHandling
+Checks if any participant is undefined or unreachable
+boost::algorithm::any_of(part_states, unreachable == state || undefined == state);
+Checks if system has any participants
+part_states_map.empty()
+endnote
+
+alt all participants are reachable
+    System <-- StateTransitionErrorHandling : continue
+else
+    System <-- StateTransitionErrorHandling : exception
+end     
+    
+    
+@enduml

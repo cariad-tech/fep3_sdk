@@ -4,16 +4,9 @@
  * @verbatim
 Copyright @ 2021 VW Group. All rights reserved.
 
-    This Source Code Form is subject to the terms of the Mozilla
-    Public License, v. 2.0. If a copy of the MPL was not distributed
-    with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-If it is not possible or desirable to put the notice in a particular file, then
-You may include the notice in a location (such as a LICENSE file in a
-relevant directory) where a recipient would be likely to look for such a notice.
-
-You may add additional accurate notices of copyright ownership.
-
+This Source Code Form is subject to the terms of the Mozilla
+Public License, v. 2.0. If a copy of the MPL was not distributed
+with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 @endverbatim
  */
 
@@ -126,5 +119,14 @@ int main(int, const char**)
         //Begin(set custom sink logger filter)
         logging_service_proxy->setLoggerFilter("MyLogger.SubDomain.Domain", { fep3::LoggerSeverity::error, {"my_sink"} });
         //End(set custom sink logger filter)
+
+        //Begin(set json sink property)
+        auto propertiesfileJsonSink = logging_service_proxy->getProperties("file_json");
+        propertiesfileJsonSink->setProperty("file_path", "my_log_file.txt", "string");
+        //End(set json sink property)
+
+        //Begin(set logger json filter)
+        logging_service_proxy->setLoggerFilter("SubDomain.Domain", { fep3::LoggerSeverity::warning, {"console", "file_json"} });
+        //End(set logger json filter)
     }
 }

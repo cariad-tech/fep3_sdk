@@ -4,22 +4,13 @@
  * @verbatim
 Copyright @ 2021 VW Group. All rights reserved.
 
-    This Source Code Form is subject to the terms of the Mozilla
-    Public License, v. 2.0. If a copy of the MPL was not distributed
-    with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-If it is not possible or desirable to put the notice in a particular file, then
-You may include the notice in a location (such as a LICENSE file in a
-relevant directory) where a recipient would be likely to look for such a notice.
-
-You may add additional accurate notices of copyright ownership.
-
+This Source Code Form is subject to the terms of the Mozilla
+Public License, v. 2.0. If a copy of the MPL was not distributed
+with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 @endverbatim
  */
 #include <iostream>
 #include <string>
-
-
 
 #include <fep3/core.h>
 #include <fep3/core/element_configurable.h>
@@ -28,6 +19,7 @@ You may add additional accurate notices of copyright ownership.
 using namespace fep3;
 using namespace std::chrono_literals;
 
+//Begin(EasySenderJob)
 class EasySenderJob : public IJob
 {
 public:
@@ -59,12 +51,13 @@ public:
     std::function<fep3::Result(fep3::Timestamp)> _execute_func;
     std::function<fep3::Result(fep3::Timestamp)> _execute_func_data_out;
 };
+//End(EasySenderJob)
 
-class EasyCoreSenderElement : public core::ElementConfigurable
+class EasyCoreSenderElement : public fep3::core::ElementConfigurable
 {
 public:
     EasyCoreSenderElement()
-        : core::ElementConfigurable("Demo Element Base Sender Type",
+        : fep3::core::ElementConfigurable("Demo Element Base Sender Type",
                                     FEP3_PARTICIPANT_LIBRARY_VERSION_STR)
     {
         //register the properties
@@ -91,7 +84,7 @@ public:
     {
         //register the data
         auto data_adding_res = core::addToComponents(*_data_writer_plain_c_type, *getComponents());
-        if (isFailed(data_adding_res)) 
+        if (!data_adding_res) 
         {
             return data_adding_res;
         }
@@ -137,7 +130,7 @@ public:
 
     //use the PropertyVariable as easy readable configuration element
     //but do NOT forget to register the variables in the CTOR with a name
-    core::PropertyVariable<int32_t> _prop_to_send_as_integer{ 1 };
+    base::PropertyVariable<int32_t> _prop_to_send_as_integer{ 1 };
 
     //in core API you need to deal with everything by yourself
     //have a look at the fep3::cpp::DataJob in cpp API

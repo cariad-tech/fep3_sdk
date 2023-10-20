@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!--
+Copyright @ 2022 VW Group. All rights reserved.
+ 
+This Source Code Form is subject to the terms of the Mozilla
+Public License, v. 2.0. If a copy of the MPL was not distributed
+with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+-->
+<ddl:ddl xmlns:ddl="ddl">
+    <header>
+        <language_version>4.01</language_version>
+        <author>fep</author>
+        <date_creation>Wed Jul 27 14:54:01 2022</date_creation>
+        <date_change>Wed Jul 27 14:54:01 2022</date_change>
+        <description>Generated with header2ddl code synthesis</description>
+    </header>
+    <units />
+    <datatypes>
+        <datatype name="tUInt64" size="64" description="Predefined DataType for tUInt64" arraysize="1" min="0" max="18446744073709551615" />
+        <datatype name="tUInt32" size="32" description="Predefined DataType for tUInt32" arraysize="1" min="0" max="4294967295" />
+        <datatype name="tInt64" size="64" description="Predefined DataType for tInt64" arraysize="1" min="-9223372036854775808" max="9223372036854775807" />
+        <datatype name="tInt8" size="8" description="Predefined DataType for tInt8" arraysize="1" min="-128" max="127" />
+        <datatype name="tUInt16" size="16" description="Predefined DataType for tUInt16" arraysize="1" min="0" max="65535" />
+    </datatypes>
+    <enums />
+    <structs>
+        <struct name="tTestStructC" version="1" alignment="8">
+            <element name="tUInt64First" type="tUInt64" arraysize="1">
+                <serialized bytepos="0" byteorder="LE" />
+                <deserialized alignment="8" />
+            </element>
+            <element name="tInt64Second" type="tInt64" arraysize="1">
+                <serialized bytepos="8" byteorder="LE" />
+                <deserialized alignment="8" />
+            </element>
+            <element name="tUInt32Third" type="tUInt32" arraysize="1">
+                <serialized bytepos="16" byteorder="LE" />
+                <deserialized alignment="4" />
+            </element>
+            <element name="tUInt16Fourth" type="tUInt16" arraysize="1">
+                <serialized bytepos="20" byteorder="LE" />
+                <deserialized alignment="2" />
+            </element>
+            <element name="tInt8Fifth" type="tInt8" arraysize="1">
+                <serialized bytepos="22" byteorder="LE" />
+                <deserialized alignment="1" />
+            </element>
+        </struct>
+    </structs>
+    <streammetatypes />
+    <streams />
+</ddl:ddl>

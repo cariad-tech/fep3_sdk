@@ -1,22 +1,17 @@
 #
-# Copyright @ 2021 VW Group. All rights reserved.
+# Copyright @ 2022 VW Group. All rights reserved.
 # 
-#     This Source Code Form is subject to the terms of the Mozilla
-#     Public License, v. 2.0. If a copy of the MPL was not distributed
-#     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
-# If it is not possible or desirable to put the notice in a particular file, then
-# You may include the notice in a location (such as a LICENSE file in a
-# relevant directory) where a recipient would be likely to look for such a notice.
-# 
-# You may add additional accurate notices of copyright ownership.
-# 
-#
- 
+# This Source Code Form is subject to the terms of the Mozilla
+# Public License, v. 2.0. If a copy of the MPL was not distributed
+# with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+find_package(Doxygen REQUIRED)
 
 # directory for doxygen and sphinx config files which were preprocessed by cmake
 set(DOXYGEN_INPUTS "${fep3_participant_DIR}/include ${fep3_system_DIR}/include")
 set(DOXYGEN_DISABLE_WARNINGS_AS_ERRORS TRUE)
+
+set(DOXYGEN_WARN_IF_UNDOCUMENTED "YES")
 
 if(DOXYGEN_DISABLE_WARNINGS_AS_ERRORS)
     set(DOXYGEN_WARNINGS_AS_ERRORS "NO")
@@ -39,44 +34,35 @@ else(WIN32)
     set(SPHINX_BUILD_EXE "sphinx-build")
 endif (WIN32)
 
-# has to be in source dir otherwise referencing source files (e.g. with literalinclude) is not possible
-set(DOC_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/build" CACHE INTERNAL "")
-
 # compile check code snippets
 add_subdirectory(input/snippets)
 
 # create configurations
-configure_file(input/conf.py.in ${DOC_BUILD_DIR}/conf.py)
-configure_file(input/doxygen.cfg.in ${DOC_BUILD_DIR}/doxygen.cfg)
+configure_file(input/conf.py.in ${CMAKE_CURRENT_BINARY_DIR}/sphinx_config/conf.py)
+configure_file(input/doxygen.cfg.in ${CMAKE_CURRENT_BINARY_DIR}/doxygen.cfg)
+
 
 # This is to avoid double documentation build on install
 set(DOCUMENTATION_GENERATED_FLAG_FILE ${CMAKE_CURRENT_BINARY_DIR}/doc_generated)
-add_custom_target(DOC_DEV_${PROJECT_NAME} ALL DEPENDS ${DOCUMENTATION_GENERATED_FLAG_FILE})
+
+add_custom_target(fep_sdk_user_guide ALL DEPENDS ${DOCUMENTATION_GENERATED_FLAG_FILE})
+set_target_properties(fep_sdk_user_guide PROPERTIES FOLDER process/doc)
 
 add_custom_command(OUTPUT ${DOCUMENTATION_GENERATED_FLAG_FILE}
-    COMMAND ${DOXYGEN_ROOT}/bin/doxygen ${DOC_BUILD_DIR}/doxygen.cfg
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/input/ ${DOC_BUILD_DIR}
+    COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/doxygen.cfg
     # -W -n append to sphinx build in order to activate strict building (no warnings at all are tolerated)
-    COMMAND ${SPHINX_BUILD_EXE} -b html ${DOC_BUILD_DIR} ${CMAKE_CURRENT_BINARY_DIR}/output/sphinx_html
+    COMMAND ${SPHINX_BUILD_EXE} -b html -c ${CMAKE_CURRENT_BINARY_DIR}/sphinx_config ${CMAKE_CURRENT_SOURCE_DIR}/input ${CMAKE_CURRENT_BINARY_DIR}/output/html
     # And mark that documentation as created
     COMMAND ${CMAKE_COMMAND} -E touch ${DOCUMENTATION_GENERATED_FLAG_FILE}
     WORKING_DIRECTORY .
-    COMMENT "Build html documentation using not yet sphinx, but doxygen only for now"
-   )
-
-install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/output/sphinx_html/
-        DESTINATION doc/html
 )
 
+install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/output/html/
+        DESTINATION doc/html
+)
 install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/output/doxygen_html/
         DESTINATION doc/doxygen_html
 )
-
-install(FILES changelog.md DESTINATION doc)
-
-set_target_properties(DOC_DEV_${PROJECT_NAME} PROPERTIES FOLDER process/doc)
-
-
 install(FILES fep3-sdk.html
         DESTINATION doc
 )

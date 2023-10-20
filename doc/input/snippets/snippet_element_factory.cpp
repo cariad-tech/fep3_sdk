@@ -4,16 +4,9 @@
  * @verbatim
 Copyright @ 2021 VW Group. All rights reserved.
 
-    This Source Code Form is subject to the terms of the Mozilla
-    Public License, v. 2.0. If a copy of the MPL was not distributed
-    with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-If it is not possible or desirable to put the notice in a particular file, then
-You may include the notice in a location (such as a LICENSE file in a
-relevant directory) where a recipient would be likely to look for such a notice.
-
-You may add additional accurate notices of copyright ownership.
-
+This Source Code Form is subject to the terms of the Mozilla
+Public License, v. 2.0. If a copy of the MPL was not distributed
+with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 @endverbatim
  */
 
@@ -76,7 +69,7 @@ std::string read_message_from_file(const std::string& file_path)
     return input_string;
 }
 
-class EasyCoreReceiverElement : public core::ElementConfigurable
+class EasyCoreReceiverElement : public fep3::core::ElementConfigurable
 {
 public:
     //Implementation of the CTOR!
@@ -85,7 +78,7 @@ public:
     // you must define a implementation version -> to identify your implementation version in a system
     // KEEP in MIND THIS IS NOT THE ELEMENT INSTANCE NAME!
     EasyCoreReceiverElement(int add_offset, const std::string& file_path)
-        : core::ElementConfigurable("Demo Element Base Receiver Type",
+        : fep3::core::ElementConfigurable("Demo Element Base Receiver Type",
             FEP3_PARTICIPANT_LIBRARY_VERSION_STR)
         , _add_offset(add_offset)
         , _custom_message(read_message_from_file(file_path))
@@ -113,7 +106,7 @@ public:
     {
         //register the data
         auto data_adding_res = core::addToComponents(*_data_reader_plain_c_type, *getComponents());
-        if (isFailed(data_adding_res)) return data_adding_res;
+        if (!data_adding_res) return data_adding_res;
         return {};
     }
 
@@ -167,7 +160,7 @@ private:
     const std::string _custom_message;
 };
 
-class CustomElementFactory : public fep3::arya::IElementFactory
+class CustomElementFactory : public fep3::base::IElementFactory
 {
 public:
     CustomElementFactory(int add_offset, const std::string& file_path)
@@ -182,7 +175,7 @@ public:
      * @param[in] components components reference to provide the component access
      * @returns Shared pointer to the created element.
     */
-    std::unique_ptr<arya::IElement> createElement(const arya::IComponents& components) const override
+    std::unique_ptr<base::IElement> createElement(const arya::IComponents& components) const override
     {
         return std::make_unique<EasyCoreReceiverElement>(_add_offset, _file_path);
     }
@@ -199,7 +192,7 @@ int main(int argc, const char* argv[])
     assert(argc == EXPECTED_ARG_COUNT);
     try
     {
-         auto part = createParticipant("demo_core_receiver",
+         auto part = fep3::base::createParticipant("demo_core_receiver",
                         "My Demo Participant Version 1.0",
                         "demo_system",
                         std::make_shared<CustomElementFactory>(

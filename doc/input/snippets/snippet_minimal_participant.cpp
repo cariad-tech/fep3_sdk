@@ -2,65 +2,121 @@
  * @file
  * @copyright
  * @verbatim
-Copyright @ 2021 VW Group. All rights reserved.
+Copyright @ 2023 VW Group. All rights reserved.
 
-    This Source Code Form is subject to the terms of the Mozilla
-    Public License, v. 2.0. If a copy of the MPL was not distributed
-    with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-If it is not possible or desirable to put the notice in a particular file, then
-You may include the notice in a location (such as a LICENSE file in a
-relevant directory) where a recipient would be likely to look for such a notice.
-
-You may add additional accurate notices of copyright ownership.
-
+This Source Code Form is subject to the terms of the Mozilla
+Public License, v. 2.0. If a copy of the MPL was not distributed
+with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 @endverbatim
  */
 
-#include <fep3/cpp.h>
+// Begin(MinimalJob)
+#include <fep3/core.h>
+
 #include <chrono>
+#include <iostream>
+
 using namespace fep3;
 using namespace std::chrono_literals;
 
-class MinimalDataJob : public cpp::DataJob {
+class MinimalJob : public fep3::core::DefaultJob {
 public:
-    MinimalDataJob() : cpp::DataJob("multiply", 1s) {
-        _reader = addDataIn("small_value",  base::StreamTypePlain<int32_t>());
-        _writer = addDataOut("big_value", base::StreamTypePlain<int32_t>());
-
-        registerPropertyVariable(_factor, "multiplication_factor");
+    // Begin(MinimalJob_CTOR)
+    MinimalJob(const std::string& name) : fep3::core::DefaultJob(name)
+    {
     }
+    // End(MinimalJob_CTOR)
 
-    //Begin(DataJob_process)
-    Result process(Timestamp sim_time_of_execution) {
-        updatePropertyVariables();
+    // Begin(MinimalJob_createDataIOs)
+    void createDataIOs(const fep3::arya::IComponents&,
+                       fep3::core::IDataIOContainer& io_container,
+                       const fep3::catelyn::JobConfiguration& job_config) override
+    {
+        _reader =
+            io_container.addDataIn("small_value", base::StreamTypePlain<int32_t>(), 0, job_config);
+        _writer = io_container.addDataOut("big_value", base::StreamTypePlain<int32_t>(), 0);
+    }
+    // End(MinimalJob_createDataIOs)
 
-        fep3::Optional<int32_t> received_plain_value;
+    // Begin(MinimalJob_execute)
+    fep3::Result execute(fep3::Timestamp) override
+    {
+        Optional<int32_t> received_plain_value;
         *_reader >> received_plain_value;
-
-        if (received_plain_value.has_value())
-        {
+        if (received_plain_value.has_value()) {
+            FEP3_LOG_INFO("Received: " + std::to_string(received_plain_value.value()));
             auto value = received_plain_value.value() * _factor;
-
-            FEP3_LOG_INFO("received  "
-                    + std::to_string(received_plain_value.value())
-                    + " written"
-                    + std::to_string(value));
-
             *_writer << value;
+            FEP3_LOG_INFO("Sent: " + std::to_string(value));
         }
-
         return {};
     }
-    //End(DataJob_process)
+    // End(MinimalJob_execute)
 
-    cpp::PropertyVariable<int32_t> _factor{ 2 };
-    cpp::DataReader* _reader;
-    cpp::DataWriter* _writer;
+    // Begin(MinimalJob_registerProperty)
+    fep3::Result registerPropertyVariables() override
+    {
+        FEP3_RETURN_IF_FAILED(registerPropertyVariable(_factor, "multiplication_factor"));
+        return {};
+    }
+
+    fep3::Result unregisterPropertyVariables() override
+    {
+        FEP3_RETURN_IF_FAILED(unregisterPropertyVariable(_factor));
+        return {};
+    }
+    // End(MinimalJob_registerProperty)
+
+private:
+    base::PropertyVariable<int32_t> _factor{2};
+    core::DataReader* _reader;
+    core::DataWriter* _writer;
 };
 
-int main(int argn, const char* argv[]) {
-    auto part = cpp::createParticipant<cpp::DataJobElement<MinimalDataJob>>(
-            argn, argv, "my_participant", "my_system");
-    return part.exec();
+// Begin(MinimalJobElement)
+class MinimalJobElement : public fep3::core::CustomJobElement {
+public:
+    MinimalJobElement() : CustomJobElement("minimal_job_element")
+    {
+    }
+
+    std::string getTypename() const override
+    {
+        return "minimal_job_element";
+    }
+    std::string getVersion() const override
+    {
+        return "1.0.0";
+    }
+
+    std::tuple<fep3::Result, JobPtr, JobConfigPtr> createJob(const fep3::arya::IComponents&) override
+    {
+        std::vector<std::string> signal_names = {"small_value"};
+        return {fep3::Result{},
+                std::make_shared<MinimalJob>("minimal_job"),
+                std::make_unique<DataTriggeredJobConfiguration>(signal_names)};
+    }
+
+    fep3::Result destroyJob() override
+    {
+        return {};
+    }
+};
+// End(MinimalJobElement)
+
+// Begin(MinimalJob_participant)
+int main(int argc, const char* argv[])
+{
+    try {
+        auto part = fep3::base::createParticipant<core::CustomElementFactory<MinimalJobElement>>(
+            "demo_minimal_job", "Demo Version 1.0", "demo_system");
+        return part.exec();
+    }
+    catch (const std::exception& ex) {
+        std::cerr << ex.what();
+        return 3;
+    }
 }
+// End(MinimalJob_participant)
+
+// End(MinimalJob)

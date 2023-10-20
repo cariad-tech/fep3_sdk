@@ -1,0 +1,86 @@
+@startuml 
+skin rose
+actor User
+participant System
+participant SystemStateTransition
+participant PartProxyTransitionMetaData
+participant ExecutionPolicy
+participant ThrowOnErrorPolicy
+
+User -> System : load
+
+note left
+load, initialize, start
+stop, etc
+endnote
+
+== System::runStateTransition ==
+
+note over System
+runStateTransition(transition_function,
+                           state_info,
+                           prio_sorting,
+                           prio_function,
+                           execution_policy,
+                           participant_range)
+endnote
+
+System -> SystemStateTransition : execute
+
+SystemStateTransition -> SystemStateTransition : getTransitionMetaData
+note over SystemStateTransition
+Creates metaData
+Stores priority -> prio_function()
+execution_policy and
+priority sorting (operator <)
+endnote
+
+
+SystemStateTransition -> PartProxyTransitionMetaData : sort  participants according to [[prio_sorting.svg{Prio Sorting Algorithm} priority]]
+note over PartProxyTransitionMetaData
+Uses sorting_function
+boost::range::sort(metaData)
+endnote
+SystemStateTransition <-- PartProxyTransitionMetaData : proxies_range
+    
+loop while not all participants transitioned
+
+
+== performTransition ==    
+    SystemStateTransition -> PartProxyTransitionMetaData : Get participants with the highest or lowest priority
+    note over PartProxyTransitionMetaData
+    boost::range::partition(proxies_range)
+    endnote
+    
+    SystemStateTransition <-- PartProxyTransitionMetaData : participants
+    
+    SystemStateTransition->SystemStateTransition : transition_functions
+    note right SystemStateTransition
+    std::transform(participants)
+    endnote
+    
+    SystemStateTransition -> ExecutionPolicy : Run transition with policy [[execution_policy.svg{Execution Policy} std::invoke]](execution_policy, transition_functions)
+    SystemStateTransition <-- ExecutionPolicy : execution_result
+    
+
+    
+    SystemStateTransition ->  ThrowOnErrorPolicy : [[error_handling.svg{Error Handling} error handling]](transition_functions)
+    SystemStateTransition <--  ThrowOnErrorPolicy : ret
+    
+    alt ret is true
+        SystemStateTransition -> PartProxyTransitionMetaData  : Remove transitioned participants
+        note right SystemStateTransition
+        boost::range::erase(proxies_range, participants)
+        endnote
+        SystemStateTransition <-- PartProxyTransitionMetaData
+    else
+        System <-- SystemStateTransition
+    end
+
+end 
+
+System <-- SystemStateTransition
+
+User <-- System
+
+@enduml

@@ -4,16 +4,9 @@
  * @verbatim
 Copyright @ 2021 VW Group. All rights reserved.
 
-    This Source Code Form is subject to the terms of the Mozilla
-    Public License, v. 2.0. If a copy of the MPL was not distributed
-    with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-If it is not possible or desirable to put the notice in a particular file, then
-You may include the notice in a location (such as a LICENSE file in a
-relevant directory) where a recipient would be likely to look for such a notice.
-
-You may add additional accurate notices of copyright ownership.
-
+This Source Code Form is subject to the terms of the Mozilla
+Public License, v. 2.0. If a copy of the MPL was not distributed
+with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 @endverbatim
  */
 
@@ -51,7 +44,7 @@ int main(int argc, char* argv[])
     {
     //Begin(CppBasic)
     // Recommended variation with command line argument parsing
-    Participant part = fep3::cpp::createParticipant<fep3::cpp::DataJobElement<MyDataJob>>(argc, argv, "MyParticipant", "MySystem");
+    fep3::base::Participant part = fep3::cpp::createParticipant<fep3::cpp::DataJobElement<MyDataJob>>(argc, argv, "MyParticipant", "MySystem");
 
     // Most simple variations with hard-coded participant and system name
     fep3::cpp::createParticipant<fep3::cpp::DataJobElement<MyDataJob>>("MyParticipant");
@@ -64,28 +57,29 @@ int main(int argc, char* argv[])
     // Variable to which the command line argument gets copied to. Set the default value here.
     std::string project = "fep";
 
-    // Add the user defined argument to a clara::Parser object. Make sure to not overwrite any options already defined by the SDK.
-    clara::Parser parser;
-    parser |= clara::Opt(project, "string")
-        ["-p"]["--project"]
-        ("Set the project the participant is part of");
+    // Add the user defined argument to a clipp::parameter or clipp::group object. Make sure to not overwrite any options already defined by the SDK.
+    auto cli = (
+        clipp::option
+        ("-p", "--project")
+        & clipp::value("string", project)
+        .doc("Values to send"));
 
     // Create a CommandLineParser object with the factory function. This will add the natively supported command line options to the parser.
-    std::unique_ptr<CommandLineParser> clp = fep3::CommandLineParserFactory::create(parser, ParserDefaultValues{"MyParticipant", "MySystem", ""});
+    std::unique_ptr<fep3::core::CommandLineParser> clp = fep3::core::CommandLineParserFactory::create(cli, fep3::core::ParserDefaultValues{"MyParticipant", "MySystem", ""});
 
     // Pass the CommandLineParser object to the createParticipant function
-    Participant part = fep3::cpp::createParticipant<fep3::cpp::DataJobElement<MyDataJob>>(argc, argv, std::move(clp));
+    fep3::base::Participant part = fep3::cpp::createParticipant<fep3::cpp::DataJobElement<MyDataJob>>(argc, argv, std::move(clp));
 
     // Alternatively call the factory function inline. The last value of the ParserDefaultValues (server address url) can be omitted
     // but not all compilers support partially defined initializer lists.
-    fep3::cpp::createParticipant<fep3::cpp::DataJobElement<MyDataJob>>(argc, argv, CommandLineParserFactory::create(parser, {"MyParticipant", "MySystem", ""}));
+    fep3::cpp::createParticipant<fep3::cpp::DataJobElement<MyDataJob>>(argc, argv, fep3::core::CommandLineParserFactory::create(cli, {"MyParticipant", "MySystem", ""}));
     //End(CppUserArg)
     }
 
     {
     //Begin(CoreBasic)
     // Recommended variation with command line argument parsing
-    Participant part = fep3::core::createParticipant<fep3::core::ElementFactory<MyElement>>(argc, argv, "1.2.3", {"MyParticipant", "MySystem", ""});
+    fep3::base::Participant part = fep3::core::createParticipant<fep3::core::ElementFactory<MyElement>>(argc, argv, "1.2.3", {"MyParticipant", "MySystem", ""});
 
     // If the participant and system name shall always be passed as command line arguments, the ParserDefaultValues can also be omitted.
     fep3::core::createParticipant<fep3::core::ElementFactory<MyElement>>(argc, argv, "1.2.3");
@@ -97,9 +91,9 @@ int main(int argc, char* argv[])
     }
 
     {
-    clara::Parser parser;
+    clipp::parameter parser;
     //Begin(CoreUserArg)
-    fep3::core::createParticipant<fep3::core::ElementFactory<MyElement>>(argc, argv, "1.2.3", CommandLineParserFactory::create(parser, {"MyParticipant", "MySystem", ""}));
+    fep3::core::createParticipant<fep3::core::ElementFactory<MyElement>>(argc, argv, "1.2.3", fep3::core::CommandLineParserFactory::create(parser, {"MyParticipant", "MySystem", ""}));
     //End(CoreUserArg)
     }
 }

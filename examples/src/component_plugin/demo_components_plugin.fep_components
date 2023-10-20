@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright @ 2021 VW Group. All rights reserved.
+ 
+This Source Code Form is subject to the terms of the Mozilla
+Public License, v. 2.0. If a copy of the MPL was not distributed
+with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+-->
+<components xmlns="http://fep.vwgroup.com/fep_sdk/3.0/components">
+    <schema_version>1.0.0</schema_version>
+    <component>
+        <source type="cpp-plugin">
+            ./fep_components_plugin
+        </source>
+        <iid>configuration_service.arya.fep3.iid</iid>
+    </component>
+    <component>
+        <source type="cpp-plugin">
+            ./fep_components_plugin
+        </source>
+        <iid>service_bus.arya.fep3.iid</iid>
+    </component>
+    <component>
+        <source type="cpp-plugin">
+        ./demo_components_plugin
+        </source>
+        <iid>IComponentA</iid>
+    </component>
+    <component>
+        <source type="cpp-plugin">
+        ./demo_components_plugin
+        </source>
+        <iid>IComponentB</iid>
+    </component>
+</components>

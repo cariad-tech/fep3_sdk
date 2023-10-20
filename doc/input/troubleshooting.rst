@@ -1,15 +1,8 @@
 .. Copyright @ 2021 VW Group. All rights reserved.
-.. 
-..     This Source Code Form is subject to the terms of the Mozilla
-..     Public License, v. 2.0. If a copy of the MPL was not distributed
-..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-.. 
-.. If it is not possible or desirable to put the notice in a particular file, then
-.. You may include the notice in a location (such as a LICENSE file in a
-.. relevant directory) where a recipient would be likely to look for such a notice.
-.. 
-.. You may add additional accurate notices of copyright ownership.
-
+..
+.. This Source Code Form is subject to the terms of the Mozilla 
+.. Public License, v. 2.0. If a copy of the MPL was not distributed 
+.. with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 ===============
 Troubleshooting
@@ -39,4 +32,25 @@ In order to find out if an executable is linked against to *libpthread* or a plu
 .. code-block:: bash
 
    ldd YOUR_EXECUTABLE_NAME
+
+Participants do not get discovered
+==================================
+* In case multiple machines are used, make sure that multicast is enabled. If this is not the case, please read :ref:`RTI Service Bus`. Especially pay attention to the RTI DDS articles linked about configuring the INITIAL PEERS LIST.
+
+* In case the participants are not consistently discovered, consider using :ref:`another overload<label_warning_discovery_overloads>` of :cpp:func:`fep3::discoverAllSystems` and :cpp:func:`fep3::discoverSystem` with a higher timeout (default is 1 second).
+
+* Check if *fep_control* and all the participants use the same :ref:`Service Bus plugin<Load Service Discovery Plugin>`, or try changing the used plugin and see if the problem persists.
+
+* In case you use :ref:`RTI Service Bus`, :ref:`activate the debug logs <label_debugging_rti_dds_service_bus>` and check the logged received update events.
+
+.. _label_health_service_troubleshooting:
+
+Health Service
+===============
+
+* *Participant is shown with offline running status in the beginning of the simulation*: Participant running state is updated once a heartbeat message is received. In the beginning, the system waits for a heartbeat in order to mark the participant as running. This delay can be reduced by increasing the heartbeat frequency using :cpp:func:`fep3::System::setHeartbeatInterval`.
+
+* *Participant is shown as online for some time after shutting down*: Per default, participant is considered as online for 20 sec after the last received heartbeat. This lag can be reduced by setting the timeout value using :cpp:func:`fep3::System::setLivelinessTimeout`.
+
+* *I do not want the extra RPC traffic from Health Service and I do not need to check participants' health over :term:`RPC Service`. *. Solution: deactivate health polling with :cpp:func:`fep3::System::setHealthListenerRunningStatus`.
 
