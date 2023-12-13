@@ -1,0 +1,45 @@
+@startuml 
+skin rose
+
+participant System
+participant TransitionController
+participant StateTree
+
+== participantStateToTrigger ==
+
+System -> TransitionController : participantStateToTrigger(target_state)
+
+TransitionController -> TransitionController : getParticipantStateSorting
+
+note over TransitionController
+[min_state, max_state] =
+        boost::minmax_element(states.begin(), states.end(), StartFromLowestState{});
+endnote
+
+        
+        
+alt max_state <= target_state 
+    System <-- TransitionController : start from participant in lowest state
+    note right: all participants below or equal target_state
+else   target_state <= min_state
+    System <-- TransitionController : start from participant in highest state
+    note right: all participants above or equal target_state
+else
+     System <-- TransitionController : start from participant in highest state
+     note right:  participants above or below target_state
+end 
+  
+== getNextParticipantsState ==  
+  
+TransitionController -> StateTree : getStateTransitionPath(current_state, target_state)
+note over StateTree: States modeled as tree and path is found using BFS Algorithn
+
+
+TransitionController <-- StateTree : [current_state, stateA, stateB, stateC, target_state]
+System <-- TransitionController : stateA
+note right
+Returns the next state that is on the path to reach target_state
+endnote
+
+    
+@enduml

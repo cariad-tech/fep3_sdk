@@ -1,0 +1,147 @@
+@startuml 
+skin rose
+
+actor User
+participant SystemLibrary
+
+participant Participant_1 
+participant Participant_2
+participant Participant_3
+participant Participant_4
+
+
+note over Participant_1 #snow : init_priority 10 start_priority 5 \n current state: unloaded
+/ note over Participant_2 #snow: init_priority 10 start_priority 5 \n current state: unloaded 
+/ note over Participant_3 #snow: init_priority 5 start_priority 10 \n current state: unloaded
+/ note over Participant_4 #snow: init_priority 5 start_priority 10 \n current state: unloaded
+
+User->SystemLibrary : load
+
+
+SystemLibrary -> Participant_1: load
+note right
+Triggering either parallel or sequential
+according to the set [[execution_policy.svg Execution Policy]]
+endnote
+
+SystemLibrary -> Participant_2: load
+SystemLibrary -> Participant_3: load
+SystemLibrary -> Participant_4: load
+
+User <--SystemLibrary
+
+
+note over Participant_1 #snow: current state: loaded
+/ note over Participant_2 #snow:  current state: loaded 
+/ note over Participant_3 #snow: current state: loaded
+/ note over Participant_4 #snow: current state: loaded
+
+
+User->SystemLibrary : initialize
+
+
+SystemLibrary -> Participant_1: initialize
+note right
+Triggering either parallel or sequential
+according to the set [[execution_policy.svg Execution Policy]]
+endnote
+SystemLibrary -> Participant_2: initialize
+note right
+initialize and start called
+with <color red>descending prio order</color>
+**<color red>higher Prio-> lower Prio</color>**
+endnote
+
+== Waits until state transitions complete == 
+note over Participant_1 #snow : current state: initialized
+/ note over Participant_2 #snow : current state: initialized 
+/ note over Participant_3 #snow : current state: loaded
+/ note over Participant_4 #snow : current state: loaded
+
+SystemLibrary -> Participant_3: initialize
+note right
+Triggering either parallel or sequential
+according to the set [[execution_policy.svg Execution Policy]]
+endnote
+SystemLibrary -> Participant_4: initialize
+note over Participant_1 #snow : current state: initialized
+/ note over Participant_2 #snow : current state: initialized 
+/ note over Participant_3 #snow : current state: initialized
+/ note over Participant_4 #snow : current state: initialized
+
+== All participants in initialized == 
+User <--SystemLibrary
+
+
+User->SystemLibrary : start
+
+
+SystemLibrary -> Participant_3: start
+note right
+Triggering either parallel or sequential
+according to the set [[execution_policy.svg Execution Policy]]
+endnote
+SystemLibrary -> Participant_4: start
+== Waits until state transitions complete == 
+note over Participant_1 #snow : current state: initialized
+/ note over Participant_2 #snow : current state: initialized 
+/ note over Participant_3 #snow : current state: running
+/ note over Participant_4 #snow : current state: running
+
+SystemLibrary -> Participant_1: start
+note right
+Triggering either parallel or sequential
+according to the set [[execution_policy.svg Execution Policy]]
+endnote
+SystemLibrary -> Participant_2: start
+note over Participant_1 #snow : current state: running
+/ note over Participant_2 #snow : current state: running
+/ note over Participant_3 #snow : current state: running
+/ note over Participant_4 #snow : current state: running
+
+== All participants in running == 
+User <--SystemLibrary
+
+
+
+User->SystemLibrary : stop
+
+
+SystemLibrary -> Participant_1: stop
+note right
+Triggering either parallel or sequential
+according to the set [[execution_policy.svg Execution Policy]]
+endnote
+note right
+Triggering either parallel or sequential
+according to the set [[execution_policy.svg Execution Policy]]
+endnote
+SystemLibrary -> Participant_2: stop
+note right
+Stop and deinitialize called
+with <color red>ascending prio order</color>
+**<color red>lower Prio-> higher Prio</color>**
+endnote
+
+== Waits until state transitions complete == 
+note over Participant_1 #snow : current state: initialized
+/ note over Participant_2 #snow : current state: initialized 
+/ note over Participant_3 #snow : current state: running
+/ note over Participant_4 #snow : current state: running
+
+SystemLibrary -> Participant_3: stop
+note right
+Triggering either parallel or sequential
+according to the set [[execution_policy.svg Execution Policy]]
+endnote
+SystemLibrary -> Participant_4: stop
+note over Participant_1 #snow : current state: initialized
+/ note over Participant_2 #snow : current state: initialized
+/ note over Participant_3 #snow : current state: initialized
+/ note over Participant_4 #snow : current state: initialized
+
+== All participants in initialized == 
+User <--SystemLibrary
+
+
+@enduml

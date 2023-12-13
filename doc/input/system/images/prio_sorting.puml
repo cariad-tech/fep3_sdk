@@ -1,0 +1,25 @@
+@startuml 
+skin rose
+Participant SystemStateTransition
+participant PartProxyTransitionMetaData
+
+SystemStateTransition -> PartProxyTransitionMetaData : sort  participants according to priority 
+
+alt target state Initialized or Running
+    alt target state > current state
+
+        SystemStateTransition <-- PartProxyTransitionMetaData : Sorting to decreasing prio - Highest Prio called first
+        note Right
+        Init or Start priority used according to state transition
+        endnote
+
+    else target state < current state
+        SystemStateTransition <-- PartProxyTransitionMetaData : Sorting to increasing prio - Highest Prio called last
+    end
+
+else 
+
+SystemStateTransition <-- PartProxyTransitionMetaData : Sorting according to participant name
+end
+
+@enduml

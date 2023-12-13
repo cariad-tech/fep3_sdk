@@ -1,14 +1,8 @@
 .. Copyright @ 2021 VW Group. All rights reserved.
 .. 
-..     This Source Code Form is subject to the terms of the Mozilla
-..     Public License, v. 2.0. If a copy of the MPL was not distributed
-..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-.. 
-.. If it is not possible or desirable to put the notice in a particular file, then
-.. You may include the notice in a location (such as a LICENSE file in a
-.. relevant directory) where a recipient would be likely to look for such a notice.
-.. 
-.. You may add additional accurate notices of copyright ownership.
+.. This Source Code Form is subject to the terms of the Mozilla 
+.. Public License, v. 2.0. If a copy of the MPL was not distributed 
+.. with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 
 .. _label_clock_sync_service:
@@ -34,7 +28,7 @@ Summary
 +------------------------------------------------------+-----------------------------------------------------------------------------+
 | RPC Service Description                              |  :ref:`label_rpc_service_clock_sync_slave`                                  |
 +------------------------------------------------------+-----------------------------------------------------------------------------+
-| native delivery                                      |  built-in                                                                   |
+| native delivery                                      |  CPP-plugin                                                                 |
 +------------------------------------------------------+-----------------------------------------------------------------------------+
 | CPP-plugin possible                                  |  yes                                                                        |
 +------------------------------------------------------+-----------------------------------------------------------------------------+
@@ -137,7 +131,7 @@ The following image shows a continuous synchronization in more detail.
 At first the *timing slave* registers with the *timing master*. This is necessary to receive the *timeReset* events.
 After registration and once the simulation starts the *timing master* will first send a *timeReset* event to the *slave*.
 After that the *timing slave* will cyclically retrieve the *master* time in an interval of *sync_cycle_time* (in wall clock time).
-In case of the :ref:`label_clock_sync_slave_master_on_demand` clock this time will be used to set the local time of the *slave* using the `Cristian's algorithm <https://en.wikipedia.org/wiki/Cristian's_algorithm>`_.
+In case of the :ref:`label_clock_sync_slave_master_on_demand` clock this time will be used to set the local time of the *slave* using the `Cristian's algorithm <https://en.wikipedia.org/wiki/Cristian%27s_algorithm>`_.
 When the simulation is stopped the *timing slave* will unregister from the *master*.
 
 .. image:: images/continuous_sync.png

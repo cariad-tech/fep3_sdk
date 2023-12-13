@@ -1,14 +1,8 @@
 .. Copyright @ 2021 VW Group. All rights reserved.
 .. 
-..     This Source Code Form is subject to the terms of the Mozilla
-..     Public License, v. 2.0. If a copy of the MPL was not distributed
-..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-.. 
-.. If it is not possible or desirable to put the notice in a particular file, then
-.. You may include the notice in a location (such as a LICENSE file in a
-.. relevant directory) where a recipient would be likely to look for such a notice.
-.. 
-.. You may add additional accurate notices of copyright ownership.
+.. This Source Code Form is subject to the terms of the Mozilla 
+.. Public License, v. 2.0. If a copy of the MPL was not distributed 
+.. with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 
 .. |br| raw:: html
@@ -24,7 +18,7 @@ How to migrate a FEP Participant from FEP 2 to FEP 3
 ====================================================
 
 This guide shows how to port a FEP 2 participant to a FEP 3 participant,
-how the :ref:`components<label_components>` and features have changed and offers specific code
+how the :ref:`components<Default_Components_vs_Foreign_Components>` and features have changed and it offers specific code
 examples for both versions.
 
 Instantiating a FEP Participant
@@ -35,7 +29,7 @@ In FEP 3 the term module is therefore not being used anymore and the terms
 :term:`FEP Participant` and :term:`FEP Element` are now clearly defined.
 
 For a basic :term:`FEP Participant` it is recommended to use the
-:ref:`CPP Library<label_cpp_api>` first since it offers a more simple and convenient method to
+:ref:`CPP Library<FEP_Participant_Library>` first since it offers a more simple and convenient method to
 create a FEP Participant. The :ref:`Core Library<label_core_api>` offers more functionality but one
 has to write the :term:`FEP Element` himself.
 
@@ -69,7 +63,7 @@ Writing an FEP Element
 
 The :term:`FEP Element` implementation replaces the module and gets loaded by the
 FEP Participant during the state transition *load*. It communicates with the FEP Participant via the
-:ref:`component interfaces<label_default_components>`.
+:ref:`component interfaces<Default_Components_vs_Foreign_Components>`.
 
 
 
@@ -165,8 +159,8 @@ Reading and Writing Signals
 ===========================
 
 FEP 3 introduces :ref:`jobs<label_job>` and the :ref:`label_job_registry` which combine the
-functionality of the *StepListener* and *DataListener*. The basic :cpp:class:`fep3::core::arya::Job`
-class only provides a callback function while :cpp:class:`fep3::cpp::arya::DataJob`
+functionality of the *StepListener* and *DataListener*. The basic :cpp:class:`fep3::cpp::Job`
+class only provides a callback function while :cpp:class:`fep3::cpp::DataJob`
 (an extension to the Job class) also offers functionality for receiving and sending data.
 
 .. note::
@@ -175,9 +169,9 @@ class only provides a callback function while :cpp:class:`fep3::cpp::arya::DataJ
 +------------------------------+--------------------------------------------------------------------------------+--------------------------------------------------------------------------------+
 |                              | FEP 2 Implementation                                                           | FEP 3 Implementation                                                           |
 +------------------------------+--------------------------------------------------------------------------------+--------------------------------------------------------------------------------+
-| **Setup Callback Function**  | .. literalinclude:: ../../snippets/snippet_migration_guide_fep_2.cpp           | The :cpp:class:`fep3::core::arya::Job` class can only execute a callback       |
+| **Setup Callback Function**  | .. literalinclude:: ../../snippets/snippet_migration_guide_fep_2.cpp           | The :cpp:class:`fep3::cpp::Job` class can only execute a callback              |
 |                              |     :start-after: //Begin(StepListener)                                        | function. If the purpose of the *StepListener* was to send                     |
-|                              |     :end-before: //End(StepListener)                                           | :ref:`label_data_samples`, a :cpp:class:`fep3::cpp::arya::DataJob`             |
+|                              |     :end-before: //End(StepListener)                                           | :ref:`label_data_samples`, a :cpp:class:`fep3::cpp::DataJob`                   |
 |                              |     :dedent: 8                                                                 | is recommended.                                                                |
 |                              |                                                                                |                                                                                |
 |                              |                                                                                | .. literalinclude:: ../../snippets/snippet_migration_guide_fep_3.cpp           |
@@ -272,9 +266,9 @@ It is now possible to have arrays as properties in the form of std::vector<T>.
 +------------------------------+--------------------------------------------------------------------------------+--------------------------------------------------------------------------------+
 | **Creating a custom          | Identical to setting a property value.                                         | .. _label_custom_property:                                                     |
 | property**                   |                                                                                |                                                                                |
-|                              |                                                                                | Derive from :cpp:class:`fep3::arya::Configuration`. This is already the case   |
+|                              |                                                                                | Derive from :cpp:class:`fep3::base::Configuration`. This is already the case   |
 |                              |                                                                                | for :cpp:class:`fep3::cpp::arya::DataJob` and                                  |
-|                              |                                                                                | :cpp:class:`fep3::core::arya::ElementConfigurable`.                            |
+|                              |                                                                                | :cpp:class:`fep3::core::ElementConfigurable`.                                  |
 |                              |                                                                                |                                                                                |
 |                              |                                                                                | .. literalinclude:: ../../snippets/snippet_migration_guide_fep_3.cpp           |
 |                              |                                                                                |     :start-after: //Begin(CreateProperty)                                      |
@@ -343,12 +337,12 @@ Logging
 +------------------------------+--------------------------------------------------------------------------------+--------------------------------------------------------------------------------+
 |                              | FEP 2 Implementation                                                           | FEP 3 Implementation                                                           |
 +------------------------------+--------------------------------------------------------------------------------+--------------------------------------------------------------------------------+
-| **Writing a log**            | .. literalinclude:: ../../snippets/snippet_migration_guide_fep_2.cpp           | Derive from :cpp:class:`fep3::logging::arya::EasyLogging` and call             |
-|                              |     :start-after: //Begin(InvokeIncident)                                      | :cpp:func:`~fep3::logging::arya::EasyLogging::initLogger()`. If more than one  |
+| **Writing a log**            | .. literalinclude:: ../../snippets/snippet_migration_guide_fep_2.cpp           | Derive from :cpp:class:`fep3::base::EasyLogging` and call                      |
+|                              |     :start-after: //Begin(InvokeIncident)                                      | :cpp:func:`~fep3::base::EasyLogging::initLogger()`. If more than one           |
 |                              |     :end-before: //End(InvokeIncident)                                         | logger is needed the :ref:`label_logging_service` has to be used directly.     |
 |                              |     :dedent: 8                                                                 |                                                                                |
 |                              |     :caption: class cMyModule                                                  | :cpp:class:`fep3::cpp::arya::DataJob` and                                      |
-|                              |                                                                                | :cpp:class:`fep3::core::arya::ElementBase` are already derived from            |
+|                              |                                                                                | :cpp:class:`fep3::core::ElementBase` are already derived from                  |
 |                              |                                                                                | :ref:`label_core_easy_logging` and do not need to be initialized manually.     |
 |                              |                                                                                |                                                                                |
 |                              |                                                                                | .. literalinclude:: ../../snippets/snippet_migration_guide_fep_3.cpp           |
@@ -394,7 +388,7 @@ Logging
 Automation Interface
 ====================
 
-The automation interface has been removed in FEP 3 and will not be added again. Use the :ref:`label_system_library`
+The automation interface has been removed in FEP 3 and will not be added again. Use the :ref:`FEP System Library <FEP_System_Library>`
 to control a FEP System. A FEP Participant is not allowed to have any control over the FEP System in FEP 3.
 
 +------------------------------+--------------------------------------------------------------------------------+--------------------------------------------------------------------------------+
@@ -417,14 +411,14 @@ to control a FEP System. A FEP Participant is not allowed to have any control ov
 Testing
 =======
 
-To test an FEP Element in FEP 3 one can either use the :cpp:class:`fep3::core::arya::ParticipantExecutor`
-to do unit testing or use the FEP System Library / FEP Base Utilities
+To test a FEP Element in FEP 3 one can either use the :cpp:class:`fep3::core::ParticipantExecutor`
+to do unit testing or use the :ref:`FEP System Library <FEP_System_Library>` / :term:`FEP Base Utilities`
 to test several FEP Participants together.
 
 Unit Testing
 ------------
 
-The FEP Participant Library provides the :cpp:class:`fep3::core::arya::ParticipantExecutor` class,
+The FEP Participant Library provides the :cpp:class:`fep3::core::ParticipantExecutor` class,
 which will call the exec function asynchronously, so it is possible to continue testing.
 It can also control the :ref:`label_participant_state_machine` of the FEP Participant to
 start and stop it.
@@ -439,14 +433,20 @@ System Testing
 --------------
 
 To test an entire FEP System with more than one FEP Participant, the FEP Base Utilities control tool or
-the FEP System Library / FEP Controller Library is recommended.
+the FEP System Library is recommended.
 
-* The control tool requires a running FEP Participant executable and can be controlled through
-  a script.
-* With the FEP System Library one has to write an executable but has access to the whole FEP System
-  and FEP Participant APIs. For more information see :ref:`label_system_library`.
+* The FEP System can not only be controlled directly using the fep control tool, but also using a script, e.g. fep_control < control.txt.
+* One can also write an executable with the :ref:`FEP System Library <FEP_System_Library>`, which has access to the whole FEP System
+  and FEP Participant APIs.
 
-If the FEP System Library is being used the :cpp:class:`fep3::core::arya::ParticipantExecutor`
+If the :ref:`FEP System Library <FEP_System_Library>` is being used, the :cpp:class:`fep3::core::ParticipantExecutor`
 is recommended again to start the FEP Participants in separate threads. But use the FEP System Library API
 to start and stop the FEP Participants in this case and not the *ParticipantExecutor* functions!
-It is also possible to start all FEP Participants in their own executable.
+It is also possible to start all FEP Participants in their own executables.
+
+Discovering
+-----------
+
+FEP2 uses only RTI DDS Discovering, whereas FEP3 by default provide discovering based on customized multicasting.
+If multicasting is not possible, FEP3 can switch to the RTI DDS Discovering via configurating the :ref:`CPP Plugin<label_component_cpp_plugins>`.
+For more information about discovering, please refer to :ref:`label_service_bus`.

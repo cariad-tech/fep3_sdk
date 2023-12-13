@@ -1,26 +1,29 @@
 # Copyright @ 2021 VW Group. All rights reserved.
 #
-#     This Source Code Form is subject to the terms of the Mozilla
-#     Public License, v. 2.0. If a copy of the MPL was not distributed
-#     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-#
-# If it is not possible or desirable to put the notice in a particular file, then
-# You may include the notice in a location (such as a LICENSE file in a
-# relevant directory) where a recipient would be likely to look for such a notice.
-#
-# You may add additional accurate notices of copyright ownership.
+# This Source Code Form is subject to the terms of the Mozilla
+# Public License, v. 2.0. If a copy of the MPL was not distributed
+# with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 common:
     files:
         - README.md
-        - doc/license/LICENSE.md
-        - doc/license/list_used_licenses.md
+        - doc/changelog_sdk.md
+        - doc/changelog_participant.md
+        - doc/changelog_system.md
         - doc/license/license_notes_from_aosd.txt
-        - doc/license/used_licenses/.+
-        - examples/src/rpc_service_bus/CMakeLists.txt
-        - examples/src/rpc_service_bus/demo_rpc_client.cpp
-        - examples/src/rpc_service_bus/demo_rpc_service.cpp
-        - examples/src/rpc_service_bus/demo_rpc_service.json
+        - doc/license/LICENSE.md
+        - examples/bin/demo_components_plugin.fep_components
+        - examples/bin/fep3_participant.fep_components
+        - examples/bin/fep3_system.fep_components
+        - examples/bin/rti/USER_QOS_PROFILES.xml
+        - examples/bin/fep_interface_example.description
+        - examples/CMakeLists.txt
+        - examples/src/component_plugin/CMakeLists.txt
+        - examples/src/component_plugin/component_a_intf.h
+        - examples/src/component_plugin/component_b_intf.h
+        - examples/src/component_plugin/components_plugin.cpp
+        - examples/src/component_plugin/demo_components_plugin.fep_components
+        - examples/src/component_plugin/plugin_element.cpp
         - examples/src/easy_core_example_element/CMakeLists.txt
         - examples/src/easy_core_example_element/core_receiver_main.cpp
         - examples/src/easy_core_example_element/core_sender_main.cpp
@@ -29,35 +32,94 @@ common:
         - examples/src/easy_cpp_example_datajob/cpp_receiver_main.cpp
         - examples/src/easy_cpp_example_datajob/cpp_sender_main.cpp
         - examples/src/easy_cpp_example_datajob/example_ddl_types.h
+        - examples/src/default_job_example/CMakeLists.txt
+        - examples/src/default_job_example/default_job_receiver.cpp
+        - examples/src/default_job_example/default_job_sender.cpp
         - examples/src/logging_example/CMakeLists.txt
         - examples/src/logging_example/logging_participant.cpp
         - examples/src/logging_example/logging_system.cpp
         - examples/src/minimal_participant/CMakeLists.txt
         - examples/src/minimal_participant/minimal_participant.cpp
-        - examples/bin/fep3_participant.fep_components
-        - examples/bin/fep3_system.plugins
-        - examples/bin/rti/USER_QOS_PROFILES.xml
-        - examples/CMakeLists.txt
+        - examples/src/rpc_service_bus/CMakeLists.txt
+        - examples/src/rpc_service_bus/demo_rpc_client.cpp
+        - examples/src/rpc_service_bus/demo_rpc_service.cpp
+        - examples/src/rpc_service_bus/demo_rpc_service.json
+        - examples/src/async_waitset_example/CMakeLists.txt
+        - examples/src/async_waitset_example/async_waitset_sender.cpp
+        - examples/src/async_waitset_example/async_waitset_receiver.cpp
+        - examples/src/data_triggered_simulation/CMakeLists.txt
+        - examples/src/data_triggered_simulation/sender.cpp
+        - examples/src/data_triggered_simulation/receiver.cpp
+        - examples/src/multi_sender_for_one_signal_example/CMakeLists.txt
+        - examples/src/multi_sender_for_one_signal_example/multi_sender_main.cpp
+        - examples/src/multi_sender_for_one_signal_example/one_receiver_main.cpp
+        - examples/src/signal_mapping_example/CMakeLists.txt
+        - examples/src/signal_mapping_example/example_ddl_types.h
+        - examples/src/signal_mapping_example/signal_a_b_to_c.map
+        - examples/src/signal_mapping_example/signal_mapping_receiver_main.cpp
+        - examples/src/signal_mapping_example/signal_mapping_sender_main.cpp
+        - examples/src/fep_interface_example/CMakeLists.txt
+        - examples/src/fep_interface_example/README.md
+        - examples/src/fep_interface_example/custom_sim_tool.hpp
+        - examples/src/fep_interface_example/delay_property_type.hpp
+        - examples/src/fep_interface_example/string_map_property_type.hpp
+        - examples/src/fep_interface_example/fep_interface_example.cpp
+        - examples/src/fep_interface_example/fep_interface_example.description
+        - examples/src/fep_interface_example/fep_interface_example.h
+        - examples/src/fep_interface_example/main.cpp
+        - examples/src/signal_mapping_example/demo_data/a.description
+        - examples/src/signal_mapping_example/demo_data/b.description
+        - examples/src/signal_mapping_example/demo_data/c.description
+        - examples/bin/demo_data/demo_dynamic_array.description
+        - examples/src/dynamic_array/CMakeLists.txt
+        - examples/src/dynamic_array/demo_data/demo_dynamic_array.description
+        - examples/src/dynamic_array/demo_dynamic_array.h
+        - examples/src/dynamic_array/demo_dynamic_array_receiver_main.cpp
+        - examples/src/dynamic_array/demo_dynamic_array_sender_main.cpp
+        - examples/src/dynamic_array/dynamic_array_data_sample.h
+        - examples/src/dynamic_array/stream_type_file_ref_big.h
         - fep3_sdk-config-version.cmake
         - fep3_sdk-config.cmake
+        - README.md
 
 windows_shared:
     conditions:
         my_conds:
             os: Windows
     files:
-        - examples/bin/demo_rpc_client.exe
-        - examples/bin/demo_rpc_service.exe
-        - examples/bin/rti/fep3_connext_dds_plugin.dll
-        - examples/bin/fep_components_plugin.dll
+        - examples/bin/demo_components_plugin.dll
+        - examples/bin/demo_components_plugin.lib
         - examples/bin/demo_easy_core_receiver.exe
         - examples/bin/demo_easy_core_sender.exe
+        - examples/bin/demo_default_job_receiver.exe
+        - examples/bin/demo_default_job_sender.exe
         - examples/bin/demo_easy_cpp_receiver.exe
         - examples/bin/demo_easy_cpp_sender.exe
         - examples/bin/demo_logging.exe
         - examples/bin/demo_logging_system.exe
         - examples/bin/demo_minimal_participant.exe
+        - examples/bin/demo_plugin_element.exe
+        - examples/bin/demo_rpc_client.exe
+        - examples/bin/demo_rpc_service.exe
+        - examples/bin/demo_async_waitset_receiver.exe
+        - examples/bin/demo_async_waitset_sender.exe
+        - examples/bin/demo_multi_sender.exe
+        - examples/bin/demo_one_receiver.exe
+        - examples/bin/demo_data_triggered_sender.exe
+        - examples/bin/demo_data_triggered_receiver.exe
+        - examples/bin/demo_one_receiver.exe
+        - examples/bin/demo_signal_mapping_receiver.exe
+        - examples/bin/demo_signal_mapping_sender.exe
+        - examples/bin/fep_interface_example.exe
+        - examples/bin/demo_data/a.description
+        - examples/bin/demo_data/b.description
+        - examples/bin/demo_data/c.description
+        - examples/bin/demo_dynamic_array_receiver.exe
+        - examples/bin/demo_dynamic_array_sender.exe
+        - examples/bin/fep_components_plugin.dll
         - examples/bin/http/fep3_http_service_bus.dll
+        - examples/bin/rti/fep3_connext_dds_plugin.dll
+        - examples/bin/rti/fep3_dds_service_bus_plugin.dll
 
 windows_shared_debug:
     conditions:
@@ -66,10 +128,11 @@ windows_shared_debug:
             build_type: Debug
     files:
         - examples/bin/fep_components_plugin.pdb
-        - examples/bin/fep3_participantd3.1.dll
-        - examples/bin/fep3_participantd3.1.pdb
-        - examples/bin/fep3_systemd3.1.dll
-        - examples/bin/fep3_systemd3.1.pdb
+        - examples/bin/fep3_participantd3.3.dll
+        - examples/bin/fep3_participantd3.3.pdb
+        - examples/bin/fep3_systemd3.3.dll
+        - examples/bin/fep3_systemd3.3.pdb
+        - examples/bin/http/fep3_http_service_bus.pdb
         - examples/bin/rti/nddscd.dll
         - examples/bin/rti/nddscd.pdb
         - examples/bin/rti/nddscored.dll
@@ -84,7 +147,7 @@ windows_shared_debug:
         - examples/bin/rti/rticonnextmsgcppd.pdb
         - examples/bin/rti/rtimonitoringd.dll
         - examples/bin/rti/rtimonitoringd.pdb
-        - examples/bin/http/fep3_http_service_bus.pdb
+        - examples/bin/rti/fep3_dds_service_bus_plugin.pdb
 
 windows_shared_release:
     conditions:
@@ -92,8 +155,8 @@ windows_shared_release:
             os: Windows
             build_type: Release
     files:
-        - examples/bin/fep3_participant3.1.dll
-        - examples/bin/fep3_system3.1.dll
+        - examples/bin/fep3_participant3.3.dll
+        - examples/bin/fep3_system3.3.dll
         - examples/bin/rti/nddsc.dll
         - examples/bin/rti/nddscore.dll
         - examples/bin/rti/nddscpp.dll
@@ -109,9 +172,11 @@ windows_shared_rel_with_deb_info:
             build_type: RelWithDebInfo
     files:
          - examples/bin/fep_components_plugin.pdb
-         - examples/bin/fep3_participant3.1.dll
-         - examples/bin/fep3_participant3.1.pdb
-         - examples/bin/fep3_system3.1.dll
+         - examples/bin/fep3_participant3.3.dll
+         - examples/bin/fep3_participant3.3.pdb
+         - examples/bin/fep3_system3.3.dll
+         - examples/bin/fep3_system3.3.pdb
+         - examples/bin/http/fep3_http_service_bus.pdb
          - examples/bin/rti/nddsc.dll
          - examples/bin/rti/nddscore.dll
          - examples/bin/rti/nddscpp.dll
@@ -119,24 +184,44 @@ windows_shared_rel_with_deb_info:
          - examples/bin/rti/nddsmetp.dll
          - examples/bin/rti/rticonnextmsgcpp.dll
          - examples/bin/rti/rtimonitoring.dll
+         - examples/bin/rti/fep3_dds_service_bus_plugin.pdb
 
 linux_shared:
     conditions:
         my_conds:
             os: Linux
     files:
-        - examples/bin/demo_rpc_client
-        - examples/bin/demo_rpc_service
-        - examples/bin/rti/libfep3_connext_dds_plugin.so
-        - examples/bin/libfep_components_plugin.so
         - examples/bin/demo_easy_core_receiver
         - examples/bin/demo_easy_core_sender
+        - examples/bin/demo_default_job_receiver
+        - examples/bin/demo_default_job_sender
         - examples/bin/demo_easy_cpp_receiver
         - examples/bin/demo_easy_cpp_sender
         - examples/bin/demo_logging
         - examples/bin/demo_logging_system
         - examples/bin/demo_minimal_participant
+        - examples/bin/demo_plugin_element
+        - examples/bin/demo_rpc_client
+        - examples/bin/demo_rpc_service
+        - examples/bin/demo_async_waitset_receiver
+        - examples/bin/demo_async_waitset_sender
+        - examples/bin/demo_data_triggered_sender
+        - examples/bin/demo_data_triggered_receiver
+        - examples/bin/demo_multi_sender
+        - examples/bin/demo_one_receiver
+        - examples/bin/demo_signal_mapping_receiver
+        - examples/bin/demo_signal_mapping_sender
+        - examples/bin/fep_interface_example
+        - examples/bin/demo_data/a.description
+        - examples/bin/demo_data/b.description
+        - examples/bin/demo_data/c.description
+        - examples/bin/demo_dynamic_array_receiver
+        - examples/bin/demo_dynamic_array_sender
         - examples/bin/http/libfep3_http_service_bus.so
+        - examples/bin/libdemo_components_plugin.so
+        - examples/bin/libfep_components_plugin.so
+        - examples/bin/rti/libfep3_connext_dds_plugin.so
+        - examples/bin/rti/libfep3_dds_service_bus_plugin.so
 
 linux_shared_debug:
     conditions:
@@ -144,8 +229,8 @@ linux_shared_debug:
             os: Linux
             build_type: Debug
     files:
-        - examples/bin/libfep3_participantd3.1.so
-        - examples/bin/libfep3_systemd3.1.so
+        - examples/bin/libfep3_participantd3.3.so
+        - examples/bin/libfep3_systemd3.3.so
         - examples/bin/rti/libnddscd.so
         - examples/bin/rti/libnddscored.so
         - examples/bin/rti/libnddscpp2d.so
@@ -160,8 +245,8 @@ linux_shared_rel_with_deb_info:
             os: Linux
             build_type: RelWithDebInfo
     files:
-        - examples/bin/libfep3_participant3.1.so
-        - examples/bin/libfep3_system3.1.so
+        - examples/bin/libfep3_participant3.3.so
+        - examples/bin/libfep3_system3.3.so
         - examples/bin/rti/libnddsc.so
         - examples/bin/rti/libnddscore.so
         - examples/bin/rti/libnddscpp.so
@@ -176,8 +261,8 @@ linux_shared_release:
             os: Linux
             build_type: Release
     files:
-        - examples/bin/libfep3_participant3.1.so
-        - examples/bin/libfep3_system3.1.so
+        - examples/bin/libfep3_participant3.3.so
+        - examples/bin/libfep3_system3.3.so
         - examples/bin/rti/libnddsc.so
         - examples/bin/rti/libnddscore.so
         - examples/bin/rti/libnddscpp.so
@@ -188,13 +273,9 @@ linux_shared_release:
 
 documentation:
     conditions:
-        doc_x86:
-            arch: x86
         doc_x86_64:
             arch: x86_64
     files:
-        - doc/html/.+
         - doc/doxygen_html/.+
         - doc/fep3-sdk.html
-        - doc/changelog.md
-        - doc/license/LICENSE.md
+        - doc/html/.+

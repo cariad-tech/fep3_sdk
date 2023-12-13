@@ -1,0 +1,55 @@
+@startuml 
+skin rose
+
+actor User
+participant SystemLibrary
+participant Participant_1 
+participant Participant_2
+participant Participant_3
+participant Participant_4
+
+note over Participant_1 #snow : current state: unloaded
+/ note over Participant_2 #snow: current state: loaded 
+/ note over Participant_3 #snow: current state: initialized
+/ note over Participant_4 #snow: current state: running
+
+User->SystemLibrary : setSystemState **loaded**
+
+
+SystemLibrary -> Participant_4: stop
+note right
+Transition performed regarding priorities
+and execution policy as described 
+[[single_transition_example.svg here]]
+end note
+
+note over Participant_1 #snow : current state: unloaded
+/ note over Participant_2 #snow: current state: loaded 
+/ note over Participant_3 #snow: current state: initialized
+/ note over Participant_4 #snow: current state: initialized
+
+SystemLibrary -> Participant_3: deinitialize
+SystemLibrary -> Participant_4: deinitialize
+note right
+Transition performed regarding priorities
+and execution policy as described
+[[single_transition_example.svg here]]
+end note
+
+note over Participant_1 #snow : current state: unloaded
+/ note over Participant_2 #snow: current state: loaded 
+/ note over Participant_3 #snow: current state: loaded
+/ note over Participant_4 #snow: current state: loaded
+
+
+SystemLibrary -> Participant_1: load
+
+note over Participant_1 #snow : current state: loaded
+/ note over Participant_2 #snow: current state: loaded
+/ note over Participant_3 #snow: current state: loaded
+/ note over Participant_4 #snow: current state: loaded
+
+
+User<--SystemLibrary :
+
+@enduml

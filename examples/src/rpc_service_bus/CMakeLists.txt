@@ -1,23 +1,17 @@
 #
 # Copyright @ 2021 VW Group. All rights reserved.
-# 
-#     This Source Code Form is subject to the terms of the Mozilla
-#     Public License, v. 2.0. If a copy of the MPL was not distributed
-#     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
-# If it is not possible or desirable to put the notice in a particular file, then
-# You may include the notice in a location (such as a LICENSE file in a
-# relevant directory) where a recipient would be likely to look for such a notice.
-# 
-# You may add additional accurate notices of copyright ownership.
-# 
 #
-fep3_participant_create_copy_target(rpc_service_bus)
-set_target_properties(fep_participant_file_copy_rpc_service_bus PROPERTIES FOLDER "examples/rpc_service_bus")
+# This Source Code Form is subject to the terms of the Mozilla
+# Public License, v. 2.0. If a copy of the MPL was not distributed
+# with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
 
 # find the package
 find_package(fep3_participant_core REQUIRED PATHS ${fep3_participant_DIR})
 find_package(dev_essential REQUIRED COMPONENTS pkg_rpc)
+
+internal_fep3_participant_create_copy_target(rpc_service_bus)
+set_target_properties(fep_participant_file_copy_rpc_service_bus PROPERTIES FOLDER "examples/rpc_service_bus")
 
 ##################################################################
 # DEMO RPC SERVICE
@@ -42,7 +36,7 @@ target_link_libraries(demo_rpc_service PRIVATE
                       dev_essential::pkg_rpc)
 fep3_participant_link_pthread(demo_rpc_service)
 add_dependencies(demo_rpc_service fep_participant_file_copy_rpc_service_bus)
-fep3_participant_install(demo_rpc_service examples/bin)
+internal_fep3_participant_install(demo_rpc_service examples/bin)
 
 ##################################################################
 # DEMO RPC CLIENT
@@ -66,5 +60,5 @@ target_link_libraries(demo_rpc_client PRIVATE
                       dev_essential::pkg_rpc)
 fep3_participant_link_pthread(demo_rpc_client)
 add_dependencies(demo_rpc_client fep_participant_file_copy_rpc_service_bus)
-fep3_participant_install(demo_rpc_client examples/bin)
+internal_fep3_participant_install(demo_rpc_client examples/bin)
 

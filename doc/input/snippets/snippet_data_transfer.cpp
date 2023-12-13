@@ -4,16 +4,9 @@
  * @verbatim
 Copyright @ 2021 VW Group. All rights reserved.
 
-    This Source Code Form is subject to the terms of the Mozilla
-    Public License, v. 2.0. If a copy of the MPL was not distributed
-    with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-If it is not possible or desirable to put the notice in a particular file, then
-You may include the notice in a location (such as a LICENSE file in a
-relevant directory) where a recipient would be likely to look for such a notice.
-
-You may add additional accurate notices of copyright ownership.
-
+This Source Code Form is subject to the terms of the Mozilla
+Public License, v. 2.0. If a copy of the MPL was not distributed
+with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 @endverbatim
  */
 #include <chrono>
@@ -188,7 +181,8 @@ public:
     }
     //End(second participant) 
 private:
-    std::unique_ptr<fep3::IDataRegistry::IDataReader> _uint32_reader;std::unique_ptr<fep3::IDataRegistry::IDataReader> _uint64_reader;
+    std::unique_ptr<fep3::IDataRegistry::IDataReader> _uint32_reader;
+    std::unique_ptr<fep3::IDataRegistry::IDataReader> _uint64_reader;
     std::unique_ptr<fep3::IDataRegistry::IDataWriter> _float_writer;
 };
 
@@ -211,7 +205,7 @@ private:
     std::unique_ptr<fep3::IDataRegistry::IDataReader> _float_reader;
 };
 } //end namespace second_reader
-} //end namespace signal_exhange
+} //end namespace signal_exchange
 
 namespace multiple_samples
 {
@@ -341,7 +335,7 @@ public:
             auto receiver = DataReceiver<uint32_t>();
             // Get front item from queue until queue is empty
             // data will be tranfered to callback of receiver
-            while (fep3::isOk(_data_reader->pop(receiver)))
+            while (_data_reader->pop(receiver))
             {
                 data_pool.push_back(receiver.value);
             }
@@ -392,11 +386,11 @@ public:
     fep3::Result initialize() override
     {
         fep3::Result res = _data_registry->registerDataIn("my_signal_in", fep3::base::StreamTypePlain<int64_t>());
-        if (fep3::isOk(res)) {
+        if (res) {
             _data_reader = _data_registry->getReader("my_signal_in");
         }
         res = _data_registry->registerDataOut("my_signal_out", fep3::base::StreamTypePlain<int64_t>());
-        if (fep3::isOk(res)) {
+        if (res) {
             _data_writer = _data_registry->getWriter("my_signal_out");
         }
         return res;
@@ -423,7 +417,7 @@ public:
         if (_data_reader)
         {
             auto receiver = DataReceiver<int64_t>();
-            if (fep3::isOk(_data_reader->pop(receiver)))
+            if (_data_reader->pop(receiver))
             {
                 _data = receiver.value;
             }
@@ -488,7 +482,7 @@ int main(int, const char**)
         std::unique_ptr<fep3::arya::IDataRegistry::IDataReader> data_reader;
         auto res = fep3::base::addDataIn(*data_registry, data_reader, "data_in_with_queue_capacity_10", fep3::base::StreamTypeDDL("",""), 10);
         //End(addDataIn with queue capacity)
-        if (fep3::isFailed(res))
+        if (!res)
         {
             //...
         }
@@ -499,7 +493,7 @@ int main(int, const char**)
         std::unique_ptr<fep3::arya::IDataRegistry::IDataWriter> data_writer;
         res = fep3::base::addDataOut(*data_registry, data_writer, "data_out_with_queue_capacity_10", fep3::base::StreamTypeDDL("",""), 10);
         //End(addDataOut with queue capacity)
-        if (fep3::isFailed(res))
+        if (!res)
         {
             //...
         }

@@ -1,17 +1,11 @@
 #
 # Copyright @ 2021 VW Group. All rights reserved.
 # 
-#     This Source Code Form is subject to the terms of the Mozilla
-#     Public License, v. 2.0. If a copy of the MPL was not distributed
-#     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
-# If it is not possible or desirable to put the notice in a particular file, then
-# You may include the notice in a location (such as a LICENSE file in a
-# relevant directory) where a recipient would be likely to look for such a notice.
-# 
-# You may add additional accurate notices of copyright ownership.
-# 
-#
+# This Source Code Form is subject to the terms of the Mozilla
+# Public License, v. 2.0. If a copy of the MPL was not distributed
+# with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 
 if (NOT examples_integrated)
     project(fep3-sdk-examples)
@@ -19,27 +13,6 @@ if (NOT examples_integrated)
     set(CMAKE_CXX_EXTENSIONS OFF)
     set(CMAKE_CXX_STANDARD_REQUIRED ON)
     set(CMAKE_CXX_STANDARD 17)
-
-    # if Conan is used, we have to include the generated file and doing some basic setup
-    if(CONAN_COMPILER)
-        if ( EXISTS ${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
-            include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
-        elseif ( EXISTS ${CMAKE_CURRENT_BINARY_DIR}/../conanbuildinfo.cmake)
-            include(${CMAKE_CURRENT_BINARY_DIR}/../conanbuildinfo.cmake)
-        elseif ( EXISTS ${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo_multi.cmake)
-            include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo_multi.cmake)
-        elseif ( EXISTS ${CMAKE_CURRENT_BINARY_DIR}/../conanbuildinfo_multi.cmake)
-            include(${CMAKE_CURRENT_BINARY_DIR}/../conanbuildinfo_multi.cmake)
-        else()
-            message(FATAL_ERROR "Conan build info can't be found.")
-        endif()
-
-        if(CORTEX_WORKSPACE)
-            conan_basic_setup(TARGETS)
-        else()
-            conan_basic_setup(TARGETS NO_OUTPUT_DIRS)
-        endif()
-    endif()
 
     # Enable project folder structure for Visual Studio IDE
     set_property(GLOBAL PROPERTY USE_FOLDERS true)
@@ -51,4 +24,11 @@ add_subdirectory(src/easy_cpp_example_datajob)
 add_subdirectory(src/easy_core_example_element)
 add_subdirectory(src/logging_example)
 add_subdirectory(src/data_triggered_simulation)
+add_subdirectory(src/dynamic_array)
 add_subdirectory(src/minimal_participant)
+add_subdirectory(src/component_plugin)
+add_subdirectory(src/async_waitset_example)
+add_subdirectory(src/multi_sender_for_one_signal_example)
+add_subdirectory(src/signal_mapping_example)
+add_subdirectory(src/fep_interface_example)
+add_subdirectory(src/default_job_example)

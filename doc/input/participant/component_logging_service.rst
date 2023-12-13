@@ -1,23 +1,17 @@
 .. Copyright @ 2021 VW Group. All rights reserved.
 .. 
-..     This Source Code Form is subject to the terms of the Mozilla
-..     Public License, v. 2.0. If a copy of the MPL was not distributed
-..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-.. 
-.. If it is not possible or desirable to put the notice in a particular file, then
-.. You may include the notice in a location (such as a LICENSE file in a
-.. relevant directory) where a recipient would be likely to look for such a notice.
-.. 
-.. You may add additional accurate notices of copyright ownership.
+.. This Source Code Form is subject to the terms of the Mozilla 
+.. Public License, v. 2.0. If a copy of the MPL was not distributed 
+.. with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 
 .. highlight:: cpp
 
 .. _label_logging_service:
 
-===================
-FEP Logging Service
-===================
+===============
+Logging Service
+===============
 
 .. sidebar:: Data Registry
 
@@ -36,7 +30,7 @@ Summary
 +------------------------------------------------------+-----------------------------------------------------------------+
 | RPC Service Description                              |  :ref:`label_rpc_logging_service`                               |
 +------------------------------------------------------+-----------------------------------------------------------------+
-| native delivery                                      |  built-in                                                       |
+| native delivery                                      |  CPP-plugin                                                     |
 +------------------------------------------------------+-----------------------------------------------------------------+
 | cpp-plugin possible                                  |  no                                                             |
 +------------------------------------------------------+-----------------------------------------------------------------+
@@ -46,8 +40,8 @@ Summary
 Component Interface
 ~~~~~~~~~~~~~~~~~~~
 
-The :cpp:class:`fep3::arya::ILoggingService` interface offers functionality to create a logger, writing logs,
-retrieving the configured severity level of a logger and to register custom logging sinks that can be logged to.
+The :cpp:class:`fep3::arya::ILoggingService` interface offers functionality to create a logger, write logs,
+retrieve the configured severity level of a logger and to register custom logging sinks that can be logged to.
 
 RPC Service Interfaces
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -106,21 +100,21 @@ The distinction between them is not enforced but internally the FEP SDK Library 
 The Severity Levels are defined in :cpp:enum:`fep3::logging::arya::Severity`. Note: A severity level will also always
 include the more severe levels. So if e.g. the severity level is set to warning, error and fatal will also be enabled.
 
-+-------------+------------------------------------------------------------------------------+
-| Level       |  Distinction                                                                 |
-+-------------+------------------------------------------------------------------------------+
-| off         | Intended to turn off logging                                                 |
-+-------------+------------------------------------------------------------------------------+
-| fatal       | Very severe error event that will presumably lead the application to abort   |
-+-------------+------------------------------------------------------------------------------+
-| error       | Error event that might still allow the application to continue running       |
-+-------------+------------------------------------------------------------------------------+
-| warning     | Designates potentially harmful situations                                    |
-+-------------+------------------------------------------------------------------------------+
-| info        | Informational message that highlights the progress of the application        |
-+-------------+------------------------------------------------------------------------------+
-| debug       | Fine-grained informational event that is most useful to debug an application |
-+-------------+------------------------------------------------------------------------------+
++-------------+------------------------------------------------------------------------------+--------+
+| Level       |  Distinction                                                                 |  Value |
++-------------+------------------------------------------------------------------------------+--------+
+| off         | Intended to turn off logging                                                 |    0   |
++-------------+------------------------------------------------------------------------------+--------+
+| fatal       | Very severe error event that will presumably lead the application to abort   |    1   |
++-------------+------------------------------------------------------------------------------+--------+
+| error       | Error event that might still allow the application to continue running       |    2   |
++-------------+------------------------------------------------------------------------------+--------+
+| warning     | Designates potentially harmful situations                                    |    3   |
++-------------+------------------------------------------------------------------------------+--------+
+| info        | Informational message that highlights the progress of the application        |    4   |
++-------------+------------------------------------------------------------------------------+--------+
+| debug       | Fine-grained informational event that is most useful to debug an application |    5   |
++-------------+------------------------------------------------------------------------------+--------+
 
 .. _label_logging_service_configuration:
 
@@ -155,6 +149,33 @@ A full example on how to set a logging filter can be found in the :ref:`label_de
 To change the default configuration an empty string can be passed as the logger_name to the function.
 Caution: Passing an empty string will set all loggers to the new configuration and overwrite all existing configurations!
 
+
+.. _label_changing_the_severity_level_filter:
+
+Changing the Severity Level Filter
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Apart from setting the severity level from inside the code, you can change it by the following means:
+
+* Changing the property *logging/default_severity* as listed in :ref:`label_component_property_table` (for example through fep control tool). This will affect the default severity of the default logger filter (and not of additional logging filters), but the severity will be changed once the component is in state initialized.
+
+* If you are using the fep control tool, you can directly change the severity level of a particular or all loggers by sending an  :ref:`RPC call <label_rpc_logging_service>` from the command line and has exactly the same effect as `setting the severity from RPC with the C++ API <label_logging_service_configuration>`_ . For example this will change the severity of the clock sync service to *debug* and direct all logged messages only to the console:
+
+.. code-block:: console
+
+    callRPC  demo_system demo_cpp_receiver logging_service logging_service.arya.fep3.iid setLoggerFilter '{"logger_name": "clock_sync_service.component","severity": 5,"enable_sinks": "console"}' 
+
+
+whereas this will change the severity of all loggers:
+
+.. code-block:: console
+
+    callRPC  demo_system demo_cpp_receiver logging_service logging_service.arya.fep3.iid setLoggerFilter '{"logger_name": "","severity": 5,"enable_sinks": "console"}' 
+    
+    
+* The above two methods will change the severity after the component is at least in state loaded and means that you probably can change the properties or communicate with the Participant with RPC calls, which could not be the case if the participant is for example not discovered. In this case, you can temporarly set the environment variable *FEP3_DEFAULT_LOGGING_SEVERITY* to 5 for debug (or any other severity level) in order set the default severity for **ALL** loggers from participant startup. This includes also the Participant Console Logger, which for example writes in the console debug information during the component loading that takes place in the :cpp:func:`fep3::arya::createParticipant` call.
+
 .. _label_logging_sink:
 
 Logging Sinks
@@ -162,16 +183,19 @@ Logging Sinks
 
 The FEP SDK Participant Library includes three native logging sinks that can be used without registering them:
 
-+---------+------------------------------------------------------------------------------------------------------+
-| Name    | Description                                                                                          |
-+---------+------------------------------------------------------------------------------------------------------+
-| console | Logs Severity::error and Severity::fatal to std::cerr and everything else to std::cout               |
-+---------+------------------------------------------------------------------------------------------------------+
-| file    | Logs to a user specified file. It will append the log to the file content if the file already exists |
-|         | or creates a new file. See also `Logging Sink Configuration`_                                        |
-+---------+------------------------------------------------------------------------------------------------------+
-| rpc     | Sends the log to the system logger. See also `How to send logs via RPC`_                             |
-+---------+------------------------------------------------------------------------------------------------------+
++------------+------------------------------------------------------------------------------------------------------+
+| Name       | Description                                                                                          |
++------------+------------------------------------------------------------------------------------------------------+
+| console    | Logs Severity::error and Severity::fatal to std::cerr and everything else to std::cout               |
++------------+------------------------------------------------------------------------------------------------------+
+| file       | Logs to a user specified file. It will append the log to the file content if the file already exists |
+|            | or creates a new file. See also `Logging Sink Configuration`_                                        |
++------------+------------------------------------------------------------------------------------------------------+
+| rpc        | Sends the log to the system logger. See also `How to send logs via RPC`_                             |
++------------+------------------------------------------------------------------------------------------------------+
+| file_json  | Logs in line oriented JSON format.                                                                   |
+|            | For details see also `How to write JSON log files using the file_json sink`_                         |
++------------+------------------------------------------------------------------------------------------------------+
 
 It is also possible to create custom logging sinks by extending :cpp:class:`fep3::arya::Properties<fep3::arya::ILoggingService::ILoggingSink>`
 or one of the native logging sinks. These have to be registered at the Logging Service before they can be used:
@@ -212,3 +236,29 @@ This enables the rpc logging on system side. For the participant to then send lo
 in the `Logging Service Configuration`_ which is enabled by default for the default configuration.
 
 Note: The system logger needs an event monitor to actual write the logs it receives. (See :cpp:func:`fep3::System::registerMonitoring`)
+
+How to write JSON log files using the file_json sink
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The fileJson sink, logs in a line oriented JSON format, and each log entry is written as an one line JSON element which looks as following:
+
+.. code-block:: json
+
+   [{"timestamp": "2021-09-02T16:22:48,947112+02","severity_level": "Info","logger_name": "participant","message": "Successfully loaded element","participant_name": "test_transmitter_one","log_type": "message"},
+   {"timestamp": "2021-09-02T16:22:48,949063+02","severity_level": "Info","logger_name": "participant","message": "Successfully initialized element","participant_name": "test_transmitter_one","log_type": "message"}]
+
+In order to write the log in json format, the first step is to set the path to the log file.
+
+.. literalinclude:: ../snippets/snippet_logging_service.cpp
+    :start-after: //Begin(set json sink property)
+    :end-before: //End(set json sink property)
+
+In case the file is not existing, the file is created and the log will be written in JSON format. If the log file is already existing, it should already contain a valid JSON formatted log in order
+for the file to be appended. In case the file does not contain a valid JSON formatted log or is empty, then the call to :cpp:func:`fep3::arya::IProperties::setProperty` will return false and an error entry
+will be written in the log file. The JSON formatted log, will be appended at the end of the existing file. For this reason it is not advised to manually create or manipulate a JSON formatted log.
+
+The final step is to configure a logger so that it uses the fileJson logging sink.
+
+.. literalinclude:: ../snippets/snippet_logging_service.cpp
+    :start-after: //Begin(set logger json filter)
+    :end-before: //End(set logger json filter)

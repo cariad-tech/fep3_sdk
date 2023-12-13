@@ -1,0 +1,50 @@
+@startuml 
+skin rose
+actor User
+participant System
+participant SystemStateTransition
+participant Participants
+participant StateTransitionErrorHandling
+participant TransitionController
+participant TransitionFunctionMatrix
+
+User -> System : setSystemState(target_state)
+    System -> StateTransitionErrorHandling : [[state_transition_error_handling.svg throwOnInvalidTargetState(targetState)]]
+    System <-- StateTransitionErrorHandling
+    
+System -> Participants : getParticipantsStates
+System <-- Participants : states
+
+alt all participants have state == target_state
+    User <-- System
+else
+    System -> StateTransitionErrorHandling : [[state_transition_error_handling.svg checkParticipantsBeforeTransition]]
+        note right
+        Throws if any participant is unreachable
+        endnote
+    System <-- StateTransitionErrorHandling
+    
+    System -> TransitionController : [[transition_controller.svg participantStateToTrigger]]
+    System <-- TransitionController : state_to_transition_from
+    System -> TransitionController : getParticipantsInState(state_to_transition_from)
+    System <-- TransitionController : participant list
+    System -> TransitionController : [[transition_controller.svg getNextParticipantsState]]
+    System <-- TransitionController : state_to_transition_to
+    System -> TransitionFunctionMatrix : [state_to_transition_from, state_to_transition_to]
+    System <-- TransitionFunctionMatrix : transition_function
+        note right
+        Get the action that we should call so that we can 
+        transition from state_to_transition_from to state_to_transition_to
+        transition_matrix[state_to_transition_from][state_to_transition_to]
+        endnote
+
+    System -> Participants : transition_function
+    System <-- Participants
+        note right
+        Performs the RPC calls to the participants' state machine
+        endnote
+    
+    User <-- System
+end
+
+@enduml

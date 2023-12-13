@@ -1,17 +1,10 @@
 <!--
   Copyright @ 2021 VW Group. All rights reserved.
   
-      This Source Code Form is subject to the terms of the Mozilla
-      Public License, v. 2.0. If a copy of the MPL was not distributed
-      with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-  
-  If it is not possible or desirable to put the notice in a particular file, then
-  You may include the notice in a location (such as a LICENSE file in a
-  relevant directory) where a recipient would be likely to look for such a notice.
-  
-  You may add additional accurate notices of copyright ownership.
-  
-  -->
+This Source Code Form is subject to the terms of the Mozilla
+Public License, v. 2.0. If a copy of the MPL was not distributed
+with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+-->
 
 # FEP 3 SDK
 
@@ -35,6 +28,7 @@ To build the packages bottom-up, the following order is needed. Instructions on 
 * fep3_participant (dev_essential)
 * fep3_system  (dev_essential, fep3_participant)
 * fep3_sdk (dev_essential, fep3_participant, fep3_system)
+* clipp
 
 ## How to build using only cmake ###
 ### Prerequisites
@@ -50,11 +44,12 @@ To build the packages bottom-up, the following order is needed. Instructions on 
 ### Build with cmake
 - Run the following command, (adaptations may be needed in case a different Visual Studio version is used or different configuration should be built).
     ```shell
-    > cmake.exe -H<root_dir> -B<build_dir> -G "Visual Studio 16 2019" -A x64 -T v142 -DCMAKE_INSTALL_PREFIX=<install_dir> -Dfep3_system_DIR=<fep_system_dir> -Dfep3_participant_DIR=<fep3_participant_dir> -Ddev_essential_DIR=<dev_essential_dir>/lib/cmake/dev_essential -Dfep3_sdk_cmake_enable_documentation=False
-    > cmake --build . --target install --config Release
+    > cmake.exe -H<root_dir> -B<build_dir> -G "Visual Studio 16 2019" -A x64 -T v142 -DCMAKE_INSTALL_PREFIX=<install_dir> -DCMAKE_PREFIX_PATH=<clipp_root> -Dfep3_system_DIR=<fep_system_dir> -Dfep3_participant_DIR=<fep3_participant_dir> -Ddev_essential_DIR=<dev_essential_dir>/lib/cmake/dev_essential -Dfep3_sdk_cmake_enable_documentation=False
+    > cmake --build . --target install --config RelWithDebInfo
     ```
     - <root_dir> The path where the  *fep sdk* library is checked out and the main CMakeLists.txt is located.
     - <build_dir> The build directory
+    - <clipp_root> The installation path of clipp. File _clipp.h_ is located under \<clipp_root\>/include.
     - <install_dir> Path where the built artifacts will be installed.
     - <dev_essential_dir> The path were the [*dev_essential*](#howtodevessential) library was installed. File *dev_essential-config.cmake* is located under  <dev_essential_dir>\lib\cmake\dev_essential.
     - <fep3_participant_dir> The path were the [*fep3_participant*](#howtoparticipant) library was installed. File *fep3_participant-config.cmake* is located in this folder.
@@ -66,8 +61,8 @@ To build the packages bottom-up, the following order is needed. Instructions on 
     - The **fep3_sdk_cmake_enable_documentation** variable activates the build of the documentation. Default value is True. For this flag [doxygen](#howtodoxygen) and [sphinx](#howtosphinx) are required. The doxygen executable should be located in *${DOXYGEN_ROOT}/bin/doxygen.exe* and the cmake variable *DOXYGEN_ROOT* should be set accordingly.
     - A call to cmake with documentation activated could look like:
         ```shell
-        > cmake.exe -H<root_dir> -B<build_dir> -G "Visual Studio 16 2019" -A x64 -T v141 -DCMAKE_INSTALL_PREFIX=<install_dir> -Dfep3_system_DIR=<fep_system_dir> -Dfep3_participant_DIR=<fep3_participant_dir> -Ddev_essential_DIR=<dev_essential_dir>/lib/cmake/dev_essential -Dfep3_sdk_cmake_enable_documentation=True -DDOXYGEN_ROOT=<doxyxen_dir>
-        > cmake --build . --target install --config Release
+        > cmake.exe -H<root_dir> -B<build_dir> -G "Visual Studio 16 2019" -A x64 -T v141 -DCMAKE_INSTALL_PREFIX=<install_dir> -DCMAKE_PREFIX_PATH=<clipp_root> -Dfep3_system_DIR=<fep_system_dir> -Dfep3_participant_DIR=<fep3_participant_dir> -Ddev_essential_DIR=<dev_essential_dir>/lib/cmake/dev_essential -Dfep3_sdk_cmake_enable_documentation=True -DDOXYGEN_ROOT=<doxyxen_dir>
+        > cmake --build . --target install --config RelWithDebInfo
         ```
 ### Tested compilers
 - Windows 10 x64 with Visual Studio C++ 2019 and v142 Toolset.

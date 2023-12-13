@@ -1,17 +1,9 @@
 #
 # Copyright @ 2021 VW Group. All rights reserved.
 # 
-#     This Source Code Form is subject to the terms of the Mozilla
-#     Public License, v. 2.0. If a copy of the MPL was not distributed
-#     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
-# If it is not possible or desirable to put the notice in a particular file, then
-# You may include the notice in a location (such as a LICENSE file in a
-# relevant directory) where a recipient would be likely to look for such a notice.
-# 
-# You may add additional accurate notices of copyright ownership.
-# 
-#
+# This Source Code Form is subject to the terms of the Mozilla
+# Public License, v. 2.0. If a copy of the MPL was not distributed
+# with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 
 ##################################################################
@@ -25,12 +17,13 @@ cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 set(CMAKE_CXX_STANDARD 17)
 project(hello_world)
 
-include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup(TARGETS)
+include(${CMAKE_CURRENT_BINARY_DIR}/cortexbuildinfo.cmake)
+include("${CMAKE_CURRENT_BINARY_DIR}/conan_paths.cmake" OPTIONAL RESULT_VARIABLE output)
+include("${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake" OPTIONAL RESULT_VARIABLE output)
 #End(CMAKE_SETUP)
 else()
 # To generate the version number dynamically
-configure_file(conanfile.txt.in ${DOC_BUILD_DIR}/snippets/hello_world/conanfile.txt)
+configure_file(conanfile.txt.in ${CMAKE_CURRENT_SOURCE_DIR}/conanfile.txt)
 endif()
 
 ##################################################################

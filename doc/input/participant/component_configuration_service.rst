@@ -1,14 +1,8 @@
 .. Copyright @ 2021 VW Group. All rights reserved.
 .. 
-..     This Source Code Form is subject to the terms of the Mozilla
-..     Public License, v. 2.0. If a copy of the MPL was not distributed
-..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-.. 
-.. If it is not possible or desirable to put the notice in a particular file, then
-.. You may include the notice in a location (such as a LICENSE file in a
-.. relevant directory) where a recipient would be likely to look for such a notice.
-.. 
-.. You may add additional accurate notices of copyright ownership.
+.. This Source Code Form is subject to the terms of the Mozilla 
+.. Public License, v. 2.0. If a copy of the MPL was not distributed 
+.. with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 
 .. _label_configuration_service:
@@ -23,6 +17,7 @@ Configuration Service
 
 Summary
 -------
+
 +-------------------------+----------------------------------------------------+-----+
 | Name                    | Configuration Service                              |     |
 +-------------------------+----------------------------------------------------+-----+
@@ -33,7 +28,7 @@ Summary
 +-------------------------+----------------------------------------------------+-----+
 | RPC Service Description | :ref:`label_rpc_service_configuration_service`     |     |
 +-------------------------+----------------------------------------------------+-----+
-| native delivery         | built-in                                           |     |
+| native delivery         | CPP-plugin                                         |     |
 +-------------------------+----------------------------------------------------+-----+
 | CPP-plugin possible     | yes                                                |     |
 +-------------------------+----------------------------------------------------+-----+
@@ -120,7 +115,7 @@ After retrieving the :cpp:class:`fep3::arya::IConfigurationService` component:
 
 .. code-block:: cpp
 
-  fep3::core::arya::Participant participant = [...]
+  fep3::base::Participant participant = [...]
   auto configuration_service = participant.getComponent<fep3::arya::IConfigurationService>();
 
 we can create, modify and read properties via this component.
@@ -164,6 +159,11 @@ After creation of properties, we can utilize the configuration service and a con
 Due to the fact that properties are typed, we cannot set mismatching property values for property nodes.
 If setting a property value fails, an error is returned.
 
+In the state unloaded the full feature set of the Configuration Service is available, so it is possible 
+to create properties. This can be very useful, if you want to load an external model,
+and e.g. you add a property called "model_path", which is then evaluated in load.
+
+
 To set a property value we can provide the *configuration service*, *property path* and *value*:
 
 .. literalinclude:: ../snippets/snippet_config_service.cpp
@@ -177,6 +177,7 @@ Alternatively, we can provide a *property node* and the corresponding *value*:
   :start-after: //Begin(Set property value by node)
   :end-before: //End(Set property value by node)
   :emphasize-lines: 1
+
 
 Read property values
 ~~~~~~~~~~~~~~~~~~~~
@@ -246,6 +247,8 @@ Property variables
 ------------------
 Property variables represent variables which are connected to a specific property node.
 Their value is updated with the corresponding property node value every time we call *updateObservers* on the property node.
+
+.. note:: With this feature, you don't have to implement a manual synchronization from properties to internal variables in the targeted state change, like in FEP2.
 
 To use a property variable, we create and register it at a property node.
 During registration the value of the property node is set to the value of the property variable.

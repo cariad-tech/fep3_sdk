@@ -4,30 +4,24 @@
  * @verbatim
 Copyright @ 2021 VW Group. All rights reserved.
 
-    This Source Code Form is subject to the terms of the Mozilla
-    Public License, v. 2.0. If a copy of the MPL was not distributed
-    with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-If it is not possible or desirable to put the notice in a particular file, then
-You may include the notice in a location (such as a LICENSE file in a
-relevant directory) where a recipient would be likely to look for such a notice.
-
-You may add additional accurate notices of copyright ownership.
-
+This Source Code Form is subject to the terms of the Mozilla
+Public License, v. 2.0. If a copy of the MPL was not distributed
+with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 @endverbatim
  */
 
 #include <iostream>
 #include <memory>
 #include <string>
+#include <chrono>
 
 #include <fep3/cpp.h>
-#include <chrono>
+#include <ddl/dd/ddstructure.h>
+
+#include "example_ddl_types.h"
 
 using namespace fep3;
 using namespace std::chrono_literals;
-
-#include "example_ddl_types.h"
 
 class EasyCPPSenderDataJob : public cpp::DataJob
 {
@@ -44,6 +38,17 @@ public:
         registerPropertyVariable(_prop_to_send_as_double, "double_value");
         registerPropertyVariable(_prop_as_string_array, "string_array_value");
 
+        //create structure data definitions for the structs used within the example
+        const auto dd_struct_easy_pos = ddl::DDStructureGenerator<fep3::examples::tEasyPosition>("tEasyPosition")
+            .addElement("x_pos", &fep3::examples::tEasyPosition::x_pos)
+            .addElement("y_pos", &fep3::examples::tEasyPosition::y_pos)
+            .addElement("z_pos", &fep3::examples::tEasyPosition::z_pos);
+        const auto dd_struct_easy_struct = ddl::DDStructureGenerator<fep3::examples::tEasyStruct>("tEasyStruct")
+            .addElement("tEasyPosition", &fep3::examples::tEasyStruct::pos, dd_struct_easy_pos)
+            .addElement("double_value", &fep3::examples::tEasyStruct::double_value);
+        //the structure data definition can be used to retrieve the corresponding ddl description
+        const auto description = dd_struct_easy_struct.getStructDescription();
+
         //create DataAccess with the writer class
         //this will create a data writer for strings
         _data_writer_string = addDataOut("string_data",
@@ -51,11 +56,11 @@ public:
 
         //this will create a data writer for ddl based structures
         _data_writer_ddl = addDataOut("ddl_data",
-            base::StreamTypeDDL(fep3_examples::examples_ddl_struct, fep3_examples::examples_ddl_description));
+            base::StreamTypeDDL(fep3::examples::examples_ddl_struct, description));
 
         //this will create a data writer for dynamic arrays of DDL based structures
         _data_writer_ddl_array = addDataOut("ddl_array",
-            base::StreamTypeDDLArray(fep3_examples::examples_ddl_struct, fep3_examples::examples_ddl_description, 32));
+            base::StreamTypeDDLArray(fep3::examples::examples_ddl_struct, description, 32));
 
         //this will create a data writer for fixed size uint32_t values
         _data_writer_plain_c_type = addDataOut("plain_c_type_int32_t",
@@ -73,7 +78,7 @@ public:
         *_data_writer_string << string_value_to_write;
 
         //write the data to the DDL signal
-        fep3_examples::tEasyStruct my_easy_struct{};
+        fep3::examples::tEasyStruct my_easy_struct{};
         my_easy_struct.double_value = _prop_to_send_as_double;
         my_easy_struct.pos = { static_cast<uint32_t>(_prop_to_send_as_integer) ,
                                static_cast<uint32_t>(_prop_to_send_as_integer) ,
@@ -81,7 +86,7 @@ public:
         *_data_writer_ddl << my_easy_struct;
 
         //prepare and write the data to the DDL Arraysignal
-        std::vector<fep3_examples::tEasyStruct> easy_array;
+        std::vector<fep3::examples::tEasyStruct> easy_array;
         int fill_idx = 32;
         while (fill_idx > 0)
         {
@@ -89,7 +94,7 @@ public:
             --fill_idx;
         }
         //currently we need that helper class to write it
-        fep3::base::StdVectorSampleType<fep3_examples::tEasyStruct> easy_array_wrapper(easy_array);
+        fep3::base::StdVectorSampleType<fep3::examples::tEasyStruct> easy_array_wrapper(easy_array);
         easy_array_wrapper.setTime(sim_time_of_execution);
 
         _data_writer_ddl_array->write(easy_array_wrapper);

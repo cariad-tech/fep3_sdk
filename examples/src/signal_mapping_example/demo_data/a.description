@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+Copyright @ 2022 VW Group. All rights reserved.
+ 
+This Source Code Form is subject to the terms of the Mozilla
+Public License, v. 2.0. If a copy of the MPL was not distributed
+with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+-->
+<ddl:ddl xmlns:ddl="ddl">
+    <header>
+        <language_version>4.01</language_version>
+        <author>fep</author>
+        <date_creation>Wed Jul 27 14:34:37 2022</date_creation>
+        <date_change>Wed Jul 27 14:34:37 2022</date_change>
+        <description>Generated with header2ddl code synthesis</description>
+    </header>
+    <units />
+    <datatypes>
+        <datatype name="tInt8" size="8" description="Predefined DataType for tInt8" arraysize="1" min="-128" max="127" />
+        <datatype name="tUInt16" size="16" description="Predefined DataType for tUInt16" arraysize="1" min="0" max="65535" />
+    </datatypes>
+    <enums />
+    <structs>
+        <struct name="tTestStructA" version="1" alignment="2">
+            <element name="tUInt16First" type="tUInt16" arraysize="1">
+                <serialized bytepos="0" byteorder="LE" />
+                <deserialized alignment="2" />
+            </element>
+            <element name="tInt8Second" type="tInt8" arraysize="1">
+                <serialized bytepos="2" byteorder="LE" />
+                <deserialized alignment="1" />
+            </element>
+        </struct>
+    </structs>
+    <streammetatypes />
+    <streams />
+</ddl:ddl>

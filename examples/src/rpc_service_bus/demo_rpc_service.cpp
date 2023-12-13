@@ -4,16 +4,9 @@
  * @verbatim
 Copyright @ 2021 VW Group. All rights reserved.
 
-    This Source Code Form is subject to the terms of the Mozilla
-    Public License, v. 2.0. If a copy of the MPL was not distributed
-    with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-If it is not possible or desirable to put the notice in a particular file, then
-You may include the notice in a location (such as a LICENSE file in a
-relevant directory) where a recipient would be likely to look for such a notice.
-
-You may add additional accurate notices of copyright ownership.
-
+This Source Code Form is subject to the terms of the Mozilla
+Public License, v. 2.0. If a copy of the MPL was not distributed
+with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 @endverbatim
  */
 
@@ -86,7 +79,7 @@ public:
                 //create and register the service usually under its default name
                 auto result = server->registerService(IDemoRPCService::getRPCDefaultName(),
                     std::make_shared<DemoRPCService>());
-                if (fep3::isFailed(result))
+                if (!result)
                 {
                     std::cout << "Error: could not register ther demo service because: " << result.getDescription();
                     return result;
@@ -108,7 +101,7 @@ public:
         return {};
     }
 
-    fep3::Result destroy()
+    void unload() override
     {
         //do not forget to unregister
         auto service_bus = getComponents()->getComponent<fep3::IServiceBus>();
@@ -120,7 +113,6 @@ public:
                 server->unregisterService(IDemoRPCService::getRPCDefaultName());
             }
         }
-        return {};
     }
 };
 
@@ -129,7 +121,7 @@ int main(int argc, const char* argv[])
 {
     using namespace fep3::core;
     //creating a participant with the element that will provide a service
-    auto demo_participant = createParticipant<ElementFactory<DemoServiceElement>>(
+    auto demo_participant = createParticipant<fep3::core::ElementFactory<DemoServiceElement>>(
         "demo_rpc_service_participant",
         "1.0.0",
         "demo_rpc");

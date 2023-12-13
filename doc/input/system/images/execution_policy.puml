@@ -1,0 +1,45 @@
+@startuml 
+skin rose  
+
+participant ExecutionPolicy
+participant ParticipantStateMachine
+
+== Serial Policy ==
+
+loop while not all participants transitioned
+    
+    alt last Transition successful
+        ExecutionPolicy -> ParticipantStateMachine : RPC state transition
+    else
+        ExecutionPolicy <-- ParticipantStateMachine : false
+    end
+end
+ExecutionPolicy <-- ParticipantStateMachine : true
+
+
+== Parallel Policy ==
+participant ThreadPool
+participant Thread1
+participant Thread2
+participant Thread3
+participant ThreadN
+ExecutionPolicy->ThreadPool: Post State Transitions
+
+loop while not all participants transitioned
+    note over ThreadPool,ThreadN: Post state transitions if not previous transition failed
+    ThreadPool->Thread1
+    Thread1 -> ParticipantStateMachine : RPC state transition
+    ThreadPool->Thread2                      
+    Thread2 -> ParticipantStateMachine : RPC state transition
+    ThreadPool->Thread3                      
+    Thread3 -> ParticipantStateMachine : RPC state transition
+    ThreadPool->ThreadN                      
+    ThreadN -> ParticipantStateMachine : RPC state transition
+end 
+
+ExecutionPolicy<--ThreadPool : Result
+note Right
+True if all transitions successful
+False otherwise
+endnote
+@enduml

@@ -1,0 +1,35 @@
+@startuml
+Participant -> System : heartbeat(5s)
+hnote over System
+  Online
+    or
+  Offline
+endhnote
+
+System -> Participant : Participant.getHealth()
+activate Participant
+hnote over System
+Jobs Healthiness
+endhnote
+Participant --> System : Health
+deactivate Participant
+
+actor User as u
+
+u -> System : System.getParticipantsHealth()
+activate System
+System --> u : Participants' Health
+deactivate System
+note right
+System Status:
+	participant 1:
+		running state: Online
+		Jobs' Healthiness:
+			job1:
+				...
+			job2:
+				...
+	participant 2:
+		...
+end note
+@enduml

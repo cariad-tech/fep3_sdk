@@ -1,14 +1,8 @@
 .. Copyright @ 2021 VW Group. All rights reserved.
 .. 
-..     This Source Code Form is subject to the terms of the Mozilla
-..     Public License, v. 2.0. If a copy of the MPL was not distributed
-..     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-.. 
-.. If it is not possible or desirable to put the notice in a particular file, then
-.. You may include the notice in a location (such as a LICENSE file in a
-.. relevant directory) where a recipient would be likely to look for such a notice.
-.. 
-.. You may add additional accurate notices of copyright ownership.
+.. This Source Code Form is subject to the terms of the Mozilla 
+.. Public License, v. 2.0. If a copy of the MPL was not distributed 
+.. with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 
 .. _API_References:
@@ -124,6 +118,7 @@ Clock Service
 
 .. doxygendefine:: FEP3_CLOCK_SERVICE_TIME_UPDATE_TIMEOUT
 .. doxygendefine:: FEP3_TIME_UPDATE_TIMEOUT_DEFAULT_VALUE
+.. doxygendefine:: FEP3_TIME_UPDATE_TIMEOUT_MIN_VALUE
 
 Clock Sync Service
 ------------------
@@ -165,14 +160,28 @@ Data Registry
 
 .. doxygendefine:: FEP3_DATA_REGISTRY_CONFIG
 
-.. doxygendefine:: FEP3_MAPPING_CONFIGURATION_PROPERTY
-.. doxygendefine:: FEP3_DATA_REGISTRY_MAPPING_CONFIGURATION
 .. doxygendefine:: FEP3_MAPPING_CONFIGURATION_FILE_PATH_PROPERTY
 .. doxygendefine:: FEP3_DATA_REGISTRY_MAPPING_CONFIGURATION_FILE_PATH
+.. doxygendefine:: FEP3_MAPPING_DDL_FILE_PATHS_PROPERTY
+.. doxygendefine:: FEP3_DATA_REGISTRY_MAPPING_DDL_FILE_PATHS
 .. doxygendefine:: FEP3_SIGNAL_RENAMING_INPUT_CONFIGURATION_PROPERTY
 .. doxygendefine:: FEP3_DATA_REGISTRY_SIGNAL_RENAMING_INPUT_CONFIGURATION
 .. doxygendefine:: FEP3_SIGNAL_RENAMING_OUTPUT_CONFIGURATION_PROPERTY
 .. doxygendefine:: FEP3_DATA_REGISTRY_SIGNAL_RENAMING_OUTPUT_CONFIGURATION
+.. doxygendefine:: FEP3_PURGED_SAMPLES_LOG_CAPACITY_PROPERTY
+.. doxygendefine:: FEP3_PURGED_SAMPLES_LOG_CAPACITY_DEFAULT_VALUE
+.. doxygendefine:: FEP3_CLEAR_INPUT_SIGNALS_QUEUES_PROPERTY
+
+Connext RTI DDS simulation bus
+------------------------------
+
+.. doxygendefine:: FEP3_RTI_DDS_SIMBUS_CONFIG
+
+.. doxygendefine:: FEP3_SIMBUS_PARTICIPANT_DOMAIN_PROPERTY
+.. doxygendefine:: FEP3_SIMBUS_DATAWRITER_READY_TIMEOUT_PROPERTY
+.. doxygendefine:: FEP3_SIMBUS_MUST_BE_READY_SIGNALS_PROPERTY
+.. doxygendefine:: FEP3_RTI_DDS_SIMBUS_ASYNC_WAITSET_PROPERTY
+.. doxygendefine:: FEP3_RTI_DDS_SIMBUS_ASYNC_WAITSET_THREADS_PROPERTY
 
 Namespace fep3
 ==============

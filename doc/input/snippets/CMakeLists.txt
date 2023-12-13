@@ -1,17 +1,9 @@
 #
 # Copyright @ 2021 VW Group. All rights reserved.
 # 
-#     This Source Code Form is subject to the terms of the Mozilla
-#     Public License, v. 2.0. If a copy of the MPL was not distributed
-#     with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
-# If it is not possible or desirable to put the notice in a particular file, then
-# You may include the notice in a location (such as a LICENSE file in a
-# relevant directory) where a recipient would be likely to look for such a notice.
-# 
-# You may add additional accurate notices of copyright ownership.
-# 
-#
+# This Source Code Form is subject to the terms of the Mozilla
+# Public License, v. 2.0. If a copy of the MPL was not distributed
+# with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 
 # find the package
@@ -150,4 +142,94 @@ set_target_properties(snippet_core_sender PROPERTIES FOLDER "examples/snippets")
 target_link_libraries(snippet_core_sender PRIVATE
                       fep3_participant_cpp)
 
+##################################################################
+# WAITING FOR RTI DDS WRITERS SNIPPETS
+##################################################################
+
+add_executable(snippet_waiting_for_writers
+               snippet_waiting_for_writers.cpp)
+
+target_include_directories(snippet_waiting_for_writers PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+
+set_target_properties(snippet_waiting_for_writers PROPERTIES FOLDER "examples/snippets")
+target_link_libraries(snippet_waiting_for_writers PRIVATE
+                      fep3_participant_cpp)
+
+##################################################################
+# COMPONENT PLUGINS SNIPPETS
+##################################################################
+
+add_executable(snippet_component_plugin
+               snippet_component_plugin.cpp)
+
+target_include_directories(snippet_component_plugin PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+
+set_target_properties(snippet_component_plugin PROPERTIES FOLDER "examples/snippets")
+target_link_libraries(snippet_component_plugin PRIVATE
+                      fep3_participant_cpp)
+
+##################################################################
+# DISCOVER SYSTEM SNIPPETS
+##################################################################
+
+add_executable(snippet_discover_system
+               snippet_discover_system.cpp)
+
+target_include_directories(snippet_discover_system PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+
+set_target_properties(snippet_discover_system PROPERTIES FOLDER "examples/snippets")
+target_link_libraries(snippet_discover_system PRIVATE
+                      fep3_system
+                      dev_essential::result)
+if(MSVC)
+# system uses std::unique_ptr for pimpl which causes 4251 error
+    target_compile_options(snippet_discover_system PRIVATE /wd4251)
+else()
+    target_link_libraries(snippet_discover_system PRIVATE
+                          ${CMAKE_DL_LIBS})
+endif(MSVC)
+
+##################################################################
+# ASYNC WAITSET SNIPPETS
+##################################################################
+
+add_executable(snippet_async_waitset
+               snippet_async_waitset.cpp)
+
+target_include_directories(snippet_async_waitset PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+
+set_target_properties(snippet_async_waitset PROPERTIES FOLDER "examples/snippets")
+target_link_libraries(snippet_async_waitset PRIVATE
+                      fep3_participant_cpp)
+
+##################################################################
+# DATA-TRIGGERED JOB SNIPPETS
+##################################################################
+
+add_executable(snippet_data_triggered_job
+               snippet_data_triggered_job.cpp)
+
+target_include_directories(snippet_data_triggered_job PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+
+set_target_properties(snippet_data_triggered_job PROPERTIES FOLDER "examples/snippets")
+target_link_libraries(snippet_data_triggered_job  PRIVATE
+                      fep3_participant_cpp)
+
+##################################################################
+# DEFAULT JOB SNIPPETS
+##################################################################
+
+add_executable(snippet_default_job
+               snippet_default_job.cpp)
+
+target_include_directories(snippet_default_job PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+
+set_target_properties(snippet_default_job PROPERTIES FOLDER "examples/snippets")
+target_link_libraries(snippet_default_job PRIVATE
+                      fep3_participant_cpp)
+
+##################################################################
+# HEllO WORLD SNIPPETS
+##################################################################
 add_subdirectory(hello_world)
+

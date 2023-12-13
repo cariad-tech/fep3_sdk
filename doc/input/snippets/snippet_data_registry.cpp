@@ -4,16 +4,9 @@
  * @verbatim
 Copyright @ 2021 VW Group. All rights reserved.
 
-    This Source Code Form is subject to the terms of the Mozilla
-    Public License, v. 2.0. If a copy of the MPL was not distributed
-    with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-If it is not possible or desirable to put the notice in a particular file, then
-You may include the notice in a location (such as a LICENSE file in a
-relevant directory) where a recipient would be likely to look for such a notice.
-
-You may add additional accurate notices of copyright ownership.
-
+This Source Code Form is subject to the terms of the Mozilla
+Public License, v. 2.0. If a copy of the MPL was not distributed
+with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 @endverbatim
  */
 
@@ -23,7 +16,7 @@ You may add additional accurate notices of copyright ownership.
 #include <fep3/core/element_factory.h>
 #include <fep3/core/element_base.h>
 #include <fep3/base/stream_type/default_stream_type.h>
-
+#include <fep3/base/data_registry/data_registry.h>
 #include <fep3/components/data_registry/data_registry_intf.h>
 
 namespace {
@@ -44,12 +37,12 @@ public:
     fep3::Result initialize() override
     {
         fep3::Result res = data_registry->registerDataIn("my_signal_in", fep3::base::StreamTypeDDL("",""));
-        if (fep3::isFailed(res)) {
+        if (!res) {
             return res;
         }
 
         res = data_registry->registerDataOut("my_signal_out", fep3::base::StreamTypeDDL("",""));
-        if (fep3::isFailed(res)) {
+        if (!res) {
             return res;
         }
         return res;
@@ -81,9 +74,10 @@ int main(int, const char**)
             auto data_reader = data_registry->getReader("my_signal_in");
             //End(get data reader)
         }
-        {
+        {            
             //Begin(add data in)
-            auto data_reader = addDataIn(*data_registry, "my_signal_in", fep3::base::StreamTypeDDL("",""));
+            std::unique_ptr<fep3::IDataRegistry::IDataReader> data_reader;
+            fep3::base::addDataIn(*data_registry, data_reader, "my_signal_in", fep3::base::StreamTypeDDL("",""));
             //End(add data in)
         }
     }

@@ -4,16 +4,9 @@
  * @verbatim
 Copyright @ 2021 VW Group. All rights reserved.
 
-    This Source Code Form is subject to the terms of the Mozilla
-    Public License, v. 2.0. If a copy of the MPL was not distributed
-    with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-If it is not possible or desirable to put the notice in a particular file, then
-You may include the notice in a location (such as a LICENSE file in a
-relevant directory) where a recipient would be likely to look for such a notice.
-
-You may add additional accurate notices of copyright ownership.
-
+This Source Code Form is subject to the terms of the Mozilla
+Public License, v. 2.0. If a copy of the MPL was not distributed
+with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 @endverbatim
  */
 
@@ -115,7 +108,7 @@ public:
                 return callbackFunction(sim_time);
             });
 
-        // getComponents() is a function of fep3::core::ElementBase
+        // getComponents() is a function of ElementBase
         fep3::core::addToComponents({ my_job }, *getComponents());
         //End(Job)
     }
@@ -349,7 +342,7 @@ int main(int argc, char* argv[])
 {
     {
     //Begin(CppInstantiation)
-    fep3::Participant my_participant = fep3::cpp::createParticipant<fep3::cpp::DataJobElement<MyDataJob>>(
+    fep3::base::Participant my_participant = fep3::cpp::createParticipant<fep3::cpp::DataJobElement<MyDataJob>>(
         argc, argv,
         "ParticipantName",
         "SystemName");
@@ -360,7 +353,7 @@ int main(int argc, char* argv[])
 
     {
     //Begin(CoreInstantiation)
-    fep3::Participant my_participant = fep3::core::createParticipant<fep3::core::ElementFactory<MyElement>>(
+    fep3::base::Participant my_participant = fep3::core::createParticipant<fep3::core::ElementFactory<MyElement>>(
         argc, argv,
         "1.2.3",
         {"ParticipantName", "SystemName", ""});
@@ -386,7 +379,7 @@ using namespace element; // For definition of MyElement
 int main(int argc, char* argv[])
 {
     //Begin(ParticipantExecutor)
-    fep3::Participant my_test_participant = fep3::core::createParticipant<fep3::core::ElementFactory<MyElement>>(
+    fep3::base::Participant my_test_participant = fep3::core::createParticipant<fep3::core::ElementFactory<MyElement>>(
         "ParticipantName",
         "1.2.3",
         "SystemName");

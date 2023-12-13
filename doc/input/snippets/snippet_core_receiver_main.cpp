@@ -4,16 +4,9 @@
  * @verbatim
 Copyright @ 2021 VW Group. All rights reserved.
 
-    This Source Code Form is subject to the terms of the Mozilla
-    Public License, v. 2.0. If a copy of the MPL was not distributed
-    with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-If it is not possible or desirable to put the notice in a particular file, then
-You may include the notice in a location (such as a LICENSE file in a
-relevant directory) where a recipient would be likely to look for such a notice.
-
-You may add additional accurate notices of copyright ownership.
-
+This Source Code Form is subject to the terms of the Mozilla
+Public License, v. 2.0. If a copy of the MPL was not distributed
+with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 @endverbatim
  */
 
@@ -61,7 +54,7 @@ public:
     std::function<fep3::Result(fep3::Timestamp)> _execute_func_data_out;
 };
 
-class EasyCoreReceiverElement : public core::ElementConfigurable
+class EasyCoreReceiverElement : public fep3::core::ElementConfigurable
 {
 public:
     //Implementation of the CTOR!
@@ -70,7 +63,7 @@ public:
     // you must define a implementation version -> to identify your implementation version in a system
     // KEEP in MIND THIS IS NOT THE ELEMENT INSTANCE NAME!
     EasyCoreReceiverElement()
-        : core::ElementConfigurable("Demo Element Base Receiver Type",
+        : fep3::core::ElementConfigurable("Demo Element Base Receiver Type",
             FEP3_PARTICIPANT_LIBRARY_VERSION_STR)
     {
         //create DataAccess with the reader class
@@ -97,7 +90,7 @@ public:
     {
         //register the data
         auto data_adding_res = core::addToComponents(*_data_reader_plain_c_type, *getComponents());
-        if (isFailed(data_adding_res)) return data_adding_res;
+        if (!data_adding_res) return data_adding_res;
         return {};
     }
     //End(initialize)
