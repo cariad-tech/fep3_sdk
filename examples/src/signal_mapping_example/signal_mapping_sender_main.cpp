@@ -1,13 +1,9 @@
 /**
- * @file
- * @copyright
- * @verbatim
-Copyright @ 2022 VW Group. All rights reserved.
-
-This Source Code Form is subject to the terms of the Mozilla
-Public License, v. 2.0. If a copy of the MPL was not distributed
-with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-@endverbatim
+ * Copyright 2023 CARIAD SE.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla
+ * Public License, v. 2.0. If a copy of the MPL was not distributed
+ * with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
 #include <iostream>
@@ -17,7 +13,7 @@ with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include <fep3/core.h>
 #include <fep3/core/element_configurable.h>
 #include <a_util/system/address_info.h>
-#include <a_util/filesystem/filesystem.h>
+#include <fep3/fep3_filesystem.h>
 #include <chrono>
 
 #include "example_ddl_types.h"
@@ -79,7 +75,7 @@ public:
         /// Static variable to query information about the memory address of this binary
         static const auto address_info_var = 0;
         const auto address_info = a_util::system::AddressInfo(address_info_var);
-        a_util::filesystem::Path demo_data_path = address_info.getFilePath().getParent();
+        fs::path demo_data_path(address_info.getFilePath().getParent().toString());
         demo_data_path.append("demo_data");
 
         /// Create data writers to transmit signals 'a_odd',
@@ -87,11 +83,11 @@ public:
         /// DDL descriptions are provided via description files and the corresponding
         /// stream type is used to provide the ddl information.       
         _data_writer_a_odd = std::make_shared<core::DataWriter>(
-            "a_odd", base::StreamTypeDDLFileRef("tTestStructA", demo_data_path.toString() + "/a.description"));
+            "a_odd", base::StreamTypeDDLFileRef("tTestStructA", demo_data_path.string() + "/a.description"));
         _data_writer_a_even = std::make_shared<core::DataWriter>(
-            "a_even", base::StreamTypeDDLFileRef("tTestStructA", demo_data_path.toString() + "/a.description"));
+            "a_even", base::StreamTypeDDLFileRef("tTestStructA", demo_data_path.string() + "/a.description"));
         _data_writer_b = std::make_shared<core::DataWriter>(
-            "b", base::StreamTypeDDLFileRef("tTestStructB", demo_data_path.toString() + "/b.description"));
+            "b", base::StreamTypeDDLFileRef("tTestStructB", demo_data_path.string() + "/b.description"));
         
         /// Register the data writers at the data registry component.
         FEP3_RETURN_IF_FAILED(core::addToComponents(*_data_writer_a_odd, *getComponents()));

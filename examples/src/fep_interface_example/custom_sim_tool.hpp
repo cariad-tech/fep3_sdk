@@ -1,7 +1,7 @@
 /**
  * @copyright
  * @verbatim
- * Copyright @ 2023 VW Group. All rights reserved.
+ * Copyright 2023 CARIAD SE.
  *
 This Source Code Form is subject to the terms of the Mozilla
 Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -13,8 +13,8 @@ with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include <iostream>
 #include <vector>
 #include <map>
-
-#include <a_util/system.h>
+#include <thread>
+#include <chrono>
 
 // Inspired by FMI and other tools
 // Can load a model, which defines its inputs and outputs. All values are doubles internally.
@@ -36,7 +36,7 @@ public:
     int loadSimModel(const std::string& model_path)
     {
 
-        a_util::system::sleepMilliseconds(500); // loading takes a little bit ;)
+        std::this_thread::sleep_for(std::chrono::milliseconds(500)); // loading takes a little bit ;)
         if (model_path.find("inModel") != std::string::npos)
         {
             _input_signals.emplace(0, SimSignal{"x1", 0});
@@ -58,13 +58,13 @@ public:
 
     int initSimModel()
     {
-        a_util::system::sleepMilliseconds(1000);
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         return 0;
     }
 
     int resetSimModel()
     {
-        a_util::system::sleepMilliseconds(1000);
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         _input_signals[0].value = 0;
         _input_signals[1].value = 0;
         _output_signals[0].value = 0;
@@ -74,13 +74,13 @@ public:
 
     int deinitSimModel()
     {
-        a_util::system::sleepMilliseconds(1000);
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         return 0;
     }
 
     int unloadSimModel()
     {
-        a_util::system::sleepMilliseconds(1000);
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         return 0;
     }
 

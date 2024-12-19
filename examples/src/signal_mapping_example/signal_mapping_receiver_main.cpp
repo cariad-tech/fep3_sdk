@@ -1,13 +1,9 @@
 /**
- * @file
- * @copyright
- * @verbatim
-Copyright @ 2022 VW Group. All rights reserved.
-
-This Source Code Form is subject to the terms of the Mozilla
-Public License, v. 2.0. If a copy of the MPL was not distributed
-with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-@endverbatim
+ * Copyright 2023 CARIAD SE.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla
+ * Public License, v. 2.0. If a copy of the MPL was not distributed
+ * with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
 #include <iostream>
@@ -17,7 +13,7 @@ with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include <fep3/core.h>
 #include <fep3/core/element_configurable.h>
 #include <a_util/system/address_info.h>
-#include <a_util/filesystem/filesystem.h>
+#include <fep3/fep3_filesystem.h>
 #include <chrono>
 
 #include "example_ddl_types.h"
@@ -81,13 +77,13 @@ public:
         static const auto address_info_var = 0;
         const auto address_info = a_util::system::AddressInfo(address_info_var);
 
-        a_util::filesystem::Path demo_data_path = address_info.getFilePath().getParent();
+        fs::path demo_data_path(address_info.getFilePath().getParent().toString());
         demo_data_path.append("demo_data");
 
         /// Create the data reader for signal 'c' which shall be
         /// mapped from source signals 'source_signal_a' and 'source_signal_b'.
         _data_reader_c = std::make_shared<core::DataReader>(
-            "c", base::StreamTypeDDLFileRef("tTestStructC", demo_data_path.toString() + "/c.description"));
+            "c", base::StreamTypeDDLFileRef("tTestStructC", demo_data_path.string() + "/c.description"));
 
         /// Register the data reader at the data registry.
         return core::addToComponents(*_data_reader_c, *getComponents());

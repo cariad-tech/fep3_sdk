@@ -1,5 +1,4 @@
-#
-# Copyright @ 2021 VW Group. All rights reserved.
+# Copyright 2023 CARIAD SE.
 # 
 # This Source Code Form is subject to the terms of the Mozilla
 # Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -9,7 +8,6 @@
 # find the packages
 find_package(fep3_participant_core REQUIRED)
 find_package(fep3_system REQUIRED)
-find_package(dev_essential REQUIRED COMPONENTS system)
 
 ##################################################################
 # DEMO Logging via RPC
@@ -36,8 +34,7 @@ set_target_properties(demo_logging_system PROPERTIES FOLDER "examples/logging_ex
 
 # link against the fep3_system library
 target_link_libraries(demo_logging_system PRIVATE
-    fep3_system
-    dev_essential::system)
+    fep3_system)
 fep3_participant_link_pthread(demo_logging_system)
 
 if(MSVC)

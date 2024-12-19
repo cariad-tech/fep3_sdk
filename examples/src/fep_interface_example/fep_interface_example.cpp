@@ -1,7 +1,7 @@
 /**
  * @copyright
  * @verbatim
- * Copyright @ 2023 VW Group. All rights reserved.
+ * Copyright 2023 CARIAD SE.
  *
 This Source Code Form is subject to the terms of the Mozilla
 Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -17,7 +17,7 @@ with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 #include <ddl/ddl.h>
 #include <ddl/codec/codec.h>
-#include <a_util/filesystem.h>
+#include <a_util/system.h>
 
 #include "fep_interface_example.h"
 
@@ -53,7 +53,7 @@ fep3::Result InterfaceExampleElement::load()
             _model_path.c_str(),
             StringMapConverter::toString(_signals_in).c_str(),
             StringMapConverter::toString(_signals_out).c_str(),
-            _ddl_path.toString().c_str()));
+            _ddl_path.c_str()));
     _sim_tool->loadSimModel(_model_path);
 
     // Create custom property node under 'element' which will be evaluated in initialize
@@ -61,14 +61,14 @@ fep3::Result InterfaceExampleElement::load()
     initConfiguration(*config_service);
 
     // Check path to DDL file
-    if (_ddl_path.isRelative())
+    if (_ddl_path.is_relative())
     {
-        auto exe_path = a_util::system::getExecutablePath().getParent();
-        _ddl_path = exe_path + _ddl_path;
+        fs::path exe_path(a_util::system::getExecutablePath().getParent().toString());
+        _ddl_path = exe_path /= _ddl_path;
     }
-    if (!fs::isFile(_ddl_path))
+    if (!fs::exists(_ddl_path))
     {
-        RETURN_ERROR_DESCRIPTION(fep3::ERR_FILE_NOT_FOUND, "Given path to DDL file '%s' does not point to a file.", _ddl_path.toString().c_str());
+        RETURN_ERROR_DESCRIPTION(fep3::ERR_FILE_NOT_FOUND, "Given path to DDL file '%s' does not point to a file.", _ddl_path.c_str());
         return fep3::ERR_FILE_NOT_FOUND;
     }
 
@@ -77,7 +77,7 @@ fep3::Result InterfaceExampleElement::load()
         [this](fep3::Timestamp sim_time) -> fep3::Result { return process(sim_time); });
 
     std::string ddl_content;
-    auto ddl_data = ddl::DDFile::fromXMLFile(_ddl_path);
+    auto ddl_data = ddl::DDFile::fromXMLFile(_ddl_path.string());
     for (const auto &[name, ddl_type] : _signals_in)
     {
         auto res = addInputSignal(name, ddl_type, ddl_data);

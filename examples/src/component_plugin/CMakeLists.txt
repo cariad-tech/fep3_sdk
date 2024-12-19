@@ -1,5 +1,4 @@
-#
-# Copyright @ 2021 VW Group. All rights reserved.
+# Copyright 2023 CARIAD SE.
 # 
 # This Source Code Form is subject to the terms of the Mozilla
 # Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -7,7 +6,6 @@
 
 # Find the package
 find_package(fep3_participant_cpp REQUIRED)
-find_package(dev_essential REQUIRED COMPONENTS pkg_rpc)
 
 add_library(demo_components_plugin SHARED
             components_plugin.cpp

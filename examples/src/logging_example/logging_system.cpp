@@ -1,20 +1,17 @@
 /**
- * @file
- * @copyright
- * @verbatim
-Copyright @ 2021 VW Group. All rights reserved.
-
-This Source Code Form is subject to the terms of the Mozilla
-Public License, v. 2.0. If a copy of the MPL was not distributed
-with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-@endverbatim
+ * Copyright 2023 CARIAD SE.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla
+ * Public License, v. 2.0. If a copy of the MPL was not distributed
+ * with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
 
 #include <fep_system/fep_system.h>
 
-#include <a_util/system.h>
 #include <iostream>
+#include <thread>
+#include <chrono>
 
 struct DemoEventMonitor : public fep3::IEventMonitor
 {
@@ -41,20 +38,20 @@ int main(int argc, const char* argv[])
     my_system.initialize();
     my_system.start();
 
-    a_util::system::sleepMilliseconds(5 * 1000);
+    std::this_thread::sleep_for(std::chrono::seconds(5));
 
     auto logging_service_proxy = my_system.getParticipant("demo_logging_participant").getRPCComponentProxyByIID<fep3::rpc::IRPCLoggingService>();
     // The logger called "demo" is set to only log to the console (of the participant) thus disabling the logging via RPC to the system
     logging_service_proxy->setLoggerFilter("demo", { fep3::LoggerSeverity::info, {"console"} });
     std::cout << "RPC logging disabled" << std::endl;
 
-    a_util::system::sleepMilliseconds(5 * 1000);
+    std::this_thread::sleep_for(std::chrono::seconds(5));
 
     // Console is still activated but the severity level has been raised which filters out the info log
     logging_service_proxy->setLoggerFilter("demo", { fep3::LoggerSeverity::warning, {"console"} });
     std::cout << "Severity level raised to warning" << std::endl;
 
-    a_util::system::sleepMilliseconds(5 * 1000);
+    std::this_thread::sleep_for(std::chrono::seconds(5));
 
     my_system.stop();
     my_system.deinitialize();

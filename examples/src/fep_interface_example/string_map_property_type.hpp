@@ -1,7 +1,7 @@
 /**
  * @copyright
  * @verbatim
- * Copyright @ 2023 VW Group. All rights reserved.
+ * Copyright 2023 CARIAD SE.
  *
 This Source Code Form is subject to the terms of the Mozilla
 Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -12,7 +12,6 @@ with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 #include <string>
 
-#include <a_util/strings.h>
 #include <fep3/core.h>
 #include <fep3/base/properties/property_type.h>
 
@@ -34,6 +33,22 @@ struct fep3::base::DefaultPropertyTypeConversion<std::map<std::string, std::stri
             out_map[signal_config_split[0]] = signal_config_split[1];
         }
         return out_map;
+    }
+
+    static bool fromString(const std::string& from, std::map<std::string, std::string>& to)
+    {
+        std::string trimmed(from);
+        std::vector<std::string> signal_struct_relation =
+            a_util::strings::split(a_util::strings::trim(trimmed), ";");
+
+        to.clear();
+        for (auto &signal_config : signal_struct_relation)
+        {
+            std::vector<std::string> signal_config_split =
+                a_util::strings::split(a_util::strings::trim(signal_config), ":");
+            to[signal_config_split[0]] = signal_config_split[1];
+        }
+        return true;
     }
 
     static std::string toString(const std::map<std::string, std::string>& sig_map)

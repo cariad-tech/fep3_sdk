@@ -1,4 +1,4 @@
-.. Copyright @ 2021 VW Group. All rights reserved.
+.. Copyright 2023 CARIAD SE.
 .. 
 .. This Source Code Form is subject to the terms of the Mozilla 
 .. Public License, v. 2.0. If a copy of the MPL was not distributed 
@@ -128,6 +128,7 @@ Example
                                    | "Participant4" with http://host2:9091
                                    | SystemView2 did not register a server to the network, so they it is not seen and is not discoverable.
 
+.. _label_service_bus
 
 Service Bus
 ===========
@@ -172,15 +173,14 @@ The Service Registry implementation will forward HTTP REQUESTS to the objects re
 HTTP System Access and SSDP Discovery
 `````````````````````````````````````
 
-The HTTP System Access will provide the possibility to discover all other servers within the same network and with the same system name.
+The HTTP System Access will provide the possibility to discover all other servers within the same network and with the same system name by implementing a :term:`Participant Discovery` protocol.
 The system access must be created via a valid **multicast address** and a port. The default address is:
 
 * *http://230.230.230.1:9990*
 
 Each server, somewhere in the network, using the same address will be discovered if the firewall ruleset does not prevent that.
-Each :ref:`HTTP Server` will send discovery messages containing its name and a system name. Both are provided with :cpp:func:`~fep3::IServiceBus::ISystemAccess::createServer`.
+Each :ref:`HTTP Server` will send :term:`Discovery Messages` containing its name and a system name. Both are provided with :cpp:func:`fep3::catelyn::IServiceBus::ISystemAccess::createServer`.
 For usage within the :term:`FEP Participant` this will be the name of the participant and the system name which are both provided to :cpp:func:`~fep3::core::createParticipant`.
-The received discovery messages can be forwarded to a Sink using :cpp:func:`fep3::catelyn::IServiceBus::ISystemAccess::registerUpdateEventSink` and :cpp:func:`fep3::catelyn::IServiceBus::ISystemAccess::deregisterUpdateEventSink.
 
 This mechanism is using the :term:`SSDP` from the UPnP standard v1.1.
 This implementation will follow chapter 1 of the specification
@@ -189,7 +189,7 @@ http://www.upnp.org/specs/arch/UPnP-arch-DeviceArchitecture-v1.1.pdf, but is no 
 
 In case of disabled discovery, each :term:`RPC Requester` has to be created using a full address.
 A call of :cpp:func:`~fep3::IServiceBus::getRequester` must use i.e. *http://other_interface:9097* and
-cannot be used by its alias name it was created within this system (see :cpp:func:`~fep3::IServiceBus::ISystemAccess::createServer`).
+cannot be used by its alias name it was created within this system (see :cpp:func:`fep3::catelyn::IServiceBus::ISystemAccess::createServer`).
 
 Native Service Bus Delivery
 ```````````````````````````
@@ -202,7 +202,7 @@ RTI Service Bus
 ---------------
 
 An alternative implementation to :ref:`Native Service Bus <HTTP System Access>` is implemented in the *fep3_dds_service_bus_plugin* using RTI DDS. The difference between the  :ref:`RTI Service Bus` and the :ref:`Native Service Bus <HTTP System Access>`
-plugins is the mechanism used for service discovery. :ref:`RTI Service Bus` uses a keyed RTI DDS topic for exchanging the discovery information, making discovery possible in networks with multicast disabled.
+plugins is the mechanism used for :term:`Participant Discovery`. :ref:`RTI Service Bus` uses a keyed RTI DDS topic for exchanging the discovery information, making discovery possible in networks with multicast disabled.
 In case FEP is deployed in networks with multicast enabled, no additional settings are required. In case multicast is deactivated, there are two options so that participants in different machines can be discovered:
 
 .. _label_adapt_peers_list_for_unicast:
@@ -262,16 +262,24 @@ with
 
 .. _label_notes_using_rti_dds_service_bus:
 
+RTI DDS Service BUS Discovery
+`````````````````````````````
+Similar to the :ref:`Discovery Protocol <HTTP System Access>` used by the :ref:`HTTP Service Bus` for :term:`Participant Discovery`, the :ref:`RTI Service Bus` implements the :term:`Participant Discovery` using RTI DDS signals.
+Each :ref:`HTTP Server <HTTP Server>` will send :term:`Discovery Messages` in form of RTI DDS signals containing its name, system name, host name and the listening port of the :ref:`HTTP Server <HTTP Server>`.
+Name and system name are provided with :cpp:func:`fep3::catelyn::IServiceBus::ISystemAccess::createServer`.
+For usage within the :term:`FEP Participant` this will be the name of the participant and the system name which are both provided to :cpp:func:`~fep3::core::createParticipant`.
+
+
 Notes when using the RTI DDS Service BUS
 ````````````````````````````````````````
 
-* Do not put a QOS file in the same directory as the participant executable. Manipulation of the QOS for the Topics used in service discovery can result in malfunction. The QOS file of the :ref:`RTI Connext DDS Simulation Bus` is located
+* Do not put a QOS file in the same directory as the participant executable. Manipulation of the QOS for the Topics used in :term:`Participant Discovery` can result in malfunction. The QOS file of the :ref:`RTI Connext DDS Simulation Bus` is located
   under lib/rti/USER_QOS_PROFILES.xml.
-* The DDS Service Bus uses a separate DDS Domain participant from :ref:`RTI Connext DDS Simulation Bus`. The default domain ID used for the Service Discovery is **0**. The Domain ID of the Service Discovery can be changed by setting
+* The DDS Service Bus uses a separate DDS Domain participant from :ref:`RTI Connext DDS Simulation Bus`. The default domain ID used for the :term:`Participant Discovery` is **0**. The Domain ID of the :term:`Participant Discovery` can be changed by setting
   the environment variable *FEP3_SERVICE_BUS_DOMAIN_ID*.
 
 .. note::
-    Make sure that all participants in a FEP System use the same DDS Domain ID for the Service Discovery.
+    Make sure that all participants in a FEP System use the same DDS Domain ID for the :term:`Participant Discovery`.
 
 * The DDS topic name used for discovery is named *service_discovery* and should not be used for any other signal name in case the default domain ID **0** is used apart from the RTI DDS Service Bus.
 
@@ -282,6 +290,14 @@ Notes when using the RTI DDS Service BUS
 Debugging the Service Bus
 -------------------------
 The :ref:`RTI Service Bus`, logs additional debug messages that can be activated by  :ref:`setting the severity  <label_changing_the_severity_level_filter>` of the service bus logger to debug (5). When you have the logs activated, you should see the processed update events incoming from all the participants. In case no update events are received from one or more participants, it means that there are no DDS Signals received from these participants.
+
+.. _access_service_bus_discovery_messages:
+
+Accessing the participant :term:`discovery messages`
+----------------------------------------------------
+As discussed previously in the chapter, both :ref:`HTTP Service Bus` and the :ref:`RTI Service Bus` use a discovery mechanism to find the participants within a FEP system.
+The received :term:`Discovery Messages` can be forwarded to a Sink using :cpp:func:`fep3::catelyn::IServiceBus::ISystemAccess::registerUpdateEventSink` 
+and :cpp:func:`fep3::catelyn::IServiceBus::ISystemAccess::deregisterUpdateEventSink`. The callbacks are executed sequentially in an independent thread.
 
 
 Interface Changes

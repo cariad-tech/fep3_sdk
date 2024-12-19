@@ -1,4 +1,4 @@
-.. Copyright @ 2021 VW Group. All rights reserved.
+.. Copyright 2023 CARIAD SE.
 .. 
 .. This Source Code Form is subject to the terms of the Mozilla 
 .. Public License, v. 2.0. If a copy of the MPL was not distributed 
@@ -126,6 +126,7 @@ Create properties
 ~~~~~~~~~~~~~~~~~
 
 Using the configuration service component and a convenience function *makeNativePropertyNode* we can create typed property nodes.
+The class *NativePropertyNode* also has a templated constructor, which can create a new node according to the given type of the value.
 
 First of all, we need a property node which will be registered at the root node ("/") of the configuration service.
 The configuration service handles property nodes as shared pointers.

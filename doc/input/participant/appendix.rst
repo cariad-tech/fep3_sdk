@@ -1,4 +1,4 @@
-.. Copyright @ 2022 VW Group. All rights reserved.
+.. Copyright 2023 CARIAD SE.
 ..
 .. This Source Code Form is subject to the terms of the Mozilla 
 .. Public License, v. 2.0. If a copy of the MPL was not distributed 
@@ -14,4 +14,5 @@ Appendix
 
     api_levels
     native_components
+    component_plugin_analyzer
     platform_notes

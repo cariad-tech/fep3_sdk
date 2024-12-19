@@ -1,5 +1,4 @@
-#
-# Copyright @ 2021 VW Group. All rights reserved.
+# Copyright 2023 CARIAD SE.
 # 
 # This Source Code Form is subject to the terms of the Mozilla
 # Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -17,6 +16,10 @@ endif()
 # Use shared libraries from current directory on Linux (same behavior as on Windows)
 SET(CMAKE_INSTALL_RPATH "$ORIGIN")
 
+file(STRINGS version
+    VERSION
+    LIMIT_COUNT 1
+)
 project(fep3-sdk VERSION ${VERSION})
 
 set(FEP_SDK_PKG_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
@@ -68,7 +71,7 @@ add_subdirectory(examples)
 install(DIRECTORY examples
         DESTINATION .)
 
-install(FILES doc/license/license_notes_from_aosd.txt
+install(FILES doc/license/LicenseNotes.md
         DESTINATION doc/license
 )
 
@@ -86,7 +89,7 @@ install(
 install(
     FILES
         LICENSE.md
-        doc/license/license_notes_from_aosd.txt
+        doc/license/LicenseNotes.md
     DESTINATION
         doc/license
 )

@@ -1,4 +1,4 @@
-.. Copyright @ 2021 VW Group. All rights reserved.
+.. Copyright 2023 CARIAD SE.
 ..
 .. This Source Code Form is subject to the terms of the Mozilla 
 .. Public License, v. 2.0. If a copy of the MPL was not distributed 
@@ -158,32 +158,32 @@ The :term:`FEP System Library`  uses the :term:`RPC Service` of :ref:`label_heal
 the participant is still online.
 
 .. note:: Online in this context does not mean if the participant is in state running, but whether the participant executable is still running. The participant's
-          running state is based on whether the participant is still sending discovery messages in :term:`SSDP` protocol.
+          running state is based on whether the participant is still sending :term:`Discovery Messages` in :term:`Participant Discovery` protocol.
 
 Participant health status polling and liveliness
 ------------------------------------------------
 
-The :term:`SSDP` protocol implemented in :ref:`label_service_bus_http_system_access`, sends periodically messages as a heartbeat.
+The :term:`Participant Discovery` protocol implemented in :ref:`label_service_bus`, sends periodically messages as a :term:`heartbeat`.
 
-The default heartbeat period of a participant is 5 seconds but it can be adjusted or its value can be checked using :cpp:func:`fep3::System::setHeartbeatInterval` and :cpp:func:`fep3::System::getHeartbeatInterval` respectively.
-When :term:`FEP System Library` receives a heartbeat message from a discovered participant, it polls its health using its :ref:`label_health_service_rpc_interface`, so by changing the heartbeat interval the polling rate of the participants' health can be adjusted.
+The default :term:`heartbeat` period of a participant is 5 seconds but it can be adjusted or its value can be checked using :cpp:func:`fep3::System::setHeartbeatInterval` and :cpp:func:`fep3::System::getHeartbeatInterval` respectively.
+When :term:`FEP System Library` receives a :term:`heartbeat message <Heartbeat>` from a discovered participant, it polls its health using its :ref:`label_health_service_rpc_interface`, so by changing the heartbeat interval the polling rate of the participants' health can be adjusted.
 
-
-.. warning::
-    Decreasing the heartbeat period in order to increase the polling frequency of the health service can negatively impact the network load and/or :term:`FEP Participant` or :term:`FEP System Library` performance.
 
 .. warning::
-    20 seconds is the timeout that the discovery mechanism in :ref:`label_service_bus_http_system_access` uses, so reducing the heartbeat period near this threshold value will potentially cause participant discovery to malfunction.
+    Decreasing the :term:`heartbeat` period in order to increase the polling frequency of the health service can negatively impact the network load and/or :term:`FEP Participant` or :term:`FEP System Library` performance.
+
+.. warning::
+    20 seconds is the timeout that the :term:`Participant Discovery` in :ref:`label_service_bus` uses, so reducing the :term:`heartbeat` period near this threshold value will potentially cause participant :term:`discovery <Participant Discovery>` to malfunction.
 
 .. image:: images/system_health.png
 
-The participant is considered to be online if it has sent a heartbeat message in the last 20 seconds. This value is called the *liveliness timeout* and it can be changed using :cpp:func:`fep3::System::setLivelinessTimeout`
+The participant is considered to be online if it has sent a :term:`heartbeat` message in the last 20 seconds. This value is called the *liveliness timeout* and it can be changed using :cpp:func:`fep3::System::setLivelinessTimeout`
 or the value can be checked with :cpp:func:`fep3::System::getLivelinessTimeout`.
 
 
 The participants' health will be returned by calling :cpp:func:`fep3::System::getParticipantsHealth`. The returned structure contains the running state of the participant as well as the last and total count of errors of the jobs running in each participant in the system.
 
-In case the Health feature should be deactivated (for example in order to reduce the network load) the function :cpp:func:`fep3::System::setHealthListenerRunningStatus` can be used. This will completely deactivate the listening of the heartbeat messages and the polling of the participants' health via the :term:`RPC Service`. The current running status of the health listeners can be checked with :cpp:func:`fep3::System::getHealthListenerRunningStatus`.
+In case the Health feature should be deactivated (for example in order to reduce the network load) the function :cpp:func:`fep3::System::setHealthListenerRunningStatus` can be used. This will completely deactivate the listening of the :term:`heartbeat` messages and the polling of the participants' health via the :term:`RPC Service`. The current running status of the health listeners can be checked with :cpp:func:`fep3::System::getHealthListenerRunningStatus`.
 
 .. warning::
     Calling :cpp:func:`fep3::System::getParticipantsHealth` with deactivated health listeners will result in an exception.
