@@ -1,4 +1,4 @@
-# Copyright @ 2021 VW Group. All rights reserved.
+# Copyright 2023 CARIAD SE.
 #
 # This Source Code Form is subject to the terms of the Mozilla
 # Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -6,24 +6,40 @@
 
 common:
     files:
-        - README.md
-        - doc/changelog_sdk.md
         - doc/changelog_participant.md
+        - doc/changelog_sdk.md
         - doc/changelog_system.md
-        - doc/license/license_notes_from_aosd.txt
         - doc/license/LICENSE.md
+        - doc/license/LicenseNotes.md
         - examples/bin/demo_components_plugin.fep_components
+        - examples/bin/demo_data/demo_dynamic_array.description
         - examples/bin/fep3_participant.fep_components
         - examples/bin/fep3_system.fep_components
-        - examples/bin/rti/USER_QOS_PROFILES.xml
         - examples/bin/fep_interface_example.description
+        - examples/bin/rti/USER_QOS_PROFILES.xml
         - examples/CMakeLists.txt
+        - examples/src/async_waitset_example/async_waitset_receiver.cpp
+        - examples/src/async_waitset_example/async_waitset_sender.cpp
+        - examples/src/async_waitset_example/CMakeLists.txt
         - examples/src/component_plugin/CMakeLists.txt
+        - examples/src/component_plugin/components_plugin.cpp
         - examples/src/component_plugin/component_a_intf.h
         - examples/src/component_plugin/component_b_intf.h
-        - examples/src/component_plugin/components_plugin.cpp
         - examples/src/component_plugin/demo_components_plugin.fep_components
         - examples/src/component_plugin/plugin_element.cpp
+        - examples/src/data_triggered_simulation/CMakeLists.txt
+        - examples/src/data_triggered_simulation/receiver.cpp
+        - examples/src/data_triggered_simulation/sender.cpp
+        - examples/src/default_job_example/CMakeLists.txt
+        - examples/src/default_job_example/default_job_receiver.cpp
+        - examples/src/default_job_example/default_job_sender.cpp
+        - examples/src/dynamic_array/CMakeLists.txt
+        - examples/src/dynamic_array/demo_data/demo_dynamic_array.description
+        - examples/src/dynamic_array/demo_dynamic_array.h
+        - examples/src/dynamic_array/demo_dynamic_array_receiver_main.cpp
+        - examples/src/dynamic_array/demo_dynamic_array_sender_main.cpp
+        - examples/src/dynamic_array/dynamic_array_data_sample.h
+        - examples/src/dynamic_array/stream_type_file_ref_big.h
         - examples/src/easy_core_example_element/CMakeLists.txt
         - examples/src/easy_core_example_element/core_receiver_main.cpp
         - examples/src/easy_core_example_element/core_sender_main.cpp
@@ -32,52 +48,35 @@ common:
         - examples/src/easy_cpp_example_datajob/cpp_receiver_main.cpp
         - examples/src/easy_cpp_example_datajob/cpp_sender_main.cpp
         - examples/src/easy_cpp_example_datajob/example_ddl_types.h
-        - examples/src/default_job_example/CMakeLists.txt
-        - examples/src/default_job_example/default_job_receiver.cpp
-        - examples/src/default_job_example/default_job_sender.cpp
+        - examples/src/fep_interface_example/CMakeLists.txt
+        - examples/src/fep_interface_example/custom_sim_tool.hpp
+        - examples/src/fep_interface_example/delay_property_type.hpp
+        - examples/src/fep_interface_example/fep_interface_example.cpp
+        - examples/src/fep_interface_example/fep_interface_example.description
+        - examples/src/fep_interface_example/fep_interface_example.h
+        - examples/src/fep_interface_example/main.cpp
+        - examples/src/fep_interface_example/README.md
+        - examples/src/fep_interface_example/string_map_property_type.hpp
         - examples/src/logging_example/CMakeLists.txt
         - examples/src/logging_example/logging_participant.cpp
         - examples/src/logging_example/logging_system.cpp
         - examples/src/minimal_participant/CMakeLists.txt
         - examples/src/minimal_participant/minimal_participant.cpp
+        - examples/src/multi_sender_for_one_signal_example/CMakeLists.txt
+        - examples/src/multi_sender_for_one_signal_example/multi_sender_main.cpp
+        - examples/src/multi_sender_for_one_signal_example/one_receiver_main.cpp
         - examples/src/rpc_service_bus/CMakeLists.txt
         - examples/src/rpc_service_bus/demo_rpc_client.cpp
         - examples/src/rpc_service_bus/demo_rpc_service.cpp
         - examples/src/rpc_service_bus/demo_rpc_service.json
-        - examples/src/async_waitset_example/CMakeLists.txt
-        - examples/src/async_waitset_example/async_waitset_sender.cpp
-        - examples/src/async_waitset_example/async_waitset_receiver.cpp
-        - examples/src/data_triggered_simulation/CMakeLists.txt
-        - examples/src/data_triggered_simulation/sender.cpp
-        - examples/src/data_triggered_simulation/receiver.cpp
-        - examples/src/multi_sender_for_one_signal_example/CMakeLists.txt
-        - examples/src/multi_sender_for_one_signal_example/multi_sender_main.cpp
-        - examples/src/multi_sender_for_one_signal_example/one_receiver_main.cpp
         - examples/src/signal_mapping_example/CMakeLists.txt
+        - examples/src/signal_mapping_example/demo_data/a.description
+        - examples/src/signal_mapping_example/demo_data/b.description
+        - examples/src/signal_mapping_example/demo_data/c.description
         - examples/src/signal_mapping_example/example_ddl_types.h
         - examples/src/signal_mapping_example/signal_a_b_to_c.map
         - examples/src/signal_mapping_example/signal_mapping_receiver_main.cpp
         - examples/src/signal_mapping_example/signal_mapping_sender_main.cpp
-        - examples/src/fep_interface_example/CMakeLists.txt
-        - examples/src/fep_interface_example/README.md
-        - examples/src/fep_interface_example/custom_sim_tool.hpp
-        - examples/src/fep_interface_example/delay_property_type.hpp
-        - examples/src/fep_interface_example/string_map_property_type.hpp
-        - examples/src/fep_interface_example/fep_interface_example.cpp
-        - examples/src/fep_interface_example/fep_interface_example.description
-        - examples/src/fep_interface_example/fep_interface_example.h
-        - examples/src/fep_interface_example/main.cpp
-        - examples/src/signal_mapping_example/demo_data/a.description
-        - examples/src/signal_mapping_example/demo_data/b.description
-        - examples/src/signal_mapping_example/demo_data/c.description
-        - examples/bin/demo_data/demo_dynamic_array.description
-        - examples/src/dynamic_array/CMakeLists.txt
-        - examples/src/dynamic_array/demo_data/demo_dynamic_array.description
-        - examples/src/dynamic_array/demo_dynamic_array.h
-        - examples/src/dynamic_array/demo_dynamic_array_receiver_main.cpp
-        - examples/src/dynamic_array/demo_dynamic_array_sender_main.cpp
-        - examples/src/dynamic_array/dynamic_array_data_sample.h
-        - examples/src/dynamic_array/stream_type_file_ref_big.h
         - fep3_sdk-config-version.cmake
         - fep3_sdk-config.cmake
         - README.md

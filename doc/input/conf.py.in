@@ -1,5 +1,4 @@
-#
-# Copyright @ 2021 VW Group. All rights reserved.
+# Copyright 2023 CARIAD SE.
 # 
 # This Source Code Form is subject to the terms of the Mozilla
 # Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -23,7 +22,7 @@ sys.path.append(os.path.abspath("./_ext"))
 # -- Project information -----------------------------------------------------
 
 project = '${CMAKE_PROJECT_NAME}'
-author = 'VW Group'
+author = 'CARIAD SE'
 current_date = date.today()
 copyright = current_date.strftime("%d.%m.%Y") + ", " + author
 release = '${PROJECT_VERSION}'

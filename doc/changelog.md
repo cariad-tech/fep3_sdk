@@ -1,223 +1,192 @@
 <!--
-  Copyright @ 2021 VW Group. All rights reserved.
+  Copyright 2023 CARIAD SE.
   
-      This Source Code Form is subject to the terms of the Mozilla
-      Public License, v. 2.0. If a copy of the MPL was not distributed
-      with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-  
-  If it is not possible or desirable to put the notice in a particular file, then
-  You may include the notice in a location (such as a LICENSE file in a
-  relevant directory) where a recipient would be likely to look for such a notice.
-  
-  You may add additional accurate notices of copyright ownership.
-  
-  -->
+This Source Code Form is subject to the terms of the Mozilla
+Public License, v. 2.0. If a copy of the MPL was not distributed
+with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+-->
 
 # FEP SDK Changelog
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0) and this project adheres to [Semantic Versioning](https://semver.org/lang/en).
 
-## [Unreleased]
+<h3><a href="#fep_sdk">FEP SDK</a></h3>
 
-## [3.2.0]
+<!-- DOC GENERATOR HEADER -->
+* [3.2.1](#FEP_SDK_3_2_1) \| [Changes](#FEP_SDK_3_2_1_changes) \| [Fixes](#FEP_SDK_3_2_1_fixes) \| [Known issues](#FEP_SDK_3_2_1_known_issues) \| Release date: 2023-11-06
+* [3.2.0](#FEP_SDK_3_2_0) \| [Changes](#FEP_SDK_3_2_0_changes) \| [Fixes](#FEP_SDK_3_2_0_fixes) \| [Known issues](#FEP_SDK_3_2_0_known_issues) \| Release date: 2023-07-23
+* [3.1.0](#FEP_SDK_3_1_0) \| [Changes](#FEP_SDK_3_1_0_changes) \| [Fixes](#FEP_SDK_3_1_0_fixes) \| [Known issues](#FEP_SDK_3_1_0_known_issues) \| Release date: 2022/04/13
+* [3.0.1-beta](#FEP_SDK_3_0_1) \| [Changes](#FEP_SDK_3_0_1_changes) \| [Fixes](#FEP_SDK_3_0_1_fixes) \| [Known issues](#FEP_SDK_3_0_1_known_issues) \| Release date: 2022/02/02
+* [3.0.0](#FEP_SDK_3_0_0) \| [Changes](#FEP_SDK_3_0_0_changes) \| [Fixes](#FEP_SDK_3_0_0_fixes) \| [Known issues](#FEP_SDK_3_0_0_known_issues) \| Release date: 2021/03/25
 
-### Changes
-- FEPSDK-3651 Copy service_bus symbol files while calling deploy
-- FEPSDK-3637 FEP System state transition cancellation
-- FEPSDK-3636 Refactor setSystemState() participant state transition error handling
-- FEPSDK-3618 Update MPL license header
-- FEPSDK-3614 FEP System Logger  configurable with severity and has file sink
-- FEPSDK-3609 State Machine does not rollback correctly on component registry or element transition error
-- FEPSDK-3608 FEP System provides error code and description of the Participant that failed a state Transition
-- FEPSDK-3607 Participant State Machine RPC Server returns error descriptions on failed transitions
-- FEPSDK-3606 Fep System library should throw exceptions or log errors on failed rpc client communication
-- FEPSDK-3605 Improve error logging on state transitions
-- FEPSDK-3604 Add logging sink file_csv
-- FEPSDK-3602 Participant init and start priorities are persistent in system library instances
-- FEPSDK-3601 Data Triggered Jobs should run on scheduler thread pool
-- FEPSDK-3596 Example of signal with ddl structure containing dynamic array
-- FEPSDK-3585 Refactor Local Clock Based Scheduler
-- FEPSDK-3581 Registering DataReader for a signal that is input to mapping should be possible
-- FEPSDK-3577 DDS Discovery messages should send the IP instead of host name in case default Server Url ist not used 
-- FEPSDK-3568 Support DevHub2 for build pipelines
-- FEPSDK-3557 Provide Convenient Element and Job class
-- FEPSDK-3555 Clean up fep sdk participant includes
-- FEPSDK-3551 Data Triggered job should reconfigurable via Properties and vice versa
-- FEPSDK-3550 Const Job configuration cannot be added to job registry
-- FEPSDK-3534 Deliver conan package with Python - C++ 3.8 3.9 3.10 bindings
-- FEPSDK-3532 Use dev_essential 1.3.0 integration
-- FEPSDK-3523 Manual on ADTF scope usage as debug tool
-- FEPSDK-3522 Improve Service Bus logging for debugging
-- FEPSDK-3521 ADTF Player Participant time update frequency shall be configurable
-- FEPSDK-3520 Smoke Test 32 - 64 Bit Communication
-- FEPSDK-3514 FEP3 32 bit
-- FEPSDK-3512 Measure and Improve Throughput performance of Data Job
-- FEPSDK-3508 Automatically generate release notes
-- FEPSDK-3504 Use persistent integration builds in FEP Products
-- FEPSDK-3482 Change RTI DDS signal connection default behavior to "wait for writer"
-- FEPSDK-3477 Complete Python binding in system library
-- FEPSDK-3472 Remove transmission of StreamType for static DataWriter
-- FEPSDK-3465 User defined QoS Profiles can be used in participants
-- FEPSDK-3464 Stream Type DDL should correctly select Qos Setting according to size
-- FEPSDK-3462 Same component loading mechanism in system and participant
-- FEPSDK-3454 Investigate timing with slower participants
-- FEPSDK-3445 Update FEPSDK to boost 1.79
-- FEPSDK-3442 Data triggered job works with multiple signals
-- FEPSDK-3425 Provide functionality to disable RTI DDS Domain Tag within RTI DDS SimulationBus plugin
-- FEPSDK-3421 Provide Python binding in system library
-- FEPSDK-3416 Integrate  Developer Guide into FEP SDK Documentation
-- FEPSDK-3407 Deprecate C Plugin Mechanism in Documentation
-- FEPSDK-3369 Automatically do safe type-casts i.e. for int32 on int64 properties
-- FEPSDK-3359 Improve docs on logging from user perspective
-- FEPSDK-3358 Update C Component Interface with new catelyn::ISchedulerService, IScheduler, ISchedulerRegistry
-- FEPSDK-3354 Migrate DOC (OLD) FEP Participant Library to current chapters
-- FEPSDK-3353 Documentation about Discovery problems and solutions when using Peer List
-- FEPSDK-3350 [Feature] Switch to Clipp command line parser
-- FEPSDK-3349 Provide setParticipantState and shutdown participant function in fep_system
-- FEPSDK-3347 Create doc and minimal example on how to use mocks of FEP Components
-- FEPSDK-3342 Add possibility to retrieve loaded components IIDs via RPC
-- FEPSDK-3332 Add environment variables for overwriting system and server urls
-- FEPSDK-3328 Provide existing gmocks in FEP repositories as part of the FEP Component API
-- FEPSDK-3320 Health Service for FEP Participant and FEP System 
-- FEPSDK-3315 Deliver DDS Service Discovery as default plugin
-- FEPSDK-3292 flipping the order of registering DataReaders and DataWriters within the DataRegistry::tense
-- FEPSDK-3291 Adapt RTI DDS Simulation Bus to use AsyncWaitset instead of Waitset for data reception
-- FEPSDK-3276 Command line arguments for executables are not aligned with FEP Agent
-- FEPSDK-3275 Remove CMake deployment of fep_component_plugin library
-- FEPSDK-3274 Rename fep_components_plugin.dll
-- FEPSDK-3267 Provide fep_tooling_base, fep_participant, fep_system with conan profile Windows_x64_to_SCALEXIO_Linux_x86_gcc5 for the SCALEXIO
-- FEPSDK-3266 Provide convenience API for participant manipulation in FEP System library
-- FEPSDK-3265 [PoC] Realization of Multiple sender transferring to single signal with RTI DDS
-- FEPSDK-3259 DDS ServiceBus discovery environment
-- FEPSDK-3257 Allow System State Transitions on a heterogeneous system
-- FEPSDK-3256 Define limits for time intervals of a FEP Participant using discrete timing 
-- FEPSDK-3253 Specify requirements for fep3::arya::ISimulationBus::IDataReceiver::operator() towards strong references to samples/types
-- FEPSDK-3252 Implement Healthiness struct
-- FEPSDK-3239 Provide plugin versions via RPC
-- FEPSDK-3233 Add uint32 and uint64 standard property datatypes
-- FEPSDK-3220 Remove all unneeded error codes from fep3_errors.h
-- FEPSDK-3218 Remove default loading built-in Component Implementation mechanism
-- FEPSDK-3193 DOC Chapter about Configuring data exchange 
-- FEPSDK-3186 Remove vs2017_v141 build profiles
-- FEPSDK-3185 Remove gcc5 build profiles
-- FEPSDK-3179 Create Health Service ADR
-- FEPSDK-3175 [Feature] Convenient data triggered usage
-- FEPSDK-3174 Implement signal waiting for DDS SimBus
-- FEPSDK-3173 Support registration of a single instance as multiple FEP Component interfaces from within FEP Component Plugins
-- FEPSDK-3171 [DOC] How to create a single FEP Component Plugin which provides multiple FEP Component interfaces
-- FEPSDK-3149 Implementation of an alternative discovery mechanism based on unicasting connection
-- FEPSDK-3130 Create fep3::system::discoverSystem function which accepts participants and timeout
-- FEPSDK-3107 Add popSample's'Before(timestamp) to DataReaderBacklog
-- FEPSDK-3102 Evaluate SimBus FEP Component Swap
-- FEPSDK-3100 Implementation line based logging sink
-- FEPSDK-3083 Copy C-API POC to fep_sdk_system library
-- FEPSDK-3081 Mark operator>> of DataReader deprecated
-- FEPSDK-3062 Make FEP 3 participant discovery timeout configurable
-- FEPSDK-3058 Document all default commandline argument values in built-in help
-- FEPSDK-3057 Call ::fep3::cpp::DataJob::initConfiguration from within fep3::cpp::addToComponents
-- FEPSDK-3043 Provide command history
-- FEPSDK-3033 Improve log message time formatting
-- FEPSDK-3031 Change templatization level of fep3::cpp::arya::DataJobElement
-- FEPSDK-3030 IRPCRequester::sendRequest interface should be noexcept
-- FEPSDK-3018 Move FEP SDK Participant API into non versioning namespaces
-- FEPSDK-3009 DOC Chapter about sending and receiving Data
-- FEPSDK-3001 Provide ability to set additional DDL files for mapping
-- FEPSDK-2993 Add the mapping presentation as an example to the fep_sdk repo
-- FEPSDK-2937 Add documentation for signal mapping
-- FEPSDK-2934 StreamType big for DDL
-- FEPSDK-2922 Document ways on how to create elements
-- FEPSDK-2920 Improve robustness of IElement interface towards component usage
-- FEPSDK-2856 start- and init-priority should support parallelism
-- FEPSDK-2849 [PoC] Add an event distribution mechanism for changes of participant health states
-- FEPSDK-2672 Record if logging with logging service fails
-- FEPSDK-2580 Improve LoggingService filter configuration
-- FEPSDK-2516 Example and Documentation on "How to write own component plugins?"
-- FEPSDK-2501 Unexpected behaviour regarding fep control tool help
-- FEPSDK-2367 DataRegistry converts StreamType *fileref* for DDL StreamMetaTypes
-- FEPSDK-2264 Extend HTTP System Access and its Service Discovery with better unique Service Names
-- FEPSDK-2039 Extend the current clock synchronisation with maximal time step check
+<!-- DOC GENERATOR BODY -->
 
-### Bugfixes
-- FEPSDK-3675 cpython version range in conan recipe leads to "missing" packages
-- FEPSDK-3655 slave_master_on_demand clock does not always call IEventSink reset events
-- FEPSDK-3630 Health Service RPC Service does not respond with valid json object when job registry is empty
-- FEPSDK-3622 Fep sdk example rpc client/service: Service error could not register service
-- FEPSDK-3619 Default Job API did not remove job from job registry while unloading 
-- FEPSDK-3612 Python event_monitor imports wrong fep3_system library
-- FEPSDK-3603 Fix error "mutex destroyed while still in use" in DDS ServiceBus 
-- FEPSDK-3595 OpenSource: CMake build of FEP SDK examples fails 
-- FEPSDK-3593 Fix copy semantics of fep3::arya::PropertyValueWithObserver class
-- FEPSDK-3591 Timing master waits for jobs according to their expected completion time
-- FEPSDK-3589 job_registry is not a FEP Super Component
-- FEPSDK-3576 Discrete Timing time factor scales waiting incorrectly
-- FEPSDK-3562 Disable copy of fep3::base::arya::Configuration 
-- FEPSDK-3545 FEP SDK Signal Mapping Example is not running
-- FEPSDK-3543 Fix setSystemState(Fep3State.UNREACHABLE) in FEP System Library
-- FEPSDK-3533 FEP System Library hangs when logs occurs
-- FEPSDK-3530 DDS Host name resolving fails on Jenkins
-- FEPSDK-3511 No check for valid RPC Clients
-- FEPSDK-3495 FEP System Library Python Binding wont work for callRPC and getSystemState
-- FEPSDK-3494 Unsuccessful initialization when using feature "waitforsignal"
-- FEPSDK-3493 Different timing behaviour in FEP SDK 3.2 during state running
-- FEPSDK-3484 Job of the timing master is triggered at wrong time directly after entering the "running" state
-- FEPSDK-3483 error message not meaningful while adding/merging a ddl description
-- FEPSDK-3478 Mapped signals are not unregistered from mapping engine
-- FEPSDK-3476 conan source not working for fep_sdk_participant package
-- FEPSDK-3469 Plugin binary names with dot cannot be loaded
-- FEPSDK-3468 Libraries depend on generated JSON stubs which is not reflected by CMake targets
-- FEPSDK-3463 Problems with switching components from a 3.1 built participant to 3.2 using arya
-- FEPSDK-3451 Registering big sized structs as FEP signal failing
-- FEPSDK-3433 Usage of commas in description files breaks DDL StreamType
-- FEPSDK-3427 Deadlock during RPC Server destruction
-- FEPSDK-3424 [FEP 2] FEP System will throw if initialize() returned error code. 
-- FEPSDK-3402 Call to setParticipantState with argument shutdown or unreachable crashes in fep system library
-- FEPSDK-3362 Logging is deregistered when fep3::System is copied or moved
-- FEPSDK-3360 Configuration Service is not accessible from within FEP Component C plugins
-- FEPSDK-3352 getPropertyValue optional default_value does not work correctly
-- FEPSDK-3346 Error message and usage string for system name are inconsistent
-- FEPSDK-3340 Comma separator for getStreamType RPC call creates problems when a value has a comma inside
-- FEPSDK-3336 Timing master triggers client and own jobs in parallel
-- FEPSDK-3317 Logging sink properties are setable but cannot be queried
-- FEPSDK-3294 DataWriter::flushNow method should check if pointer exist
-- FEPSDK-3281 Scheduling starts before all FEP Participants are ready to run
-- FEPSDK-3277 Race condition in response of getMasterTime (continuous system time)
-- FEPSDK-3263 Component loading does not work (in some cases ) if using pthread
-- FEPSDK-3261 Enable the discovery on specific network interfaces
-- FEPSDK-3243 Logging is delayed on VW WindowsClients
-- FEPSDK-3232 JSON file log only valid in shutdown
-- FEPSDK-3228 Wrong relative path resolution while loading Component Plugins
-- FEPSDK-3217 purgeAndPopSampleBefore does not work as intended (always returns nullptr)
-- FEPSDK-3212 ContinuousClock::getTime() leads to infinite recursive loop
-- FEPSDK-3203 MPL Header in FEP SDK Documentaion in all .rst files are not correct
-- FEPSDK-3202 Documentation snippets missing
-- FEPSDK-3192 Documentation Element description example code references are wrong
-- FEPSDK-3162 Config cmake files have typo
-- FEPSDK-3131 Operating a FEP Participant on CARIAD Windows client may fail
-- FEPSDK-3117 Deregistration of signals fails in combination with mapping functionality
-- FEPSDK-3097 Race condition in participant http TCP port allocation
-- FEPSDK-3092 ServiceBus' logger initialization missing
-- FEPSDK-3091 Data Sample documentation improvements
-- FEPSDK-3086 Shared libraries are located in bin/ instead of lib/
-- FEPSDK-3069 Incorrect wording in FEP Control API for shutdown
-- FEPSDK-3068 How to set timing client with discrete clock in FEP3 directly via FEP properties?
-- FEPSDK-3066 Improve the robustness of base classes by complying with the "Rule of Five"
-- FEPSDK-3065 Error message unclear when triggering pause
-- FEPSDK-3064 IElement nonmutable calls are not const-correct
-- FEPSDK-3027 Useless error message "Error: (unknown)" when trying to set a non existing property via fep_control
-- FEPSDK-2991 Implementation of IServiceBus::getRequester() diverts from API documentation
-- FEPSDK-2983 Deinitializing FEP Participant will lead to DDS exception
-- FEPSDK-2957 Pressing key UP may execute command
-- FEPSDK-2918 Equivalent behaviour of addToDataRegistry and removefromDataRegistry
-- FEPSDK-2879 Loss of first samples after start of simulation
-- FEPSDK-2786 FEP 3 Timing  provides negative timestamp after re-initialization
-- FEPSDK-2752 Multiple "discoverSystem" calls are needed when participants reside on different machines
-- FEPSDK-2642 Result::getErrorLabel() mostly returns "(unknown)"
-- FEPSDK-2557 DataWriter and DataReader API correction
+<a name="FEP_SDK_3_2_1"></a>
+
+<a name="FEP_SDK_3_2_1_changes"></a>
+#### Changes
+
+_**Done**_
+
+- [FEPSDK-3627][] - <a name="FEPSDK-3627_internal_link"></a> Sim Bus RTI DDS Subscribers/Listeners visible in RTI Admin Console [\[view\]][ef1e5b216cc179ce3a6fcd0abefe4b8d557d2fbe] 
+    * Added section 'RTI Admin Console' to prose documentation
+     * Fixed typos in Advanced Concepts/Communication
+    
+    
+- [FEPSDK-3656][] - <a name="FEPSDK-3656_internal_link"></a> easy_core_example uses core::DefaultJob API [\[view\]][a57792aedd4bf775746c2710124d979e297750b7] [\[view\]][c046058a3b26356eaa5ab969dc1b619eecee5312] 
+    * easy_core_example uses core::DefaultJob API
+- [FEPSDK-3731][] - <a name="FEPSDK-3731_internal_link"></a> Update doc regarding signal renaming and property must_be_ready_signals [\[view\]][be13f19ae2604ce0c091546cf56769e0022920dc] 
+    * Tested with signal renaming on sender's and receiver's side. Documentation updated
+    
+    
+<a name="FEP_SDK_3_2_1_fixes"></a>
+#### Fixes
+
+_**Done**_
+
+- [FEPSDK-3681][] - <a name="FEPSDK-3681_internal_link"></a> Fix potential crash in FEP SDK examples [\[view\]][5c8415df248456b714b1750b986169d2428bb45e] [\[view\]][3ea3d928017d4ab267b74fe5b4b6a53dfd3e8f2d] 
+    * Fixed usage of fep3::Optional in FEP SDK examples
+    * Fixed documentation typos
+
+<a name="FEP_SDK_3_2_1_known_issues"></a>
+
+<a name="FEP_SDK_3_2_1"></a>
+<!--- Issue links -->
+[FEPSDK-3681]
+[FEPSDK-3627]
+[FEPSDK-3731]
+[FEPSDK-3656]
+
+<a name="FEP_SDK_3_2_0"></a>
+
+<a name="FEP_SDK_3_2_0_changes"></a>
+#### Changes
+
+_**Done**_
+
+- [FEPSDK-2516][] - <a name="FEPSDK-2516_internal_link"></a> Example and Documentation on "How to write own component plugins?" 
+- [FEPSDK-2922][] - <a name="FEPSDK-2922_internal_link"></a> Document ways on how to create elements 
+    * Added documentation of creating a participant
+    * Listing of  createParticipant convenience wrappers 
+    * Moved the old state maschine part to this part
+    * Custom factory example
+    
+    
+- [FEPSDK-2937][] - <a name="FEPSDK-2937_internal_link"></a> Add documentation for signal mapping 
+- [FEPSDK-2993][] - <a name="FEPSDK-2993_internal_link"></a> Add the mapping presentation as an example to the fep_sdk repo 
+- [FEPSDK-3009][] - <a name="FEPSDK-3009_internal_link"></a> DOC Chapter about sending and receiving Data 
+- [FEPSDK-3193][] - <a name="FEPSDK-3193_internal_link"></a> DOC Chapter about Configuring data exchange  
+    * How to configure buffer written
+     * How to use stream types written
+     * How to change stream types written
+     * QoS stream type mapping written
+     * QoS configuration written
+     * Configuration Service for RTI DDS Simulation Bus written
+    
+    
+- [FEPSDK-3353][] - <a name="FEPSDK-3353_internal_link"></a> Documentation about Discovery problems and solutions when using Peer List 
+- [FEPSDK-3354][] - <a name="FEPSDK-3354_internal_link"></a> Migrate DOC (OLD) FEP Participant Library to current chapters 
+    * The OLD Participant Library is moved corresponding existing chapters. All old chapters checked.
+     * The participant_and_element.rst ist also moved to existing chapters.
+     * The Default Components can be found in Appendix and also in chapter &quot;Component&quot;
+     * Restructure with minimum change of content.
+    
+    
+- [FEPSDK-3359][] - <a name="FEPSDK-3359_internal_link"></a> Improve docs on logging from user perspective 
+- [FEPSDK-3407][] - <a name="FEPSDK-3407_internal_link"></a> Deprecate C Plugin Mechanism in Documentation [\[view\]][b5b89b638f8d7f2cfbffd4b44c942d917be98f8c] [\[view\]][cee4b92565c3e871e49dd0383a841cfd38fd6ce5] [\[view\]][2f104616df44c570c0f0f452137e1c222b6ef109] 
+- [FEPSDK-3523][] - <a name="FEPSDK-3523_internal_link"></a> Manual on ADTF scope usage as debug tool 
+    * Added fep_debugging section to fep overall doc
+        * FEP3 Element ADTF Scope for data visualization
+        * Configuration of Participant logging behaviour
+        * Configuration of Participant time behaviour
+        * FEP3 Element ADTF Recorder to record data
+    
+    
+- [FEPSDK-3618][] - <a name="FEPSDK-3618_internal_link"></a> Update MPL license header [\[view\]][ea4307c838b5708bcafff32fae25413627c2c25d] 
+<a name="FEP_SDK_3_2_0_fixes"></a>
+#### Fixes
+
+_**Done**_
+
+- [FEPSDK-2991][] - <a name="FEPSDK-2991_internal_link"></a> Implementation of IServiceBus::getRequester() diverts from API documentation [\[view\]][56b2d78c5a993f9397d0d4379e503ac16463e13f] 
+    * getRequester() now returns with nullptr instead of exception
+     * usage and tests of getRequester() are adjusted to the new behavour
+     * documentation corrected
+    
+    
+- [FEPSDK-3068][] - <a name="FEPSDK-3068_internal_link"></a> How to set timing client with discrete clock in FEP3 directly via FEP properties? [\[view\]][61fd21d6cf3a3d820c22529d39b46631dfccf5cc] 
+    * FEP 3 Participant
+        * Fixed clock sync service doc
+    * FEP 3 SDK
+        * Fixed typos in prose doc
+        * Fixed slave clock macros in clock sync service prose doc
+    
+    
+- [FEPSDK-3091][] - <a name="FEPSDK-3091_internal_link"></a> Data Sample documentation improvements [\[view\]][67d8e66e2dad2fe437eac171837398f2500b4645] [\[view\]][c31131ba8d7e4ab5601749e0b9a0e07c601812da] 
+    * Corrected doxygen doc of
+    {code:java}
+    template <typename T> class DataSampleType<T, typename std::enable_if<std::is_standard_layout<T>::value>::type> : public arya::DataSampleBase, public arya::RawMemoryStandardType<T>{code}
+    
+     * Added doxygen doc of behavior towards timestamp to ::fep3::core::arya::DataWriter::write(const IDataSample& data_sample)
+    
+    
+- [FEPSDK-3192][] - <a name="FEPSDK-3192_internal_link"></a> Documentation Element description example code references are wrong 
+    * typos corrected
+     * extra spaces and tabs removed
+     * code snippet references with :lines: replaced by :start-at:, :start-after:, :end-at: and :end-before: options, hence fixing the wrong locations
+         * already existing code patterns were applied wherever it was possible, otherwise a new pattern as extra comment was inserted to the code snippet
+    
+    
+- [FEPSDK-3202][] - <a name="FEPSDK-3202_internal_link"></a> Documentation snippets missing 
+    * Code snippets fixed.
+    
+    
+- [FEPSDK-3203][] - <a name="FEPSDK-3203_internal_link"></a> MPL Header in FEP SDK Documentaion in all .rst files are not correct 
+    * replaced '# Copyright' by '.. Copyright' as mentioned in section 'Current behaviour' (see above)
+    
+    
+- [FEPSDK-3545][] - <a name="FEPSDK-3545_internal_link"></a> FEP SDK Signal Mapping Example is not running 
+    * *.description files copied installed in bin\demo_data directory
+     * Description files are loaded by sender/receiver from the demo_data directory. The path to this demo_data directory is determined by the absolute path of the directory where the sender/receiver executable is located plus the sub-directory demo_data.
+    * Fixed some deprecated warnings of other examples e.g. a_util::result::isFailed() / isOK()
+    * NOTE: Examples cannot be built with cmake - dependency clipp not found (see FEPSDK-3595)
+    
+    
+- [FEPSDK-3622][] - <a name="FEPSDK-3622_internal_link"></a> Fep sdk example rpc client/service: Service error could not register service 
+
+<a name="FEP_SDK_3_2_0_known_issues"></a>
+
+<a name="FEP_SDK_3_2_0"></a>
+<!--- Issue links -->
+[FEPSDK-2937]
+[FEPSDK-2993]
+[FEPSDK-3347]
+[FEPSDK-3193]
+[FEPSDK-3009]
+[FEPSDK-3091]
+[FEPSDK-3407]
+[FEPSDK-2922]
+[FEPSDK-3192]
+[FEPSDK-3353]
+[FEPSDK-3202]
+[FEPSDK-2516]
+[FEPSDK-3545]
+[FEPSDK-3622]
+[FEPSDK-3068]
+[FEPSDK-2991]
+[FEPSDK-3359]
+[FEPSDK-3416]
+[FEPSDK-3203]
+[FEPSDK-3523]
+[FEPSDK-3354]
+[FEPSDK-3618]
+[FEPSDK-3171]
 
 
+<a name="FEP_SDK_3_1_0"></a>
 ## [3.1.0]
-
+<a name="FEP_SDK_3_1_0_changes"></a>
 ### Changes
 
 - FEPSDK-3309 Based on FEP SDK Participant 3.1.0
@@ -225,7 +194,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0) an
 - FEPSDK-3278 switch to c++ 17 standard
 - FEPSDK-3081 Replaced deprecated DataReader operator>> in examples and snippets
 
-## [3.0.1]
+<a name="FEP_SDK_3_0_1"></a>
+## [3.0.1-beta]
+
+<a name="FEP_SDK_3_0_1_changes"></a>
 
 ### Changes
 
@@ -249,6 +221,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0) an
 - FEPSDK-2708 Added discrete clock config defines to clock service prose doc.
 - FEPSDK-2890 Documentation initial redesign
 
+<a name="FEP_SDK_3_1_0_fixes"></a>
+
 ### Bugfixes
 - FEPSDK-3203 Correct mpl-header in fep sdk documentation
 - FEPSDK-3202 Fix missing documentation snippets
@@ -260,7 +234,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0) an
 - FEPSDK-2988 Adapted prose doc to use correct native scheduler name
 - FEPSDK-2917 Fixing documentation of DataRegistry
 
+<a name="FEP_SDK_3_0_0"></a>
 ## [3.0.0]
+
+<a name="FEP_SDK_3_0_0_changes"></a>
 
 ### Changes
 - FEPSDK-2857 Set pause mode as unsupported

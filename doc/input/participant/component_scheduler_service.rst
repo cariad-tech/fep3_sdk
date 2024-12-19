@@ -1,4 +1,4 @@
-.. Copyright @ 2021 VW Group. All rights reserved.
+.. Copyright 2023 CARIAD SE.
 .. 
 .. This Source Code Form is subject to the terms of the Mozilla 
 .. Public License, v. 2.0. If a copy of the MPL was not distributed 
@@ -92,7 +92,12 @@ Therefore jobs have to be added when the :ref:`label_element_interface` is
 * or unloading (:cpp:func:`fep3::base::IElement::unloadElement`).
 
 Every job triggered by time or data will always be executed through a thread pool, which is owned by the scheduler.
-The thread pool will be started automatically while starting the scheduler and will wait for all unfinished jobs while stopping the scheduler. 
+This means that theoretically the jobs in each execution cycle could be executed in another thread.
+Once a job should be scheduled, the scheduler checks if the previous job execution is still running
+(still running means that a call to :cpp:func:`fep3::arya::IJob::executeDataIn`, :cpp:func:`fep3::arya::IJob::execute` or :cpp:func:`fep3::arya::IJob::executeDataOut` has not yet returned).
+If this is the case, the scheduler will not post the job to the thread pool for execution but it will issue a warning. This means that the scheduler
+guarantees that the :cpp:class:`fep3::arya::IJob` interface will not be called in parallel from multiple threads.
+The thread pool will be started automatically while starting the scheduler and will wait for all unfinished jobs while stopping the scheduler.
 
 Also, for every Job execution a run time check is performed. The check is configured with the Jobs :cpp:class:`fep3::arya::JobConfiguration` (see class documentation for details).
 The run time check will check that the execution time of a job does not exceed the configured :cpp:member:`fep3::arya::JobConfiguration::_max_runtime_real_time` of the Job.

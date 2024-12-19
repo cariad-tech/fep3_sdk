@@ -1,5 +1,4 @@
-#
-# Copyright @ 2021 VW Group. All rights reserved.
+# Copyright 2023 CARIAD SE.
 # 
 # This Source Code Form is subject to the terms of the Mozilla
 # Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -8,7 +7,7 @@
 
 # find the package
 find_package(fep3_participant_cpp REQUIRED PATHS ${fep3_participant_DIR})
-find_package(dev_essential)
+find_package(dev_essential REQUIRED COMPONENTS ddl)
 
 internal_fep3_participant_create_copy_target(dynamic_arrays_example)
 set_target_properties(fep_participant_file_copy_dynamic_arrays_example PROPERTIES FOLDER "examples/dynamic_array_example")
@@ -34,7 +33,7 @@ set_target_properties(demo_dynamic_array_sender PROPERTIES FOLDER "examples/dyna
 # link against the fep3_participant
 target_link_libraries(demo_dynamic_array_sender PRIVATE
                       fep3_participant_cpp
-                      dev_essential::dev_essential)
+                      dev_essential::ddl)
 add_dependencies(demo_easy_cpp_sender fep_participant_file_copy_dynamic_arrays_example demo_dynamic_array_sender_copy_description)
 internal_fep3_participant_install(demo_dynamic_array_sender examples/bin)
 
@@ -52,7 +51,7 @@ set_target_properties(demo_dynamic_array_receiver PROPERTIES FOLDER "examples/dy
 # link against the fep3_participant_core API
 target_link_libraries(demo_dynamic_array_receiver PRIVATE
                       fep3_participant_cpp
-                      dev_essential::dev_essential)
+                      dev_essential::ddl)
 add_dependencies(demo_dynamic_array_receiver fep_participant_file_copy_dynamic_arrays_example demo_dynamic_array_sender_copy_description)
 internal_fep3_participant_install(demo_dynamic_array_receiver examples/bin)
 

@@ -1,4 +1,4 @@
-.. Copyright @ 2021 VW Group. All rights reserved.
+.. Copyright 2023 CARIAD SE.
 .. 
 .. This Source Code Form is subject to the terms of the Mozilla 
 .. Public License, v. 2.0. If a copy of the MPL was not distributed 
@@ -22,7 +22,9 @@ Glossary
 
     DDL
         Data Definition Language
-
+    
+    Discovery Messages
+        The messages sent from the Service Bus to other participants for implementing the :term:`Participant Discovery`.
     FEP
         Functional Engineering Platform
 
@@ -97,6 +99,9 @@ Glossary
     FEP VU
         FEP "Virtuelles Umfeld", standardized representation of a virtual environment using FEP SDK.
     
+    Heartbeat
+        See :term:`Discovery Messages`
+        
     Inhomogeneous FEP System
         A FEP System whose participants do not have the same state.
 
@@ -109,9 +114,13 @@ Glossary
     Package RPC
         The Package RPC is a library to provide a request / response mechanism via JSON-RPC and comes with
         a simple HTTP server / HTTP client implementation.
+    
+    Participant Discovery
+        The protocol used by the service Bus Implementation to discover other participants and is implementation defined.
 
     RPC Service
         Public interface via :term:`FEP Service Bus`.
 
     SSDP
-        Simple Service Discovery Protocol
+        Simple Service Discovery Protocol used in FEP SDK for :term:`Participant Discovery`
+            

@@ -1,7 +1,7 @@
 /**
  * @copyright
  * @verbatim
- * Copyright @ 2023 VW Group. All rights reserved.
+ * Copyright 2023 CARIAD SE.
  *
 This Source Code Form is subject to the terms of the Mozilla
 Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -17,7 +17,6 @@ with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include <fep3/core.h>
 #include <fep3/base/properties/property_type.h>
 
-
 struct Delay
 {
     // Contains multiplication factors to get from s/min/h to s
@@ -25,7 +24,7 @@ struct Delay
     {
         s = 1, // default unit
         min = 60,
-        h = 3600,
+        h = 3600
     };
 
     // CTOR's
@@ -38,49 +37,64 @@ struct Delay
     double getValue() const { return _value; }
 
     // Set value based on a string which can consist of a number followed by a unit (s/min/h)
-    fep3::Result setValue(const std::string& value_str)
+    fep3::Result setValue(std::string value_str)
     {
-        std::string trimmed = value_str;
-        a_util::strings::trim(trimmed); // remove traling white space
+        a_util::strings::trim(value_str); // remove trailing white space
 
-        if (a_util::strings::isNumeric<double>(trimmed))
-        { // no unit provided, default to seconds
-            _value = a_util::strings::toDouble(value_str);
+        try
+        {
+            _value = std::stod(value_str);
         }
-        else
-        { // hopefully some valid unit can be found
-            if (trimmed.find("s") != std::string::npos)
+        catch (const std::invalid_argument&)
+        {
+            // hopefully some valid unit can be found
+            const std::string unit_s = "s", unit_min = "min", unit_h = "h";
+            if (const auto pos = value_str.find(unit_s);
+                pos != std::string::npos)
             {
-                a_util::strings::replace(trimmed, "s", "");
-                if (!a_util::strings::isNumeric<double>(trimmed))
-                {
-                    return fep3::ERR_FAILED;
-                }
-                _value = a_util::strings::toDouble(trimmed) * Prefix::s;
+                value_str.erase(pos, unit_s.length());
+
+                return delayToSeconds(value_str, Prefix::s);
             }
-            else if (trimmed.find("min") != std::string::npos)
+            else if (const size_t pos = value_str.find(unit_min);
+                pos != std::string::npos)
             {
-                a_util::strings::replace(trimmed, "min", "");
-                if (!a_util::strings::isNumeric<double>(trimmed))
-                {
-                    return fep3::ERR_FAILED;
-                }
-                _value = a_util::strings::toDouble(trimmed) * Prefix::min;
+                value_str.erase(pos, unit_min.length());
+
+                return delayToSeconds(value_str, Prefix::min);
             }
-            else if (trimmed.find("h") != std::string::npos)
+            else if (const size_t pos = value_str.find(unit_h);
+                pos != std::string::npos)
             {
-                a_util::strings::replace(trimmed, "h", "");
-                if (!a_util::strings::isNumeric<double>(trimmed))
-                {
-                    return fep3::ERR_FAILED;
-                }
-                _value = a_util::strings::toDouble(trimmed) * Prefix::h;
+                value_str.erase(pos, unit_h.length());
+
+                return delayToSeconds(value_str, Prefix::h);
             }
             else
             { // something went wrong
                 return fep3::ERR_FAILED;
             }
         }
+        catch (...)
+        {
+            return fep3::ERR_FAILED;
+        }
+            
+        return {};
+    }
+
+private:
+    fep3::Result delayToSeconds(const std::string& delay, Prefix unit)
+    {
+        try
+        {
+            _value = std::stod(delay) * unit;
+        }
+        catch (const std::exception& e)
+        {
+            return CREATE_ERROR_DESCRIPTION(fep3::ERR_INVALID_ARG, e.what());
+        }
+
         return {};
     }
 
@@ -102,6 +116,15 @@ struct fep3::base::DefaultPropertyTypeConversion<Delay>
             throw std::runtime_error(msg);
         }
         return delay;
+    }
+
+    static bool fromString(const std::string& from, Delay& delay)
+    {
+        if (!delay.setValue(from))
+        {
+            return false;
+        }
+        return true;
     }
 
     static std::string toString(const Delay& delay)

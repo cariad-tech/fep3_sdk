@@ -1,7 +1,7 @@
 /**
  * @copyright
  * @verbatim
- * Copyright @ 2023 VW Group. All rights reserved.
+ * Copyright 2023 CARIAD SE.
  *
 This Source Code Form is subject to the terms of the Mozilla
 Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -17,7 +17,7 @@ with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include <fep3/components/clock/clock_base.h>
 
 #include <ddl/ddl.h>
-#include <a_util/filesystem.h>
+#include <fep3/fep3_filesystem.h>
 
 #include "string_map_property_type.hpp"
 #include "delay_property_type.hpp"
@@ -33,8 +33,6 @@ constexpr auto DDL_PATH_PROP_PATH = "ddl_path";
 constexpr auto CUSTOM_NODE = "custom_properties";
 
 constexpr auto DELAY_PATH = "my_delay";
-
-namespace fs = a_util::filesystem;
 
 using StringMapConverter = fep3::base::DefaultPropertyTypeConversion<std::map<std::string, std::string>>;
 
@@ -161,7 +159,7 @@ private:
     std::string _model_path;
     std::map<std::string, std::string> _signals_in;
     std::map<std::string, std::string> _signals_out;
-    fs::Path _ddl_path;
+    fs::path _ddl_path;
 
 
     // Properties
